@@ -1,0 +1,32 @@
+{
+    "usuarios":[
+        {
+            "id":1,
+            "nombre":"admin",
+            "apellido":"admin",
+            "email":"atapenalba16@gmail.com",
+            "clave":"123456",
+            "telefono":"381-5555555",
+            "tipoUsuario":"admin"
+        }
+    ],
+    "categorias":[
+        {
+            "id":4,
+            "nombreCategoria":"Politica"
+        }
+    ],
+    "noticias":[
+        {
+            "id":1,
+            "titulo":"Titulo de la noticia",
+            "descripcion":"Descripcion de la noticia",
+            "texto":"Desarrollo de la noticia",
+            "foto":"url de la noticia",
+            "pieFoto":"Texto debajo de la foto",
+            "idCateogria":4,
+            "fecha":"05/05/2021",
+            "hora":"18:15"
+        }
+    ]
+}
