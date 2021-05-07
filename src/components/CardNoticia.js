@@ -2,7 +2,6 @@ import React from 'react';
 import {Container, Card} from "react-bootstrap";
 import LogoNR from "../img/Logo-NR.png";
 
-
 const CardNoticia = () => {
 
     {/* <Card className="tarjetaNoticia">
@@ -15,6 +14,7 @@ const CardNoticia = () => {
       </Card.Text>
     </Card.Body>
   </Card> */}
+  
     return (
         <div className="card tarjetaNoticia w-100">
         <img className="card-img-top w-100" src={LogoNR}  alt="" />
