@@ -10,6 +10,9 @@ import Actualidad from "./components/Actualidad";
 import Politica from "./components/Politica";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
+import Login from './components/Login'
+import Registro from './components/Registro'
+import Suscripcion from './components/Suscripcion'
 
 function App() {
   return (
@@ -18,6 +21,15 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Inicio />
+        </Route>
+        <Route exact path="/inicio-sesion">
+          <Login />
+        </Route>
+        <Route exact path="/registro">
+          <Registro />
+        </Route>
+        <Route exact path="/suscripcion">
+          <Suscripcion />
         </Route>
         <Route exact path="/deportes">
           <Deportes />

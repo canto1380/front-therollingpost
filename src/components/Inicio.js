@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, Card} from "react-bootstrap";
+import {Container,} from "react-bootstrap";
 import CategoriaDestacada from "./CategoriaDestacada";
 import NoticiasPrincipal from "./NoticiasPrincipal";
 
