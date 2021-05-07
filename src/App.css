@@ -1,0 +1,54 @@
+.cardDeck{
+    justify-content:  center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tarjetaNoticia{
+    margin: 15px;
+    width: 100%;
+    box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
+  }
+
+  .tarjetaNoticia:hover{
+    color: black;
+    cursor: pointer;
+    position: relative;
+      bottom: 2px;
+      right: 2px;
+      transition: 100ms;
+  }
+
+@media (max-width: 320px) {
+    .cardDeck {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    }
+    .tarjetaNoticia{
+        display: flex;
+        justify-content: center;
+        margin: 4px 0px;
+        width: 100%;
+        box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
+      }
+  }
+
+  @media (min-width: 768px) {
+    .cardDeck {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    }
+  }
+  .altDestacadoP{
+    height: 80vh;
+  }
+  .altDestacadoS{
+    height: 40vh;
+  }
+
+  
