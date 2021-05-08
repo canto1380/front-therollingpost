@@ -5,10 +5,10 @@ import NoticiasPrincipal from "./NoticiasPrincipal";
 import Publicidad from "./Publicidad";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'; 
-import coca from "./img/cokeMusic.gif";
-import corona from "./img/corona.jpg";
-import covidSlogan from './img/covidSlogan.jpg'
-import covidCuidado from './img/covidCuidado.jpg'
+import Coca from "../img/CokeMusic.gif";
+import Corona from "../img/Corona.jpg";
+// import covid from "../img/CovidSlogan.jpg";
+// import cuidado from "../img/CovidCuidado.jpg";
 
 
 const Inicio = () => {
@@ -16,19 +16,19 @@ const Inicio = () => {
   return (
     
     <Container>
-      <Publicidad publicidad={covidSlogan}></Publicidad>
+      <Publicidad></Publicidad>
       <Row>
     <Col sm={8} className="h-100" >
     <NoticiasPrincipal></NoticiasPrincipal>
     </Col>
     <Col sm={4}>
-    <Publicidad publicidad={coca}></Publicidad>
-    <Publicidad publicidad={corona}></Publicidad>
+    <Publicidad publicidad={Coca}></Publicidad>
+    <Publicidad publicidad={Corona}></Publicidad>
     </Col>
   </Row>
         <CategoriaDestacada></CategoriaDestacada>
         <CategoriaDestacada></CategoriaDestacada>
-        <Publicidad publicidad={covidCuidado}></Publicidad>
+        <Publicidad></Publicidad>
         <CategoriaDestacada></CategoriaDestacada>
     </Container>
   );
