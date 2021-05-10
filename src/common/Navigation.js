@@ -57,8 +57,8 @@ const Navigation = () => {
               </NavLink>
         </Nav>
         <Nav>
-          <Button variant="outline-light botones-navbar" className="p-0 me-2"><NavLink className="btn text-light" exact={true} to={'/suscripcion'}><FontAwesomeIcon icon={faPlusSquare} className="me-2"></FontAwesomeIcon>Suscribirse</NavLink></Button>
-          <Button variant="outline-light botones-navbar" className="p-0"><NavLink className="btn text-light" exact={true} to={'/inicio-sesion'}><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Ingresar</NavLink></Button>
+          <Button variant="outline-light botones-navbar" className="p-0 me-2"><NavLink className="btn text-light text-hover" exact={true} to={'/suscripcion'}><FontAwesomeIcon icon={faPlusSquare} className="me-2"></FontAwesomeIcon>Suscribirse</NavLink></Button>
+          <Button variant="outline-light botones-navbar" className="p-0"><NavLink className="btn text-light text-hover" exact={true} to={'/inicio-sesion'}><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Ingresar</NavLink></Button>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

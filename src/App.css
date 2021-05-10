@@ -19,6 +19,10 @@
       right: 2px;
       transition: 100ms;
   }
+  .botones-hover:hover{
+    color: rgb(185, 186, 186);
+    
+  }
 
 @media (max-width: 320px) {
     .cardDeck {
@@ -82,3 +86,9 @@
         text-align: center;
     }
 }
+
+.text-hover:hover{
+  color: black;
+  background-color: rgb(185, 186, 186);
+}
+
