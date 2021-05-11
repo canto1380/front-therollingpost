@@ -5,8 +5,8 @@ import NoticiasPrincipal from "./NoticiasPrincipal";
 import Publicidad from "./Publicidad";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'; 
-import Coca from "../img/CokeMusic.gif";
-import Corona from "../img/Corona.jpg";
+import Coca from "../img/cokeMusic.gif";
+import Corona from "../img/corona.jpg";
 import vacunas from "../img/vacunasCovid.png";
 import slogan from "../img/sloganCovid.png";
 

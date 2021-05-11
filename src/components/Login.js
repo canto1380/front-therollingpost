@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import ImgPortada from "../img/incio-registro.jpg";
+import ImgPortada from "../img/Inicio-registro.jpg";
 const Login = () => {
   return (
     <Container>
