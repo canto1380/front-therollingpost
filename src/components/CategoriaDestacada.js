@@ -5,7 +5,7 @@ import CardNoticia from './CardNoticia';
 const CategoriaDestacada = () => {
     return (
         
-            <section className="my-5">
+            <section className="my-5 w-100" >
             <h4>Politica</h4>
         <hr />
         <CardDeck className="cardDeck">
