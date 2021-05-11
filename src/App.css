@@ -30,7 +30,7 @@
     .tarjetaNoticia{
         display: flex;
         justify-content: center;
-        margin: 4px 0px;
+        margin: 5px 0px;
         width: 100%;
         box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
       }

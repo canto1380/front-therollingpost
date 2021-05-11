@@ -13,8 +13,7 @@ const CardNoticia = () => {
         additional content. This content is a little bit longer.
       </Card.Text>
     </Card.Body>
-  </Card> */}
-  
+</Card> */}
     return (
         <div className="card tarjetaNoticia w-100">
         <img className="card-img-top w-100" src={LogoNR}  alt="" />
