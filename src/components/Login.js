@@ -1,9 +1,10 @@
 import React , {useState} from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
+
 import { Link, withRouter }   from "react-router-dom";
 import Swal from "sweetalert2";
 
-import ImgPortada from "../img/incio-registro.jpg";
+import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
@@ -88,7 +89,6 @@ const Login = (props) => {
       <MsjError text1="Datos incorrectos" text2 ="Intentelo nuevamente."/>
     )
   }
-
 
   return (
     <Container>
