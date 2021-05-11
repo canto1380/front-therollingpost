@@ -17,8 +17,7 @@ import Swal from "sweetalert2";
 import { isAuthenticated } from "../helpers/helpers";
 
 const Navigation = (props) => {
-  const { nombre } = props;
-  const aaa = nombre
+  const { nombre } = props
 
   const cerrarSesion = (e) => {
     /*Swal */
@@ -230,7 +229,7 @@ const Navigation = (props) => {
             <DropdownButton
               className="me-2"
               menuAlign="right"
-              title='Alejandro Perez'
+              title='Menu Admin'
               id="dropdown-menu-align-right"
               variant="outline-light"
             >

@@ -20,30 +20,26 @@ function App() {
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   /* Usuario con sesion iniciada */
-  const [nombre, setNombre] = useState([])
 
   useEffect(() => {
     consultarAPI()
   }, [])
 
-  const consultarAPI = async() =>{
-    try {
-      const res = await fetch(url+'/usuarios')
-      const inforUser = await res.json()
-      console.log(res)
-       if(res.status === 200){
-         setUser(inforUser)
-       }
-    } catch (error) {
-      console.log(error)
-    }
+  const consultarAPI = async() =>{ 
+      try {
+        const res = await fetch(url+'/usuarios')
+        const inforUser = await res.json()
+         if(res.status === 200){
+           setUser(inforUser)
+         }
+      } catch (error) {
+        console.log(error)
+      }
   }
-  console.log(user)
 
   return (
     <Router>
       <Navigation 
-        nombre={nombre}
       />
       <Switch>
         <Route exact path="/">
@@ -52,7 +48,6 @@ function App() {
         <Route exact path="/inicio-sesion">
           <Login 
             user={user}
-            setNombre={setNombre}
           />
         </Route>
         <Route exact path="/registro">

@@ -8,7 +8,7 @@ import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
-  const {user, setNombre} = props
+  const {user} = props
   /* State */
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
@@ -17,7 +17,7 @@ const Login = (props) => {
   })
   const validacion = {
     id: "",
-    token: "",
+    token: ""
   };
 
   /*variables */
@@ -26,26 +26,22 @@ const Login = (props) => {
   const handleValores =(e) =>{
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
   }
-  
 
   const handleSubmit =(e) =>{
     e.preventDefault();
     user.map((u) => {
-      if(u.tipoUsuario !== 'admin'){
+      if(usuario.email !== u.email){
         setErr(true);
         setTimeout(() => {
           setErr(false);
         }, 3000);
       } else{
         if(u.email === usuario.email && u.clave === usuario.password){
-          /* Local Storage */
-          setErr(false)
-          validacion.id = u.id;
-          validacion.token ='dsafdgre32rfgdhh5rgvfdg435345'
-          localStorage.setItem('jwt',JSON.stringify(validacion))
-
-           /* Nombre del user con con sesion iniciada */
-           setNombre(u.nombre + ' '+ u.apellido)
+            /* Local Storage */
+            setErr(false)
+            validacion.id = u.id;
+            validacion.token ='dsafdgre32rfgdhh5rgvfdg435345'
+            localStorage.setItem('jwt',JSON.stringify(validacion))
            
           /*Swal */
           let timerInterval;
@@ -76,10 +72,10 @@ const Login = (props) => {
             }
           });
         } else{
-          // setErr(true);
-          // setTimeout(() => {
-          //   setErr(false);
-          // }, 3000);
+          setErr(true);
+          setTimeout(() => {
+            setErr(false);
+          }, 3000);
         }
       }
     });
