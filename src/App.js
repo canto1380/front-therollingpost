@@ -1,5 +1,6 @@
-  import "./App.css";
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/Navigation";
 import Footer from "./common/Footer";
@@ -15,20 +16,50 @@ import Registro from './components/Registro'
 import Suscripcion from './components/Suscripcion'
 
 function App() {
+  const url = process.env.REACT_APP_API_URL;
+  /* Usuarios registrados */
+  const [user, setUser] = useState([]);
+  /* Usuario con sesion iniciada */
+  const [nombre, setNombre] = useState([])
+
+  useEffect(() => {
+    consultarAPI()
+  }, [])
+
+  const consultarAPI = async() =>{
+    try {
+      const res = await fetch(url+'/usuarios')
+      const inforUser = await res.json()
+      console.log(res)
+       if(res.status === 200){
+         setUser(inforUser)
+       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(user)
+
   return (
     <Router>
-      <Navigation />
+      <Navigation 
+        nombre={nombre}
+      />
       <Switch>
         <Route exact path="/">
           <Inicio />
         </Route>
         <Route exact path="/inicio-sesion">
-          <Login />
+          <Login 
+            user={user}
+            setNombre={setNombre}
+          />
         </Route>
         <Route exact path="/registro">
           <Registro />
         </Route>
         <Route exact path="/suscripcion">
+
           <Suscripcion />
         </Route>
         <Route exact path="/deportes">

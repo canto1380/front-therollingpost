@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Card} from "react-bootstrap";
+// import {Container, Card} from "react-bootstrap";
 import LogoNR from "../img/Logo-NR.png";
 
 const CardNoticia = () => {

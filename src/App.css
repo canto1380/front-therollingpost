@@ -60,8 +60,9 @@
 @media( max-width: 991px){
     /* NAVBAR */
     .botones-navbar{
-        width: 130px;
-        margin-bottom: 5px;
+        width:max-content;
+        margin-top: 12px;
+        margin-bottom: 0px;
     }
     .li-navbar-responsive{
         visibility: hidden;
@@ -92,3 +93,7 @@
   background-color: rgb(185, 186, 186);
 }
 
+.aa{
+  width: 1px; /* Line width */
+  background-color: rgb(153, 153, 153); /* Line color */
+}

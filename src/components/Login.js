@@ -1,8 +1,95 @@
-import React from "react";
+import React , {useState} from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter }   from "react-router-dom";
+import Swal from "sweetalert2";
+
 import ImgPortada from "../img/incio-registro.jpg";
-const Login = () => {
+import MsjError from "./MsjError";
+
+const Login = (props) => {
+  const {user, setNombre} = props
+  /* State */
+  const [err, setErr] = useState(false); // Bandera
+  const [usuario, setUsuario] = useState({
+    email:'',
+    password:''
+  })
+  const validacion = {
+    id: "",
+    token: "",
+  };
+
+  /*variables */
+  let mensaje
+
+  const handleValores =(e) =>{
+    setUsuario({ ...usuario, [e.target.name]: e.target.value });
+  }
+  
+
+  const handleSubmit =(e) =>{
+    e.preventDefault();
+    user.map((u) => {
+      if(u.tipoUsuario !== 'admin'){
+        setErr(true);
+        setTimeout(() => {
+          setErr(false);
+        }, 3000);
+      } else{
+        if(u.email === usuario.email && u.clave === usuario.password){
+          /* Local Storage */
+          setErr(false)
+          validacion.id = u.id;
+          validacion.token ='dsafdgre32rfgdhh5rgvfdg435345'
+          localStorage.setItem('jwt',JSON.stringify(validacion))
+
+           /* Nombre del user con con sesion iniciada */
+           setNombre(u.nombre + ' '+ u.apellido)
+           
+          /*Swal */
+          let timerInterval;
+          Swal.fire({
+            title: "Iniciando sesion",
+            html: "",
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent();
+                if (content) {
+                  const b = content.querySelector("b");
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft();
+                  }
+                }
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              props.history.push("/");
+            }
+          });
+        } else{
+          // setErr(true);
+          // setTimeout(() => {
+          //   setErr(false);
+          // }, 3000);
+        }
+      }
+    });
+  }
+  if(err){
+    mensaje =(
+      <MsjError text1="Datos incorrectos" text2 ="Intentelo nuevamente."/>
+    )
+  }
+
+
   return (
     <Container>
       <div>
@@ -20,15 +107,15 @@ const Login = () => {
             
               <h1 className="text-center">Ingrese a su cuenta</h1>
               <div>
-                <Form className="my-4">
+                <Form className="my-4" onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="nombre@gmail.com" />
+                    <Form.Control type="email" name="email" placeholder="nombre@gmail.com" onChange={handleValores}/>
                   </Form.Group>
 
                   <Form.Group className="my-4" controlId="formBasicPassword">
                     <Form.Label>Contraseña</Form.Label>
-                    <Form.Control type="password"/>
+                    <Form.Control type="password" name="password" onChange={handleValores}/>
                   </Form.Group>
                   <Form.Group controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Recordarme" defaultChecked/>
@@ -36,6 +123,7 @@ const Login = () => {
                   <Button variant="primary" className="my-2 w-100" type="submit">
                     Ingresar
                   </Button>
+                  <div>{mensaje}</div>
                   <div className="text-center">
                     <Link to={'/'}>¿Olvidó su clave?</Link>
                   </div>
@@ -53,4 +141,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withRouter(Login);

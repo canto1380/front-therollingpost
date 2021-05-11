@@ -1,11 +1,5 @@
 import React from 'react';
-import {Container, Card} from "react-bootstrap";
-import LogoNR from "../img/Logo-NR.png";
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import CardDeck from 'react-bootstrap/CardDeck'
-import CategoriaDestacada from "./CategoriaDestacada";
-import { Fragment } from 'react';
+import { Row, Col} from "react-bootstrap";
 import CardNoticia from './CardNoticia';
 
 

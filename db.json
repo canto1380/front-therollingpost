@@ -8,6 +8,24 @@
             "clave":"123456",
             "telefono":"381-5555555",
             "tipoUsuario":"admin"
+        },
+        {
+            "id":2,
+            "nombre":"Jose",
+            "apellido":"Perez",
+            "email":"atapenalba916@gmail.com",
+            "clave":"123456",
+            "telefono":"381-5555555",
+            "tipoUsuario":"cliente"
+        },
+        {
+            "id":3,
+            "nombre":"Maria",
+            "apellido":"Paz",
+            "email":"atapenalba216@gmail.com",
+            "clave":"123456",
+            "telefono":"381-5555555",
+            "tipoUsuario":"cliente"
         }
     ],
     "categorias":[
