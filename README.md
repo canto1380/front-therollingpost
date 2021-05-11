@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Diario 'The Rolling Post'
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Proyecto realizado en grupo en el cual se presenta una página web para un diario.
+Está compuesto por una base de datos en el cual se registra un usuario administrador que podrá realizar el alta, baja, actualización y lectura de las noticias como también de las distintas categorias
+Este proyecto fue creado con las herramientas [React](https://es.reactjs.org/), para la parte del cliente, y [Node](https://nodejs.org/es/) para la parte del servidor.
 
-## Available Scripts
+## Contenido y características
+- Login del administrador
+- Alta, baja, actualización y visualización de noticias
+- Alta, baja, actualización y visualización de categorias
+- Suscripción de los clientes para contenido exclusivo
 
-In the project directory, you can run:
+## Repositorios
 
-### `npm start`
+[Repositorio Front-End](https://github.com/NicoG72/proyectoFinal.git)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[Repositorio Back-End]()
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Para poder usar el proyecto
+- Parte del cliente:
+1. Clonar el repositorio en el directorio `git clone https://github.com/NicoG72/proyectoFinal.git`
+2. Ejecutar `npm i` para que instalen las dependencias necesarias
+3. Ejecutar `npm start` en el directorio
+4. Se ejecutara la aplicacion en un servidor local (localhost:3000)
 
-### `npm test`
+- Parte del servidor:
+1. Clonar el repositorio en el directorio `git clone `
+2. Ejecutar `npm i` para que instalen las dependencias necesarias
+3. Ejecutar `npm run dev` en el directorio
+4. Se ejecutara el servidor para poder hacer consultas a la base de datos
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Link del proyecto
+El siguiente link contiene el proyecto colgado a modo de prueba, para que el usuario pueda ir visualizando los avances de su página web
 
-### `npm run build`
+[Link del proyecto]()
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Construido con 🛠
+- [Bootstrap v50](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [Font Awesone](https://fontawesome.com/)
+- [React-Bootstrap](https://react-bootstrap.netlify.app/)
+- [SweetAlert2](https://sweetalert2.github.io/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Autores
+Alejandro Peñalba
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Repositorio: [GitHub](https://github.com/canto1380)
 
-### `npm run eject`
+- Contacto: atapenalba16@gmail.com
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Alejandro Poviña
+- Repositorio: [GitHub]()
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Contacto:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Nicolás Guardo
+- Repositorio: [GitHub]()
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Contacto:
 
-## Learn More
+Pablo Julián Alonso
+- Repositorio: [GitHub]()
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Contacto: 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Agradecimientos
