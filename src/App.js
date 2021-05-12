@@ -14,17 +14,23 @@ import AcercaDeNosotros from "./components/AcercaDeNosotros";
 import Login from './components/Login'
 import Registro from './components/Registro'
 import Suscripcion from './components/Suscripcion'
+import CategoriaMenu from './components/CategoriaMenu'
+import NoticiasMenu from './components/NoticiasMenu'
+import SuscriptosMenu from './components/SuscriptosMenu'
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
-  /* Usuario con sesion iniciada */
+  const [categorias, setCategorias] = useState([]);
+  
 
   useEffect(() => {
     consultarAPI()
+    consultarAPICategorias()
   }, [])
 
+  /* Consulta API - Usuarios */
   const consultarAPI = async() =>{ 
       try {
         const res = await fetch(url+'/usuarios')
@@ -36,10 +42,24 @@ function App() {
         console.log(error)
       }
   }
+  /* Consulta API - Categorias */
+  const consultarAPICategorias = async() =>{ 
+    try {
+      const res = await fetch(url+'/categorias')
+      const inforCategorias = await res.json()
+       if(res.status === 200){
+         setCategorias(inforCategorias)
+       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+console.log(categorias)
 
+  
   return (
     <Router>
-      <Navigation 
+      <Navigation
       />
       <Switch>
         <Route exact path="/">
@@ -75,6 +95,20 @@ function App() {
         <Route exact path="/acerca-de-nosotros">
           <AcercaDeNosotros />
         </Route>
+        {/* Menu Admin */}
+        <Route exact path="/menu-categorias/">
+          <CategoriaMenu
+            categorias={categorias}
+            consultarAPICategorias={consultarAPICategorias}
+          />
+        </Route>
+        <Route exact path="/menu-noticias">
+          <NoticiasMenu/>
+        </Route>
+        <Route exact path="/menu-suscriptos">
+          <SuscriptosMenu/>
+        </Route>
+
       </Switch>
       <Footer />
     </Router>

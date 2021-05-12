@@ -30,8 +30,8 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    user.map((u) => {
-      if (campoRequerido(usuario.email) && emailValidacion(usuario.email)) {
+    user.forEach((u) => {
+      if (campoRequerido(usuario.email) ) {
         setErr(false);
         if (u.email === usuario.email && u.clave === usuario.password) {
           /* Local Storage */
@@ -65,7 +65,7 @@ const Login = (props) => {
           }).then((result) => {
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
-              props.history.push("/");
+              props.history.push(`/`);
             }
           });
         } else {

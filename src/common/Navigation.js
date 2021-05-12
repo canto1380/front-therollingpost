@@ -7,7 +7,7 @@ import {
   Dropdown,
   DropdownButton,
 } from "react-bootstrap";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, useParams } from "react-router-dom";
 import "../App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,6 @@ import Swal from "sweetalert2";
 import { isAuthenticated } from "../helpers/helpers";
 
 const Navigation = (props) => {
-  const { nombre } = props
 
   const cerrarSesion = (e) => {
     /*Swal */
@@ -66,14 +65,14 @@ const Navigation = (props) => {
             id="collasible-nav-dropdown"
             className="li-navbar-responsive w-50"
           >
-            <NavDropdown.Item href={"/"}>Sociales</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Economia</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Internacional</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Inmuebles</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Funebres</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Clasificados</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Fotografia</NavDropdown.Item>
-            <NavDropdown.Item href={"/"}>Covid-19</NavDropdown.Item>
+            <NavDropdown.Item href={"/sociales"}>Sociales</NavDropdown.Item>
+            <NavDropdown.Item href={"/economia"}>Economia</NavDropdown.Item>
+            <NavDropdown.Item href={"/internacional"}>Internacional</NavDropdown.Item>
+            <NavDropdown.Item href={"/inmuebles"}>Inmuebles</NavDropdown.Item>
+            <NavDropdown.Item href={"/funebres"}>Funebres</NavDropdown.Item>
+            <NavDropdown.Item href={"/clasificados"}>Clasificados</NavDropdown.Item>
+            <NavDropdown.Item href={"/fotografia"}>Fotografia</NavDropdown.Item>
+            <NavDropdown.Item href={"/covid"}>Covid-19</NavDropdown.Item>
           </NavDropdown>
 
           <NavLink
@@ -233,9 +232,9 @@ const Navigation = (props) => {
               id="dropdown-menu-align-right"
               variant="outline-light"
             >
-              <Dropdown.Item eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
-              <Dropdown.Item eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorias</Dropdown.Item>
-              <Dropdown.Item eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
+              <Dropdown.Item href={`/menu-noticias`} eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
+              <Dropdown.Item href={`/menu-categorias`} eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorias</Dropdown.Item>
+              <Dropdown.Item href={`/menu-suscriptos`} eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
             </DropdownButton>
             <Button variant="outline-light botones-navbar" onClick={cerrarSesion} className="p-0"><NavLink className="btn text-light text-hover" exact={true} to={'/'}><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Salir</NavLink></Button>
           </Nav>
