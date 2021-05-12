@@ -17,6 +17,7 @@ import Suscripcion from './components/Suscripcion'
 import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
+import AgregarCategoria from './components/AgregarCategoria'
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -102,6 +103,13 @@ console.log(categorias)
             consultarAPICategorias={consultarAPICategorias}
           />
         </Route>
+        <Route exact path="/menu-categorias/addCategoria">
+          <AgregarCategoria
+            categorias={categorias}
+            consultarAPICategorias={consultarAPICategorias}
+          />
+        </Route>
+
         <Route exact path="/menu-noticias">
           <NoticiasMenu/>
         </Route>
