@@ -9,7 +9,7 @@ import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
-  const { user } = props;
+  const { user, setConsultar } = props;
   /* State */
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
@@ -66,6 +66,7 @@ const Login = (props) => {
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
               props.history.push(`/`);
+              setConsultar(true)
             }
           });
         } else {

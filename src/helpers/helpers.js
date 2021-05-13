@@ -1,7 +1,7 @@
 /* Si el admin esta logueado */
 export const isAuthenticated =() =>{
     if(localStorage.getItem('jwt')){
-        return localStorage.getItem('jwt')
+        return true
     } else {
         return false
     }

@@ -35,6 +35,7 @@ const MenuAdmin = (props) => {
           if (result.dismiss === Swal.DismissReason.timer) {
             localStorage.removeItem("jwt");
             props.history.push("/");
+            props.setConsultar(true)
           }
         });
       };

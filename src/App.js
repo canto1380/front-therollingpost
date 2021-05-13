@@ -19,18 +19,35 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
+import { isAuthenticated } from "./helpers/helpers";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   const [categorias, setCategorias] = useState([]);
-  
+  const [ls, setLs] = useState([]);
+  const [consultar, setConsultar] = useState(true)
+  console.log(consultar)
 
+  /* Usado para tomar el token del usuario logueado */
+  useEffect(()=>{
+    if(consultar){
+      const consultarLS =()=>{
+        setLs(localStorage.getItem('jwt'))
+        setConsultar(false)
+      }
+      consultarLS()
+    } 
+  },[consultar])
+  console.log(ls)
+
+  /*** Consulta API sobre usuarios y noticias ***/
   useEffect(() => {
     consultarAPI()
     consultarAPICategorias()
-  }, [])
+  },[])
+  
 
   /* Consulta API - Usuarios */
   const consultarAPI = async() =>{ 
@@ -56,12 +73,11 @@ function App() {
       console.log(error)
     }
   }
-console.log(categorias)
-
   
   return (
     <Router>
       <Navigation
+        setConsultar={setConsultar}
       />
       <Switch>
         <Route exact path="/">
@@ -70,6 +86,7 @@ console.log(categorias)
         <Route exact path="/inicio-sesion">
           <Login 
             user={user}
+            setConsultar={setConsultar}
           />
         </Route>
         <Route exact path="/registro">

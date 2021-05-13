@@ -163,7 +163,7 @@ const Navigation = (props) => {
         )}
         {/* Admin */}
         {isAuthenticated() && (
-          <MenuAdmin/>
+          <MenuAdmin setConsultar={props.setConsultar}/>
         )}
       </Navbar.Collapse>
     </Navbar>
