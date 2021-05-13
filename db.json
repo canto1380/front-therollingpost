@@ -30,24 +30,28 @@
   ],
   "categorias": [
     {
-      "id": 11,
-      "nombreCategoria": "Politica"
-    },
-    {
-      "id": 22,
-      "nombreCategoria": "Deportes"
-    },
-    {
-      "id": 33,
-      "nombreCategoria": "Actualidad"
-    },
-    {
-      "id": 44,
-      "nombreCategoria": "Policiales"
-    },
-    {
       "id": 55,
       "nombreCategoria": "Covid-19"
+    },
+    {
+      "nombreCategoria": "cine",
+      "id": 56
+    },
+    {
+      "nombreCategoria": "deportes",
+      "id": 57
+    },
+    {
+      "nombreCategoria": "Hola",
+      "id": 58
+    },
+    {
+      "nombreCategoria": "espectaculo",
+      "id": 60
+    },
+    {
+      "nombreCategoria": "cine",
+      "id": 61
     }
   ],
   "noticias": [
