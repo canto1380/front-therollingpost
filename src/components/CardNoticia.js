@@ -15,7 +15,7 @@ const CardNoticia = () => {
     </Card.Body>
 </Card> */}
     return (
-        <div className="card tarjetaNoticia w-100">
+        <div className="card tarjetaNoticia">
         <img className="card-img-top w-100" src={LogoNR}  alt="" />
         <div className="card-body">
     <h5 className="card-title">Card title</h5>

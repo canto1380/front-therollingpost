@@ -48,6 +48,10 @@
     {
       "id": 55,
       "nombreCategoria": "Covid-19"
+    },
+    {
+      "nombreCategoria": "Economia",
+      "id": 56
     }
   ],
   "noticias": [

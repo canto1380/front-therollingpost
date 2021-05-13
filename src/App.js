@@ -2,7 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navigation from "./common/Navigation";
+
+import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
 import Deportes from "./components/Deportes";
