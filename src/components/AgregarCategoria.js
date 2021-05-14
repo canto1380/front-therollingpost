@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import ItemCategoria from "./ItemCategoria";
 import { campoRequerido } from "../helpers/helpers";
 import MsjError from "./MsjError";
+import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
     const { consultarAPICategorias, categorias } = props; 
@@ -48,6 +49,7 @@ const AgregarCategoria = (props) => {
                         'success'
                       )
                       consultarAPICategorias()
+                      props.history.push("/menu-categorias");
                 }
             } catch (error) {
                 console.log(error)
@@ -90,4 +92,4 @@ const AgregarCategoria = (props) => {
   );
 };
 
-export default AgregarCategoria;
+export default withRouter(AgregarCategoria);

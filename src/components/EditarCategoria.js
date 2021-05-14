@@ -1,21 +1,19 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { ListGroup, Button, Modal, Form, Row, Col, Container } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit, faWindowClose, faSave } from '@fortawesome/free-solid-svg-icons';
-import {Link, useParams, withRouter}  from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import { ListGroup, Button, Form, Row, Col, Container } from 'react-bootstrap';
+import { useParams, withRouter}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 import {campoRequerido} from '../helpers/helpers'
 import ItemCategoria from "./ItemCategoria";
+import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
-
     
-
 const {id}= useParams();
 console.log(id);
 
 /* State */
-const [nombreCategoria, setNombreCat] = useState([])
+const [nombreCategoria, setNombreCat] = useState({});
+const [categoria, setCategoria]=useState("");
 const [err,setErr] = useState(false)
 
 const URL = process.env.REACT_APP_API_URL+("/categorias/")+id;
@@ -41,24 +39,19 @@ if(respuesta.status===200){
 }
 
 const cambioCategoria = (e)=>{
-     setNombreCat(e.target.value)
+     setCategoria(e.target.value)
 };
 
 const handleSubmit = async(e)=>{
     e.preventDefault();
    
-     let catModificada = (nombreCategoria=== "")?(nombreCategoria.nombreCategoria):(nombreCategoria);
-     // //revisar el valor del destacado
-     // let destacadoModificado = (categoriaDestacada === "")?(categorias.categoriaDestacada):(categorias);
-     //validar los datos
+     let catModificada = (categoria === "")?(nombreCategoria.nombreCategoria):(categoria);
+     
      if(campoRequerido(catModificada)){
-         //si esta todo bien hago request a la API
          setErr(false);
          try{
              const categoriaModificada = {
-                 "nombreCategoria" : catModificada
-             
-                 // categoriaDestacada: destacadoModificado;
+                 nombreCategoria : catModificada
              }
             
              const respuesta = await fetch(URL, {
@@ -69,25 +62,26 @@ const handleSubmit = async(e)=>{
              console.log(respuesta);
 
              if(respuesta.status===200){
-                 //mostrar un cartel de que se modifico efectivamente el producto
+            
                  Swal.fire(
                      'Categoria modificada',
                      'La categoria fue modificada correctamente',
                      'success'
                    )
-                 //actualizar los datos de la pagina listarProductos
-                 props.consultarAPICategorias()
-                 //quiero redireccionar a la pagina de productos
-                 // props.history.push("/productos");
+                 
+                 props.consultarAPICategorias();
+                
+                 props.history.push("/menu-categorias");
              };
          }catch(error){
              console.log(error)
          }
      }else{
-         //si falla la validacion quiero mostrar un cartel de error
-         setErr(true)
-        //  mensaje;
-     }
+        setErr(true);
+        mensaje = (
+          <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
+        );
+      }
 };
    
     return (
@@ -119,4 +113,4 @@ const handleSubmit = async(e)=>{
 
     );
 };
-export default EditarCategoria;
+export default withRouter (EditarCategoria);

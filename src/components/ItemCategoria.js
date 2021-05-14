@@ -1,19 +1,11 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { ListGroup, Button, Modal, Form } from 'react-bootstrap';
+import React from 'react';
+import { ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit, faWindowClose, faSave } from '@fortawesome/free-solid-svg-icons';
-import {Link, useParams, withRouter}  from 'react-router-dom';
+import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
+import {Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
-import EditarCategoria from './EditarCategoria';
-import {campoRequerido} from '../helpers/helpers'
-
-
-
 
 const ItemCategoria = (props) => {
-
-    // const { consultarAPICategorias, categorias } = props; 
-
 
 const eliminarCategoria =(id) =>{
         Swal.fire({
@@ -64,32 +56,6 @@ const eliminarCategoria =(id) =>{
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
             </div>
-
-            {/* ventana Modal EditarCategorias */}
-            {/* <Modal className="modal" show={show} onHide={handleClose}>
-            <Modal.Body>
-            <h3>Editar categoria</h3>
-        <Form  className="my-3 p-3 border border-secundary" onSubmit={handleSubmit}>
-            <Form.Group>
-              <Form.Label>Nombre Categoria</Form.Label>
-              <Form.Control type="text" placeholder="ej: Politica" />
-            </Form.Group>
-            <Form.Check className="my-4" aria-label="destacar" name="categoria" inline label="Categoria destacada" value="destacado" ></Form.Check>
-            <div className="d-flex justify-content-end">
-            <div className="mx-2">
-            <Button className="my-3 w-100" variant="primary" type="submit"  onClick={()=>{handleClose()}}>
-            <FontAwesomeIcon icon={faSave}></FontAwesomeIcon>  Guardar
-            </Button>
-            </div>
-                <div>
-                <Button className="my-3 w-100" variant="danger"  onClick={()=>{handleClose()}}>
-                <FontAwesomeIcon icon={faWindowClose}></FontAwesomeIcon>
-                </Button>
-            </div>
-            </div>
-          </Form>
-        </Modal.Body>
-            </Modal> */}
         </ListGroup.Item>
     );
 };

@@ -30,11 +30,7 @@
   ],
   "categorias": [
     {
-      "id": 55,
-      "nombreCategoria": "Covid-19"
-    },
-    {
-      "nombreCategoria": "cine",
+      "nombreCategoria": "juan",
       "id": 56
     },
     {
@@ -42,16 +38,16 @@
       "id": 57
     },
     {
-      "nombreCategoria": "Hola",
-      "id": 58
-    },
-    {
-      "nombreCategoria": "espectaculo",
-      "id": 60
-    },
-    {
-      "nombreCategoria": "cine",
+      "nombreCategoria": "actualidad",
       "id": 61
+    },
+    {
+      "nombreCategoria": "politica",
+      "id": 62
+    },
+    {
+      "nombreCategoria": "asdaasdas",
+      "id": 63
     }
   ],
   "noticias": [
