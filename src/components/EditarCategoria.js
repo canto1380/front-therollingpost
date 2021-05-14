@@ -74,9 +74,9 @@ const handleSubmit = async(e)=>{
                      'success'
                    )
                  
-                 props.consultarAPICategorias();
+                 props.setConsultarCat(true);
                 
-                 props.history.push("/menu-categorias");
+                props.history.push("/menu-categorias");
              };
          }catch(error){
              console.log(error)
@@ -112,7 +112,7 @@ const handleSubmit = async(e)=>{
             <h1 className="mt-5">Categorias existentes</h1>
             <ListGroup className="my-3">
                 {
-                    props.categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} consultarAPICategorias={props.consultarAPICategorias}/>)
+                    props.categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} consultarCat={props.consultarCat}/>)
                 }
             </ListGroup>
         </Col>

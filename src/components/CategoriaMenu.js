@@ -7,6 +7,7 @@ import ItemCategoria from './ItemCategoria';
 
 const CategoriaMenu = (props) => {
     const {categorias} = props
+    console.log(categorias)
     return (
         <Container>
             <div className="d-flex justify-content-between align-items-center mt-5">
@@ -15,7 +16,7 @@ const CategoriaMenu = (props) => {
             </div>
             <ListGroup className="my-4">
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} consultarAPICategorias={props.consultarAPICategorias}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} setConsultarCat={props.setConsultarCat}/>)
                 }
             </ListGroup>
         </Container>

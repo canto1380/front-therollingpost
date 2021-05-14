@@ -2,7 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect, useState} from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navigation from "./common/Navigation";
+
+import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
 import Deportes from "./components/Deportes";
@@ -18,50 +19,87 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
+
+import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
+  const [consultarUser, setConsultarUser] =useState(true)
+
+  /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
+  const [consultarCat, setConsultarCat] =useState(true)
+
+  /* Usuario logueado */
+  const [tok, setTok] = useState()
+  const [consultar, setConsultar] = useState(false)
   
-
-  useEffect(() => {
-    consultarAPI()
-    consultarAPICategorias()
-  }, [])
-
-  /* Consulta API - Usuarios */
-  const consultarAPI = async() =>{ 
-      try {
-        const res = await fetch(url+'/usuarios')
-        const inforUser = await res.json()
-         if(res.status === 200){
-           setUser(inforUser)
-         }
-      } catch (error) {
-        console.log(error)
+  console.log(consultar)
+  /* Usado para tomar el token del usuario logueado */
+  useEffect(()=>{
+      const consultarLS =async ()=>{
+        if(consultar){
+          setTok(getToken())
+          try {
+            console.log(localStorage.getItem('jwt'))
+            setTok(localStorage.getItem('jwt'))
+            setConsultar(false)
+          } catch (error) {
+            console.log(error)
+          }
+        } 
+        
       }
-  }
-  /* Consulta API - Categorias */
-  const consultarAPICategorias = async() =>{ 
-    try {
-      const res = await fetch(url+'/categorias')
-      const inforCategorias = await res.json()
-       if(res.status === 200){
-         setCategorias(inforCategorias)
-       }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-console.log(categorias)
+      consultarLS()
+  },[consultar])
+  console.log(tok)
 
+  /* Consulta API sobre usuarios */
+  useEffect(() => {
+    if(consultarUser){
+      const consultarAPI = async() =>{ 
+        try {
+          const res = await fetch(url+'/usuarios')
+          const inforUser = await res.json()
+           if(res.status === 200){
+             setUser(inforUser)
+             setConsultarUser(false)
+           }
+        } catch (error) {
+          console.log(error)
+        }
+      }    
+    consultarAPI()
+    }
+  },[consultarUser])
   
+  /* Consulta API - categorias */
+  useEffect(() => {
+    if(consultarCat){
+      const consultarAPI = async() =>{ 
+        try {
+          const res = await fetch(url+'/categorias')
+          const inforCategorias = await res.json()
+           if(res.status === 200){
+             setCategorias(inforCategorias)
+             setConsultarCat(false)
+           }
+        } catch (error) {
+          console.log(error)
+        }
+      }    
+    consultarAPI()
+    }
+  },[consultarCat])
+  console.log(categorias)
   return (
     <Router>
       <Navigation
+        setConsultar={setConsultar}
+        tok={tok}
       />
       <Switch>
         <Route exact path="/">
@@ -70,6 +108,7 @@ console.log(categorias)
         <Route exact path="/inicio-sesion">
           <Login 
             user={user}
+            setConsultar={setConsultar}
           />
         </Route>
         <Route exact path="/registro">
@@ -101,19 +140,20 @@ console.log(categorias)
         <Route exact path="/menu-categorias">
           <CategoriaMenu
             categorias={categorias}
-            consultarAPICategorias={consultarAPICategorias}
+            setConsultarCat={setConsultarCat}
           />
         </Route>
         <Route exact path="/menu-categorias/addCategoria">
           <AgregarCategoria
             categorias={categorias}
-            consultarAPICategorias={consultarAPICategorias}
+            setConsultarCat={setConsultarCat}
           />
         </Route>
         <Route exact path="/menu-categorias/editarCategorias/:id">
           <EditarCategoria
             categorias={categorias}
-            consultarAPICategorias={consultarAPICategorias}
+            consultarCat={consultarCat}
+            setConsultarCat ={setConsultarCat}
           />
         </Route>
         <Route exact path="/menu-noticias">

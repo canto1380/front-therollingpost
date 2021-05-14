@@ -7,7 +7,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-    const { consultarAPICategorias, categorias } = props; 
+    const { setConsultarCat, categorias } = props; 
     
     const url= process.env.REACT_APP_API_URL+'/categorias';
 
@@ -48,8 +48,8 @@ const AgregarCategoria = (props) => {
                         'SI',
                         'success'
                       )
-                      consultarAPICategorias()
-                      props.history.push("/menu-categorias");
+                      setConsultarCat(true)
+                      e.target.reset()
                 }
             } catch (error) {
                 console.log(error)
@@ -83,7 +83,7 @@ const AgregarCategoria = (props) => {
             <h1 className="mt-5">Categorias existentes</h1>
             <ListGroup className="my-3">
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} consultarAPICategorias={props.consultarAPICategorias}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} setConsultarCat={props.setConsultarCat}/>)
                 }
             </ListGroup>
         </Col>

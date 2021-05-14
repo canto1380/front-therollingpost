@@ -2,52 +2,16 @@ import React from "react";
 import {
   Navbar,
   Nav,
-  NavDropdown,
-  Button,
-  Dropdown,
-  DropdownButton,
+  NavDropdown
 } from "react-bootstrap";
-import { NavLink, withRouter, useParams } from "react-router-dom";
-import "../App.css";
+import { NavLink, withRouter } from "react-router-dom";
+import "../../App.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSignInAlt, faNewspaper, faListAlt, faUserFriends } from "@fortawesome/free-solid-svg-icons";
-import Swal from "sweetalert2";
-
-import { isAuthenticated } from "../helpers/helpers";
+import { isAuthenticated } from "../../helpers/helpers";
+import MenuAdmin from "./MenuAdmin";
+import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
-
-  const cerrarSesion = (e) => {
-    /*Swal */
-    let timerInterval;
-    Swal.fire({
-      title: "Cerrando sesion",
-      html: "",
-      timer: 1000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        timerInterval = setInterval(() => {
-          const content = Swal.getContent();
-          if (content) {
-            const b = content.querySelector("b");
-            if (b) {
-              b.textContent = Swal.getTimerLeft();
-            }
-          }
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        localStorage.removeItem("jwt");
-    props.history.push("/");
-      }
-    });
-  };
 
   return (
     <Navbar
@@ -193,51 +157,13 @@ const Navigation = (props) => {
           </NavLink>
           
         </Nav>
+        {/* Cliente */}
         {!isAuthenticated() && (
-          <Nav>
-            <Button variant="outline-light botones-navbar" className="p-0 me-2">
-              <NavLink
-                className="btn text-light text-hover"
-                exact={true}
-                to={"/suscripcion"}
-              >
-                <FontAwesomeIcon
-                  icon={faPlusSquare}
-                  className="me-2"
-                ></FontAwesomeIcon>
-                Suscribirse
-              </NavLink>
-            </Button>
-            <Button variant="outline-light botones-navbar" className="p-0">
-              <NavLink
-                className="btn text-light text-hover"
-                exact={true}
-                to={"/inicio-sesion"}
-              >
-                <FontAwesomeIcon
-                  icon={faSignInAlt}
-                  className="me-2"
-                ></FontAwesomeIcon>
-                Ingresar
-              </NavLink>
-            </Button>
-          </Nav>
+          <MenuCliente/>
         )}
+        {/* Admin */}
         {isAuthenticated() && (
-          <Nav>
-            <DropdownButton
-              className="me-2"
-              menuAlign="right"
-              title='Menu Admin'
-              id="dropdown-menu-align-right"
-              variant="outline-light"
-            >
-              <Dropdown.Item href={`/menu-noticias`} eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
-              <Dropdown.Item href={`/menu-categorias`} eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorias</Dropdown.Item>
-              <Dropdown.Item href={`/menu-suscriptos`} eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
-            </DropdownButton>
-            <Button variant="outline-light botones-navbar" onClick={cerrarSesion} className="p-0"><NavLink className="btn text-light text-hover" exact={true} to={'/'}><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Salir</NavLink></Button>
-          </Nav>
+          <MenuAdmin setConsultar={props.setConsultar} ls={props.ls} />
         )}
       </Navbar.Collapse>
     </Navbar>

@@ -30,16 +30,24 @@
   ],
   "categorias": [
     {
-      "nombreCategoria": "asdasd",
+      "nombreCategoria": "Deportes",
       "id": 57
     },
     {
-      "nombreCategoria": "actualidad",
+      "nombreCategoria": "Actualidad",
       "id": 61
     },
     {
-      "nombreCategoria": "asd",
+      "nombreCategoria": "Politica",
       "id": 62
+    },
+    {
+      "nombreCategoria": "Covid Sars-19",
+      "id": 55
+    },
+    {
+      "nombreCategoria": "Economía",
+      "id": 58
     }
   ],
   "noticias": [
