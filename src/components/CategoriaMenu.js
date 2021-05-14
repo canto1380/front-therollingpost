@@ -7,6 +7,7 @@ import ItemCategoria from './ItemCategoria';
 
 const CategoriaMenu = (props) => {
     const {categorias} = props
+    console.log(categorias)
     return (
         <Container>
             <div className="d-flex justify-content-between align-items-center mt-5">

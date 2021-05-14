@@ -19,7 +19,9 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
+
 import { getToken } from "./helpers/helpers";
+import EditarCategoria from "./components/EditarCategoria";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -92,7 +94,7 @@ function App() {
     consultarAPI()
     }
   },[consultarCat])
-
+  console.log(categorias)
   return (
     <Router>
       <Navigation
@@ -135,7 +137,7 @@ function App() {
           <AcercaDeNosotros />
         </Route>
         {/* Menu Admin */}
-        <Route exact path="/menu-categorias/">
+        <Route exact path="/menu-categorias">
           <CategoriaMenu
             categorias={categorias}
             setConsultarCat={setConsultarCat}
@@ -147,7 +149,13 @@ function App() {
             setConsultarCat={setConsultarCat}
           />
         </Route>
-
+        <Route exact path="/menu-categorias/editarCategorias/:id">
+          <EditarCategoria
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat ={setConsultarCat}
+          />
+        </Route>
         <Route exact path="/menu-noticias">
           <NoticiasMenu/>
         </Route>

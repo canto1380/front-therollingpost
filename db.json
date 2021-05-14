@@ -30,28 +30,24 @@
   ],
   "categorias": [
     {
-      "id": 11,
-      "nombreCategoria": "Politica"
+      "nombreCategoria": "Deportes",
+      "id": 57
     },
     {
-      "id": 22,
-      "nombreCategoria": "Deportes"
+      "nombreCategoria": "Actualidad",
+      "id": 61
     },
     {
-      "id": 33,
-      "nombreCategoria": "Actualidad"
+      "nombreCategoria": "Politica",
+      "id": 62
     },
     {
-      "id": 44,
-      "nombreCategoria": "Policiales"
+      "nombreCategoria": "Covid Sars-19",
+      "id": 55
     },
     {
-      "id": 55,
-      "nombreCategoria": "Covid-19"
-    },
-    {
-      "nombreCategoria": "Economia",
-      "id": 56
+      "nombreCategoria": "Economía",
+      "id": 58
     }
   ],
   "noticias": [

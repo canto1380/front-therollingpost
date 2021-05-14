@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import { Container, Form, Button, Row, Col, ListGroup } from "react-bootstrap";
 import Swal from 'sweetalert2'
-
 import ItemCategoria from "./ItemCategoria";
 import { campoRequerido } from "../helpers/helpers";
 import MsjError from "./MsjError";
+import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-    const { consultarAPICategorias, categorias } = props; 
+    const { setConsultarCat, categorias } = props; 
+    
     const url= process.env.REACT_APP_API_URL+'/categorias';
 
     /* State */
@@ -47,7 +48,8 @@ const AgregarCategoria = (props) => {
                         'SI',
                         'success'
                       )
-                      consultarAPICategorias()
+                      setConsultarCat(true)
+                      e.target.reset()
                 }
             } catch (error) {
                 console.log(error)
@@ -68,7 +70,7 @@ const AgregarCategoria = (props) => {
           <h1 className="mt-5">Agregar categoria</h1>
           <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secundary">
             <Form.Group>
-              <Form.Label>Nombre Cateogoria</Form.Label>
+              <Form.Label>Nombre Categoria</Form.Label>
               <Form.Control type="text" placeholder="Nombre categoria" onChange={(e)=> setNombreCat(e.target.value)} />
             </Form.Group>
             <Button className="my-3 w-100" variant="primary" type="submit">
@@ -77,12 +79,11 @@ const AgregarCategoria = (props) => {
             <div>{mensaje}</div>
           </Form>
         </Col>
-        
         <Col sm={12} lg={6}>
             <h1 className="mt-5">Categorias existentes</h1>
             <ListGroup className="my-3">
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} consultarAPICategorias={props.consultarAPICategorias}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} setConsultarCat={props.setConsultarCat}/>)
                 }
             </ListGroup>
         </Col>
@@ -91,4 +92,4 @@ const AgregarCategoria = (props) => {
   );
 };
 
-export default AgregarCategoria;
+export default withRouter(AgregarCategoria);
