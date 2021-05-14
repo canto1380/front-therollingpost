@@ -1,10 +1,8 @@
 import React from 'react';
 import { Nav, Button} from 'react-bootstrap'
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-
-import Swal from "sweetalert2";
 import "../../App.css"
 
 const MenuCliente = () => {

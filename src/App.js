@@ -19,65 +19,85 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-import { isAuthenticated } from "./helpers/helpers";
+import { getToken } from "./helpers/helpers";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
-  const [categorias, setCategorias] = useState([]);
-  const [ls, setLs] = useState([]);
-  const [consultar, setConsultar] = useState(true)
-  console.log(consultar)
+  const [consultarUser, setConsultarUser] =useState(true)
 
+  /* Categorias registradas */
+  const [categorias, setCategorias] = useState([]);
+  const [consultarCat, setConsultarCat] =useState(true)
+
+  /* Usuario logueado */
+  const [tok, setTok] = useState()
+  const [consultar, setConsultar] = useState(false)
+  
+  console.log(consultar)
   /* Usado para tomar el token del usuario logueado */
   useEffect(()=>{
-    if(consultar){
-      const consultarLS =()=>{
-        setLs(localStorage.getItem('jwt'))
-        setConsultar(false)
+      const consultarLS =async ()=>{
+        if(consultar){
+          setTok(getToken())
+          try {
+            console.log(localStorage.getItem('jwt'))
+            setTok(localStorage.getItem('jwt'))
+            setConsultar(false)
+          } catch (error) {
+            console.log(error)
+          }
+        } 
+        
       }
       consultarLS()
-    } 
   },[consultar])
-  console.log(ls)
+  console.log(tok)
 
-  /*** Consulta API sobre usuarios y noticias ***/
+  /* Consulta API sobre usuarios */
   useEffect(() => {
+    if(consultarUser){
+      const consultarAPI = async() =>{ 
+        try {
+          const res = await fetch(url+'/usuarios')
+          const inforUser = await res.json()
+           if(res.status === 200){
+             setUser(inforUser)
+             setConsultarUser(false)
+           }
+        } catch (error) {
+          console.log(error)
+        }
+      }    
     consultarAPI()
-    consultarAPICategorias()
-  },[])
-  
-
-  /* Consulta API - Usuarios */
-  const consultarAPI = async() =>{ 
-      try {
-        const res = await fetch(url+'/usuarios')
-        const inforUser = await res.json()
-         if(res.status === 200){
-           setUser(inforUser)
-         }
-      } catch (error) {
-        console.log(error)
-      }
-  }
-  /* Consulta API - Categorias */
-  const consultarAPICategorias = async() =>{ 
-    try {
-      const res = await fetch(url+'/categorias')
-      const inforCategorias = await res.json()
-       if(res.status === 200){
-         setCategorias(inforCategorias)
-       }
-    } catch (error) {
-      console.log(error)
     }
-  }
+  },[consultarUser])
   
+  /* Consulta API - categorias */
+  useEffect(() => {
+    if(consultarCat){
+      const consultarAPI = async() =>{ 
+        try {
+          const res = await fetch(url+'/categorias')
+          const inforCategorias = await res.json()
+           if(res.status === 200){
+             setCategorias(inforCategorias)
+             setConsultarCat(false)
+           }
+        } catch (error) {
+          console.log(error)
+        }
+      }    
+    consultarAPI()
+    }
+  },[consultarCat])
+
   return (
     <Router>
       <Navigation
         setConsultar={setConsultar}
+        tok={tok}
       />
       <Switch>
         <Route exact path="/">
@@ -118,13 +138,13 @@ function App() {
         <Route exact path="/menu-categorias/">
           <CategoriaMenu
             categorias={categorias}
-            consultarAPICategorias={consultarAPICategorias}
+            setConsultarCat={setConsultarCat}
           />
         </Route>
         <Route exact path="/menu-categorias/addCategoria">
           <AgregarCategoria
             categorias={categorias}
-            consultarAPICategorias={consultarAPICategorias}
+            setConsultarCat={setConsultarCat}
           />
         </Route>
 

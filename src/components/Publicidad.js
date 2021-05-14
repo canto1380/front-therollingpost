@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LogoNR from "../img/Logo-NR.png";
-
 
 const Publicidad = (props) => {
     return (

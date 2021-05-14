@@ -1,3 +1,16 @@
+
+export const setToken = (token) =>{
+    return localStorage.setItem('jwt',token)
+}
+
+export const getToken =()=>{
+    return localStorage.getItem('jwt')
+}
+
+export const deleteToken = ()=>{
+    localStorage.removeItem('jwt')
+}
+
 /* Si el admin esta logueado */
 export const isAuthenticated =() =>{
     if(localStorage.getItem('jwt')){

@@ -6,10 +6,13 @@ import { faSignInAlt, faNewspaper, faListAlt, faUserFriends } from "@fortawesome
 
 import Swal from "sweetalert2";
 import "../../App.css"
+import { deleteToken } from "../../helpers/helpers";
 
 const MenuAdmin = (props) => {
+  
     const cerrarSesion = (e) => {
-        /*Swal */
+      // fun()  
+      /*Swal */
         let timerInterval;
         Swal.fire({
           title: "Cerrando sesion",
@@ -33,7 +36,7 @@ const MenuAdmin = (props) => {
           },
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
-            localStorage.removeItem("jwt");
+            deleteToken()
             props.history.push("/");
             props.setConsultar(true)
           }

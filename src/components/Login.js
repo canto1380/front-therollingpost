@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { campoRequerido, emailValidacion } from "../helpers/helpers";
+import { campoRequerido, setToken } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
@@ -17,7 +17,6 @@ const Login = (props) => {
     password: "",
   });
   const validacion = {
-    id: "",
     token: "",
   };
 
@@ -36,9 +35,9 @@ const Login = (props) => {
         if (u.email === usuario.email && u.clave === usuario.password) {
           /* Local Storage */
           setErr(false);
-          validacion.id = u.id;
+          /* Local Storage */
           validacion.token = "dsafdgre32rfgdhh5rgvfdg435345";
-          localStorage.setItem("jwt", JSON.stringify(validacion));
+          setToken(JSON.stringify(validacion))
 
           /*Swal */
           let timerInterval;
