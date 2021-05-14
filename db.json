@@ -30,11 +30,7 @@
   ],
   "categorias": [
     {
-      "nombreCategoria": "juan",
-      "id": 56
-    },
-    {
-      "nombreCategoria": "deportes",
+      "nombreCategoria": "asdasd",
       "id": 57
     },
     {
@@ -42,12 +38,8 @@
       "id": 61
     },
     {
-      "nombreCategoria": "politica",
+      "nombreCategoria": "asd",
       "id": 62
-    },
-    {
-      "nombreCategoria": "asdaasdas",
-      "id": 63
     }
   ],
   "noticias": [

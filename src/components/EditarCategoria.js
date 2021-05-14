@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { ListGroup, Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { useParams, withRouter}  from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -15,6 +15,9 @@ console.log(id);
 const [nombreCategoria, setNombreCat] = useState({});
 const [categoria, setCategoria]=useState("");
 const [err,setErr] = useState(false)
+
+//variables useRef para precio y nombre producto
+const nombreCategoriaRef = useRef("");
 
 const URL = process.env.REACT_APP_API_URL+("/categorias/")+id;
 
@@ -42,16 +45,18 @@ const cambioCategoria = (e)=>{
      setCategoria(e.target.value)
 };
 
+ 
 const handleSubmit = async(e)=>{
     e.preventDefault();
+
    
-     let catModificada = (categoria === "")?(nombreCategoria.nombreCategoria):(categoria);
+    //  let catModificada = (categoria === "")?(nombreCategoria.nombreCategoria):(categoria);
      
-     if(campoRequerido(catModificada)){
+     if(campoRequerido(nombreCategoriaRef.current.value)){
          setErr(false);
          try{
              const categoriaModificada = {
-                 nombreCategoria : catModificada
+                 nombreCategoria : nombreCategoriaRef.current.value
              }
             
              const respuesta = await fetch(URL, {
@@ -77,10 +82,12 @@ const handleSubmit = async(e)=>{
              console.log(error)
          }
      }else{
-        setErr(true);
-        mensaje = (
-          <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
-        );
+      setErr(true)
+      setTimeout(() => {
+        setErr(false)
+    }, 2000);
+       
+       console.log("ingrese datos");
       }
 };
    
@@ -92,12 +99,13 @@ const handleSubmit = async(e)=>{
           <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secundary">
             <Form.Group>
               <Form.Label>Nombre Categoria</Form.Label>
-              <Form.Control type="text" defaultValue={nombreCategoria.nombreCategoria} onChange={cambioCategoria} />
             </Form.Group>
+              <Form.Control type="text" ref={nombreCategoriaRef} defaultValue={nombreCategoria.nombreCategoria}  onChange={cambioCategoria} />
             <Button className="my-3 w-100" variant="primary" type="submit">
               Guardar
             </Button>
-            <div>{mensaje}</div>
+            {
+                (err)?(<MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />):(null)}
           </Form>
         </Col>
         <Col sm={12} lg={6}>

@@ -16,7 +16,7 @@ const AgregarCategoria = (props) => {
     const [err,setErr] = useState(false)
 
     /* Variables */
-    let mensaje
+    let mensaje;
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
