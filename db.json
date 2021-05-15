@@ -30,10 +30,6 @@
   ],
   "categorias": [
     {
-      "nombreCategoria": "Deportes",
-      "id": 57
-    },
-    {
       "nombreCategoria": "Actualidad",
       "id": 61
     },
@@ -48,19 +44,30 @@
     {
       "nombreCategoria": "Economía",
       "id": 58
+    },
+    {
+      "nombreCategoria": "Deportes",
+      "id": 63
     }
   ],
   "noticias": [
     {
-      "id": 1,
-      "titulo": "Titulo de la noticia",
-      "descripcion": "Descripcion de la noticia",
-      "texto": "Desarrollo de la noticia",
-      "foto": "url de la noticia",
-      "pieFoto": "Texto debajo de la foto",
-      "idCateogria": 4,
-      "fecha": "05/05/2021",
-      "hora": "18:15"
+      "tituloNoticia": "Balacera en la Costanera",
+      "subtituloNoticia": "Fuerte enfrentamiento policial en la costanera",
+      "resumenNoticia":"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, porro molestias. Doloremque, exercitationem deserunt! Aperiam provident placeat voluptate dolorum atque tenetur dolores cupiditate corporis tempora odit quas eveniet maxime molestiae eligendi, perferendis a corrupti ea, voluptatem delectus ab minus. Commodi et illo magni fugit quia!",
+      "autor": "Alejandro Poviña",
+      "categoria":"policial",
+      "imagen": "",
+      "id":1
+    },
+        {
+      "tituloNoticia": "River Plate Campeon de la Libertadores",
+      "subtituloNoticia": "River se consagro campeon de la Copa Libertadores",
+      "resumenNoticia":"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, porro molestias. Doloremque, exercitationem deserunt! Aperiam provident placeat voluptate dolorum atque tenetur dolores cupiditate corporis tempora odit quas eveniet maxime molestiae eligendi, perferendis a corrupti ea, voluptatem delectus ab minus. Commodi et illo magni fugit quia!",
+      "autor": "Alejandro Peñalba",
+      "categoria":"deportes",
+      "imagen": "",
+      "id":2
     }
   ]
 }
