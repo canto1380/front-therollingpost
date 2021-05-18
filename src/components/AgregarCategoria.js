@@ -9,7 +9,7 @@ import { withRouter } from "react-router";
 const AgregarCategoria = (props) => {
     const { setConsultarCat, categorias } = props; 
     
-    const url= process.env.REACT_APP_API_URL+'/categorias';
+    const url= process.env.REACT_APP_API_URL+'/categorias/addCategoria';
 
     /* State */
     const [nombreCategoria, setNombreCat] = useState('')
@@ -83,7 +83,7 @@ const AgregarCategoria = (props) => {
             <h1 className="mt-5">Categorias existentes</h1>
             <ListGroup className="my-3">
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat.id} setConsultarCat={props.setConsultarCat}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}/>)
                 }
             </ListGroup>
         </Col>

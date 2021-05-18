@@ -24,7 +24,8 @@ import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 
 function App() {
-  const url = process.env.REACT_APP_API_URL;
+  let url = process.env.REACT_APP_API_URL
+  console.log(url)
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   const [consultarUser, setConsultarUser] =useState(true)
@@ -39,30 +40,30 @@ function App() {
   
   console.log(consultar)
   /* Usado para tomar el token del usuario logueado */
-  useEffect(()=>{
-      const consultarLS =async ()=>{
-        if(consultar){
-          setTok(getToken())
-          try {
-            console.log(localStorage.getItem('jwt'))
-            setTok(localStorage.getItem('jwt'))
-            setConsultar(false)
-          } catch (error) {
-            console.log(error)
-          }
-        } 
+  // useEffect(()=>{
+  //     const consultarLS =async ()=>{
+  //       if(consultar){
+  //         setTok(getToken())
+  //         try {
+  //           console.log(localStorage.getItem('jwt'))
+  //           setTok(localStorage.getItem('jwt'))
+  //           setConsultar(false)
+  //         } catch (error) {
+  //           console.log(error)
+  //         }
+  //       } 
         
-      }
-      consultarLS()
-  },[consultar])
-  console.log(tok)
+  //     }
+  //     consultarLS()
+  // },[consultar])
+  // console.log(tok)
 
   /* Consulta API sobre usuarios */
   useEffect(() => {
     if(consultarUser){
       const consultarAPI = async() =>{ 
         try {
-          const res = await fetch(url+'/usuarios')
+          const res = await fetch(url+"/user/listUser")
           const inforUser = await res.json()
            if(res.status === 200){
              setUser(inforUser)
@@ -81,12 +82,13 @@ function App() {
     if(consultarCat){
       const consultarAPI = async() =>{ 
         try {
-          const res = await fetch(url+'/categorias')
+          const res = await fetch(url+"/categorias/listCategoria")
           const inforCategorias = await res.json()
            if(res.status === 200){
+             console.log(res)
              setCategorias(inforCategorias)
              setConsultarCat(false)
-           }
+           } 
         } catch (error) {
           console.log(error)
         }

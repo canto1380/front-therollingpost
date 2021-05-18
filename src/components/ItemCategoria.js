@@ -20,7 +20,7 @@ const eliminarCategoria =(id) =>{
           })
           .then(async(result)=>{
             if(result.isConfirmed){
-                const url = `${process.env.REACT_APP_API_URL}/categorias/${id}`;
+                const url = `${process.env.REACT_APP_API_URL}/categorias/deleteCategoria/${id}`;
                 try {
                     const config ={
                         method:"DELETE",
@@ -31,6 +31,7 @@ const eliminarCategoria =(id) =>{
                     const res = await fetch(url, config)
                     console.log(res)
                     if(res.status === 200){
+                        
                         Swal.fire(
                             'Categoria eliminada',
                             'La categoria seleccionada fue borrada correctamente',
@@ -49,10 +50,10 @@ const eliminarCategoria =(id) =>{
         <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <h5 className="text-dark">{props.cat.nombreCategoria}</h5>
             <div>
-            <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${props.cat.id}`}>
+            <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
-                <Button variant='danger' onClick={()=> eliminarCategoria(props.cat.id)}>
+                <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)}>
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
             </div>
