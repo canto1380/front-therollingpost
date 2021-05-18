@@ -22,6 +22,7 @@ import AgregarCategoria from './components/AgregarCategoria'
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import APIclima from "./components/APIclima";
+import APImoneda from "./components/APImoneda";
 
 function App() {
   let url = process.env.REACT_APP_API_URL
@@ -104,6 +105,7 @@ function App() {
         tok={tok}
       />
       <APIclima></APIclima>
+      <APImoneda></APImoneda>
       <Switch>
         <Route exact path="/">
           <Inicio />

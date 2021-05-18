@@ -28,9 +28,10 @@ const APIclima = () => {
 
     return (
      <div className="boxAPI d-flex justify-content-evenly align-items-center">
-         <p>{clima.name}</p>
+        <p>APIclima</p>
+         {/* <p>{clima.name}</p>
          <p>{clima.main.temp +" °C"}</p>
-         <img src={"http://openweathermap.org/img/w/"+ clima.weather[0].icon +".png"} alt=""/>
+         <img src={"http://openweathermap.org/img/w/"+ clima.weather[0].icon +".png"} alt=""/> */}
      </div> 
     );
 };
