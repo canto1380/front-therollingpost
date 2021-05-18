@@ -19,9 +19,9 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
+import APIclima from "./components/APIclima";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -101,6 +101,7 @@ function App() {
         setConsultar={setConsultar}
         tok={tok}
       />
+      <APIclima></APIclima>
       <Switch>
         <Route exact path="/">
           <Inicio />
@@ -162,7 +163,6 @@ function App() {
         <Route exact path="/menu-suscriptos">
           <SuscriptosMenu/>
         </Route>
-
       </Switch>
       <Footer />
     </Router>
