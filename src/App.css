@@ -104,3 +104,8 @@
   left: 50%,;
    transform: translate(0,20%); 
 }
+
+.boxAPI{
+  border: 7px outset rgba(207,237,195,0.27);
+  border-radius: 10px;
+}

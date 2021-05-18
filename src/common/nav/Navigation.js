@@ -6,7 +6,6 @@ import {
 } from "react-bootstrap";
 import { NavLink, withRouter } from "react-router-dom";
 import "../../App.css";
-
 import { isAuthenticated } from "../../helpers/helpers";
 import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
