@@ -22,65 +22,91 @@ const Login = (props) => {
 
   /*variables */
   let mensaje;
+  const url = process.env.REACT_APP_API_URL+"/user/signin"
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    user.forEach((u) => {
-      if (campoRequerido(usuario.email) ) {
-        setErr(false);
-        if (u.email === usuario.email && u.clave === usuario.password) {
-          /* Local Storage */
-          setErr(false);
-          /* Local Storage */
-          validacion.token = "dsafdgre32rfgdhh5rgvfdg435345";
-          setToken(JSON.stringify(validacion))
+    const valoresUser ={
+      email: usuario.email,
+      clave: usuario.password
+    }
+    console.log(valoresUser)
 
-          /*Swal */
-          let timerInterval;
-          Swal.fire({
-            title: "Iniciando sesion",
-            html: "",
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: () => {
-              Swal.showLoading();
-              timerInterval = setInterval(() => {
-                const content = Swal.getContent();
-                if (content) {
-                  const b = content.querySelector("b");
-                  if (b) {
-                    b.textContent = Swal.getTimerLeft();
-                  }
-                }
-              }, 100);
-            },
-            willClose: () => {
-              clearInterval(timerInterval);
-            },
-          }).then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.timer) {
-              props.history.push(`/`);
-              setConsultar(true)
-            }
-          });
-        } else {
-          setErr(true);
-          setTimeout(() => {
-            setErr(false);
-          }, 3000);
-        }
-      } else {
-        setErr(true);
-          setTimeout(() => {
-            setErr(false);
-          }, 3000);
+    const config ={
+      method: "POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify(valoresUser)
+    }
+    const res = await fetch(url,config)
+    
+    try {
+      const config ={
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify(valoresUser)
       }
-    });
+      const res = await fetch(url,config)
+      
+      if(res.status === 200){
+        
+        console.log(res)
+        setErr(false);
+        /* Local Storage */
+        validacion.token = "res.params.token"
+        setToken(JSON.stringify(validacion))
+
+        /*Swal */
+        let timerInterval;
+        Swal.fire({
+          title: "Iniciando sesion",
+          html: "",
+          timer: 1500,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent();
+              if (content) {
+                const b = content.querySelector("b");
+                if (b) {
+                  b.textContent = Swal.getTimerLeft();
+                }
+              }
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            props.history.push(`/`);
+            setConsultar(true)
+          }
+        });
+      } else {
+        console.log("ERRRORRRR")
+        setErr(true);
+        setTimeout(() => {
+        setErr(false);
+      }, 3000);
+      }
+    } catch (error) {
+      console.log(error)
+      setErr(true);
+      setTimeout(() => {
+        setErr(false);
+      }, 3000);
+    }
+    
   };
   if (err) {
     mensaje = (
