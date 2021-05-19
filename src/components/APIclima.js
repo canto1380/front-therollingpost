@@ -4,9 +4,13 @@ const APIclima = () => {
    
     /*state*/ 
     const [clima, setClima]=useState({});
+    const [temp, setTtemp]=useState({})
+    const [icon, setIcon]= useState({})
+    // const [consulta, setConsulta]=useState(false);
 
     useEffect(()=>{
-        consultarAPIclima();
+            consultarAPIclima();
+
     },[]);
 
     const consultarAPIclima = async()=>{
@@ -15,8 +19,10 @@ const APIclima = () => {
         const resultado = await respuesta.json();
         console.log(resultado)
         if(respuesta.status===200){
-            console.log(resultado);
             setClima(resultado);
+            setTtemp(resultado.main)
+            setIcon(resultado.weather[0])
+            
         }else{
             console.log("ocurrio un error")
         }
@@ -29,9 +35,9 @@ const APIclima = () => {
     return (
      <div className="boxAPI d-flex justify-content-evenly align-items-center">
         <p>APIclima</p>
-         {/* <p>{clima.name}</p>
-         <p>{clima.main.temp +" °C"}</p>
-         <img src={"http://openweathermap.org/img/w/"+ clima.weather[0].icon +".png"} alt=""/> */}
+            <p>{clima.name}</p>
+             <p>{temp.temp +" °C"}</p>
+            <img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} alt=""/>
      </div> 
     );
 };

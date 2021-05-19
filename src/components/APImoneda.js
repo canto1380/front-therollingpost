@@ -9,13 +9,14 @@ const APImoneda = () => {
          consultarAPImoneda();
      },[]);
 
+     
+
      const consultarAPImoneda = async()=>{
          try{
-         const respuesta = await fetch("")
+         const respuesta = await fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
          const resultado = await respuesta.json();
          console.log(resultado)
          if(respuesta.status===200){
-             console.log(resultado);
              setMoneda(resultado);
          }else{
              console.log("ocurrio un error")
@@ -27,8 +28,8 @@ const APImoneda = () => {
          return (
         
       <div className="boxAPI d-flex justify-content-evenly align-items-center">
-          <p>APImoneda</p>
-          <p></p>
+           <p>API moneda</p>
+          {/* <p>{"dolar oficial"+ moneda[0].casa.compra }</p> */}
           <img />
       </div> 
      );
