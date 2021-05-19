@@ -23,6 +23,7 @@ import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
+import { Container } from "react-bootstrap";
 
 function App() {
   let url = process.env.REACT_APP_API_URL
@@ -104,8 +105,14 @@ function App() {
         setConsultar={setConsultar}
         tok={tok}
       />
-      <APIclima></APIclima>
-      <APImoneda></APImoneda>
+    
+      <div className="boxAPI">
+        <APImoneda></APImoneda>
+       <APIclima></APIclima> 
+       </div>
+     
+       
+      
       <Switch>
         <Route exact path="/">
           <Inicio />

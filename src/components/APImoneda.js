@@ -1,6 +1,7 @@
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import React,{useState ,useEffect} from 'react';
+import { Container } from 'react-bootstrap';
 
 const APImoneda = () => {
      /*state*/ 
@@ -32,15 +33,16 @@ const APImoneda = () => {
      }
 }
          return (
-      <div className="boxAPI d-flex justify-content-evenly align-items-around small">
+            
+<div className="d-flex justify-content-around align-items-center">
          
-              <p><b>Dolar Oficial</b></p>
-              <p>compra:  ${oficial.compra}</p>
-        <p>venta: ${oficial.venta}</p>
-              <p><b>Dolar Blue</b></p>
-              <p>Dolar Blue compra: ${blue.compra}</p>
-          <p>Dolar Blue venta: ${blue.venta}</p>
-          </div>
+         <div><b>Dolar Oficial</b></div>
+         <div className="mx-1">${oficial.compra} / ${oficial.venta}</div>
+         <div className="mx-1"><b>Dolar Blue</b></div>
+         <div>${blue.compra} / ${blue.venta}</div>
+     </div>
+        
+      
      );
  };
 

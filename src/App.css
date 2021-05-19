@@ -6,7 +6,7 @@
 }
 
 .tarjetaNoticia{
-    margin: 15px;
+    margin: 2px 0px 2px 0px;
     width: 100%;
     box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
   }
@@ -24,6 +24,16 @@
     
   }
 
+  .boxAPI{
+    font-size: smaller;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    background: rgba(200, 204, 207, 0.719);
+    border: 7px outset rgba(246, 252, 255, 0.534);
+    border-radius: 10px;
+  }
+
 @media (max-width: 320px) {
     .cardDeck {
     justify-content: center;
@@ -34,10 +44,22 @@
     .tarjetaNoticia{
         display: flex;
         justify-content: center;
-        margin: 5px 0px;
+        margin: 2px 0px 2px 0px;
         width: 100%;
         box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
       }
+  }
+  
+  @media (max-width: 426px){
+  
+    .boxAPI{
+      display: inline-table;
+      justify-content: center;
+      background: rgba(200, 204, 207, 0.719);
+      border: 7px outset rgba(246, 252, 255, 0.534);
+      border-radius: 10px;
+    }
+    
   }
 
   @media (min-width: 768px) {
@@ -98,15 +120,3 @@
   background-color: rgb(153, 153, 153); /* Line color */
 }
 
-.modal{
-  position:absolute;
-  top: 50%;
-  left: 50%,;
-   transform: translate(0,20%); 
-}
-
-.boxAPI{
-  margin: 1px;
-  border: 7px outset rgba(207,237,195,0.27);
-  border-radius: 10px;
-}

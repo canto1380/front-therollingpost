@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Container } from 'react-bootstrap';
 
 const APIclima = () => {
    
@@ -33,12 +34,14 @@ const APIclima = () => {
      };
 
     return (
-     <div className="boxAPI d-flex justify-content-evenly align-items-center">
-        <p>APIclima</p>
-            <p>{clima.name}</p>
-             <p>{temp.temp +" °C"}</p>
-            <img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} alt=""/>
+        
+    <div className="d-flex justify-content-center align-items-center">
+        <div><img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} alt=""/></div>
+        <div className="mx-1">{temp.temp +" °C"}</div>
+            <div>{clima.name}</div> 
      </div> 
+        
+     
     );
 };
 
