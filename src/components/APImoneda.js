@@ -19,8 +19,6 @@ const APImoneda = () => {
          const resultado = await respuesta.json();
          console.log(respuesta)
          if(respuesta.status===200){
-             setMoneda(resultado);
-             console.log(resultado[0]);
              setOficial(resultado[0].casa);
              setBlue(resultado[1].casa)
              console.log(resultado)
