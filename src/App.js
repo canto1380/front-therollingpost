@@ -23,6 +23,7 @@ import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
+import Error404 from "./components/Error404";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -194,6 +195,9 @@ function App() {
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
           ></EditarNoticia>
+        </Route>
+        <Route exact path="*">
+          <Error404></Error404>
         </Route>
       </Switch>
       <Footer />
