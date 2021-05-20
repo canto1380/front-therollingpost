@@ -195,6 +195,9 @@ function App() {
             setConsultarCat={setConsultarCat}
           ></EditarNoticia>
         </Route>
+        <Route exact path="/contactenos">
+          <Contacto></Contacto>
+        </Route>
       </Switch>
       <Footer />
     </Router>
