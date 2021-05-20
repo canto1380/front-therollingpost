@@ -52,76 +52,13 @@
   ],
   "noticias": [
     {
-      "tituloNoticia": "lkasdlaksndlaksdnlkna",
-      "subtituloNoticia": "añsdñasdmñaslmdñalsmd",
-      "resumenNoticia": "asdasadasd",
-      "autor": "añsldmañsldmañsldmañslmdd",
+      "tituloNoticia": "Balcera",
+      "subtituloNoticiaRef": "ulcera",
+      "resumenNoticiaRef": "asñdmañsdnañsdnañksdnñk",
+      "autorRef": "ñasdañsdmalknds",
+      "imagenRef": "C:\\fakepath\\30953165.jpg",
       "categoria": "Economía",
-      "imagen": "C:\\fakepath\\C (1).png",
-      "id": 4
-    },
-    {
-      "tituloNoticia": "asdad",
-      "subtituloNoticia": "asdasdas",
-      "resumenNoticia": "dasdasas",
-      "autor": "dasdas",
-      "categoria": "Economía",
-      "imagen": "C:\\fakepath\\C.png",
-      "id": 5
-    },
-    {
-      "tituloNoticia": "asdad",
-      "subtituloNoticia": "asdasdas",
-      "resumenNoticia": "dasdasas",
-      "autor": "dasdas",
-      "categoria": "Economía",
-      "imagen": "C:\\fakepath\\C.png",
-      "id": 6
-    },
-    {
-      "tituloNoticia": "sadasd",
-      "subtituloNoticia": "asdas",
-      "resumenNoticia": "asdasdasd",
-      "autor": "asdasdasd",
-      "categoria": "Actualidad",
-      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
-      "id": 7
-    },
-    {
-      "tituloNoticia": "sadasd",
-      "subtituloNoticia": "asdas",
-      "resumenNoticia": "asdasdasd",
-      "autor": "asdasdasd",
-      "categoria": "Actualidad",
-      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
-      "id": 8
-    },
-    {
-      "tituloNoticia": "sadasd",
-      "subtituloNoticia": "asdas",
-      "resumenNoticia": "asdasdasd",
-      "autor": "asdasdasd",
-      "categoria": "Actualidad",
-      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
-      "id": 9
-    },
-    {
-      "tituloNoticia": "sadasd",
-      "subtituloNoticia": "asdas",
-      "resumenNoticia": "asdasdasd",
-      "autor": "asdasdasd",
-      "categoria": "Actualidad",
-      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
-      "id": 10
-    },
-    {
-      "tituloNoticia": "asdasd",
-      "subtituloNoticia": "sadasd",
-      "resumenNoticia": "dasdaas",
-      "autor": "asdasda",
-      "categoria": "Politica",
-      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
-      "id": 11
+      "id": 1
     }
   ]
 }

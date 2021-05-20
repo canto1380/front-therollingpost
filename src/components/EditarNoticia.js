@@ -200,19 +200,21 @@ const EditarNoticia = (props) => {
             ></Form.File>
           </Form.Group>
         </div>
+        <div className="d-flex justify-content-center">
+          <Button
+            className="w-100 mb-0 text-light"
+            variant="warning"
+            type="submit"
+          >
+            Editar
+          </Button>
+        </div>
+        {error ? (
+          <Alert variant="danger" className=" mt-3 mb-0">
+            Todos los campos deben ser validados!
+          </Alert>
+        ) : null}
       </Form>
-      <div className="d-flex justify-content-center">
-        <Button
-          className="w-75 mb-4 text-light"
-          variant="warning"
-          type="submit"
-        >
-          Editar
-        </Button>
-      </div>
-      {error ? (
-        <Alert variant="danger">Todos los campos deben ser validados!</Alert>
-      ) : null}
     </Container>
   );
 };

@@ -65,8 +65,6 @@ const AgregarNoticia = (props) => {
         };
 
         const respuesta = await fetch(url + "/noticias", configuracion);
-        console.log(respuesta);
-
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -81,7 +79,6 @@ const AgregarNoticia = (props) => {
       }
     }
   };
-
   return (
     <Container>
       <Form
@@ -188,15 +185,17 @@ const AgregarNoticia = (props) => {
             <Form.File onChange={(e) => setImagen(e.target.value)}></Form.File>
           </Form.Group>
         </div>
+        <div className="d-flex justify-content-center">
+          <Button className="w-100 mb-0" variant="success" type="submit">
+            Guardar
+          </Button>
+        </div>
+        {error ? (
+          <Alert variant="danger" className=" mt-3 mb-0">
+            Todos los campos son obligatorios
+          </Alert>
+        ) : null}
       </Form>
-      <div className="d-flex justify-content-center">
-        <Button className="w-75 mb-4" variant="success" type="submit">
-          Guardar
-        </Button>
-      </div>
-      {error ? (
-        <Alert variant="danger">Todos los campos son obligatorios</Alert>
-      ) : null}
     </Container>
   );
 };

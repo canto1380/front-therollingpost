@@ -20,9 +20,9 @@ import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
+import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
-import PreviewNoticia from "./components/PreviewNoticia";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -176,13 +176,16 @@ function App() {
         <Route exact path="/menu-suscriptos">
           <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
         </Route>
-        <Route exact path="/agregar-noticia">
+        <Route exact path="/preview/:id">
+          <PreviewNoticia></PreviewNoticia>
+        </Route>
+        <Route exact path="/agregar-Noticia">
           <AgregarNoticia
             categorias={categorias}
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
             consultarAPI={consultarAPI}
-          />
+          ></AgregarNoticia>
         </Route>
         <Route exact path="/editar-noticia/:id">
           <EditarNoticia
@@ -191,9 +194,6 @@ function App() {
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
           ></EditarNoticia>
-        </Route>
-        <Route exact path="/preview/:id">
-          <PreviewNoticia></PreviewNoticia>
         </Route>
       </Switch>
       <Footer />
