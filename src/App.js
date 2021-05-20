@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -19,10 +18,11 @@ import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
-
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import AgregarNoticia from "./components/AgregarNoticia";
+import EditarNoticia from "./components/EditarNoticia";
+import PreviewNoticia from "./components/PreviewNoticia";
 
 function App() {
   const url = process.env.REACT_APP_API_URL;
@@ -95,6 +95,27 @@ function App() {
     }
   }, [consultarCat]);
   console.log(categorias);
+
+  // Noticias
+  const [noticias, setNoticias] = useState([]);
+
+  useEffect(() => {
+    //llamar API
+    consultarAPI();
+  }, []);
+
+  const consultarAPI = async () => {
+    try {
+      const respuesta = await fetch(url + "/noticias");
+      const informacion = await respuesta.json();
+      if (respuesta.status === 200) {
+        setNoticias(informacion);
+      }
+    } catch (error) {
+      console.log(error);
+      //Cartel de error "Sweetalert" que lo vuelva a intentar en unos minutos
+    }
+  };
   return (
     <Router>
       <Navigation setConsultar={setConsultar} tok={tok} />
@@ -150,17 +171,29 @@ function App() {
           />
         </Route>
         <Route exact path="/menu-noticias">
-          <NoticiasMenu />
+          <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
         </Route>
         <Route exact path="/menu-suscriptos">
-          <SuscriptosMenu />
+          <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
         </Route>
         <Route exact path="/agregar-noticia">
           <AgregarNoticia
             categorias={categorias}
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
+            consultarAPI={consultarAPI}
           />
+        </Route>
+        <Route exact path="/editar-noticia/:id">
+          <EditarNoticia
+            consultarAPI={consultarAPI}
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat={setConsultarCat}
+          ></EditarNoticia>
+        </Route>
+        <Route exact path="/preview/:id">
+          <PreviewNoticia></PreviewNoticia>
         </Route>
       </Switch>
       <Footer />

@@ -52,22 +52,76 @@
   ],
   "noticias": [
     {
-      "tituloNoticia": "Balacera en la Costanera",
-      "subtituloNoticia": "Fuerte enfrentamiento policial en la costanera",
-      "resumenNoticia":"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, porro molestias. Doloremque, exercitationem deserunt! Aperiam provident placeat voluptate dolorum atque tenetur dolores cupiditate corporis tempora odit quas eveniet maxime molestiae eligendi, perferendis a corrupti ea, voluptatem delectus ab minus. Commodi et illo magni fugit quia!",
-      "autor": "Alejandro Poviña",
-      "categoria":"policial",
-      "imagen": "",
-      "id":1
+      "tituloNoticia": "lkasdlaksndlaksdnlkna",
+      "subtituloNoticia": "añsdñasdmñaslmdñalsmd",
+      "resumenNoticia": "asdasadasd",
+      "autor": "añsldmañsldmañsldmañslmdd",
+      "categoria": "Economía",
+      "imagen": "C:\\fakepath\\C (1).png",
+      "id": 4
     },
-        {
-      "tituloNoticia": "River Plate Campeon de la Libertadores",
-      "subtituloNoticia": "River se consagro campeon de la Copa Libertadores",
-      "resumenNoticia":"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem, porro molestias. Doloremque, exercitationem deserunt! Aperiam provident placeat voluptate dolorum atque tenetur dolores cupiditate corporis tempora odit quas eveniet maxime molestiae eligendi, perferendis a corrupti ea, voluptatem delectus ab minus. Commodi et illo magni fugit quia!",
-      "autor": "Alejandro Peñalba",
-      "categoria":"deportes",
-      "imagen": "",
-      "id":2
+    {
+      "tituloNoticia": "asdad",
+      "subtituloNoticia": "asdasdas",
+      "resumenNoticia": "dasdasas",
+      "autor": "dasdas",
+      "categoria": "Economía",
+      "imagen": "C:\\fakepath\\C.png",
+      "id": 5
+    },
+    {
+      "tituloNoticia": "asdad",
+      "subtituloNoticia": "asdasdas",
+      "resumenNoticia": "dasdasas",
+      "autor": "dasdas",
+      "categoria": "Economía",
+      "imagen": "C:\\fakepath\\C.png",
+      "id": 6
+    },
+    {
+      "tituloNoticia": "sadasd",
+      "subtituloNoticia": "asdas",
+      "resumenNoticia": "asdasdasd",
+      "autor": "asdasdasd",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
+      "id": 7
+    },
+    {
+      "tituloNoticia": "sadasd",
+      "subtituloNoticia": "asdas",
+      "resumenNoticia": "asdasdasd",
+      "autor": "asdasdasd",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
+      "id": 8
+    },
+    {
+      "tituloNoticia": "sadasd",
+      "subtituloNoticia": "asdas",
+      "resumenNoticia": "asdasdasd",
+      "autor": "asdasdasd",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
+      "id": 9
+    },
+    {
+      "tituloNoticia": "sadasd",
+      "subtituloNoticia": "asdas",
+      "resumenNoticia": "asdasdasd",
+      "autor": "asdasdasd",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\175475717_4680183012008650_3964792538520873200_n.jpg",
+      "id": 10
+    },
+    {
+      "tituloNoticia": "asdasd",
+      "subtituloNoticia": "sadasd",
+      "resumenNoticia": "dasdaas",
+      "autor": "asdasda",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 11
     }
   ]
 }
