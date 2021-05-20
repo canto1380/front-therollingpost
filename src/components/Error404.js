@@ -8,14 +8,14 @@ import { Image } from "react-bootstrap";
 
 const Error404 = () => {
   return (
-    <div>
-      <div className="d-flex justify-content-evenly">
-        <Link className="btn btn-primary w-100 " to={"/"}>
-          <FontAwesomeIcon icon={faHome}></FontAwesomeIcon>
-        </Link>
-      </div>
+    <div className="mb-1">
       <div>
         <Image className="w-100" src={ImgErr404} rounded />
+      </div>
+      <div className="d-flex justify-content-center">
+        <Link className="btn btn-primary w-50 " to={"/"}>
+          <FontAwesomeIcon icon={faHome} className="fa-2x"></FontAwesomeIcon>
+        </Link>
       </div>
     </div>
   );
