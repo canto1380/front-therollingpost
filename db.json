@@ -52,13 +52,67 @@
   ],
   "noticias": [
     {
-      "tituloNoticia": "Balcera",
-      "subtituloNoticiaRef": "ulcera",
-      "resumenNoticiaRef": "asñdmañsdnañsdnañksdnñk",
-      "autorRef": "ñasdañsdmalknds",
-      "imagenRef": "C:\\fakepath\\30953165.jpg",
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 2
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 3
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Covid Sars-19",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 4
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
       "categoria": "Economía",
-      "id": 1
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 5
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 6
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Deportes",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 7
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Covid Sars-19",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 8
     }
   ]
 }
