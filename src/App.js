@@ -22,6 +22,7 @@ import AgregarCategoria from './components/AgregarCategoria'
 
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
+import Noticia from "./components/noticiaIndividual/Noticia";
 
 function App() {
   let url = process.env.REACT_APP_API_URL
@@ -138,6 +139,12 @@ function App() {
         <Route exact path="/acerca-de-nosotros">
           <AcercaDeNosotros />
         </Route>
+
+        {/* Noticia individual */}
+        <Route exact path="/noticia/idd">
+          <Noticia/>
+        </Route>
+
         {/* Menu Admin */}
         <Route exact path="/menu-categorias">
           <CategoriaMenu

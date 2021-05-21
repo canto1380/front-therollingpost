@@ -10,15 +10,14 @@ import Corona from "../img/corona.jpg";
 import vacunas from "../img/vacunasCovid.png";
 import slogan from "../img/sloganCovid.png";
 
-
 const Inicio = () => {
   
   return (
     
-    <Container>
+    <Container className="my-5">
       <Publicidad publicidad={slogan}></Publicidad>
-      <Row>
-    <Col sm={10} >
+      <Row className="my-3">
+    <Col sm={10}>
     <NoticiasPrincipal></NoticiasPrincipal>
     </Col>
     <Col sm={2}>
