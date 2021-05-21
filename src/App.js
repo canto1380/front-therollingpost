@@ -19,10 +19,15 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
+
 import Noticia from "./components/noticiaIndividual/Noticia";
+
+import APIclima from "./components/APIclima";
+import APImoneda from "./components/APImoneda";
+import { Container } from "react-bootstrap";
+
 
 function App() {
   let url = process.env.REACT_APP_API_URL
@@ -104,6 +109,14 @@ function App() {
         setConsultar={setConsultar}
         tok={tok}
       />
+    
+      <div className="boxAPI">
+        <APImoneda></APImoneda>
+       <APIclima></APIclima> 
+       </div>
+     
+       
+      
       <Switch>
         <Route exact path="/">
           <Inicio />
@@ -171,7 +184,6 @@ function App() {
         <Route exact path="/menu-suscriptos">
           <SuscriptosMenu/>
         </Route>
-
       </Switch>
       <Footer />
     </Router>
