@@ -1,11 +1,16 @@
-import React from 'react';
-import { ListGroup, Button } from 'react-bootstrap';
+import React, {useState, useRef, useEffect} from 'react';
+import { ListGroup, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faEdit} from '@fortawesome/free-solid-svg-icons';
-import {Link}  from 'react-router-dom';
+import { faTrashAlt, faEdit, faStar} from '@fortawesome/free-solid-svg-icons';
+import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
+    const {cat} = props
+    console.log(cat)
+    
+    
+    
 
 const eliminarCategoria =(id) =>{
         Swal.fire({
@@ -46,10 +51,42 @@ const eliminarCategoria =(id) =>{
             }
           })
     }
+    const destacarCategoria = async(id, nombre, destacada) =>{
+        const url = `${process.env.REACT_APP_API_URL}/categorias/updateCategoria/${id}`
+        try {
+            const categoriaModificada = {
+                nombreCategoria: nombre,
+                destacada: !destacada
+            }
+            const res = await fetch(url,{
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(categoriaModificada)
+            })
+            if(res.status ===200){
+                props.setConsultarCat(true);
+                props.history.push("/menu-categorias");
+            }
+        } catch (error) {
+            
+        }
+    }
     return (
         <ListGroup.Item className="d-flex justify-content-between align-items-center">
-            <h5 className="text-dark">{props.cat.nombreCategoria}</h5>
+            <h5  className="text-dark">{props.cat.nombreCategoria}</h5>
             <div>
+                {
+                    (!props.cat.destacada) ? (
+                        <Button variant='secondary' onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
+                            <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
+                        </Button>
+                    ) : 
+                    (
+                        <Button variant='success' onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
+                            <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
+                        </Button>
+                    )
+                }  
             <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
@@ -61,4 +98,4 @@ const eliminarCategoria =(id) =>{
     );
 };
 
-export default ItemCategoria;
+export default withRouter(ItemCategoria);

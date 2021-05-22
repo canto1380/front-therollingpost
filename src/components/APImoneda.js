@@ -12,19 +12,17 @@ const APImoneda = () => {
          consultarAPImoneda();
      },[]);
 
-     
-
      const consultarAPImoneda = async()=>{
          try{  
          const respuesta = await fetch("https://www.dolarsi.com/api/api.php?type=valoresprincipales")
          const resultado = await respuesta.json();
-         console.log(respuesta)
+        //  console.log(respuesta)
          if(respuesta.status===200){
              setOficial(resultado[0].casa);
              setBlue(resultado[1].casa)
-             console.log(resultado)
-             console.log(oficial)
-             console.log(blue)
+            //  console.log(resultado)
+            //  console.log(oficial)
+            //  console.log(blue)
          }else{
              console.log("ocurrio un error")
          }

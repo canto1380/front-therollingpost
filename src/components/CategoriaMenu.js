@@ -17,6 +17,7 @@ const CategoriaMenu = (props) => {
             <ListGroup className="my-4">
                 {
                     categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}/>)
+                    
                 }
             </ListGroup>
         </Container>
