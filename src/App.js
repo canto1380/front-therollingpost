@@ -27,6 +27,7 @@ import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import { Container } from "react-bootstrap";
+import CardCategorias from "./components/CardCategorias";
 
 
 function App() {
@@ -136,7 +137,7 @@ function App() {
 
           <Suscripcion />
         </Route>
-        <Route exact path="/deportes">
+        {/* <Route exact path="/deportes">
           <Deportes />
         </Route>
         <Route exact path="/policiales">
@@ -147,14 +148,22 @@ function App() {
         </Route>
         <Route exact path="/politica">
           <Politica />
-        </Route>
+        </Route> */}
         <Route exact path="/contactanos">
           <Contacto />
         </Route>
         <Route exact path="/acerca-de-nosotros">
           <AcercaDeNosotros />
         </Route>
-
+        {
+          categorias.map((cat)=>(
+            <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
+            <CardCategorias
+              cat={cat}
+            />
+            </Route>
+          ))
+        }
         {/* Noticia individual */}
         <Route exact path="/noticia/idd">
           <Noticia/>
