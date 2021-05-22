@@ -17,6 +17,8 @@ import Suscripcion from './components/Suscripcion'
 function App() {
   return (
     <Router>
+      <div className="page-container">
+        <div className="content-wrap">      
       <Navigation />
       <Switch>
         <Route exact path="/">
@@ -50,7 +52,9 @@ function App() {
           <AcercaDeNosotros />
         </Route>
       </Switch>
-      <Footer />
+     </div>
+      <Footer /> 
+      </div>
     </Router>
   );
 }
