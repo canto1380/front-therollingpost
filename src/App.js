@@ -31,7 +31,6 @@ import { Container } from "react-bootstrap";
 
 function App() {
   let url = process.env.REACT_APP_API_URL
-  console.log(url)
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   const [consultarUser, setConsultarUser] =useState(true)
@@ -43,8 +42,7 @@ function App() {
   /* Usuario logueado */
   const [tok, setTok] = useState()
   const [consultar, setConsultar] = useState(false)
-  
-  console.log(consultar)
+
   /* Usado para tomar el token del usuario logueado */
   // useEffect(()=>{
   //     const consultarLS =async ()=>{
@@ -91,7 +89,6 @@ function App() {
           const res = await fetch(url+"/categorias/listCategoria")
           const inforCategorias = await res.json()
            if(res.status === 200){
-             console.log(res)
              setCategorias(inforCategorias)
              setConsultarCat(false)
            } 
@@ -102,7 +99,6 @@ function App() {
     consultarAPI()
     }
   },[consultarCat])
-  console.log(categorias)
   return (
     <Router>
       <Navigation

@@ -12,6 +12,7 @@ import CardMasLeidas from './CardMasLeidas';
 
 import "../../App.css"
 import CardUltimasNoticias from './CardUltimasNoticias';
+import CardComentarios from './CardComentarios';
 
 const Noticia = () => {
     let hidden = 'pub-hidden-lg'
@@ -40,6 +41,10 @@ const Noticia = () => {
                 </Col>
                 <Col sm={4} lg={4}>
                 <Publicidad publicidad={Coca}/>
+                </Col>
+                <hr className="my2"/>
+                <Col sm={12}>
+                    <CardComentarios/>
                 </Col>
             </Row>
         </Container>
