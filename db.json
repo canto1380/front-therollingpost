@@ -30,10 +30,6 @@
   ],
   "categorias": [
     {
-      "nombreCategoria": "Deportes",
-      "id": 57
-    },
-    {
       "nombreCategoria": "Actualidad",
       "id": 61
     },
@@ -50,21 +46,77 @@
       "id": 58
     },
     {
+<<<<<<< HEAD
       "nombreCategoria": "Policiales",
+=======
+      "nombreCategoria": "Deportes",
+>>>>>>> agregarNoticia
       "id": 63
     }
   ],
   "noticias": [
     {
-      "id": 1,
-      "titulo": "Titulo de la noticia",
-      "descripcion": "Descripcion de la noticia",
-      "texto": "Desarrollo de la noticia",
-      "foto": "url de la noticia",
-      "pieFoto": "Texto debajo de la foto",
-      "idCateogria": 4,
-      "fecha": "05/05/2021",
-      "hora": "18:15"
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 2
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 3
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Covid Sars-19",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 4
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Economía",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 5
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Actualidad",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 6
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Deportes",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 7
+    },
+    {
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Covid Sars-19",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 8
     }
   ]
 }

@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -21,6 +20,9 @@ import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
+import PreviewNoticia from "./components/PreviewNoticia";
+import AgregarNoticia from "./components/AgregarNoticia";
+import EditarNoticia from "./components/EditarNoticia";
 
 import Noticia from "./components/noticiaIndividual/Noticia";
 
@@ -46,31 +48,31 @@ function App() {
   const [tok, setTok] = useState();
   const [consultar, setConsultar] = useState(false);
 
+  console.log(consultar);
   /* Usado para tomar el token del usuario logueado */
-  // useEffect(()=>{
-  //     const consultarLS =async ()=>{
-  //       if(consultar){
-  //         setTok(getToken())
-  //         try {
-  //           console.log(localStorage.getItem('jwt'))
-  //           setTok(localStorage.getItem('jwt'))
-  //           setConsultar(false)
-  //         } catch (error) {
-  //           console.log(error)
-  //         }
-  //       }
-
-  //     }
-  //     consultarLS()
-  // },[consultar])
-  // console.log(tok)
+  useEffect(() => {
+    const consultarLS = async () => {
+      if (consultar) {
+        setTok(getToken());
+        try {
+          console.log(localStorage.getItem("jwt"));
+          setTok(localStorage.getItem("jwt"));
+          setConsultar(false);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    consultarLS();
+  }, [consultar]);
+  console.log(tok);
 
   /* Consulta API sobre usuarios */
   useEffect(() => {
     if (consultarUser) {
       const consultarAPI = async () => {
         try {
-          const res = await fetch(url + "/user/listUser");
+          const res = await fetch(url + "/usuarios");
           const inforUser = await res.json();
           if (res.status === 200) {
             setUser(inforUser);
@@ -102,7 +104,28 @@ function App() {
       consultarAPI();
     }
   }, [consultarCat]);
+  console.log(categorias);
 
+  // Noticias
+  const [noticias, setNoticias] = useState([]);
+
+  useEffect(() => {
+    //llamar API
+    consultarAPI();
+  }, []);
+
+  const consultarAPI = async () => {
+    try {
+      const respuesta = await fetch(url + "/noticias");
+      const informacion = await respuesta.json();
+      if (respuesta.status === 200) {
+        setNoticias(informacion);
+      }
+    } catch (error) {
+      console.log(error);
+      //Cartel de error "Sweetalert" que lo vuelva a intentar en unos minutos
+    }
+  };
   return (
     <Router>
       <div className="page-container">
@@ -179,10 +202,29 @@ function App() {
               />
             </Route>
             <Route exact path="/menu-noticias">
-              <NoticiasMenu />
+            <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
             </Route>
             <Route exact path="/menu-suscriptos">
-              <SuscriptosMenu />
+            <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
+        </Route>
+        <Route exact path="/preview/:id">
+          <PreviewNoticia></PreviewNoticia>
+        </Route>
+        <Route exact path="/agregar-Noticia">
+          <AgregarNoticia
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat={setConsultarCat}
+            consultarAPI={consultarAPI}
+          ></AgregarNoticia>
+        </Route>
+        <Route exact path="/editar-noticia/:id">
+          <EditarNoticia
+            consultarAPI={consultarAPI}
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat={setConsultarCat}
+          ></EditarNoticia>
             </Route>
           </Switch>
         </div>
