@@ -39,6 +39,10 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] =useState(true)
 
+  let categoriasDestacadas = categorias.filter(cat => cat.destacada)
+  let cantDestacadas = categoriasDestacadas.length
+  let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
+
   /* Usuario logueado */
   const [tok, setTok] = useState()
   const [consultar, setConsultar] = useState(false)
@@ -106,6 +110,8 @@ function App() {
         setConsultar={setConsultar}
         tok={tok}
         categorias={categorias}
+        categoriasDestacadas={categoriasDestacadas}
+        categoriasNoDestacadas={categoriasNoDestacadas}
       />
     
       <div className="boxAPI">
@@ -113,8 +119,6 @@ function App() {
        <APIclima></APIclima> 
        </div>
      
-       
-      
       <Switch>
         <Route exact path="/">
           <Inicio />
@@ -161,6 +165,7 @@ function App() {
           <CategoriaMenu
             categorias={categorias}
             setConsultarCat={setConsultarCat}
+            cantDestacadas={cantDestacadas}
           />
         </Route>
         <Route exact path="/menu-categorias/addCategoria">

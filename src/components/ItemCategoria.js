@@ -6,11 +6,7 @@ import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
-    const {cat} = props
-    console.log(cat)
-    
-    
-    
+    const {cat, cantDestacadas} = props
 
 const eliminarCategoria =(id) =>{
         Swal.fire({
@@ -53,22 +49,46 @@ const eliminarCategoria =(id) =>{
     }
     const destacarCategoria = async(id, nombre, destacada) =>{
         const url = `${process.env.REACT_APP_API_URL}/categorias/updateCategoria/${id}`
-        try {
-            const categoriaModificada = {
-                nombreCategoria: nombre,
-                destacada: !destacada
+        if(!destacada){
+            if(cantDestacadas <4){
+                try {
+                    const categoriaModificada = {
+                        nombreCategoria: nombre,
+                        destacada: !destacada
+                    }
+                    const res = await fetch(url,{
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(categoriaModificada)
+                    })
+                    if(res.status ===200){
+                        props.setConsultarCat(true);
+                        props.history.push("/menu-categorias");
+                    }
+                } catch (error) {
+                    
+                }        
+            } else {
+                console.log("ya estan las 4")
             }
-            const res = await fetch(url,{
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(categoriaModificada)
-            })
-            if(res.status ===200){
-                props.setConsultarCat(true);
-                props.history.push("/menu-categorias");
+        } else {
+            try {
+                const categoriaModificada = {
+                    nombreCategoria: nombre,
+                    destacada: !destacada
+                }
+                const res = await fetch(url,{
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(categoriaModificada)
+                })
+                if(res.status ===200){
+                    props.setConsultarCat(true);
+                    props.history.push("/menu-categorias");
+                }
+            } catch (error) {
+                
             }
-        } catch (error) {
-            
         }
     }
     return (
