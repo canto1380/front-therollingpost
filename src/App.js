@@ -203,33 +203,36 @@ function App() {
               />
             </Route>
             <Route exact path="/menu-noticias">
-            <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
+              <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
             </Route>
             <Route exact path="/menu-suscriptos">
-            <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
-        </Route>
-        <Route exact path="/preview/:id">
-          <PreviewNoticia></PreviewNoticia>
-        </Route>
-        <Route exact path="/agregar-Noticia">
-          <AgregarNoticia
-            categorias={categorias}
-            consultarCat={consultarCat}
-            setConsultarCat={setConsultarCat}
-            consultarAPI={consultarAPI}
-          ></AgregarNoticia>
-        </Route>
-        <Route exact path="/editar-noticia/:id">
-          <EditarNoticia
-            consultarAPI={consultarAPI}
-            categorias={categorias}
-            consultarCat={consultarCat}
-            setConsultarCat={setConsultarCat}
-          ></EditarNoticia>
+              <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
+            </Route>
+            <Route exact path="/preview/:id">
+              <PreviewNoticia></PreviewNoticia>
+            </Route>
+            <Route exact path="/agregar-Noticia">
+              <AgregarNoticia
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+                consultarAPI={consultarAPI}
+              ></AgregarNoticia>
+            </Route>
+            <Route exact path="/editar-noticia/:id">
+              <EditarNoticia
+                consultarAPI={consultarAPI}
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+              ></EditarNoticia>
             </Route>
             <Route exact path="*">
-          <Error404></Error404>
-        </Route>
+              <Error404></Error404>
+            </Route>
+            <Route exact path="/contactenos">
+              <Contacto></Contacto>
+            </Route>
           </Switch>
         </div>
         <Footer />

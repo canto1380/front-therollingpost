@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Container,
   Alert,
@@ -12,13 +12,21 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import emailjs from "emailjs-com";
 
 const Contacto = () => {
+
+  //variables useRef
+const nombreRef = useRef("");
+const mailRef = useRef("");
+const telRef = useRef(0);
+const consultaRef = useRef("");
+
   //States
-  const [nomAp, setNomAp] = useState("");
-  const [mail, setMail] = useState("");
-  const [num, setNum] = useState(0);
-  const [consulta, setConsulta] = useState("");
+  // const [nomAp, setNomAp] = useState("");
+  // const [mail, setMail] = useState("");
+  // const [num, setNum] = useState(0);
+  // const [consulta, setConsulta] = useState("");
   const [error, setError] = useState(false);
 
   const validarMail = (email) => {
@@ -30,14 +38,41 @@ const Contacto = () => {
     }
   };
 
+ 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     //validaciones de campo
-    if (nomAp.trim() === "" || validarMail(mail) || consulta.trim() === "") {
-      setError(true);
+    if (nombreRef.current.value.trim() === "" || validarMail(mailRef.current.value) || consultaRef.current.value.trim() === "") {
+      setError(true)
+
     } else {
       setError(false);
-    }
+
+      const  mensajeEJS ={
+        nombre: nombreRef.current.value,
+        to_name: "Administrador",
+        mail: `Email: ${mailRef.current.value}`,
+        tel: `Telefono: ${telRef.current.value}`,
+        consulta: consultaRef.current.value
+      }
+
+      console.log(mensajeEJS)
+      
+      emailjs.send("service_8p1isqq","template_olx58xg",mensajeEJS,"user_rQqHrh4fAD3sMZEdvbGTI")
+       .then((result)=>{
+      if(result.status===200){
+        Swal.fire(
+          'Consulta enviada',
+          'Su consulta fue enviada con exito, responderemos a la brevedad',
+          'success'
+        )
+      }
+      console.log(result)
+      e.target.reset();
+     }, (error)=>{console.log(error.text);
+     });
+    };
   };
 
   return (
@@ -51,10 +86,10 @@ const Contacto = () => {
                 *<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl
+            <FormControl 
+            ref={nombreRef}
               placeholder="Alberto Perez"
               type="text"
-              onChange={(e) => setNomAp(e.target.value)}
             />
           </InputGroup>
           <InputGroup className="mb-3">
@@ -63,10 +98,10 @@ const Contacto = () => {
                 *<FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl
+            <FormControl 
+            ref={mailRef}
               placeholder="Matias@gmail.com"
               type="mail"
-              onChange={(e) => setMail(e.target.value)}
             />
           </InputGroup>
           <InputGroup className="mb-3">
@@ -75,10 +110,10 @@ const Contacto = () => {
                 *<FontAwesomeIcon icon={faPhoneAlt}></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
-            <FormControl
+            <FormControl 
+            ref={telRef}
               placeholder="3816506555"
               type="number"
-              onChange={(e) => setNum(parseInt(e.target.value))}
             />
           </InputGroup>
           <div className="mb-3">
@@ -88,15 +123,15 @@ const Contacto = () => {
                   *<b>Comentanos tu motivo de Contacto</b>
                 </Form.Label>
               </InputGroup.Text>
-              <Form.Control
+              <Form.Control 
+              ref={consultaRef}
                 as="textarea"
                 rows={3}
-                onChange={(e) => setConsulta(e.target.value)}
               />
             </Form.Group>
           </div>
           <div className="d-flex justify-content-center mb-3">
-            <Button className="btn w-75" type="submit" variant="primary">
+            <Button className="btn w-75" type="submit"  variant="primary">
               Enviar
             </Button>
           </div>
