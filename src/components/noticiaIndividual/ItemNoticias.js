@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import LogoNR from "../../img/Logo-NR.png";
 import "../../App.css"
 
-const ItemMasLeidas = () => {
+const ItemNoticias = () => {
     return (
         <ListGroup.Item className="py-0">
             <Link className="text-dark text-decoration-none" to={'/'}>
@@ -54,4 +54,4 @@ const ItemMasLeidas = () => {
     );
 };
 
-export default ItemMasLeidas;
+export default ItemNoticias;

@@ -27,7 +27,7 @@ import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import { Container } from "react-bootstrap";
-import CardCategorias from "./components/CardCategorias";
+import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 
 
 function App() {

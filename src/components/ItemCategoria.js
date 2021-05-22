@@ -69,7 +69,32 @@ const eliminarCategoria =(id) =>{
                     
                 }        
             } else {
-                console.log("ya estan las 4")
+                let timerInterval
+                Swal.fire({
+                  title: 'No se puede definir mas categorias como destacadas',
+                  timer: 1000,
+                  timerProgressBar: true,
+                  didOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                      const content = Swal.getHtmlContainer()
+                      if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                          b.textContent = Swal.getTimerLeft()
+                        }
+                      }
+                    }, 100)
+                  },
+                  willClose: () => {
+                    clearInterval(timerInterval)
+                  }
+                }).then((result) => {
+                  /* Read more about handling dismissals below */
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('No se puede definir mas categorias como destacadas')
+                  }
+                })
             }
         } else {
             try {
