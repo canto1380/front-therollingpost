@@ -6,7 +6,8 @@ import {faFacebook , faInstagram, faTwitter, faYoutube, faWhatsapp} from '@forta
 
 import '../App.css'
 import { Link } from "react-router-dom";
-const Footer = () => {
+const Footer = (props) => {
+  const {categorias} = props
   return (
     <Container fluid className="bg-secondary py-3 text-light">
       <Row className="align-items-center py-2" xs={1} sm={2}>
@@ -23,19 +24,12 @@ const Footer = () => {
       </Row>
       
       <Dropdown.Divider className="bg-light" />
-      <Row className="text-center py-2" xs={3} sm={6} md={6} lg={12}>
-        <Link className="text-light text-decoration-none" to={'/policiales'}><Col className="botones-hover" sm>Policiales</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/politica'}><Col className="botones-hover" sm>Politica</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/deportes'}><Col className="botones-hover" sm>Deportes</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/actualidad'}><Col className="botones-hover" sm>Actualidad</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/sociales'}><Col className="botones-hover" sm>Sociales</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/economia'}><Col className="botones-hover" sm>Economia</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/internacional'}><Col className="botones-hover" sm>Internacional</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/inmuebles'}><Col className="botones-hover" sm>Inmuebles</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/funebres'}><Col className="botones-hover" sm>Funebres</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/clasificados'}><Col className="botones-hover" sm>Clasificados</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/fotografia'}><Col className="botones-hover" sm>Fotografia</Col></Link>
-        <Link className="text-light text-decoration-none" to={'/covid'}><Col className="botones-hover" sm>Covid-19</Col></Link>
+       <Row className="text-center py-2" xs={3} sm={6} md={6} lg={12}>
+        {
+        categorias.map((cat) =>(
+        <Link className="text-light text-decoration-none my-1" key={cat._id} to={'/policiales'}><Col className="botones-hover" sm>{cat.nombreCategoria}</Col></Link>
+        ))
+        }
       </Row>
       <Dropdown.Divider className="bg-light" />
       <Row className="text-center py-2" xs={3} sm={6}>

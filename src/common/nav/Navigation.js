@@ -30,7 +30,7 @@ const Navigation = (props) => {
             className="li-navbar-responsive w-50"
           >
           {categoriasNoDestacadas.map((cat)=>(
-              <NavDropdown.Item key={cat._id} href={"/sociales"}>{cat.nombreCategoria}</NavDropdown.Item>
+              <NavDropdown.Item key={cat._id} href={`/${cat.nombreCategoria.toLowerCase()}`}>{cat.nombreCategoria}</NavDropdown.Item>
                 ))}
           </NavDropdown> 
             {

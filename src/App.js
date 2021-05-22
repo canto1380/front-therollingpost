@@ -188,7 +188,9 @@ function App() {
           <SuscriptosMenu/>
         </Route>
       </Switch>
-      <Footer />
+      <Footer 
+        categorias={categorias}
+      />
     </Router>
   );
 }
