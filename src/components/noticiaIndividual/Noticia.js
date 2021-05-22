@@ -27,10 +27,10 @@ const Noticia = () => {
                 <Col sm={8} lg={4} className="component-mas-leidas">
                     <CardMasLeidas />
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
-                    <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
+                    <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
                 </Col>
                 <Col sm={4} lg={4}>
-                    <Publicidad classnamehidden={hidden} publicidad={covidCuidados} />
+                    <Publicidad className="d-flex justify-content-center align-items-center" classnamehidden={hidden} publicidad={covidCuidados} />
                 </Col>
                 <Col sm={12}>
                     <Publicidad classnamehidden={hiddenmd} publicidad={vacunas}/>
@@ -39,7 +39,7 @@ const Noticia = () => {
                 <Col sm={8} lg={8} >
                     <CardUltimasNoticias/>
                 </Col>
-                <Col sm={4} lg={4}>
+                <Col sm={4} lg={4} className="d-flex justify-content-center align-items-center">
                 <Publicidad publicidad={Coca}/>
                 </Col>
                 <hr className="my2"/>

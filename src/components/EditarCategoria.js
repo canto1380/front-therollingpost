@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import {Link} from 'react-router-dom'
 import { ListGroup, Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { useParams, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -24,11 +25,11 @@ const EditarCategoria = (props) => {
     let mensaje;
 
     useEffect(() => {
-        const consultarCategorias = async()=>{
+        const consultarCategorias = async () => {
             try {
-                const res = await fetch(URL+"/categorias/categoria/"+id)
+                const res = await fetch(URL + "/categorias/categoria/" + id)
                 console.log(res)
-                if(res.status === 200){
+                if (res.status === 200) {
                     const resp = await res.json();
                     setNombreCat(resp);
                 }
@@ -56,7 +57,7 @@ const EditarCategoria = (props) => {
                     nombreCategoria: nombreCategoriaRef.current.value
                 }
 
-                const respuesta = await fetch(URL+"/categorias/updateCategoria/"+id, {
+                const respuesta = await fetch(URL + "/categorias/updateCategoria/" + id, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(categoriaModificada)
@@ -98,9 +99,14 @@ const EditarCategoria = (props) => {
                             <Form.Label>Nombre Categoria</Form.Label>
                         </Form.Group>
                         <Form.Control type="text" ref={nombreCategoriaRef} defaultValue={nombreCategoria.nombreCategoria} onChange={cambioCategoria} />
-                        <Button className="my-3 w-100" variant="primary" type="submit">
-                            Guardar
-            </Button>
+                        <Form.Group className="d-flex justify-content-end">
+                            <Button className="my-3 mx-2" variant="primary" type="submit">
+                                Guardar
+                        </Button>
+                            <Link className="my-3 btn btn-primary" variant="primary" to={'/menu-categorias'}>
+                                Volver
+                            </Link>
+                        </Form.Group>
                         {
                             (err) ? (<MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />) : (null)}
                     </Form>

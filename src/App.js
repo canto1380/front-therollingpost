@@ -99,11 +99,13 @@ function App() {
     consultarAPI()
     }
   },[consultarCat])
+
   return (
     <Router>
       <Navigation
         setConsultar={setConsultar}
         tok={tok}
+        categorias={categorias}
       />
     
       <div className="boxAPI">

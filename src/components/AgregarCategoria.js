@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Container, Form, Button, Row, Col, ListGroup } from "react-bootstrap";
 import Swal from 'sweetalert2'
+import {Link} from 'react-router-dom'
 import ItemCategoria from "./ItemCategoria";
 import { campoRequerido } from "../helpers/helpers";
 import MsjError from "./MsjError";
@@ -73,9 +74,14 @@ const AgregarCategoria = (props) => {
               <Form.Label>Nombre Categoria</Form.Label>
               <Form.Control type="text" placeholder="Nombre categoria" onChange={(e)=> setNombreCat(e.target.value)} />
             </Form.Group>
-            <Button className="my-3 w-100" variant="primary" type="submit">
+            <Form.Group className="d-flex justify-content-end">
+            <Button className="my-3 mx-2" variant="primary" type="submit">
               Agregar
             </Button>
+            <Link className="my-3 btn btn-primary" variant="primary" to={'/menu-categorias'}>
+              Volver
+            </Link>
+            </Form.Group>
             <div>{mensaje}</div>
           </Form>
         </Col>

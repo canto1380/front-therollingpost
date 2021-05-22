@@ -24,7 +24,7 @@ const CardComentarios = () => {
                 </Col>
             </Row>
             <div>
-                <Col sm={12} className="my-4 text-end">
+                <Col sm={12} className="my-3 px-3 text-end">
                     <Button>Enviar comentario</Button>                    
                 </Col>
             </div>

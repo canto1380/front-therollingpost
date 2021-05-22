@@ -11,7 +11,9 @@ import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
-
+  const {categorias} = props
+  console.log(categorias)
+  
   return (
     <Navbar
       className="container-fluid py-3"
