@@ -11,15 +11,6 @@ import Actualidad from "./components/Actualidad";
 import Politica from "./components/Politica";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
-<<<<<<< HEAD
-import Login from './components/Login'
-import Registro from './components/Registro'
-import Suscripcion from './components/Suscripcion'
-import CategoriaMenu from './components/CategoriaMenu'
-import NoticiasMenu from './components/NoticiasMenu'
-import SuscriptosMenu from './components/SuscriptosMenu'
-import AgregarCategoria from './components/AgregarCategoria'
-=======
 import Login from "./components/Login";
 import Registro from "./components/Registro";
 import Suscripcion from "./components/Suscripcion";
@@ -27,23 +18,26 @@ import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
->>>>>>> formContacto
+import Login from "./components/Login";
+import Registro from "./components/Registro";
+import Suscripcion from "./components/Suscripcion";
+import CategoriaMenu from "./components/CategoriaMenu";
+import NoticiasMenu from "./components/NoticiasMenu";
+import SuscriptosMenu from "./components/SuscriptosMenu";
+import AgregarCategoria from "./components/AgregarCategoria";
 import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
-
 import Noticia from "./components/noticiaIndividual/Noticia";
-
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import { Container } from "react-bootstrap";
 import CardCategorias from "./components/CardCategorias";
 
-
 function App() {
-  let url = process.env.REACT_APP_API_URL
+  let url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   const [consultarUser, setConsultarUser] = useState(true);
@@ -52,34 +46,11 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] = useState(true);
 
-  let categoriasDestacadas = categorias.filter(cat => cat.destacada)
-  let cantDestacadas = categoriasDestacadas.length
-  let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
+  let categoriasDestacadas = categorias.filter((cat) => cat.destacada);
+  let cantDestacadas = categoriasDestacadas.length;
+  let categoriasNoDestacadas = categorias.filter((cat) => !cat.destacada);
 
   /* Usuario logueado */
-<<<<<<< HEAD
-  const [tok, setTok] = useState()
-  const [consultar, setConsultar] = useState(false)
-
-  /* Usado para tomar el token del usuario logueado */
-  // useEffect(()=>{
-  //     const consultarLS =async ()=>{
-  //       if(consultar){
-  //         setTok(getToken())
-  //         try {
-  //           console.log(localStorage.getItem('jwt'))
-  //           setTok(localStorage.getItem('jwt'))
-  //           setConsultar(false)
-  //         } catch (error) {
-  //           console.log(error)
-  //         }
-  //       } 
-        
-  //     }
-  //     consultarLS()
-  // },[consultar])
-  // console.log(tok)
-=======
   const [tok, setTok] = useState();
   const [consultar, setConsultar] = useState(false);
 
@@ -101,28 +72,18 @@ function App() {
     consultarLS();
   }, [consultar]);
   console.log(tok);
->>>>>>> formContacto
 
   /* Consulta API sobre usuarios */
   useEffect(() => {
     if (consultarUser) {
       const consultarAPI = async () => {
         try {
-<<<<<<< HEAD
-          const res = await fetch(url+"/user/listUser")
-          const inforUser = await res.json()
-           if(res.status === 200){
-             setUser(inforUser)
-             setConsultarUser(false)
-           }
-=======
           const res = await fetch(url + "/usuarios");
           const inforUser = await res.json();
           if (res.status === 200) {
             setUser(inforUser);
             setConsultarUser(false);
           }
->>>>>>> formContacto
         } catch (error) {
           console.log(error);
         }
@@ -136,46 +97,18 @@ function App() {
     if (consultarCat) {
       const consultarAPI = async () => {
         try {
-<<<<<<< HEAD
-          const res = await fetch(url+"/categorias/listCategoria")
-          const inforCategorias = await res.json()
-           if(res.status === 200){
-             setCategorias(inforCategorias)
-             setConsultarCat(false)
-           } 
-=======
           const res = await fetch(url + "/categorias");
           const inforCategorias = await res.json();
           if (res.status === 200) {
             setCategorias(inforCategorias);
             setConsultarCat(false);
           }
->>>>>>> formContacto
         } catch (error) {
           console.log(error);
         }
       };
       consultarAPI();
     }
-<<<<<<< HEAD
-  },[consultarCat])
-
-  return (
-    <Router>
-      <Navigation
-        setConsultar={setConsultar}
-        tok={tok}
-        categorias={categorias}
-        categoriasDestacadas={categoriasDestacadas}
-        categoriasNoDestacadas={categoriasNoDestacadas}
-      />
-    
-      <div className="boxAPI">
-        <APImoneda></APImoneda>
-       <APIclima></APIclima> 
-       </div>
-     
-=======
   }, [consultarCat]);
   console.log(categorias);
 
@@ -202,7 +135,6 @@ function App() {
   return (
     <Router>
       <Navigation setConsultar={setConsultar} tok={tok} />
->>>>>>> formContacto
       <Switch>
         <Route exact path="/">
           <Inicio />
@@ -216,36 +148,24 @@ function App() {
         <Route exact path="/suscripcion">
           <Suscripcion />
         </Route>
-        {/* <Route exact path="/deportes">
-          <Deportes />
-        </Route>
-        <Route exact path="/policiales">
-          <Policiales />
-        </Route>
-        <Route exact path="/actualidad">
-          <Actualidad />
-        </Route>
-        <Route exact path="/politica">
-          <Politica />
-        </Route> */}
         <Route exact path="/contactanos">
           <Contacto />
         </Route>
         <Route exact path="/acerca-de-nosotros">
           <AcercaDeNosotros />
         </Route>
-        {
-          categorias.map((cat)=>(
-            <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
-            <CardCategorias
-              cat={cat}
-            />
-            </Route>
-          ))
-        }
+        {categorias.map((cat) => (
+          <Route
+            key={cat._id}
+            exact
+            path={`/${cat.nombreCategoria.toLowerCase()}`}
+          >
+            <CardCategorias cat={cat} />
+          </Route>
+        ))}
         {/* Noticia individual */}
         <Route exact path="/noticia/idd">
-          <Noticia/>
+          <Noticia />
         </Route>
 
         {/* Menu Admin */}
@@ -298,9 +218,7 @@ function App() {
           <Contacto></Contacto>
         </Route>
       </Switch>
-      <Footer 
-        categorias={categorias}
-      />
+      <Footer categorias={categorias} />
     </Router>
   );
 }

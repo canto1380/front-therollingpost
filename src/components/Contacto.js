@@ -35,6 +35,14 @@ const Contacto = () => {
     email: /\w+@\w+\.[a-z]{2,}$/,
   };
 
+  const mensajeEJS = {
+    nombre: nombreRef.current.value,
+    to_name: "Administrador",
+    mail: `Email: ${mailRef.current.value}`,
+    tel: `Telefono: ${telRef.current.value}`,
+    consulta: consultaRef.current.value,
+  };
+
   //Validaciones de Campo
   const validarMail = (e) => {
     let expresion = expresiones.email;
@@ -92,41 +100,34 @@ const Contacto = () => {
       setError(true);
     } else {
       setError(false);
-
-      const mensajeEJS = {
-        nombre: nombreRef.current.value,
-        to_name: "Administrador",
-        mail: `Email: ${mailRef.current.value}`,
-        tel: `Telefono: ${telRef.current.value}`,
-        consulta: consultaRef.current.value,
-      };
-
-      console.log(mensajeEJS);
-
-      emailjs
-        .send(
-          "service_8p1isqq",
-          "template_olx58xg",
-          mensajeEJS,
-          "user_rQqHrh4fAD3sMZEdvbGTI"
-        )
-        .then(
-          (result) => {
-            if (result.status === 200) {
-              Swal.fire(
-                "Consulta enviada",
-                "Su consulta fue enviada con exito, responderemos a la brevedad",
-                "success"
-              );
-            }
-            console.log(result);
-            e.target.reset();
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
+      enviarConsulta();
     }
+  };
+
+  const enviarConsulta = (e) => {
+    emailjs
+      .send(
+        "service_8p1isqq",
+        "template_olx58xg",
+        mensajeEJS,
+        "user_rQqHrh4fAD3sMZEdvbGTI"
+      )
+      .then(
+        (result) => {
+          if (result.status === 200) {
+            Swal.fire(
+              "Consulta enviada",
+              "Su consulta fue enviada con exito, responderemos a la brevedad",
+              "success"
+            );
+          }
+          console.log(result);
+          e.target.reset();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
