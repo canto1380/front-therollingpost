@@ -169,10 +169,10 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              defaultValue="Seleccionar una Categoria......"
+              defaultValue="Seleccione una Categoria"
               onChange={cambioCategoria}
             >
-              <option>Seleccione una Categoria...</option>
+              <option disabled>Seleccione una Categoria</option>
               {categorias.map((cat) => (
                 <option
                   key={cat.id}
