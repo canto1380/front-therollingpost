@@ -5,7 +5,7 @@ import { useParams, withRouter } from "react-router-dom";
 import "./span.css";
 
 const EditarNoticia = (props) => {
-  const { id } = useParams();
+  const { id} = useParams();
   //Variables useRef
   const tituloNoticiaRef = useRef("");
   const subtituloNoticiaRef = useRef("");
@@ -13,13 +13,15 @@ const EditarNoticia = (props) => {
   const autorRef = useRef("");
   const imagenRef = useRef("");
   // creo los state
-  const [noticia, setNoticia] = useState({});
+  const [noticias, setNoticia] = useState({});
   const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
   const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
 
-  const { categorias, setConsultarCat } = props;
-
+  const {categorias, setConsultarCat}= props
+  console.log(useParams(noticias.categoria))
+  
+  
   const campoRequerido = (valor) => {
     if (valor.trim() === "") {
       return false;
@@ -38,6 +40,8 @@ const EditarNoticia = (props) => {
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
+
+        console.log(resp)
         setNoticia(resp);
       }
     } catch (error) {
@@ -46,13 +50,15 @@ const EditarNoticia = (props) => {
     }
   };
 
+
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let categoriaModificada = categoria === "" ? noticia.categoria : categoria;
+    let categoriaModificada = categoria === "" ? noticias.categoria : categoria;
+  
     //validar los datos
     if (
       campoRequerido(tituloNoticiaRef.current.value) &&
@@ -70,7 +76,7 @@ const EditarNoticia = (props) => {
           resumenNoticiaRef: resumenNoticiaRef.current.value,
           autorRef: autorRef.current.value,
           imagenRef: imagenRef.current.value,
-          categoria: categoriaModificada,
+          categoria: categoriaModificada
         };
         const respuesta = await fetch(url, {
           method: "PUT",
@@ -119,7 +125,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
-              defaultValue={noticia.tituloNoticia}
+              defaultValue={noticias.tituloNoticia}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -132,7 +138,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Enfrentamiento policial"
               ref={subtituloNoticiaRef}
-              defaultValue={noticia.subtituloNoticia}
+              defaultValue={noticias.subtituloNoticiaRef}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -145,7 +151,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Alejandro Poviña"
               ref={autorRef}
-              defaultValue={noticia.autor}
+              defaultValue={noticias.autorRef}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -158,7 +164,7 @@ const EditarNoticia = (props) => {
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
-              defaultValue={noticia.resumenNoticia}
+              defaultValue={noticias.resumenNoticiaRef}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -169,7 +175,8 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              defaultValue="Seleccionar una Categoria......"
+              defaultValue={noticias.categoria}
+              
               onChange={cambioCategoria}
             >
               <option>Seleccione una Categoria...</option>
@@ -178,10 +185,8 @@ const EditarNoticia = (props) => {
                   key={cat.id}
                   label={cat.nombreCategoria}
                   value={categorias.nombreCategoria}
-                  onChange={cambioCategoria}
-                  defaultChecked={
-                    noticia.categoria && noticia.categoria === { categorias }
-                  }
+                  selected  
+                  
                 >
                   {cat.nombreCategoria}
                 </option>
@@ -196,7 +201,7 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.File
               ref={imagenRef}
-              defaultValue={noticia.imagen}
+              defaultValue={noticias.imagen}
             ></Form.File>
           </Form.Group>
         </div>

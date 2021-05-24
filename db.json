@@ -48,16 +48,24 @@
     {
       "nombreCategoria": "Deportes",
       "id": 63
+    },
+    {
+      "nombreCategoria": "cine",
+      "id": 64
+    },
+    {
+      "nombreCategoria": "futbol",
+      "id": 65
     }
   ],
   "noticias": [
     {
-      "tituloNoticia": "Balcera",
-      "subtituloNoticiaRef": "ulcera",
-      "resumenNoticiaRef": "asñdmañsdnañsdnañksdnñk",
-      "autorRef": "ñasdañsdmalknds",
-      "imagenRef": "C:\\fakepath\\30953165.jpg",
-      "categoria": "Economía",
+      "tituloNoticia": "holaasd",
+      "subtituloNoticiaRef": "asdasd",
+      "resumenNoticiaRef": "asdasd",
+      "autorRef": "asdasd",
+      "imagenRef": "C:\\fakepath\\logopaisa.png",
+      "categoria": "cine",
       "id": 1
     }
   ]

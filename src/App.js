@@ -24,6 +24,7 @@ import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
 
+
 function App() {
   const url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
@@ -130,7 +131,7 @@ function App() {
           <Registro />
         </Route>
         <Route exact path="/suscripcion">
-          <Suscripcion />
+          <Suscripcion precio={"$150"} />
         </Route>
         <Route exact path="/deportes">
           <Deportes />
@@ -154,6 +155,7 @@ function App() {
         <Route exact path="/menu-categorias">
           <CategoriaMenu
             categorias={categorias}
+            consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
           />
         </Route>

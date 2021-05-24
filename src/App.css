@@ -98,9 +98,6 @@
   background-color: rgb(153, 153, 153); /* Line color */
 }
 
-.modal{
-  position:absolute;
-  top: 50%;
-  left: 50%,;
-   transform: translate(0,20%); 
+.imgSuscripcion{
+  width: 300px;
 }
