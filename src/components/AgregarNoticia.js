@@ -22,6 +22,12 @@ const AgregarNoticia = (props) => {
     setCategoria(e.target.value);
   };
 
+  const expresiones = {
+    texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
+    autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
+  };
+
   //  const scrollToTop = () => {
   //    window.scrollTo({
   //      top: 0,
@@ -29,14 +35,49 @@ const AgregarNoticia = (props) => {
   //    });
   //  };
 
+  //Validaciones
+  const valTexto = (titulo) => {
+    let texto = expresiones.texto;
+    if (titulo.trim() !== "" && texto.test(titulo)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const valAutor = (autor) => {
+    let nombre = expresiones.autor;
+    if (autor.trim() !== "" && nombre.test(autor)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const valResumen = (noti) => {
+    let resumen = expresiones.resumen;
+    if (noti.trim() !== "" && resumen.test(noti)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  //Limitar limite maximo de caracteres ingresados en el imput
+  const maxNum = (num) => {
+    if (num.target.value.length > num.target.maxLength) {
+      num.target.value = num.target.value.slice(0, num.target.maxLength);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     //validacion
     if (
-      tituloNoticia.trim() === "" ||
-      subtituloNoticia.trim() === "" ||
-      resumenNoticia.trim() === "" ||
-      autor.trim() === "" ||
+      valTexto(tituloNoticia) ||
+      valTexto(subtituloNoticia) ||
+      valResumen(resumenNoticia) ||
+      valAutor(autor) ||
       imagen === "" ||
       categoria === ""
     ) {
@@ -111,6 +152,8 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="50"
+              onInput={maxNum}
               type="text"
               placeholder="Balacera en la Costanera"
               onChange={(e) => setTituloNoticia(e.target.value)}
@@ -123,6 +166,8 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="50"
+              onInput={maxNum}
               type="text"
               placeholder="Enfrentamiento policial"
               onChange={(e) => setSubtituloNoticia(e.target.value)}
@@ -135,6 +180,8 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="40"
+              onInput={maxNum}
               type="text"
               placeholder="Alejandro Poviña"
               onChange={(e) => setAutor(e.target.value)}
@@ -147,6 +194,7 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="5000"
               as="textarea"
               rows={5}
               onChange={(e) => setResumenNoticia(e.target.value)}
