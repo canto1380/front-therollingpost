@@ -7,6 +7,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'; 
 import Coca from "../img/cokeMusic.gif";
 import Corona from "../img/corona.jpg";
+import MP from "../img/Mercado Pago.jpg";
+import PedidosYa from "../img/Pedidos Ya.png";
+import RollingLogo from "../img/RollingCode.jpg";
+import BnB from "../img/bon-o-bon.jpg";
 import vacunas from "../img/vacunasCovid.png";
 import slogan from "../img/sloganCovid.png";
 
@@ -23,8 +27,10 @@ const Inicio = () => {
     <Col sm={2}>
     <Publicidad publicidad={Coca}></Publicidad>
     <Publicidad publicidad={Corona}></Publicidad>
-    <Publicidad publicidad={Coca}></Publicidad>
-    <Publicidad publicidad={Corona}></Publicidad>
+    <Publicidad publicidad={MP}></Publicidad>
+    <Publicidad publicidad={PedidosYa}></Publicidad>
+    <Publicidad publicidad={RollingLogo}></Publicidad>
+    <Publicidad publicidad={BnB}></Publicidad>
     </Col>
   </Row>
         <CategoriaDestacada></CategoriaDestacada>

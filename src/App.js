@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
@@ -24,15 +24,16 @@ import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
 import Error404 from "./components/Error404";
-
+import logoSpinner from "./img/The Rolling Post.jpg"
 import Noticia from "./components/noticiaIndividual/Noticia";
 
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
-import { Container } from "react-bootstrap";
+import Swal from "sweetalert2";
+
+const URL = process.env.REACT_APP_API_URL;
 
 function App() {
-  let url = process.env.REACT_APP_API_URL;
   /* Usuarios registrados */
   const [user, setUser] = useState([]);
   const [consultarUser, setConsultarUser] = useState(true);
@@ -73,7 +74,7 @@ function App() {
     if (consultarUser) {
       const consultarAPI = async () => {
         try {
-          const res = await fetch(url + "/usuarios");
+          const res = await fetch(URL + "/usuarios");
           const inforUser = await res.json();
           if (res.status === 200) {
             setUser(inforUser);
@@ -92,7 +93,7 @@ function App() {
     if (consultarCat) {
       const consultarAPI = async () => {
         try {
-          const res = await fetch(url + "/categorias/listCategoria");
+          const res = await fetch(URL + "/categorias/listCategoria");
           const inforCategorias = await res.json();
           if (res.status === 200) {
             setCategorias(inforCategorias);
@@ -110,14 +111,17 @@ function App() {
   // Noticias
   const [noticias, setNoticias] = useState([]);
 
-  useEffect(() => {
-    //llamar API
-    consultarAPI();
-  }, []);
-
-  const consultarAPI = async () => {
+  const consultarAPI = useCallback(async () => {
     try {
-      const respuesta = await fetch(url + "/noticias");
+      Swal.fire({
+        imageUrl: logoSpinner,
+        imageWidth: 300,
+        imageHeight: 300,
+        imageAlt: 'Rolling Post Logo',
+        title: 'Ya llega el diario.',
+        showConfirmButton: false
+      })
+      const respuesta = await fetch(URL + "/noticias");
       const informacion = await respuesta.json();
       if (respuesta.status === 200) {
         setNoticias(informacion);
@@ -126,7 +130,16 @@ function App() {
       console.log(error);
       //Cartel de error "Sweetalert" que lo vuelva a intentar en unos minutos
     }
-  };
+    setTimeout(() => {
+      Swal.close()
+    },500);
+  }, []);
+
+  useEffect(() => {
+    //llamar API
+    consultarAPI();
+  }, [consultarAPI]);
+
   return (
     <Router>
       <div className="page-container">

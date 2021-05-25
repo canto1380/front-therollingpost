@@ -13,11 +13,11 @@ const Footer = () => {
         <Col className="footer-row1"><h1>The Rolling Post</h1></Col>
         <Col className="align-middle">
           <div className="footer-row1 text-end">
-          <a href="http://www.instragram.com.ar" className="text-light"><FontAwesomeIcon icon={faInstagram} className="me-2 botones-hover" size="2x"></FontAwesomeIcon></a>
-          <a href="http://www.facebook.com.ar" className="text-light"><FontAwesomeIcon icon={faFacebook} className="me-2 botones-hover" size="2x"></FontAwesomeIcon></a>
-          <a href="http://www.twitter.com.ar" className="text-light"><FontAwesomeIcon icon={faTwitter} className="me-2 botones-hover" size="2x"></FontAwesomeIcon></a>
-          <a href="http://www.youtube.com.ar" className="text-light"><FontAwesomeIcon icon={faYoutube} className="me-2 botones-hover" size="2x"></FontAwesomeIcon></a>
-          <a href="http://www.whatsapp.com.ar" className="text-light"><FontAwesomeIcon icon={faWhatsapp} className="me-2 botones-hover" size="2x"></FontAwesomeIcon></a>
+          <a href="http://www.instragram.com.ar" className="text-light"><FontAwesomeIcon icon={faInstagram} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.facebook.com.ar" className="text-light"><FontAwesomeIcon icon={faFacebook} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.twitter.com.ar" className="text-light"><FontAwesomeIcon icon={faTwitter} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.youtube.com.ar" className="text-light"><FontAwesomeIcon icon={faYoutube} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.whatsapp.com.ar" className="text-light"><FontAwesomeIcon icon={faWhatsapp} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
           </div>
         </Col>
       </Row>
