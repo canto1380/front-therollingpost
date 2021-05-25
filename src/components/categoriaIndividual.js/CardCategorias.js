@@ -8,8 +8,7 @@ import slogan from "../../img/sloganCovid.png";
 import CategoriaDestacada from '../CategoriaDestacada';
 
 const CardCategorias = (props) => {
-    const {cat, id} = props
-    console.log(cat)
+    const {cat} = props
     return (
         <Container>
             <Publicidad publicidad={slogan}></Publicidad>

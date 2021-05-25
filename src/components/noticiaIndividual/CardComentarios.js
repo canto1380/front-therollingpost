@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Image, Form, Row, Col, ListGroup, Button } from 'react-bootstrap';
 import LogoNR from "../../img/Logo-NR.png";
 import ItemComentarios from './ItemComentarios';
-import ItemMasLeidas from './ItemNoticias';
 
 const CardComentarios = () => {
     return (

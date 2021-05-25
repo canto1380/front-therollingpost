@@ -3,18 +3,24 @@ import CardDeck from 'react-bootstrap/CardDeck'
 import CardNoticia from './CardNoticia';
 
 const CategoriaDestacada = (props) => {
+    const {noticias} = props
 
     return (
-        
-            <section className="my-5 w-100" >
-            <h4>{props.titulo}</h4>
-        <hr />
-        <CardDeck className="cardDeck">
-  <CardNoticia></CardNoticia>
-  <CardNoticia></CardNoticia>
-  <CardNoticia></CardNoticia>
-        </CardDeck>
-</section>
+        <section className="my-5 w-100" >
+            <h4>{props.cat.nombreCategoria}</h4>
+            <hr />
+            <CardDeck className="cardDeck">
+                {
+                    noticias.map((not)=>{
+                        if(not.categoria === props.cat.nombreCategoria){
+                            return (<CardNoticia not={not} key={not._id}/>) 
+                        }
+                    }
+                        )
+                }
+                
+            </CardDeck>
+        </section>
     );
 };
 

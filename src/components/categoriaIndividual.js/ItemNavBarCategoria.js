@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, ListGroup, Row } from 'react-bootstrap';
+import { ListGroup, Row } from 'react-bootstrap';
 import {Link}  from 'react-router-dom'
 
 const ItemNavBarCategoria = () => {

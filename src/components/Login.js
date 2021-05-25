@@ -3,13 +3,12 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { campoRequerido, setToken } from "../helpers/helpers";
+import { setToken } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
-  const { user, setConsultar } = props;
   /* State */
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
@@ -43,8 +42,6 @@ const Login = (props) => {
       },
       body: JSON.stringify(valoresUser)
     }
-    const res = await fetch(url,config)
-    
     try {
       const config ={
         method: "POST",
@@ -89,7 +86,6 @@ const Login = (props) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
             props.history.push(`/`);
-            setConsultar(true)
           }
         });
       } else {

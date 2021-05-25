@@ -6,10 +6,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
-import Deportes from "./components/Deportes";
-import Policiales from "./components/Policiales";
-import Actualidad from "./components/Actualidad";
-import Politica from "./components/Politica";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
 import Login from './components/Login'
@@ -19,22 +15,18 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-import { getToken } from "./helpers/helpers";
+// import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 
 import Noticia from "./components/noticiaIndividual/Noticia";
 
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
-import { Container } from "react-bootstrap";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 
 
 function App() {
   let url = process.env.REACT_APP_API_URL
-  /* Usuarios registrados */
-  const [user, setUser] = useState([]);
-  const [consultarUser, setConsultarUser] =useState(true)
 
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
@@ -44,9 +36,12 @@ function App() {
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
 
+  /* Noticias guardadas */
+  const [noticias, setNoticias] = useState([])
+  const [consultarNoticias, setConsultarNoticias] = useState(true)
+
   /* Usuario logueado */
-  const [tok, setTok] = useState()
-  const [consultar, setConsultar] = useState(false)
+  // const [tok, setTok] = useState()
 
   /* Usado para tomar el token del usuario logueado */
   // useEffect(()=>{
@@ -68,48 +63,61 @@ function App() {
   // console.log(tok)
 
   /* Consulta API sobre usuarios */
-  useEffect(() => {
-    if(consultarUser){
-      const consultarAPI = async() =>{ 
-        try {
-          const res = await fetch(url+"/user/listUser")
-          const inforUser = await res.json()
-           if(res.status === 200){
-             setUser(inforUser)
-             setConsultarUser(false)
-           }
-        } catch (error) {
-          console.log(error)
-        }
-      }    
-    consultarAPI()
+
+// useEffect(() => {
+//   fetch(url+"/categorias/listCategoria")
+//   .then(res => res.json())
+//   .then(json =>setCategorias(json))
+// },[url])
+// console.log(categorias)
+
+// useEffect(() => {
+//   fetch(url+"/noticias/listNoticias")
+//   .then(res => res.json())
+//   .then(json =>setNoticias(json))
+// },[url])
+// console.log(noticias)
+
+/* Consulta API - categorias */
+useEffect(() => {
+  const consultarAPICat = async() =>{ 
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL+"/categorias/listCategoria")
+      const inforCategorias = await res.json()
+       if(res.status === 200){
+         setCategorias(inforCategorias)
+       }
+    } catch (error) {
+      console.log(error)
     }
-  },[consultarUser])
-  
-  /* Consulta API - categorias */
-  useEffect(() => {
-    if(consultarCat){
-      const consultarAPI = async() =>{ 
-        try {
-          const res = await fetch(url+"/categorias/listCategoria")
-          const inforCategorias = await res.json()
-           if(res.status === 200){
-             setCategorias(inforCategorias)
-             setConsultarCat(false)
-           } 
-        } catch (error) {
-          console.log(error)
-        }
-      }    
-    consultarAPI()
+  }
+  consultarAPICat()
+},[consultarCat])
+console.log(categorias)
+
+/* Consulta API - Noticias */
+useEffect(() => {
+  const consultarAPINoticias = async() =>{
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL+"/noticias/listNoticias")
+      const infNoticias = await res.json()
+      if(res.status === 200){
+        setNoticias(infNoticias)
+      }
+    } catch (error) {
+      console.log(error)
     }
-  },[consultarCat])
+  }
+   consultarAPINoticias() 
+}, [consultarNoticias])
+
+console.log(noticias)
 
   return (
     <Router>
       <Navigation
-        setConsultar={setConsultar}
-        tok={tok}
+        // setConsultar={setConsultar}
+        // tok={tok}
         categorias={categorias}
         categoriasDestacadas={categoriasDestacadas}
         categoriasNoDestacadas={categoriasNoDestacadas}
@@ -122,13 +130,16 @@ function App() {
      
       <Switch>
         <Route exact path="/">
-          <Inicio />
+          <Inicio 
+            noticias={noticias}
+            consultarCat={consultarCat}
+            setConsultarNoticias={setConsultarNoticias}
+            categoriasDestacadas={categoriasDestacadas}
+            noticias={noticias}
+          />
         </Route>
         <Route exact path="/inicio-sesion">
-          <Login 
-            user={user}
-            setConsultar={setConsultar}
-          />
+          <Login/>
         </Route>
         <Route exact path="/registro">
           <Registro />
@@ -137,18 +148,7 @@ function App() {
 
           <Suscripcion />
         </Route>
-        {/* <Route exact path="/deportes">
-          <Deportes />
-        </Route>
-        <Route exact path="/policiales">
-          <Policiales />
-        </Route>
-        <Route exact path="/actualidad">
-          <Actualidad />
-        </Route>
-        <Route exact path="/politica">
-          <Politica />
-        </Route> */}
+        
         <Route exact path="/contactanos">
           <Contacto />
         </Route>
@@ -174,6 +174,7 @@ function App() {
           <CategoriaMenu
             categorias={categorias}
             setConsultarCat={setConsultarCat}
+            consultarCat={consultarCat}
             cantDestacadas={cantDestacadas}
           />
         </Route>
