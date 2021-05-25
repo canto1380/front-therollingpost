@@ -85,7 +85,7 @@ const AgregarNoticia = (props) => {
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="row mb-3 m-0 p-0 py-2 bg-secondary text-white">
+        <section className="row mb-3 m-0 p-0 py-2 backcolor text-white">
           <div className="col-sm-12 col-md-10 m-0 p-0">
             <h1 className="mx-1">Formulario de Noticia: </h1>
           </div>

@@ -103,7 +103,7 @@ const EditarNoticia = (props) => {
         className="mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="mb-3 m-0 p-0 py-2 bg-secondary text-white">
+        <section className="mb-3 m-0 p-0 py-2 backcolor text-white">
           <div className="m-0 p-0">
             <h1 className="text-center">Editar Noticia: </h1>
           </div>

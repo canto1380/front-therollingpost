@@ -1,23 +1,22 @@
 import React from "react";
+import "./Footer.css";
 import { Container, Row, Col, Dropdown } from 'react-bootstrap'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faFacebook , faInstagram, faTwitter, faYoutube, faWhatsapp} from '@fortawesome/free-brands-svg-icons'
-
 import '../App.css'
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <Container fluid className="bg-secondary py-3 text-light">
+    <Container fluid className="backcolor py-3 text-light">
       <Row className="align-items-center py-2" xs={1} sm={2}>
-        <Col className="footer-row1"><h1>The Rolling Post</h1></Col>
+        <Col><h1>The Rolling Post</h1></Col>
         <Col className="align-middle">
           <div className="footer-row1 text-end">
-          <a href="http://www.instragram.com.ar" className="text-light"><FontAwesomeIcon icon={faInstagram} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
-          <a href="http://www.facebook.com.ar" className="text-light"><FontAwesomeIcon icon={faFacebook} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
-          <a href="http://www.twitter.com.ar" className="text-light"><FontAwesomeIcon icon={faTwitter} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
-          <a href="http://www.youtube.com.ar" className="text-light"><FontAwesomeIcon icon={faYoutube} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
-          <a href="http://www.whatsapp.com.ar" className="text-light"><FontAwesomeIcon icon={faWhatsapp} className="me-2 botones-hover" size="3x"></FontAwesomeIcon></a>
+          <a href="https://www.instagram.com/?hl=es-la" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faInstagram} className="me-2 turn insta" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.facebook.com.ar" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faFacebook} className="me-2 turn face" size="3x"></FontAwesomeIcon></a>
+          <a href="https://twitter.com/?lang=es" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faTwitter} className="me-2 turn twit" size="3x"></FontAwesomeIcon></a>
+          <a href="http://www.youtube.com.ar" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faYoutube} className="me-2 turn u2b" size="3x"></FontAwesomeIcon></a>
+          <a href="https://web.whatsapp.com/" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faWhatsapp} className="me-2 turn what" size="3x"></FontAwesomeIcon></a>
           </div>
         </Col>
       </Row>
