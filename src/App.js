@@ -14,23 +14,34 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
-
+import FormFeedback from "./components/pruebaFeedback";
 import Noticia from "./components/noticiaIndividual/Noticia";
-
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 
 
 function App() {
+
+  const url = process.env.REACT_APP_API_URL;
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] = useState(true);
+
+  const [consultar, setConsultar] = useState(true)
+
+  const [tok, setTok]=useState([]);
+
+  const [user, setUser]= useState([])
+  const [consultarUser, setConsultarUser] = useState(true)
+
+  /*Clientes suscriptos*/
+  const [clientes, setClientes]=useState([]);
+  const [consultarClientes, setConsultarClientes]= useState(true)
 
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
@@ -54,9 +65,48 @@ useEffect(() => {
     } catch (error) {
       console.log(error)
     }
+  };
+      consultarAPICat();
+  },[consultarCat]);
+
+  console.log(consultar);
+  /* Usado para tomar el token del usuario logueado */
+  useEffect(() => {
+    const consultarLS = async () => {
+      if (consultar) {
+        // setTok(getToken());
+        try {
+          console.log(localStorage.getItem("jwt"));
+          setTok(localStorage.getItem("jwt"));
+          setConsultar(false);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    consultarLS();
+  }, [consultar]);
+  console.log(tok);
+
+  /* Consulta API sobre usuarios */
+  useEffect(() => {
+    if (consultarUser) {
+      const consultarAPI = async () => {
+        try {
+          const res = await fetch(url + "/usuarios");
+          const inforUser = await res.json();
+          if (res.status === 200) {
+            setUser(inforUser);
+            setConsultarUser(false);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      consultarAPI();
+    }
   }
-  consultarAPICat()
-},[consultarCat])
+,[consultarUser])
 
   /* Consulta API - Noticias */
   useEffect(() => {
@@ -74,22 +124,34 @@ useEffect(() => {
      consultarAPINoticias() 
   }, [consultarNoticias])
 
-/* Consulta API - Noticias */
-useEffect(() => {
-  const consultarAPINoticias = async() =>{
-    try {
-      const res = await fetch(process.env.REACT_APP_API_URL+"/noticias/listNoticias")
-      const infNoticias = await res.json()
-      if(res.status === 200){
-        setNoticias(infNoticias)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-   consultarAPINoticias() 
-}, [consultarNoticias])
 
+
+/*ConsultarAPI -Clientes*/
+
+  useEffect (()=>{
+    if(consultarClientes){
+      const consultarAPI = async()=> {
+        try{
+          const respuesta = await fetch (url + "/clientes");
+          const infoClientes = await respuesta.json();
+          console.log("todo okS")
+          console.log(respuesta)
+          if (respuesta.status ===200){
+            console.log(infoClientes)
+            setClientes(infoClientes);
+            setConsultarClientes(false);
+          }
+        }catch(error){
+          console.log(error)
+        }
+      }
+      consultarAPI();
+      
+    };
+    
+  },[consultarClientes])
+  
+  
 
   return (
     <Router>
@@ -121,7 +183,7 @@ useEffect(() => {
           <Registro />
         </Route>
         <Route exact path="/suscripcion">
-          <Suscripcion />
+          <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes}  setConsultarClientes={setConsultarClientes} />
         </Route>
         
         <Route exact path="/contactanos">
@@ -149,6 +211,7 @@ useEffect(() => {
         <Route exact path="/menu-categorias">
           <CategoriaMenu
             categorias={categorias}
+            consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
             consultarCat={consultarCat}
             cantDestacadas={cantDestacadas}
@@ -197,6 +260,9 @@ useEffect(() => {
         </Route>
         <Route exact path="/contactenos">
           <Contacto></Contacto>
+        </Route>
+        <Route exact path="/feed">
+          <FormFeedback></FormFeedback>
         </Route>
       </Switch>
       <Footer 

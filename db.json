@@ -46,20 +46,75 @@
       "id": 58
     },
     {
-      "nombreCategoria": "Policiales",
       "nombreCategoria": "Deportes",
       "id": 63
+    },
+    {
+      "nombreCategoria": "cine",
+      "id": 64
+    },
+    {
+      "nombreCategoria": "futbol",
+      "id": 65
+    },
+    {
+      "nombreCategoria": "actualidad",
+      "id": 66
     }
   ],
   "noticias": [
     {
-      "tituloNoticia": "Balcera",
-      "subtituloNoticiaRef": "ulcera",
-      "resumenNoticiaRef": "asñdmañsdnañsdnañksdnñk",
-      "autorRef": "ñasdañsdmalknds",
-      "imagenRef": "C:\\fakepath\\30953165.jpg",
-      "categoria": "Economía",
+      "tituloNoticia": "holaasd",
+      "subtituloNoticiaRef": "asdasd",
+      "resumenNoticiaRef": "asdasd",
+      "autorRef": "asdasd",
+      "imagenRef": "C:\\fakepath\\logopaisa.png",
+      "categoria": "cine",
       "id": 1
+    },
+    {
+      "tituloNoticia": "cxzzx",
+      "subtituloNoticia": "cbvnvbn",
+      "resumenNoticia": "bvnvbnvbn",
+      "autor": "vbnbvn",
+      "categoria": "cine",
+      "imagen": "C:\\fakepath\\logo paisa.png",
+      "id": 2
+    }
+  ],
+  "clientes": [
+    {
+      "apNom": "alejandro poviña",
+      "direccion": "pje s/n 12",
+      "localidad": "yerba buena",
+      "codigoPostal": "4107",
+      "telefono": "3816448281",
+      "email": "alejandro.povina@gmail.com",
+      "password": "123456",
+      "plan": "familiar",
+      "id": 1
+    },
+    {
+      "apNom": "asdas",
+      "direccion": "gfhg",
+      "localidad": "dfgf",
+      "codigoPostal": "dsa",
+      "telefono": "2032",
+      "email": "dg@gmial.com",
+      "password": "13sdf",
+      "plan": "familiar",
+      "id": 2
+    },
+    {
+      "apNom": "",
+      "direccion": "",
+      "localidad": "",
+      "codigoPostal": "",
+      "telefono": 0,
+      "email": "",
+      "password": "",
+      "plan": "",
+      "id": 3
     }
   ]
 }
