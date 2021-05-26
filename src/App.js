@@ -93,7 +93,7 @@ function App() {
     if (consultarCat) {
       const consultarAPI = async () => {
         try {
-          const res = await fetch(URL + "/categorias/listCategoria");
+          const res = await fetch(URL + "/categorias");
           const inforCategorias = await res.json();
           if (res.status === 200) {
             setCategorias(inforCategorias);
@@ -243,9 +243,7 @@ function App() {
             <Route exact path="*">
               <Error404></Error404>
             </Route>
-            <Route exact path="/contactenos">
-              <Contacto></Contacto>
-            </Route>
+            
           </Switch>
         </div>
         <Footer />

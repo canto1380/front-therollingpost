@@ -24,13 +24,13 @@ const Inicio = () => {
     <Col sm={10}>
     <NoticiasPrincipal></NoticiasPrincipal>
     </Col>
-    <Col sm={2}>
-    <Publicidad publicidad={Coca}></Publicidad>
-    <Publicidad publicidad={Corona}></Publicidad>
-    <Publicidad publicidad={MP}></Publicidad>
-    <Publicidad publicidad={PedidosYa}></Publicidad>
-    <Publicidad publicidad={RollingLogo}></Publicidad>
-    <Publicidad publicidad={BnB}></Publicidad>
+    <Col className=" d-none d-md-block " md={2} >
+    <Publicidad publicidad={Coca} href="https://www.cocacoladeargentina.com.ar/"></Publicidad>
+    <Publicidad publicidad={Corona} href="https://cervezacorona.es/"></Publicidad>
+    <Publicidad publicidad={MP} href="https://www.mercadopago.com.ar/"></Publicidad>
+    <Publicidad publicidad={PedidosYa} href="https://www.pedidosya.com.ar/"></Publicidad>
+    <Publicidad publicidad={RollingLogo} href="https://rollingcodeschool.com/"></Publicidad>
+    <Publicidad publicidad={BnB} href="https://www.arcor.com/ar/marca/bon-o-bon"></Publicidad>
     </Col>
   </Row>
         <CategoriaDestacada></CategoriaDestacada>

@@ -138,11 +138,6 @@
   }
 }
 
-@media(max-width:575px){
-    .footer-row1{
-        text-align: center;
-    }
-}
 .page-container {
     display: flex;
     flex-direction: column;
@@ -152,9 +147,6 @@
     flex: 1;
   }
   
-  .footer-row1{
-      text-align: center;
-  }
 
 @media(min-width:576px){
   

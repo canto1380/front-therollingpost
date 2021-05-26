@@ -121,7 +121,7 @@ const Login = (props) => {
       </div>
       <Row className="mt-3 d-flex justify-content-around">
         <Col sm={6} md={8}>
-          <div className="">
+          <div className="mb-5">
             <Image className="w-100" src={ImgPortada} rounded />
           </div>
         </Col>
@@ -166,7 +166,7 @@ const Login = (props) => {
               <hr />
               <div className="text-center">
                 <p>
-                  ¿No tienes cuenta? <Link to={"/"}>Registrate!</Link>
+                  ¿No tienes cuenta? <Link to={"/suscripcion"}>Registrate!</Link>
                 </p>
               </div>
             </div>
