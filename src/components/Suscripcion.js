@@ -120,46 +120,48 @@ const Suscripcion = (props) => {
             <div className="mx-4 my-4">   
         <Form onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Label>Apellido y Nombre</Form.Label>
+          <Form.Label><b>*Apellido y Nombre</b></Form.Label>
           <Form.Control type="text" placeholder="Ingrese su apellido y nombre"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setApNOm(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Dirección</Form.Label>
+        <Form.Group className="mt-2">
+          <Form.Label><b>*Dirección</b></Form.Label>
           <Form.Control type="text" placeholder="Ingrese su dirección"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setDireccion(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Localidad</Form.Label>
+        <Form.Group className="mt-2">
+          <Form.Label><b>*Localidad</b></Form.Label>
           <Form.Control type="text" placeholder="Ingrese la localidad donde vive"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setLocalidad(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Código Postal</Form.Label>
-          <Form.Control type="text" placeholder="Ingrese su codigo postal"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setCodigoPostal(e.target.value)}  />
+        <Form.Group className="mt-2">
+          <Form.Label><b>*Código Postal</b></Form.Label>
+          <Form.Control type="number" placeholder="Ingrese su codigo postal"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setCodigoPostal(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Teléfono</Form.Label>
+        <Form.Group className="mt-2">
+          <Form.Label><b>*Teléfono</b></Form.Label>
           <Form.Control type="number" placeholder="Ingrese su numero de telefono"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setTelefono(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group>
-          <Form.Label> Email</Form.Label>
+        <Form.Group className="mt-2">
+          <Form.Label> <b>*Email</b></Form.Label>
           <Form.Control type="email" placeholder="Ingrese su email"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setEmail(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group controlId="formBasicPassword" className="my-3">
-          <Form.Label>Password</Form.Label>
+        <Form.Group  className="mt-2">
+          <Form.Label><b>*Password</b></Form.Label>
           <Form.Control type="password" placeholder="Ingrese su contraseña"  isValid={passValid} isInvalid={passInValid} onChange={(e)=>setPassword(e.target.value)} />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <FormGroup>
+        <Form.Label className="my-3 "><b>*Seleccione su plan</b></Form.Label>
+        <FormGroup >
         <Form.Check type="radio" name="plan de acceso" inline label="Plan de Acceso individual"  value="individual" onChange={cambioPlan} />
         <Form.Check type="radio" name="plan de acceso" inline label="Plan de Acceso Familiar"  value="familiar" onChange={cambioPlan} />
         </FormGroup>
-        <Form.Group controlId="formBasicCheckbox" className="my-3">
-          <Form.Check type="checkbox" label="Acepto terminos y condiciones" />
+        <Form.Group  className="mt-4">
+      
+          <Form.Check type="checkbox" label="Acepto términos y condiciones" />
         </Form.Group>
         <div className="d-flex justify-content-center my-4">
         <Button className="w-75 rounded-pill" variant="primary" type="submit">

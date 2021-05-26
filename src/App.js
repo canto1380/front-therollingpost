@@ -23,6 +23,7 @@ import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
+import FormFeedback from "./components/pruebaFeedback";
 
 
 function App() {
@@ -232,6 +233,9 @@ function App() {
         </Route>
         <Route exact path="/contactenos">
           <Contacto></Contacto>
+        </Route>
+        <Route exact path="/feed">
+          <FormFeedback></FormFeedback>
         </Route>
       </Switch>
       <Footer />
