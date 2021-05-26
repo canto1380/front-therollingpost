@@ -16,8 +16,7 @@ const CardUltimasNoticias = () => {
                 <ItemMasLeidas/>
             </ListGroup>
         </Container>
-    );<div>
-    </div>
+    );
 };
 
 export default CardUltimasNoticias;

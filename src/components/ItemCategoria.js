@@ -6,7 +6,7 @@ import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
-    const {cat, cantDestacadas} = props
+    const { cantDestacadas} = props
 const eliminarCategoria =(id) =>{
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',

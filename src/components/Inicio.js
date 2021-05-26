@@ -11,7 +11,7 @@ import slogan from "../img/sloganCovid.png";
 
 const Inicio = (props) => {
   const {categoriasDestacadas, noticias} = props
-  
+
   return (
     
     <Container className="my-5">
@@ -28,7 +28,7 @@ const Inicio = (props) => {
     </Col>
   </Row>
       {
-        categoriasDestacadas.map((cat) =>(<CategoriaDestacada cat={cat} noticias={noticias} key={cat._id}/>))
+        categoriasDestacadas.map((cat) =>(<CategoriaDestacada noticias={noticias} cat={cat} key={cat._id}/>))
       }
     </Container>
   );

@@ -26,8 +26,6 @@ import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 
 
 function App() {
-  let url = process.env.REACT_APP_API_URL
-
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] =useState(true)
@@ -39,6 +37,8 @@ function App() {
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
+  
+  let ultimasNoticias = noticias.filter( not => not.categoria ==="Deportes")
 
   /* Usuario logueado */
   // const [tok, setTok] = useState()
@@ -93,7 +93,22 @@ useEffect(() => {
   }
   consultarAPICat()
 },[consultarCat])
-console.log(categorias)
+
+  /* Consulta API - Noticias */
+  useEffect(() => {
+    const consultarAPINoticias = async() =>{
+      try {
+        const res = await fetch(process.env.REACT_APP_API_URL+"/noticias/listNoticias")
+        const infNoticias = await res.json()
+        if(res.status === 200){
+          setNoticias(infNoticias)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+     consultarAPINoticias() 
+  }, [consultarNoticias])
 
 /* Consulta API - Noticias */
 useEffect(() => {
@@ -111,14 +126,13 @@ useEffect(() => {
    consultarAPINoticias() 
 }, [consultarNoticias])
 
-console.log(noticias)
-
   return (
     <Router>
       <Navigation
         // setConsultar={setConsultar}
         // tok={tok}
         categorias={categorias}
+        noticias={noticias}
         categoriasDestacadas={categoriasDestacadas}
         categoriasNoDestacadas={categoriasNoDestacadas}
       />
@@ -130,12 +144,11 @@ console.log(noticias)
      
       <Switch>
         <Route exact path="/">
-          <Inicio 
+          <Inicio
             noticias={noticias}
             consultarCat={consultarCat}
             setConsultarNoticias={setConsultarNoticias}
             categoriasDestacadas={categoriasDestacadas}
-            noticias={noticias}
           />
         </Route>
         <Route exact path="/inicio-sesion">
@@ -160,6 +173,7 @@ console.log(noticias)
             <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
             <CardCategorias
               cat={cat}
+              noticias={noticias}
             />
             </Route>
           ))

@@ -6,13 +6,21 @@ import NoticiasPrincipal from "../NoticiasPrincipal";
 
 import slogan from "../../img/sloganCovid.png";
 import CategoriaDestacada from '../CategoriaDestacada';
+import ItemNoticiasxCat from './ItemNoticiasxCat';
 
 const CardCategorias = (props) => {
-    const {cat} = props
+    const {cat, noticias} = props
+    console.log(noticias)
+    console.log(cat.nombreCategoria)
+    // let noticiasXCat =  noticias.filter(not => not.categoria === cat.nombreCategoria)
+    let noticiasXCat = noticias.filter(not => not.categoria === cat.nombreCategoria)
+    console.log(noticias._id +"  "+ cat.nombreCategoria)
+    console.log(noticiasXCat)
+    
     return (
-        <Container>
+        <Container fluid className="my-3 px-4">
             <Publicidad publicidad={slogan}></Publicidad>
-            <h1 className="mt-5">{cat.nombreCategoria}</h1>
+            <h1 className="mt-5">{props.cat.nombreCategoria}</h1>
             <ListGroup className=" border-0">
                 {/* map que lea */}
                 <hr className="my-1"/>
@@ -24,11 +32,12 @@ const CardCategorias = (props) => {
                     <NoticiasPrincipal></NoticiasPrincipal>
                 </Col>
             </Row>
-            <Row>
-                <CategoriaDestacada
-                    titulo={cat.nombreCategoria}
+            {/* <Row> */}
+                <ItemNoticiasxCat
+                    cat={cat}
+                    noticiasXCat={noticiasXCat}
                 />
-            </Row>
+            {/* </Row> */}
 
         </Container>
     );

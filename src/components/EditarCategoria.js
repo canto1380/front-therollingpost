@@ -25,7 +25,7 @@ const EditarCategoria = (props) => {
     useEffect(() => {
         const consultarCategorias = async () => {
             try {
-                const res = await fetch(URL + "/categorias/categoria/" + id)
+                const res = await fetch(process.env.REACT_APP_API_URL + "/categorias/categoria/" + id)
                 console.log(res)
                 if (res.status === 200) {
                     const resp = await res.json();

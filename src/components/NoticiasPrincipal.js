@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { Row, Col } from "react-bootstrap";
 import CardNoticia from './CardNoticia';
 
@@ -6,7 +6,6 @@ import CardNoticia from './CardNoticia';
 const NoticiasPrincipal = (props) => {
   // const {noticias, setConsultarNoticias} = props
   // console.log(noticias)
-
 
   return (
     <section className="my-3">
