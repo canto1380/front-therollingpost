@@ -30,10 +30,6 @@
   ],
   "categorias": [
     {
-      "nombreCategoria": "Deportes",
-      "id": 57
-    },
-    {
       "nombreCategoria": "Actualidad",
       "id": 61
     },
@@ -51,20 +47,19 @@
     },
     {
       "nombreCategoria": "Policiales",
+      "nombreCategoria": "Deportes",
       "id": 63
     }
   ],
   "noticias": [
     {
-      "id": 1,
-      "titulo": "Titulo de la noticia",
-      "descripcion": "Descripcion de la noticia",
-      "texto": "Desarrollo de la noticia",
-      "foto": "url de la noticia",
-      "pieFoto": "Texto debajo de la foto",
-      "idCateogria": 4,
-      "fecha": "05/05/2021",
-      "hora": "18:15"
+      "tituloNoticia": "Balcera",
+      "subtituloNoticiaRef": "ulcera",
+      "resumenNoticiaRef": "asñdmañsdnañsdnañksdnñk",
+      "autorRef": "ñasdañsdmalknds",
+      "imagenRef": "C:\\fakepath\\30953165.jpg",
+      "categoria": "Economía",
+      "id": 1
     }
   ]
 }

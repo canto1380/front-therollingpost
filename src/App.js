@@ -1,8 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -15,8 +14,11 @@ import CategoriaMenu from './components/CategoriaMenu'
 import NoticiasMenu from './components/NoticiasMenu'
 import SuscriptosMenu from './components/SuscriptosMenu'
 import AgregarCategoria from './components/AgregarCategoria'
-// import { getToken } from "./helpers/helpers";
+
 import EditarCategoria from "./components/EditarCategoria";
+import PreviewNoticia from "./components/PreviewNoticia";
+import AgregarNoticia from "./components/AgregarNoticia";
+import EditarNoticia from "./components/EditarNoticia";
 
 import Noticia from "./components/noticiaIndividual/Noticia";
 
@@ -28,7 +30,7 @@ import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 function App() {
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
-  const [consultarCat, setConsultarCat] =useState(true)
+  const [consultarCat, setConsultarCat] = useState(true);
 
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
@@ -39,9 +41,6 @@ function App() {
   const [consultarNoticias, setConsultarNoticias] = useState(true)
   
   let ultimasNoticias = noticias.filter( not => not.categoria ==="Deportes")
-
-  /* Usuario logueado */
-  // const [tok, setTok] = useState()
 
   /* Usado para tomar el token del usuario logueado */
   // useEffect(()=>{
@@ -62,7 +61,27 @@ function App() {
   // },[consultar])
   // console.log(tok)
 
-  /* Consulta API sobre usuarios */
+  const [tok, setTok] = useState();
+  const [consultar, setConsultar] = useState(false);
+
+  console.log(consultar);
+  /* Usado para tomar el token del usuario logueado */
+  useEffect(() => {
+    const consultarLS = async () => {
+      if (consultar) {
+        setTok(getToken());
+        try {
+          console.log(localStorage.getItem("jwt"));
+          setTok(localStorage.getItem("jwt"));
+          setConsultar(false);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    consultarLS();
+  }, [consultar]);
+  console.log(tok);
 
 // useEffect(() => {
 //   fetch(url+"/categorias/listCategoria")
@@ -126,6 +145,7 @@ useEffect(() => {
    consultarAPINoticias() 
 }, [consultarNoticias])
 
+
   return (
     <Router>
       <Navigation
@@ -142,6 +162,7 @@ useEffect(() => {
        <APIclima></APIclima> 
        </div>
      
+      <Navigation setConsultar={setConsultar} tok={tok} />
       <Switch>
         <Route exact path="/">
           <Inicio
@@ -158,7 +179,6 @@ useEffect(() => {
           <Registro />
         </Route>
         <Route exact path="/suscripcion">
-
           <Suscripcion />
         </Route>
         
@@ -202,14 +222,36 @@ useEffect(() => {
           <EditarCategoria
             categorias={categorias}
             consultarCat={consultarCat}
-            setConsultarCat ={setConsultarCat}
+            setConsultarCat={setConsultarCat}
           />
         </Route>
         <Route exact path="/menu-noticias">
-          <NoticiasMenu/>
+          <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
         </Route>
         <Route exact path="/menu-suscriptos">
-          <SuscriptosMenu/>
+          <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
+        </Route>
+        <Route exact path="/preview/:id">
+          <PreviewNoticia></PreviewNoticia>
+        </Route>
+        <Route exact path="/agregar-Noticia">
+          <AgregarNoticia
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat={setConsultarCat}
+            consultarAPI={consultarAPI}
+          ></AgregarNoticia>
+        </Route>
+        <Route exact path="/editar-noticia/:id">
+          <EditarNoticia
+            consultarAPI={consultarAPI}
+            categorias={categorias}
+            consultarCat={consultarCat}
+            setConsultarCat={setConsultarCat}
+          ></EditarNoticia>
+        </Route>
+        <Route exact path="/contactenos">
+          <Contacto></Contacto>
         </Route>
       </Switch>
       <Footer 
