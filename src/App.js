@@ -39,6 +39,10 @@ function App() {
   const [tok, setTok] = useState();
   const [consultar, setConsultar] = useState(false);
 
+  /*Clientes suscriptos*/
+  const [clientes, setClientes]=useState([]);
+  const [consultarClientes, setConsultarClientes]= useState(true)
+
   console.log(consultar);
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {
@@ -111,12 +115,41 @@ function App() {
       const informacion = await respuesta.json();
       if (respuesta.status === 200) {
         setNoticias(informacion);
+        
       }
     } catch (error) {
       console.log(error);
       //Cartel de error "Sweetalert" que lo vuelva a intentar en unos minutos
     }
   };
+
+/*ConsultarAPI -Clientes*/
+
+  useEffect (()=>{
+    if(consultarClientes){
+      const consultarAPI = async()=> {
+        try{
+          const respuesta = await fetch (url + "/clientes");
+          const infoClientes = await respuesta.json();
+          console.log("todo okS")
+          console.log(respuesta)
+          if (respuesta.status ===200){
+            console.log(infoClientes)
+            setClientes(infoClientes);
+            setConsultarClientes(false);
+          }
+        }catch(error){
+          console.log(error)
+        }
+      }
+      consultarAPI();
+      
+    };
+    
+  },[consultarClientes])
+  
+  
+
   return (
     <Router>
       <Navigation setConsultar={setConsultar} tok={tok} />
@@ -131,7 +164,7 @@ function App() {
           <Registro />
         </Route>
         <Route exact path="/suscripcion">
-          <Suscripcion precio={"$150"} />
+          <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes}  setConsultarClientes={setConsultarClientes} />
         </Route>
         <Route exact path="/deportes">
           <Deportes />
