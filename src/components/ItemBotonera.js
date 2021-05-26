@@ -46,6 +46,7 @@ const ItemBotonera = (props) => {
 
   //
   const eliminarProductos = (id) => {
+    console.log(id)
     Swal.fire({
       title: "Estas seguro de Borrar esta noticia?",
       text: "Una vez elminado no se puede volver atras!",
@@ -58,7 +59,7 @@ const ItemBotonera = (props) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         //aqui se borra el producto
-        const url = `${process.env.REACT_APP_API_URL + "/noticias"}/${id}`;
+        const url = `${process.env.REACT_APP_API_URL + "/noticias/deleteNoticia"}/${id}`;
         try {
           const respuesta = await fetch(url, {
             method: "DELETE",
@@ -71,7 +72,7 @@ const ItemBotonera = (props) => {
               "success"
             );
             //actualizar los datos de la lista
-            props.consultarAPI();
+            props.setConsultarNoticias(!props.consultarNoticias);
           }
         } catch (error) {
           console.log(error);
@@ -84,20 +85,20 @@ const ItemBotonera = (props) => {
     <div className="d-flex justify-content-evenly">
       <Link
         className="btn btn-warning me-1 text-light botones"
-        to={`/editar-noticia/${props.noticia.id}`}
+        to={`/editar-noticia/${props.noticia._id}`}
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
       </Link>
       <Button
         className="me-1 botones"
         variant="danger"
-        onClick={() => eliminarProductos(props.noticia.id)}
+        onClick={() => eliminarProductos(props.noticia._id)}
       >
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
         className="btn btn-info me-1 text-light botones"
-        to={`/preview/${props.noticia.id}`}
+        to={`/preview/${props.noticia._id}`}
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>

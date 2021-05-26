@@ -72,7 +72,7 @@ const AgregarNoticia = (props) => {
             "Ya puedes revisar la noticia antes de publicarla",
             "success"
           );
-          props.consultarAPI();
+          props.setConsultarNoticias(props.consultarNoticias);
         }
       } catch (error) {
         //captura el error que se genera

@@ -38,7 +38,7 @@ const eliminarCategoria =(id) =>{
                             'success'
                           )
                         // actualizar los datos de la lista de productos
-                        props.setConsultarCat(true);
+                        props.setConsultarCat(!props.consultarCat);
                     }
                 } catch (error) {
                     console.log(error)

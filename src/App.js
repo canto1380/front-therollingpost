@@ -35,67 +35,12 @@ function App() {
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
-
+  console.log(categorias)
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
   
   let ultimasNoticias = noticias.filter( not => not.categoria ==="Deportes")
-
-  /* Usado para tomar el token del usuario logueado */
-  // useEffect(()=>{
-  //     const consultarLS =async ()=>{
-  //       if(consultar){
-  //         setTok(getToken())
-  //         try {
-  //           console.log(localStorage.getItem('jwt'))
-  //           setTok(localStorage.getItem('jwt'))
-  //           setConsultar(false)
-  //         } catch (error) {
-  //           console.log(error)
-  //         }
-  //       } 
-        
-  //     }
-  //     consultarLS()
-  // },[consultar])
-  // console.log(tok)
-
-  const [tok, setTok] = useState();
-  const [consultar, setConsultar] = useState(false);
-
-  console.log(consultar);
-  /* Usado para tomar el token del usuario logueado */
-  useEffect(() => {
-    const consultarLS = async () => {
-      if (consultar) {
-        setTok(getToken());
-        try {
-          console.log(localStorage.getItem("jwt"));
-          setTok(localStorage.getItem("jwt"));
-          setConsultar(false);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    };
-    consultarLS();
-  }, [consultar]);
-  console.log(tok);
-
-// useEffect(() => {
-//   fetch(url+"/categorias/listCategoria")
-//   .then(res => res.json())
-//   .then(json =>setCategorias(json))
-// },[url])
-// console.log(categorias)
-
-// useEffect(() => {
-//   fetch(url+"/noticias/listNoticias")
-//   .then(res => res.json())
-//   .then(json =>setNoticias(json))
-// },[url])
-// console.log(noticias)
 
 /* Consulta API - categorias */
 useEffect(() => {
@@ -149,8 +94,6 @@ useEffect(() => {
   return (
     <Router>
       <Navigation
-        // setConsultar={setConsultar}
-        // tok={tok}
         categorias={categorias}
         noticias={noticias}
         categoriasDestacadas={categoriasDestacadas}
@@ -161,8 +104,7 @@ useEffect(() => {
         <APImoneda></APImoneda>
        <APIclima></APIclima> 
        </div>
-     
-      <Navigation setConsultar={setConsultar} tok={tok} />
+
       <Switch>
         <Route exact path="/">
           <Inicio
@@ -225,11 +167,12 @@ useEffect(() => {
             setConsultarCat={setConsultarCat}
           />
         </Route>
+        {/* Menu Noticias */}
         <Route exact path="/menu-noticias">
-          <NoticiasMenu noticias={noticias} consultarAPI={consultarAPI} />
+        <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias}  setConsultarNoticias={setConsultarNoticias} />
         </Route>
         <Route exact path="/menu-suscriptos">
-          <SuscriptosMenu noticias={noticias} consultarAPI={consultarAPI} />
+        <SuscriptosMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias} />
         </Route>
         <Route exact path="/preview/:id">
           <PreviewNoticia></PreviewNoticia>
@@ -239,12 +182,14 @@ useEffect(() => {
             categorias={categorias}
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
-            consultarAPI={consultarAPI}
+            consultarNoticias={consultarNoticias}
+            setConsultarNoticias={setConsultarNoticias}
           ></AgregarNoticia>
         </Route>
         <Route exact path="/editar-noticia/:id">
           <EditarNoticia
-            consultarAPI={consultarAPI}
+            consultarNoticias={consultarNoticias}
+            setConsultarNoticias={setConsultarNoticias}
             categorias={categorias}
             consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}

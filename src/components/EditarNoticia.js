@@ -16,8 +16,7 @@ const EditarNoticia = (props) => {
   const [noticia, setNoticia] = useState({});
   const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
-  const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
-
+  const url = process.env.REACT_APP_API_URL;
   const { categorias, setConsultarCat } = props;
 
   const campoRequerido = (valor) => {
@@ -34,11 +33,12 @@ const EditarNoticia = (props) => {
 
   const consultarNoticia = async () => {
     try {
-      const respuesta = await fetch(url);
+      const respuesta = await fetch(url+ "/noticias/noticia/" + id);
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
         setNoticia(resp);
+        console.log(resp)
       }
     } catch (error) {
       console.log(error);
@@ -72,19 +72,20 @@ const EditarNoticia = (props) => {
           imagenRef: imagenRef.current.value,
           categoria: categoriaModificada,
         };
-        const respuesta = await fetch(url, {
+        const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(noticiaModificada),
         });
         if (respuesta.status === 200) {
+          console.log(url)
           Swal.fire(
             "Noticia Editada!",
             "El archivo fue modificado correctamente",
             "success"
           );
           //
-          props.consultarAPI();
+          props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
         }
@@ -119,7 +120,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
-              defaultValue={noticia.tituloNoticia}
+              defaultValue={noticia.titulo}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -132,7 +133,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Enfrentamiento policial"
               ref={subtituloNoticiaRef}
-              defaultValue={noticia.subtituloNoticia}
+              defaultValue={noticia.descripcion}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -158,7 +159,7 @@ const EditarNoticia = (props) => {
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
-              defaultValue={noticia.resumenNoticia}
+              defaultValue={noticia.descripNoticia}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -169,7 +170,7 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              defaultValue="Seleccionar una Categoria......"
+              defaultValue={noticia.categoria}
               onChange={cambioCategoria}
             >
               <option>Seleccione una Categoria...</option>

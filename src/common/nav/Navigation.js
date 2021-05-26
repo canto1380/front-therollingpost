@@ -12,7 +12,7 @@ import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
   const { noticias, categorias, categoriasDestacadas, categoriasNoDestacadas } = props
-
+  console.log(categoriasNoDestacadas)
   return (
     <Navbar
       className="container-fluid py-3"

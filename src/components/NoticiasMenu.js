@@ -38,14 +38,15 @@ const NoticiasMenu = (props) => {
           </thead>
           <tbody>
             {props.noticias.map((noticia) => (
-              <tr noticia={noticia} key={noticia.id}>
-                <td>{noticia.tituloNoticia}</td>
+              <tr noticia={noticia} key={noticia._id}>
+                <td>{noticia.titulo}</td>
                 <td>{noticia.categoria}</td>
                 <td>
                   <ItemBotonera
                     noticia={noticia}
-                    key={noticia.id}
-                    consultarAPI={props.consultarAPI}
+                    key={noticia._id}
+                    consultarNoticias={props.consultarNoticias}
+                    setConsultarNoticias={props.setConsultarNoticias}
                   ></ItemBotonera>
                 </td>
               </tr>
