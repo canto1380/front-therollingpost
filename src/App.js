@@ -23,7 +23,7 @@ import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-
+import moment from 'moment'
 
 function App() {
 
@@ -39,7 +39,7 @@ function App() {
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
-  console.log(categorias)
+  
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
@@ -51,7 +51,6 @@ function App() {
   const [usuarios, setUsuarios] = useState([])
   const [consultarUsuarios, setConsultarUsuarios] = useState(true)
   const [tok, setTok]=useState([]);
-
 
   /* Consulta API - categorias */
 useEffect(() => {
@@ -74,7 +73,6 @@ useEffect(() => {
   useEffect(() => {
     const consultarLS = async () => {
         try {
-          console.log(localStorage.getItem("jwt"));
           setTok(localStorage.getItem("jwt"));
         } catch (error) {
           console.log(error);
@@ -82,7 +80,6 @@ useEffect(() => {
     };
     consultarLS();
   }, []);
-  console.log(tok);
 
   /* Consulta API - Noticias */
   useEffect(() => {
@@ -197,7 +194,7 @@ useEffect(() => {
           ))
         }
         {/* Noticia individual */}
-        <Route exact path="/:categoria/:id">
+        <Route exact path="/noti/:cat/:id">
           <Noticia/>
         </Route>
 
@@ -205,15 +202,15 @@ useEffect(() => {
         <Route exact path="/menu-categorias">
           <CategoriaMenu
             categorias={categorias}
-            consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
             consultarCat={consultarCat}
             cantDestacadas={cantDestacadas}
           />
         </Route>
-        <Route exact path="/menu-categorias/addCategoria">
+        <Route exact path='/menu-categorias/addCategoria'>
           <AgregarCategoria
             categorias={categorias}
+            consultarCat={consultarCat}
             setConsultarCat={setConsultarCat}
           />
         </Route>
@@ -234,7 +231,7 @@ useEffect(() => {
         <Route exact path="/preview/:id">
           <PreviewNoticia></PreviewNoticia>
         </Route>
-        <Route exact path="/agregar-Noticia">
+        <Route exact path="/menu-noticias/agregar-Noticia">
           <AgregarNoticia
             categorias={categorias}
             consultarCat={consultarCat}

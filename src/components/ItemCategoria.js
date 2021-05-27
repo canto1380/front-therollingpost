@@ -137,6 +137,7 @@ const eliminarCategoria =(id) =>{
                 <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)}>
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
+
             </div>
         </ListGroup.Item>
     );

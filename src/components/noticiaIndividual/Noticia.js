@@ -17,9 +17,7 @@ import CardComentarios from './CardComentarios';
 
 const Noticia = (props) => {
     const [not, setNot] = useState({});
-
     const {categoria, id} = useParams();
-    console.log(id+"  "+ categoria)
 
     let hidden = 'pub-hidden-lg'
     let hiddenmd ="pub-hidden-md"
@@ -28,11 +26,9 @@ const Noticia = (props) => {
         const consultarCategorias = async () => {
             try {
                 const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/noticia/" + id)
-                console.log(res)
                 if (res.status === 200) {
                     const resp = await res.json();
                     setNot(resp);
-                    console.log(resp)
                 }
             } catch (error) {
                 console.log(error)
@@ -45,8 +41,8 @@ const Noticia = (props) => {
         <Container fluid className="p-4">
             <Publicidad publicidad={slogan} />
             <Row >
-                <Col className="my-5 border border-danger" sm={12} lg={8} >
-                    <CardNoticiaIndividual />
+                <Col className="my-5" sm={12} lg={8} >
+                    <CardNoticiaIndividual not={not}/>
                 </Col>
                 <Col sm={8} lg={4} className="component-mas-leidas">
                     <CardMasLeidas />

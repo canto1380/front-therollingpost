@@ -19,7 +19,7 @@ const NoticiasMenu = (props) => {
             <div className="d-flex justify-content-end">
               <Link
                 className="btn btn-success text-light botones"
-                to={"/agregar-noticia"}
+                to={"/menu-noticias/agregar-noticia"}
               >
                 <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
               </Link>

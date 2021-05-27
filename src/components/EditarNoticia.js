@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
 import "./span.css";
 
+import moment from 'moment'
+
 const EditarNoticia = (props) => {
   const { id} = useParams();
   //Variables useRef
@@ -12,6 +14,7 @@ const EditarNoticia = (props) => {
   const resumenNoticiaRef = useRef("");
   const autorRef = useRef("");
   const imagenRef = useRef("");
+  const piedefoto =useRef("")
   // creo los state
   const [noticias, setNoticia] = useState({});
   const [categoria, setCategoria] = useState("");
@@ -37,8 +40,6 @@ const EditarNoticia = (props) => {
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
-
-        console.log(resp)
         setNoticia(resp);
         console.log(resp)
       }
@@ -47,8 +48,6 @@ const EditarNoticia = (props) => {
       //Cartel de error que aguarde unos instantes
     }
   };
-
-
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
   };
@@ -69,12 +68,15 @@ const EditarNoticia = (props) => {
       setError(false);
       try {
         const noticiaModificada = {
-          tituloNoticia: tituloNoticiaRef.current.value,
-          subtituloNoticiaRef: subtituloNoticiaRef.current.value,
-          resumenNoticiaRef: resumenNoticiaRef.current.value,
-          autorRef: autorRef.current.value,
-          imagenRef: imagenRef.current.value,
-          categoria: categoriaModificada
+          titulo: tituloNoticiaRef.current.value,
+          descripcion: subtituloNoticiaRef.current.value,
+          descripNoticia: resumenNoticiaRef.current.value,
+          autor: autorRef.current.value,
+          foto: imagenRef.current.value,
+          categoria: categoriaModificada,
+          pieDeFoto: "sadasfjkdhlfds",
+          hora:moment().format('HH:mm'),
+          fecha:moment().format('DD MMMM, YYYY')
         };
         const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
           method: "PUT",
@@ -92,6 +94,7 @@ const EditarNoticia = (props) => {
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
+          e.target.reset()
         }
       } catch (error) {
         console.log(error);
@@ -101,7 +104,7 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
-
+  console.log(noticias.categoria)
   return (
     <Container>
       <Form
@@ -125,6 +128,7 @@ const EditarNoticia = (props) => {
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
               defaultValue={noticias.titulo}
+              
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -150,7 +154,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Alejandro Poviña"
               ref={autorRef}
-              defaultValue={noticias.autorRef}
+              defaultValue={noticias.autor}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -174,17 +178,15 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              defaultValue={noticias.categoria}
+              selected value={noticias.categoria}
               onChange={cambioCategoria}
             >
-              <option>Seleccione una Categoria...</option>
+              <option>Seleccione..</option>
               {categorias.map((cat) => (
                 <option
-                  key={cat.id}
+                  key={cat._id}
                   label={cat.nombreCategoria}
-                  value={categorias.nombreCategoria}
-                  selected  
-                  
+                  value={cat.nombreCategoria}
                 >
                   {cat.nombreCategoria}
                 </option>

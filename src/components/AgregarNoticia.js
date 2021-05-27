@@ -5,6 +5,8 @@ import "./span.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment'
+
 
 const AgregarNoticia = (props) => {
   const url = process.env.REACT_APP_API_URL;
@@ -51,7 +53,9 @@ const AgregarNoticia = (props) => {
         autor,
         categoria,
         foto: imagen,
-        pieDeFoto: "'dsfsfjkhdskjfhsdjk"
+        pieDeFoto: "'dsfsfjkhdskjfhsdjkfdsfdsfds",
+        hora:moment().format('HH:mm'),
+        fecha:moment().format('DD MMMM, YYYY')
       };
       console.log(noticia);
 
@@ -66,6 +70,7 @@ const AgregarNoticia = (props) => {
         };
 
         const respuesta = await fetch(url+"/noticias/addNoticia", configuracion);
+        console.log(url+"/noticias/addNoticia")
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -74,6 +79,7 @@ const AgregarNoticia = (props) => {
             "success"
           );
           props.setConsultarNoticias(!props.consultarNoticias);
+          e.target.reset()
         }
       } catch (error) {
         console.log(error)
@@ -167,7 +173,7 @@ const AgregarNoticia = (props) => {
               <option>Seleccione una Categoria...</option>
               {categorias.map((cat) => (
                 <option
-                  key={cat.id}
+                  key={cat._id}
                   label={cat.nombreCategoria}
                   value={categorias.nombreCategoria}
                   onChange={cambioCategoria}
