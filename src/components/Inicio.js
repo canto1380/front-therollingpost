@@ -10,7 +10,7 @@ import Corona from "../img/corona.jpg";
 import slogan from "../img/sloganCovid.png";
 
 const Inicio = (props) => {
-  const {categoriasDestacadas, noticias} = props
+  const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia} = props
 
   return (
     
@@ -18,7 +18,7 @@ const Inicio = (props) => {
       <Publicidad publicidad={slogan}></Publicidad>
       <Row className="my-3">
     <Col sm={10}>
-    <NoticiasPrincipal noticias={props.noticias}/>
+    <NoticiasPrincipal noticias={props.noticias} ultimasNoticias={ultimasNoticias} ultimaNoticia={ultimaNoticia}/>
     </Col>
     <Col sm={2}>
     <Publicidad publicidad={Coca}></Publicidad>

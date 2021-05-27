@@ -4,8 +4,8 @@ import LogoNR from "../img/Logo-NR.png";
 import { Link } from 'react-router-dom'
 
 const CardNoticia = (props) => {
-  const {noticias, noticiasXCat} = props
-  
+  const {not} = props
+  console.log(not)
   
   return (
     <div>
@@ -13,7 +13,7 @@ const CardNoticia = (props) => {
       <div className="card tarjetaNoticia">
         <img className="card-img-top w-100" src={LogoNR} alt="" />
         <div className="card-body">
-          <h5 className="card-title"></h5>
+          <h5 className="card-title">not</h5>
           <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         </div>
       </div>

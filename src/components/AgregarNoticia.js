@@ -45,12 +45,13 @@ const AgregarNoticia = (props) => {
       setError(false);
 
       const noticia = {
-        tituloNoticia,
-        subtituloNoticia,
-        resumenNoticia,
+        titulo: tituloNoticia,
+        descripcion: subtituloNoticia,
+        descripNoticia: resumenNoticia,
         autor,
         categoria,
-        imagen,
+        foto: imagen,
+        pieDeFoto: "'dsfsfjkhdskjfhsdjk"
       };
       console.log(noticia);
 
@@ -64,7 +65,7 @@ const AgregarNoticia = (props) => {
           body: JSON.stringify(noticia),
         };
 
-        const respuesta = await fetch(url + "/noticias", configuracion);
+        const respuesta = await fetch(url+"/noticias/addNoticia", configuracion);
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -72,10 +73,10 @@ const AgregarNoticia = (props) => {
             "Ya puedes revisar la noticia antes de publicarla",
             "success"
           );
-          props.setConsultarNoticias(props.consultarNoticias);
+          props.setConsultarNoticias(!props.consultarNoticias);
         }
       } catch (error) {
-        //captura el error que se genera
+        console.log(error)
       }
     }
   };

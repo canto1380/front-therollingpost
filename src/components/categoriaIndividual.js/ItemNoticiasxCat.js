@@ -8,20 +8,15 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 const ItemNoticiasxCat = (props) => {
     const {cat, noticiasXCat} = props
     console.log(noticiasXCat)
-    
-    // let date = new Date('2013-08-03T02:00:00Z');
-    // let year = fecha.getFullYear();
-    // let month = fecha.getMonth()+1;
-    // let dt = fecha.getDate();
-    // console.log(dt+"/"+month+"/"+year)
 
     return (
         <Row>
             <h1>Mas noticias de {cat.nombreCategoria}</h1>
+            <hr className="mb-0"/>
             {
                noticiasXCat.map((not) =>(
-                <Col xs={12} sm={6} lg={4} className="d-flex justify-content-center align-items-center h-100 my-4" key={not._id}>
-                <Link key={not._id} to={'/noticia/idd'} className="text-dark text-decoration-none">
+                <Col xs={12} sm={6} lg={4} xl={3} className="d-flex justify-content-center align-items-center h-100 my-4" key={not._id}>
+                <Link key={not._id} to={`/${not.categoria}/${not._id}`} className="text-dark text-decoration-none">
                   <div className="card tarjetaNoticia">
                     <img className="card-img-top w-100" src={LogoNR} alt="" />
                     <div className="card-body">

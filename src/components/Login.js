@@ -133,6 +133,7 @@ const Login = (props) => {
                     name="email"
                     placeholder="nombre@gmail.com"
                     onChange={handleValores}
+                    
                   />
                 </Form.Group>
 

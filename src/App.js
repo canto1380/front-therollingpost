@@ -40,9 +40,14 @@ function App() {
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
   
-  let ultimasNoticias = noticias.filter( not => not.categoria ==="Deportes")
+  let ultimaNoticia=noticias.slice(0,1)
+  let ultimasNoticias = noticias.slice(1,3)
 
-/* Consulta API - categorias */
+  /* Usuarios */
+  const [usuarios, setUsuarios] = useState([])
+  const [consultarUsuarios, setConsultarUsuarios] = useState(true)
+
+  /* Consulta API - categorias */
 useEffect(() => {
   const consultarAPICat = async() =>{ 
     try {
@@ -90,6 +95,22 @@ useEffect(() => {
    consultarAPINoticias() 
 }, [consultarNoticias])
 
+/* Consulta API - Usuarios */
+useEffect(() => {
+  const consultarAPIUsuarios = async() =>{
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL+"/user/listUser")
+      const infUsuarios = await res.json()
+      if(res.status === 200){
+        setUsuarios(infUsuarios)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+   consultarAPIUsuarios() 
+}, [consultarUsuarios])
+
 
   return (
     <Router>
@@ -112,6 +133,8 @@ useEffect(() => {
             consultarCat={consultarCat}
             setConsultarNoticias={setConsultarNoticias}
             categoriasDestacadas={categoriasDestacadas}
+            ultimasNoticias={ultimasNoticias}
+            ultimaNoticia={ultimaNoticia}
           />
         </Route>
         <Route exact path="/inicio-sesion">
@@ -141,7 +164,7 @@ useEffect(() => {
           ))
         }
         {/* Noticia individual */}
-        <Route exact path="/noticia/idd">
+        <Route exact path="/:categoria/:id">
           <Noticia/>
         </Route>
 
