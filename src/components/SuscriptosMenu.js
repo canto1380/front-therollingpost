@@ -11,7 +11,7 @@ const SuscriptosMenu = (props) => {
 <h1 className="text-center my-4">Listado de Suscripciones</h1>
 <ListGroup>
 {
-                props.clientes.map((clientes)=><ItemClientes clientes={clientes} key={clientes._id} consultarClientes={props.consultarClientes}></ItemClientes> )  
+                props.clientes.map((clientes)=><ItemClientes clientes={clientes} key={clientes._id} setConsultarClientes={props.setConsultarClientes}></ItemClientes> )  
             }
 </ListGroup>
 {/* <table className="w-100 mx-4">
