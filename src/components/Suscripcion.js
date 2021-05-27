@@ -6,17 +6,19 @@ import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import {withRouter} from 'react-router-dom'
+import emailjs from 'emailjs-com'
 
 const Suscripcion = (props) => {
 
   const {setConsultarClientes, clientes, setClientes}=props;
 
-  const URL = process.env.REACT_APP_API_URL + "/clientes"
+  const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
 
-  const [apNom, setApNOm]=useState("");
+    /*variables ref*/
+  const [nomAp, setNomAp]=useState("");
   const [direccion, setDireccion]=useState("");
   const [localidad, setLocalidad]= useState("");
-  const [codigoPostal, setCodigoPostal]=useState("");
+  const [codigoPostal, setCodigoPostal]=useState(""); 
   const [telefono, setTelefono]= useState(0)
   const [email, setEmail]=useState("");
   const [password, setPassword]= useState("");
@@ -42,7 +44,7 @@ const Suscripcion = (props) => {
           setError(false)
         }
           const cliente = {
-            apNom,
+            nomAp,
             direccion,
             localidad,
             codigoPostal,
@@ -67,33 +69,83 @@ const Suscripcion = (props) => {
 
           console.log(respuesta)
           if(respuesta.status===201){
-            Swal.fire(
-              'Solicitud de suscripcion enviada',
-              'Nos pondremos en contacto para confirmar aceptacion',
-              'success'
-            )
-            setConsultarClientes(true);
-            console.log(clientes)
+
+              /*Enviar mensaje a administrador*/
+            const mensajeSuscripcion = {
+              nombre: nomAp,
+              to_name: "Administrador",
+              datos: `Direccion: ${direccion}
+              Localidad: ${localidad}
+              Codigo Postal: ${codigoPostal}
+              Telefono: ${telefono}
+              Email: ${email}
+              Plan: ${plan}`,
+            };
+      
+            console.log(mensajeSuscripcion);
+      
+            emailjs
+              .send(
+                "service_8p1isqq",
+                "template_k4pd6gd",
+                mensajeSuscripcion,
+                "user_rQqHrh4fAD3sMZEdvbGTI"
+              )
+              .then(
+                (result) => {
+                  if (result.status === 200) {
+                    Swal.fire(
+                      'Solicitud de suscripcion enviada',
+                      'Nos pondremos en contacto para confirmar aceptacion',
+                      'success'
+                    );
+                  }
+                  console.log(result);
+                  
+                },
+                (error) => {
+                  console.log(error.text);
+                  Swal.fire(
+                    'A ocurrido un error',
+                    'Por favor intentelo de nuevo mas tarde',
+                    'warning'
+                  )}
+              );
 
             // props.history.push("./");
             
+            // Swal.fire(
+            //   'Solicitud de suscripcion enviada',
+            //   'Nos pondremos en contacto para confirmar aceptacion',
+            //   'success'
+            // )
+            setConsultarClientes(true);
+            console.log(clientes)
+            e.target.reset();
           }
+
           
         }catch(err){
           console.log(err)
+          Swal.fire(
+            'A ocurrido un error',
+            'Por favor intentelo de nuevo mas tarde',
+            'error'
+          )}
         }
         
         
-        setEmailValid(false)
-        setEmailInValid(true)
-        setPassValid(true)
-        setPassInValid(false)
-        setTermsInValid(true)
-    }
+        // setEmailValid(false)
+        // setEmailInValid(true)
+        // setPassValid(true)
+        // setPassInValid(false)
+        // setTermsInValid(true)
+    
 
     const cambioPlan = (e)=>{
       setPlan(e.target.value)
     }
+  
 
 
     return (
@@ -120,8 +172,8 @@ const Suscripcion = (props) => {
             <div className="mx-4 my-4">   
         <Form onSubmit={handleSubmit}>
         <Form.Group>
-          <Form.Label><b>*Apellido y Nombre</b></Form.Label>
-          <Form.Control type="text" placeholder="Ingrese su apellido y nombre"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setApNOm(e.target.value)}  />
+          <Form.Label><b>*Nombre y Apellido</b></Form.Label>
+          <Form.Control type="text" placeholder="Ingrese su apellido y nombre"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setNomAp(e.target.value)}  />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
