@@ -132,9 +132,9 @@ useEffect(() => {
     if(consultarClientes){
       const consultarAPI = async()=> {
         try{
-          const respuesta = await fetch (url + "/clientes");
+          const respuesta = await fetch (url + "/clientes/suscripcion");
           const infoClientes = await respuesta.json();
-          console.log("todo okS")
+          console.log("todo ok")
           console.log(respuesta)
           if (respuesta.status ===200){
             console.log(infoClientes)
@@ -142,14 +142,14 @@ useEffect(() => {
             setConsultarClientes(false);
           }
         }catch(error){
-          console.log(error)
+          console.log(error);
         }
       }
       consultarAPI();
       
     };
     
-  },[consultarClientes])
+  },[consultarClientes]);
   
   
 
@@ -235,7 +235,7 @@ useEffect(() => {
         <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias}  setConsultarNoticias={setConsultarNoticias} />
         </Route>
         <Route exact path="/menu-suscriptos">
-        <SuscriptosMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias} />
+        <SuscriptosMenu clientes={clientes} setClientes={setClientes}  consultarClientes={consultarClientes}  setConsultarClientes={setConsultarClientes} />
         </Route>
         <Route exact path="/preview/:id">
           <PreviewNoticia></PreviewNoticia>
