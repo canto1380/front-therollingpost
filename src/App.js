@@ -32,13 +32,6 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] = useState(true);
 
-  const [consultar, setConsultar] = useState(true)
-
-  const [tok, setTok]=useState([]);
-
-  const [user, setUser]= useState([])
-  const [consultarUser, setConsultarUser] = useState(true)
-
   /*Clientes suscriptos*/
   const [clientes, setClientes]=useState([]);
   const [consultarClientes, setConsultarClientes]= useState(true)
@@ -57,6 +50,8 @@ function App() {
   /* Usuarios */
   const [usuarios, setUsuarios] = useState([])
   const [consultarUsuarios, setConsultarUsuarios] = useState(true)
+  const [tok, setTok]=useState([]);
+
 
   /* Consulta API - categorias */
 useEffect(() => {
@@ -74,44 +69,20 @@ useEffect(() => {
       consultarAPICat();
   },[consultarCat]);
 
-  console.log(consultar);
+
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {
     const consultarLS = async () => {
-      if (consultar) {
-        // setTok(getToken());
         try {
           console.log(localStorage.getItem("jwt"));
           setTok(localStorage.getItem("jwt"));
-          setConsultar(false);
         } catch (error) {
           console.log(error);
         }
-      }
     };
     consultarLS();
-  }, [consultar]);
+  }, []);
   console.log(tok);
-
-  /* Consulta API sobre usuarios */
-  useEffect(() => {
-    if (consultarUser) {
-      const consultarAPI = async () => {
-        try {
-          const res = await fetch(url + "/usuarios");
-          const inforUser = await res.json();
-          if (res.status === 200) {
-            setUser(inforUser);
-            setConsultarUser(false);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      consultarAPI();
-    }
-  }
-,[consultarUser])
 
   /* Consulta API - Noticias */
   useEffect(() => {
