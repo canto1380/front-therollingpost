@@ -15,13 +15,15 @@ const Suscripcion = (props) => {
   const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
 
     /*variables ref*/
-  const [nomAp, setNomAp]=useState("");
-  const [direccion, setDireccion]=useState("");
-  const [localidad, setLocalidad]= useState("");
-  const [codigoPostal, setCodigoPostal]=useState(""); 
-  const [telefono, setTelefono]= useState(0)
-  const [email, setEmail]=useState("");
-  const [password, setPassword]= useState("");
+  const nomApRef = useRef("");
+  const direccionRef =useRef("");
+  const localidadRef = useRef("");
+  const codigoPostalRef=useRef(""); 
+  const telefonoRef= useRef(0)
+  const emailRef =useRef("");
+  const passwordRef= useRef("");
+
+  /*States*/
   const [plan, setPlan]=useState("");
   const [error, setError]= useState(false);
 
@@ -37,20 +39,20 @@ const Suscripcion = (props) => {
     const handleSubmit = async(e)=>{
         e.preventDefault();
 
-        if(email.trim()==="" || password.trim()==="" ){
+        if(emailRef.current.value.trim()==="" || passwordRef.current.value.trim()==="" ){
           setError(true)
           console.log("ocurrio un error")
         }else{
           setError(false)
         }
           const cliente = {
-            nomAp,
-            direccion,
-            localidad,
-            codigoPostal,
-            telefono,
-            email,
-            password,
+            nomAp: nomApRef.current.value,
+            direccion: direccionRef.current.value,
+            localidad: localidadRef.current.value,  
+            codigoPostal: codigoPostalRef.current.value,
+            telefono: telefonoRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
             plan
           }
           console.log(cliente)
@@ -72,14 +74,16 @@ const Suscripcion = (props) => {
 
               /*Enviar mensaje a administrador*/
             const mensajeSuscripcion = {
-              nombre: nomAp,
+              nombre: nomApRef.current.value,
+              email: emailRef.current.value,
               to_name: "Administrador",
-              datos: `Direccion: ${direccion}
-              Localidad: ${localidad}
-              Codigo Postal: ${codigoPostal}
-              Telefono: ${telefono}
-              Email: ${email}
-              Plan: ${plan}`,
+              direcLocalCp: `Direccion: ${direccionRef.current.value} -
+              Localidad: ${localidadRef.current.value} -
+              Código Postal: ${codigoPostalRef.current.value}`,
+              telEmailPass: `Telefono: ${telefonoRef.current.value} - 
+              Email: ${emailRef.current.value} - 
+              Password: ${passwordRef.current.value}`,  
+              plan: `Plan: ${plan}`
             };
       
             console.log(mensajeSuscripcion);
@@ -173,37 +177,37 @@ const Suscripcion = (props) => {
         <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label><b>*Nombre y Apellido</b></Form.Label>
-          <Form.Control type="text" placeholder="Ingrese su apellido y nombre"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setNomAp(e.target.value)}  />
+          <Form.Control type="text" ref={nomApRef} placeholder="Ingrese su nombre y apellido"  isValid={emailValid} isInvalid={emailInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Dirección</b></Form.Label>
-          <Form.Control type="text" placeholder="Ingrese su dirección"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setDireccion(e.target.value)}  />
+          <Form.Control type="text" ref={direccionRef} placeholder="Ingrese su dirección"  isValid={emailValid} isInvalid={emailInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Localidad</b></Form.Label>
-          <Form.Control type="text" placeholder="Ingrese la localidad donde vive"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setLocalidad(e.target.value)}  />
+          <Form.Control type="text" ref={localidadRef} placeholder="Ingrese la localidad donde vive"  isValid={emailValid} isInvalid={emailInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Código Postal</b></Form.Label>
-          <Form.Control type="number" placeholder="Ingrese su codigo postal"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setCodigoPostal(e.target.value)}  />
+          <Form.Control type="number" ref={codigoPostalRef} placeholder="Ingrese su codigo postal"  isValid={emailValid} isInvalid={emailInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Teléfono</b></Form.Label>
-          <Form.Control type="number" placeholder="Ingrese su numero de telefono"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setTelefono(e.target.value)}  />
+          <Form.Control type="number" ref={telefonoRef} placeholder="Ingrese su numero de telefono"  isValid={emailValid} isInvalid={emailInValid} />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label> <b>*Email</b></Form.Label>
-          <Form.Control type="email" placeholder="Ingrese su email"  isValid={emailValid} isInvalid={emailInValid} onChange={(e)=>setEmail(e.target.value)}  />
+          <Form.Control type="email" ref={emailRef} placeholder="Ingrese su email"  isValid={emailValid} isInvalid={emailInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group  className="mt-2">
           <Form.Label><b>*Password</b></Form.Label>
-          <Form.Control type="password" placeholder="Ingrese su contraseña"  isValid={passValid} isInvalid={passInValid} onChange={(e)=>setPassword(e.target.value)} />
+          <Form.Control type="password" ref={passwordRef} placeholder="Ingrese su contraseña"  isValid={passValid} isInvalid={passInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Label className="my-3 "><b>*Seleccione su plan</b></Form.Label>
