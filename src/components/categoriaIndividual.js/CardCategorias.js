@@ -12,17 +12,15 @@ import ItemNoticiasxCat from './ItemNoticiasxCat';
 const CardCategorias = (props) => {
     const {cat, noticias} = props
     console.log(noticias)
-    console.log(cat.nombreCategoria)
+
     // let noticiasXCat =  noticias.filter(not => not.categoria === cat.nombreCategoria)
     let noticiasXCat = noticias.filter(not => not.categoria === cat.nombreCategoria)
-    console.log(noticias._id +"  "+ cat.nombreCategoria)
-    console.log(noticiasXCat)
-
-    let ultimaNoticia=noticiasXCat.slice(0,1)
-    let ultimasNoticias = noticiasXCat.slice(1,3)
-    let resto = noticiasXCat.slice(3,noticiasXCat.length)
-    console.log(ultimaNoticia)
-    console.log(ultimasNoticias)
+    // let ultimaNoticia=noticiasXCat.slice(0,1)
+    // let ultimasNoticias = noticiasXCat.slice(1,3)
+    // let resto = noticiasXCat.slice(3,noticiasXCat.length)
+    let ultimaNoticia = noticiasXCat.slice(noticiasXCat.length-1, noticiasXCat.length)
+    let ultimasNoticias = noticiasXCat.slice(noticiasXCat.length-3, noticiasXCat.length-1)
+    let resto = noticiasXCat.slice(0,noticiasXCat.length-4)
     
     return (
         <Container fluid className="my-3 px-4">

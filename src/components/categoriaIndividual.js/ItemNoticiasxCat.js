@@ -19,13 +19,13 @@ const ItemNoticiasxCat = (props) => {
                 <Link key={not._id} to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none">
                   <div className="card tarjetaNoticia">
                     <img className="card-img-top w-100" src={LogoNR} alt="" />
-                    <div className="card-body">
+                    <div className="card-body tarjetaNoticia-body">
                       <h5 className="card-title">{not.titulo}</h5>
-                      <div className="d-flex justify-content-between align-items-center mt-4">
-                        <p className="my-0 text-muted">{not.updatedAt}</p>
+                    </div>
+                      <div className="d-flex justify-content-between align-items-center m-3">
+                        <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
                         <p className="my-0 text-muted">6<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
                       </div>
-                    </div>
                   </div>
                 </Link>
                 </Col>

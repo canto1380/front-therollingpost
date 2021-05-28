@@ -18,8 +18,8 @@ const CardNoticiaIndividual = (props) => {
             </div>
             <div className="">
             <div className="ms-2 text-secondary">
-                <span>{not.fecha}</span>
-                <span className="mx-3"> {not.hora}</span>
+                <span>{not.hora} hs |</span>
+                <span className="me-3"> {not.fecha}</span>
                 <span><FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon>6</span>
             </div>
             <Image src={LogoNR} className="d-block w-100 image-height"/>

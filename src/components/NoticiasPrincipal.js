@@ -23,7 +23,7 @@ const NoticiasPrincipal = (props) => {
                 <h5 className="card-title">{not.titulo}</h5>
                 <p className="card-text">{not.descripcion}</p>
               </div>
-              <img className="card-img-top w-100 border border-danger" src={LogoNR} alt=""/>
+              <img className="card-img-top w-100" src={LogoNR} alt=""/>
             </div>
           </Link>
             )
@@ -37,7 +37,7 @@ const NoticiasPrincipal = (props) => {
               <div className="card-body">
                 <h5 className="card-title">{not.titulo}</h5>
               </div>
-              <img className="card-img-top w-100 border border-danger" src={LogoNR} alt=""/>
+              <img className="card-img-top" src={LogoNR} alt=""/>
             </div>
           </Link>
             )

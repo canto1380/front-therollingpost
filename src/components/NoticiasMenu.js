@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
+  const {noticias} = props
+  noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
+  noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
+  console.log(noticias)
+
   return (
     <Container>
       <h1 className="text-center mt-3">Menu de Administracion de Noticias</h1>

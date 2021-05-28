@@ -43,9 +43,12 @@ function App() {
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
-  
-  let ultimaNoticia=noticias.slice(0,1)
-  let ultimasNoticias = noticias.slice(1,3)
+
+  noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
+  noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
+  console.log(noticias)
+  let ultimaNoticia=noticias.slice(noticias.length-1,noticias.length)
+  let ultimasNoticias = noticias.slice(noticias.length-3,noticias.length-1)
 
   /* Usuarios */
   const [usuarios, setUsuarios] = useState([])
@@ -97,7 +100,6 @@ useEffect(() => {
      consultarAPINoticias() 
   }, [consultarNoticias])
 
-
 /* Consulta API - Usuarios */
 useEffect(() => {
   const consultarAPIUsuarios = async() =>{
@@ -123,10 +125,7 @@ useEffect(() => {
         try{
           const respuesta = await fetch (url + "/clientes/suscripcion");
           const infoClientes = await respuesta.json();
-          console.log("todo ok")
-          console.log(respuesta)
           if (respuesta.status ===200){
-            console.log(infoClientes)
             setClientes(infoClientes);
             setConsultarClientes(false);
           }
@@ -135,13 +134,9 @@ useEffect(() => {
         }
       }
       consultarAPI();
-      
     };
-    
   },[consultarClientes]);
   
-  
-
   return (
     <Router>
       <Navigation
