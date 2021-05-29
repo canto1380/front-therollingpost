@@ -8,7 +8,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-    const { setConsultarCat, categorias } = props; 
+    const { consultarCat ,setConsultarCat, categorias } = props; 
     
     const url= process.env.REACT_APP_API_URL+'/categorias/addCategoria';
 
@@ -28,11 +28,9 @@ const AgregarCategoria = (props) => {
             }, 2000);
         } else {
             setErr(false);
-            
             const nuevaCategoria ={
                 nombreCategoria
             }
-
             try {
                 const config ={
                     method: "POST",
@@ -49,7 +47,7 @@ const AgregarCategoria = (props) => {
                         'SI',
                         'success'
                       )
-                      setConsultarCat(true)
+                      setConsultarCat(!consultarCat)
                       e.target.reset()
                 }
             } catch (error) {

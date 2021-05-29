@@ -4,10 +4,11 @@ import {Link} from 'react-router-dom'
 import LogoNR from "../../img/Logo-NR.png";
 import "../../App.css"
 
-const ItemMasLeidas = () => {
+const ItemNoticias = () => {
     return (
         <ListGroup.Item className="py-0">
             <Link className="text-dark text-decoration-none" to={'/'}>
+            {/* // `/noti/${not.categoria}/${not._id}`> */}
             <Row className="d-flex-justify-content-between card-masLeidas">
                 <Col xs={2} sm={3} md={2} className="p-0">
                 <Image src={LogoNR} rounded className="img-items-noticias" />
@@ -54,4 +55,4 @@ const ItemMasLeidas = () => {
     );
 };
 
-export default ItemMasLeidas;
+export default ItemNoticias;

@@ -5,6 +5,8 @@ import "./span.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment'
+
 
 const AgregarNoticia = (props) => {
   const url = process.env.REACT_APP_API_URL;
@@ -86,12 +88,15 @@ const AgregarNoticia = (props) => {
       setError(false);
 
       const noticia = {
-        tituloNoticia,
-        subtituloNoticia,
-        resumenNoticia,
+        titulo: tituloNoticia,
+        descripcion: subtituloNoticia,
+        descripNoticia: resumenNoticia,
         autor,
         categoria,
-        imagen,
+        foto: imagen,
+        pieDeFoto: "'dsfsfjkhdskjfhsdjkfdsfdsfds",
+        hora:moment().format('HH:mm'),
+        fecha:moment().format('DD MMMM, YYYY')
       };
       console.log(noticia);
 
@@ -105,7 +110,8 @@ const AgregarNoticia = (props) => {
           body: JSON.stringify(noticia),
         };
 
-        const respuesta = await fetch(url + "/noticias", configuracion);
+        const respuesta = await fetch(url+"/noticias/addNoticia", configuracion);
+        console.log(url+"/noticias/addNoticia")
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -113,10 +119,11 @@ const AgregarNoticia = (props) => {
             "Ya puedes revisar la noticia antes de publicarla",
             "success"
           );
-          props.consultarAPI();
+          props.setConsultarNoticias(!props.consultarNoticias);
+          e.target.reset()
         }
       } catch (error) {
-        //captura el error que se genera
+        console.log(error)
       }
     }
   };
@@ -214,7 +221,7 @@ const AgregarNoticia = (props) => {
               <option disabled>Seleccione una Categoria</option>
               {categorias.map((cat) => (
                 <option
-                  key={cat.id}
+                  key={cat._id}
                   label={cat.nombreCategoria}
                   value={categorias.nombreCategoria}
                   onChange={cambioCategoria}

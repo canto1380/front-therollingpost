@@ -4,20 +4,22 @@ import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
 import "./span.css";
 
+import moment from 'moment'
+
 const EditarNoticia = (props) => {
-  const { id } = useParams();
+  const { id} = useParams();
   //Variables useRef
   const tituloNoticiaRef = useRef("");
   const subtituloNoticiaRef = useRef("");
   const resumenNoticiaRef = useRef("");
   const autorRef = useRef("");
   const imagenRef = useRef("");
+  const piedefoto =useRef("")
   // creo los state
-  const [noticia, setNoticia] = useState({});
+  const [noticias, setNoticia] = useState({});
   const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
-  const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
-
+  const url = process.env.REACT_APP_API_URL;
   const { categorias, setConsultarCat } = props;
 
   const campoRequerido = (valor) => {
@@ -34,25 +36,26 @@ const EditarNoticia = (props) => {
 
   const consultarNoticia = async () => {
     try {
-      const respuesta = await fetch(url);
+      const respuesta = await fetch(url+ "/noticias/noticia/" + id);
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
         setNoticia(resp);
+        console.log(resp)
       }
     } catch (error) {
       console.log(error);
       //Cartel de error que aguarde unos instantes
     }
   };
-
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let categoriaModificada = categoria === "" ? noticia.categoria : categoria;
+    let categoriaModificada = categoria === "" ? noticias.categoria : categoria;
+  
     //validar los datos
     if (
       campoRequerido(tituloNoticiaRef.current.value) &&
@@ -65,28 +68,33 @@ const EditarNoticia = (props) => {
       setError(false);
       try {
         const noticiaModificada = {
-          tituloNoticia: tituloNoticiaRef.current.value,
-          subtituloNoticiaRef: subtituloNoticiaRef.current.value,
-          resumenNoticiaRef: resumenNoticiaRef.current.value,
-          autorRef: autorRef.current.value,
-          imagenRef: imagenRef.current.value,
+          titulo: tituloNoticiaRef.current.value,
+          descripcion: subtituloNoticiaRef.current.value,
+          descripNoticia: resumenNoticiaRef.current.value,
+          autor: autorRef.current.value,
+          foto: imagenRef.current.value,
           categoria: categoriaModificada,
+          pieDeFoto: "sadasfjkdhlfds",
+          hora:moment().format('HH:mm'),
+          fecha:moment().format('DD MMMM, YYYY')
         };
-        const respuesta = await fetch(url, {
+        const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(noticiaModificada),
         });
         if (respuesta.status === 200) {
+          console.log(url)
           Swal.fire(
             "Noticia Editada!",
             "El archivo fue modificado correctamente",
             "success"
           );
           //
-          props.consultarAPI();
+          props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
+          e.target.reset()
         }
       } catch (error) {
         console.log(error);
@@ -96,7 +104,7 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
-
+  console.log(noticias.categoria)
   return (
     <Container>
       <Form
@@ -119,7 +127,8 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
-              defaultValue={noticia.tituloNoticia}
+              defaultValue={noticias.titulo}
+              
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -132,7 +141,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Enfrentamiento policial"
               ref={subtituloNoticiaRef}
-              defaultValue={noticia.subtituloNoticia}
+              defaultValue={noticias.descripcion}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -145,7 +154,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Alejandro Poviña"
               ref={autorRef}
-              defaultValue={noticia.autor}
+              defaultValue={noticias.autor}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -158,7 +167,7 @@ const EditarNoticia = (props) => {
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
-              defaultValue={noticia.resumenNoticia}
+              defaultValue={noticias.descripNoticia}
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -169,19 +178,15 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              defaultValue="Seleccione una Categoria"
+              selected value={noticias.categoria}
               onChange={cambioCategoria}
             >
-              <option disabled>Seleccione una Categoria</option>
+              <option>Seleccione..</option>
               {categorias.map((cat) => (
                 <option
-                  key={cat.id}
+                  key={cat._id}
                   label={cat.nombreCategoria}
-                  value={categorias.nombreCategoria}
-                  onChange={cambioCategoria}
-                  defaultChecked={
-                    noticia.categoria && noticia.categoria === { categorias }
-                  }
+                  value={cat.nombreCategoria}
                 >
                   {cat.nombreCategoria}
                 </option>
@@ -196,7 +201,7 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.File
               ref={imagenRef}
-              defaultValue={noticia.imagen}
+              defaultValue={noticias.imagen}
             ></Form.File>
           </Form.Group>
         </div>

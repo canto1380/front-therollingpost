@@ -1,7 +1,4 @@
-
-import { config } from '@fortawesome/fontawesome-svg-core';
 import React,{useState ,useEffect} from 'react';
-import { Container } from 'react-bootstrap';
 
 const APImoneda = () => {
      /*state*/ 

@@ -17,7 +17,7 @@ const CategoriaMenu = (props) => {
             <ListGroup className="my-4">
             <span className="text-muted">* Se puede destacar un maximo de 4 categorias</span>
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat} cantDestacadas={cantDestacadas}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} consultarCat={props.consultarCat} setConsultarCat={props.setConsultarCat} cantDestacadas={cantDestacadas}/>)
                     
                 }
             </ListGroup>
