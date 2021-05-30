@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert, InputGroup } from "react-bootstrap";
+import { Container, Form, Button, InputGroup } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "./span.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment'
-
+import moment from "moment";
 
 const AgregarNoticia = (props) => {
   const url = process.env.REACT_APP_API_URL;
@@ -16,7 +15,23 @@ const AgregarNoticia = (props) => {
   const [resumenNoticia, setResumenNoticia] = useState("");
   const [categoria, setCategoria] = useState("");
   const [imagen, setImagen] = useState("");
+  const [pieDeFoto, setPieDeFoto] = useState("");
   const [error, setError] = useState(false);
+  //states de validacion
+  const [titValid, setTitValid] = useState("");
+  const [titInvalid, setTitInvalid] = useState("");
+  const [subTValid, setSubTValid] = useState("");
+  const [subTInvalid, setSubTInvalid] = useState("");
+  const [autorValid, setAutorValid] = useState("");
+  const [autorInvalid, setAutorInvalid] = useState("");
+  const [resValid, setResValid] = useState("");
+  const [resInvalid, setResInvalid] = useState("");
+  const [catValid, setCatValid] = useState("");
+  const [catInvalid, setCatInvalid] = useState("");
+  const [imgValid, setImgValid] = useState("");
+  const [imgInvalid, setImgInvalid] = useState("");
+  const [pieImgValid, setPieImgValid] = useState("");
+  const [pieImgInvalid, setPieImgInvalid] = useState("");
 
   const { categorias, setConsultarCat } = props;
 
@@ -30,45 +45,98 @@ const AgregarNoticia = (props) => {
     resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
   };
 
-  //  const scrollToTop = () => {
-  //    window.scrollTo({
-  //      top: 0,
-  //      behavior: "smooth",
-  //    });
-  //  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   //Validaciones
-  const valTexto = (titulo) => {
+  const valTit = (titulo) => {
+    setTitValid("");
+    setTitInvalid("");
     let texto = expresiones.texto;
-    if (titulo.trim() !== "" && texto.test(titulo)) {
+    if (titulo !== "" && texto.test(titulo)) {
+      setTitValid(true);
       return false;
     } else {
+      setTitInvalid(true);
+      return true;
+    }
+  };
+  const valSubT = (titulo) => {
+    setSubTValid("");
+    setSubTInvalid("");
+    let texto = expresiones.texto;
+    if (titulo !== "" && texto.test(titulo)) {
+      setSubTValid(true);
+      return false;
+    } else {
+      setSubTInvalid(true);
       return true;
     }
   };
 
   const valAutor = (autor) => {
+    setAutorValid("");
+    setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autor.trim() !== "" && nombre.test(autor)) {
+    if (autor !== "" && nombre.test(autor)) {
+      setAutorValid(true);
       return false;
     } else {
+      setAutorInvalid(true);
       return true;
     }
   };
 
   const valResumen = (noti) => {
+    setResValid("");
+    setResInvalid("");
     let resumen = expresiones.resumen;
-    if (noti.trim() !== "" && resumen.test(noti)) {
+    if (noti !== "" && resumen.test(noti)) {
+      setResValid(true);
       return false;
     } else {
+      setResInvalid(true);
       return true;
     }
   };
 
-  //Limitar limite maximo de caracteres ingresados en el imput
-  const maxNum = (num) => {
-    if (num.target.value.length > num.target.maxLength) {
-      num.target.value = num.target.value.slice(0, num.target.maxLength);
+  const valCat = (cat) => {
+    setCatValid("");
+    setCatInvalid("");
+    if (cat === "") {
+      setCatValid(true);
+      return false;
+    } else {
+      setCatInvalid(true);
+      return true;
+    }
+  };
+  const valImg = (img) => {
+    setImgValid("");
+    setImgInvalid("");
+    if (img === "") {
+      setImgValid(true);
+      return false;
+    } else {
+      setImgInvalid(true);
+      return true;
+    }
+  };
+
+  const valPieImg = (pie) => {
+    setPieImgValid("");
+    setPieImgInvalid("");
+    let texto = expresiones.texto;
+    if (pie !== "" && texto.test(pie)) {
+      setPieImgValid(true);
+      return false;
+    } else {
+      setPieImgInvalid(true);
+      return true;
     }
   };
 
@@ -76,17 +144,15 @@ const AgregarNoticia = (props) => {
     e.preventDefault();
     //validacion
     if (
-      valTexto(tituloNoticia) ||
-      valTexto(subtituloNoticia) ||
-      valResumen(resumenNoticia) ||
+      valTit(tituloNoticia) ||
+      valSubT(subtituloNoticia) ||
       valAutor(autor) ||
-      imagen === "" ||
-      categoria === ""
+      valResumen(resumenNoticia) ||
+      valCat(categoria) ||
+      valImg(imagen) ||
+      valPieImg(pieDeFoto)
     ) {
-      setError(true);
     } else {
-      setError(false);
-
       const noticia = {
         titulo: tituloNoticia,
         descripcion: subtituloNoticia,
@@ -94,9 +160,9 @@ const AgregarNoticia = (props) => {
         autor,
         categoria,
         foto: imagen,
-        pieDeFoto: "'dsfsfjkhdskjfhsdjkfdsfdsfds",
-        hora:moment().format('HH:mm'),
-        fecha:moment().format('DD MMMM, YYYY')
+        pieDeImagen: pieDeFoto,
+        hora: moment().format("HH:mm"),
+        fecha: moment().format("DD MMMM, YYYY"),
       };
       console.log(noticia);
 
@@ -110,8 +176,11 @@ const AgregarNoticia = (props) => {
           body: JSON.stringify(noticia),
         };
 
-        const respuesta = await fetch(url+"/noticias/addNoticia", configuracion);
-        console.log(url+"/noticias/addNoticia")
+        const respuesta = await fetch(
+          url + "/noticias/addNoticia",
+          configuracion
+        );
+        console.log(url + "/noticias/addNoticia");
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -120,13 +189,40 @@ const AgregarNoticia = (props) => {
             "success"
           );
           props.setConsultarNoticias(!props.consultarNoticias);
-          e.target.reset()
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
+    limpiarFormulario();
+    e.target.reset();
   };
+
+  const limpiarFormulario = () => {
+    setTituloNoticia("");
+    setSubtituloNoticia("");
+    setAutor("");
+    setResumenNoticia("");
+    setCategoria("");
+    setImagen("");
+    setPieDeFoto("");
+    setError(false);
+    setTitValid("");
+    setTitInvalid("");
+    setSubTValid("");
+    setSubTInvalid("");
+    setAutorValid("");
+    setAutorInvalid("");
+    setResValid("");
+    setResInvalid("");
+    setCatValid("");
+    setCatInvalid("");
+    setImgValid("");
+    setImgInvalid("");
+    setPieImgValid("");
+    setPieImgInvalid("");
+  };
+
   return (
     <Container>
       <Form
@@ -159,12 +255,18 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="50"
-              onInput={maxNum}
+              maxLength="40"
               type="text"
               placeholder="Balacera en la Costanera"
               onChange={(e) => setTituloNoticia(e.target.value)}
+              onBlur={valTit}
+              isValid={titValid}
+              isInvalid={titInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12 - 40
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -174,11 +276,17 @@ const AgregarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               maxLength="50"
-              onInput={maxNum}
               type="text"
               placeholder="Enfrentamiento policial"
               onChange={(e) => setSubtituloNoticia(e.target.value)}
+              onBlur={valSubT}
+              isValid={subTValid}
+              isInvalid={subTInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12 - 50
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -188,11 +296,16 @@ const AgregarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               maxLength="40"
-              onInput={maxNum}
               type="text"
               placeholder="Alejandro Poviña"
               onChange={(e) => setAutor(e.target.value)}
+              onBlur={valAutor}
+              isValid={autorValid}
+              isInvalid={autorInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12-40 caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -205,7 +318,17 @@ const AgregarNoticia = (props) => {
               as="textarea"
               rows={5}
               onChange={(e) => setResumenNoticia(e.target.value)}
+              onBlur={valResumen}
+              isValid={resValid}
+              isInvalid={resInvalid}
             />
+            <Form.Label>
+              <p>{resumenNoticia.length}/6500</p>
+            </Form.Label>
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 2000-5000
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -217,6 +340,9 @@ const AgregarNoticia = (props) => {
               as="select"
               defaultValue="Seleccione una Categoria"
               onChange={cambioCategoria}
+              onBlur={valCat}
+              isValid={catValid}
+              isInvalid={catInvalid}
             >
               <option disabled>Seleccione una Categoria</option>
               {categorias.map((cat) => (
@@ -230,6 +356,9 @@ const AgregarNoticia = (props) => {
                 </option>
               ))}
             </Form.Control>
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, debe seleccionar un Categoria.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text className="span">
@@ -237,20 +366,49 @@ const AgregarNoticia = (props) => {
                 *<b>Imagen:</b>
               </Form.Label>
             </InputGroup.Text>
-            <Form.File onChange={(e) => setImagen(e.target.value)}></Form.File>
+            <Form.File
+              onChange={(e) => setImagen(e.target.value)}
+              onBlur={valImg}
+              isValid={imgValid}
+              isInvalid={imgInvalid}
+            ></Form.File>
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, debe seleccionar una Imagen.
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <InputGroup.Text>
+              <Form.Label>
+                *<b>Pie de Imagen:</b>
+              </Form.Label>
+            </InputGroup.Text>
+            <Form.Control
+              maxLength="25"
+              type="text"
+              placeholder="Choque en la Ruta Nacional"
+              onChange={(e) => setPieDeFoto(e.target.value)}
+              onBlur={valPieImg}
+              isValid={pieImgValid}
+              isInvalid={pieImgInvalid}
+            />
           </Form.Group>
         </div>
         <div className="d-flex justify-content-center">
-          <Button className="w-100 mb-0" variant="success" type="submit">
+          <Button
+            className="w-100 mb-0"
+            variant="success"
+            type="submit"
+            onClick={scrollToTop}
+          >
             Guardar
           </Button>
         </div>
-        {error ? (
-          <Alert variant="danger" className=" mt-3 mb-0">
-            Todos los campos son obligatorios
-          </Alert>
-        ) : null}
       </Form>
+      {error ? (
+        <Form.Label className="text-danger">
+          Campo obligatorio, El apellido debe contener entre 4 - 25 caracteres
+        </Form.Label>
+      ) : null}
     </Container>
   );
 };
