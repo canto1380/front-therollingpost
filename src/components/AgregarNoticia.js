@@ -195,10 +195,10 @@ const AgregarNoticia = (props) => {
       }
     }
     limpiarFormulario();
-    e.target.reset();
   };
 
-  const limpiarFormulario = () => {
+  const limpiarFormulario = (e) => {
+    e.target.reset();
     setTituloNoticia("");
     setSubtituloNoticia("");
     setAutor("");

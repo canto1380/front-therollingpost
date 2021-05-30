@@ -4,17 +4,17 @@ import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
 import "./span.css";
 
-import moment from 'moment'
+import moment from "moment";
 
 const EditarNoticia = (props) => {
-  const { id} = useParams();
+  const { id } = useParams();
   //Variables useRef
   const tituloNoticiaRef = useRef("");
   const subtituloNoticiaRef = useRef("");
   const resumenNoticiaRef = useRef("");
   const autorRef = useRef("");
   const imagenRef = useRef("");
-  const piedefoto =useRef("")
+  const piedefotoRef = useRef("");
   // creo los state
   const [noticias, setNoticia] = useState({});
   const [categoria, setCategoria] = useState("");
@@ -36,12 +36,12 @@ const EditarNoticia = (props) => {
 
   const consultarNoticia = async () => {
     try {
-      const respuesta = await fetch(url+ "/noticias/noticia/" + id);
+      const respuesta = await fetch(url + "/noticias/noticia/" + id);
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
         setNoticia(resp);
-        console.log(resp)
+        console.log(resp);
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +55,7 @@ const EditarNoticia = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let categoriaModificada = categoria === "" ? noticias.categoria : categoria;
-  
+
     //validar los datos
     if (
       campoRequerido(tituloNoticiaRef.current.value) &&
@@ -74,9 +74,9 @@ const EditarNoticia = (props) => {
           autor: autorRef.current.value,
           foto: imagenRef.current.value,
           categoria: categoriaModificada,
-          pieDeFoto: "sadasfjkdhlfds",
-          hora:moment().format('HH:mm'),
-          fecha:moment().format('DD MMMM, YYYY')
+          pieDeFoto: piedefotoRef.current.value,
+          hora: moment().format("HH:mm"),
+          fecha: moment().format("DD MMMM, YYYY"),
         };
         const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
           method: "PUT",
@@ -84,7 +84,7 @@ const EditarNoticia = (props) => {
           body: JSON.stringify(noticiaModificada),
         });
         if (respuesta.status === 200) {
-          console.log(url)
+          console.log(url);
           Swal.fire(
             "Noticia Editada!",
             "El archivo fue modificado correctamente",
@@ -94,7 +94,7 @@ const EditarNoticia = (props) => {
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
-          e.target.reset()
+          e.target.reset();
         }
       } catch (error) {
         console.log(error);
@@ -104,7 +104,7 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
-  console.log(noticias.categoria)
+  console.log(noticias.categoria);
   return (
     <Container>
       <Form
@@ -128,7 +128,6 @@ const EditarNoticia = (props) => {
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
               defaultValue={noticias.titulo}
-              
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -178,7 +177,8 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              selected value={noticias.categoria}
+              selected
+              value={noticias.categoria}
               onChange={cambioCategoria}
             >
               <option>Seleccione..</option>
@@ -204,12 +204,26 @@ const EditarNoticia = (props) => {
               defaultValue={noticias.imagen}
             ></Form.File>
           </Form.Group>
+          <Form.Group className="mb-3">
+            <InputGroup.Text>
+              <Form.Label>
+                *<b>Pie de Imagen:</b>
+              </Form.Label>
+            </InputGroup.Text>
+            <Form.Control
+              maxLength="25"
+              type="text"
+              placeholder="Choque en la Ruta Nacional"
+            />
+          </Form.Group>
         </div>
         <div className="d-flex justify-content-center">
           <Button
             className="w-100 mb-0 text-light"
             variant="warning"
             type="submit"
+            ref={piedefotoRef}
+            defaultValue={noticias.pieDeImagen}
           >
             Editar
           </Button>
