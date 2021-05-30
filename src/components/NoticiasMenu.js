@@ -3,13 +3,13 @@ import { Container, Table, Form } from "react-bootstrap";
 import ItemBotonera from "./ItemBotonera";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
-  const {noticias} = props
-  noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
-  noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
-  console.log(noticias)
+  const { noticias } = props;
+  noticias.sort((a, b) => parseInt(a.hora) - parseInt(b.hora));
+  noticias.sort((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha));
+  console.log(noticias);
 
   return (
     <Container>
@@ -26,7 +26,7 @@ const NoticiasMenu = (props) => {
                 className="btn btn-success text-light botones"
                 to={"/menu-noticias/agregar-noticia"}
               >
-                <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Link>
             </div>
           </div>
