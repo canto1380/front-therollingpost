@@ -1,5 +1,5 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
@@ -121,6 +121,7 @@ function App() {
         title: 'Ya llega el diario.',
         showConfirmButton: false
       })
+      // const respuesta = await fetch(URL + "/noticias?publicado=true");
       const respuesta = await fetch(URL + "/noticias");
       const informacion = await respuesta.json();
       if (respuesta.status === 200) {

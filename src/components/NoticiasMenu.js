@@ -3,11 +3,11 @@ import { Container, Table, Form } from "react-bootstrap";
 import ItemBotonera from "./ItemBotonera";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
   return (
-    <Container>
+    <Container className="mb-3">
       <h1 className="text-center mt-3">Menu de Administracion de Noticias</h1>
       <hr />
       <Form>
@@ -20,8 +20,9 @@ const NoticiasMenu = (props) => {
               <Link
                 className="btn btn-success text-light botones"
                 to={"/agregar-noticia"}
+                title="Agregar noticia"
               >
-                <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Link>
             </div>
           </div>
