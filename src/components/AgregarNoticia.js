@@ -142,6 +142,7 @@ const AgregarNoticia = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    limpiarFormulario();
     //validacion
     if (
       valTit(tituloNoticia) ||
@@ -189,16 +190,16 @@ const AgregarNoticia = (props) => {
             "success"
           );
           props.setConsultarNoticias(!props.consultarNoticias);
+          limpiarFormulario();
+          e.target.reset();
         }
       } catch (error) {
         console.log(error);
       }
     }
-    limpiarFormulario();
   };
 
-  const limpiarFormulario = (e) => {
-    e.target.reset();
+  const limpiarFormulario = () => {
     setTituloNoticia("");
     setSubtituloNoticia("");
     setAutor("");
@@ -391,6 +392,9 @@ const AgregarNoticia = (props) => {
               isValid={pieImgValid}
               isInvalid={pieImgInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, Debe escribir de 12-25 caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
         </div>
         <div className="d-flex justify-content-center">
