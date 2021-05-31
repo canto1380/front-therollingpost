@@ -253,9 +253,7 @@ useEffect(() => {
           <FormFeedback></FormFeedback>
         </Route>
       </Switch>
-      <Footer 
-        categorias={categorias}
-      />
+      <Footer categorias={categorias} />
     </Router>
   );
 }

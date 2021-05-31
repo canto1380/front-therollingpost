@@ -70,6 +70,7 @@
       "autorRef": "asdasd",
       "imagenRef": "C:\\fakepath\\logopaisa.png",
       "categoria": "cine",
+      "pieDeImagen" : "",
       "id": 1
     },
     {
@@ -79,6 +80,7 @@
       "autor": "vbnbvn",
       "categoria": "cine",
       "imagen": "C:\\fakepath\\logo paisa.png",
+      "pieDeImagen" : "",
       "id": 2
     }
   ],

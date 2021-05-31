@@ -12,6 +12,7 @@ const PreviewNoticia = (props) => {
   const autorRef = useRef("");
   const imagenRef = useRef("");
   const categoriaRef = useRef("");
+  const pieDeFotoRef = useRef("");
   // states
   const [noticia, setNoticia] = useState({});
   //const [categoria, SetCategoria] = useState("");
@@ -36,6 +37,13 @@ const PreviewNoticia = (props) => {
 
   return (
     <Container>
+      <div className="mt-5">
+        <h1 className="text-center">Previsualizacion de Noticia</h1>
+        <p className="text-muted text center">
+          En esta pagina podras ver como es el maquetado de la noticia antes de
+          publicarla.
+        </p>
+      </div>
       <Card className="mt-5 mb-3">
         <Card.Header>
           <p
@@ -62,7 +70,7 @@ const PreviewNoticia = (props) => {
           </Card.Subtitle>
           <Card.Text>
             <div className="row">
-              <div className="col-sm12 col-md-8">
+              <div className="col-sm-12 col-md-8">
                 <p
                   ref={resumenNoticiaRef}
                   defaultValue={noticia.resumenNoticia}
@@ -70,14 +78,21 @@ const PreviewNoticia = (props) => {
                   {noticia.resumenNoticia}
                 </p>
               </div>
-              <div className="col-sm12 col-md-4  border">
-                <Figure>
-                  <Image
-                    src={noticia.imagen}
-                    ref={imagenRef}
-                    defaultValue={noticia.imagen}
-                  />
-                </Figure>
+              <div className="row">
+                <div className="col-12 border mb-2">
+                  <Figure>
+                    <Image
+                      src={noticia.imagen}
+                      ref={imagenRef}
+                      defaultValue={noticia.imagen}
+                    />
+                  </Figure>
+                </div>
+                <div className="col-12 border mb-2">
+                  <h5 ref={pieDeFotoRef} defaultValue={noticia.pieDeImagen}>
+                    {noticia.pieDeImagen}
+                  </h5>
+                </div>
               </div>
             </div>
           </Card.Text>

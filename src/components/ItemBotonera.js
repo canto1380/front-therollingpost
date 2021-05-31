@@ -6,47 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
 
 const ItemBotonera = (props) => {
-  // const eliminarProductos = (id) => {
-  //   Swal.fire({
-  //     title: "Estas seguro de Borrar esta noticia?",
-  //     text: "Una vez elminado no se puede volver atras!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Eliminar",
-  //     CancelButtonText: "Cancelar",
-  //   }).then(async (result) => {
-  //     if (result.isConfirmed) {
-  //       //aqui se borra el producto
-  //       const url = `${process.env.REACT_APP_API_URL + "/noticias"}/${id}`;
-  //       try {
-  //         const respuesta = await fetch(url, {
-  //           method: "DELETE",
-  //           headers: { "Content-Type": "application/json" },
-  //         });
-  //         if (respuesta.status === 200) {
-  //           Swal.fire(
-  //             "Noticia Eliminado!",
-  //             "La noticia seleccionada se borro correctamente",
-  //             "success"
-  //           );
-  //           //actualizar los datos de la lista
-  //           props.consultarAPIN();
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     }
-  //   });
-  // };
-
-  //
   const eliminarProductos = (id) => {
-    console.log(id)
+    console.log(id);
     Swal.fire({
       title: "Estas seguro de Borrar esta noticia?",
       text: "Una vez elminado no se puede volver atras!",
@@ -59,7 +23,9 @@ const ItemBotonera = (props) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         //aqui se borra el producto
-        const url = `${process.env.REACT_APP_API_URL + "/noticias/deleteNoticia"}/${id}`;
+        const url = `${
+          process.env.REACT_APP_API_URL + "/noticias/deleteNoticia"
+        }/${id}`;
         try {
           const respuesta = await fetch(url, {
             method: "DELETE",
@@ -103,7 +69,7 @@ const ItemBotonera = (props) => {
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
       <Button variant="primary" className="botones">
-        <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
       </Button>
     </div>
   );
