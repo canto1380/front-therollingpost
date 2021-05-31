@@ -16,12 +16,15 @@ import CardUltimasNoticias from './CardUltimasNoticias';
 import CardComentarios from './CardComentarios';
 
 const Noticia = (props) => {
+    const {noticias} = props
     const [not, setNot] = useState({});
-    const {categoria, id} = useParams();
-
+    const {cat, id} = useParams();
     let hidden = 'pub-hidden-lg'
     let hiddenmd ="pub-hidden-md"
 
+    let ultimas3noticias = noticias.slice(noticias.length-3, noticias.length)
+
+    /* Obtener la noticias a mostrar */
     useEffect(() => {
         const consultarCategorias = async () => {
             try {
@@ -36,6 +39,21 @@ const Noticia = (props) => {
         }
         consultarCategorias();
     }, []);
+    
+
+
+    /* VER PASO DE INFORMACION */
+    const [noticiasXCat, setNoticiasXCat] = useState([])
+    // const [masLeidas, setMasLeidas] = useState([])
+    const [consultar, setConsultar] = useState(true)
+    useEffect(() => {
+        if(consultar){
+            setNoticiasXCat(noticias.filter(not => not.categoria === cat))
+            // setMasLeidas(noticiasXCat.slice(1,4))
+            console.log('aa')
+        }
+    }, [consultar])
+    /* ARRIBA */
 
     return (
         <Container fluid className="p-4">
@@ -45,7 +63,7 @@ const Noticia = (props) => {
                     <CardNoticiaIndividual not={not}/>
                 </Col>
                 <Col sm={8} lg={4} className="component-mas-leidas">
-                    <CardMasLeidas />
+                    <CardMasLeidas  noticias={props.noticias} noticiasXCat={noticiasXCat} categoria={cat}/>
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
                 </Col>
@@ -57,7 +75,9 @@ const Noticia = (props) => {
                 </Col>
                 <hr className="my-2"/>
                 <Col sm={8} lg={8} >
-                    <CardUltimasNoticias/>
+                    {
+                    <CardUltimasNoticias ultimas3noticias={ultimas3noticias}/>
+                    }
                 </Col>
                 <Col sm={4} lg={4} className="d-flex justify-content-center align-items-center">
                 <Publicidad publicidad={Coca}/>

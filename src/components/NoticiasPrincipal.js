@@ -39,7 +39,7 @@ const NoticiasPrincipal = (props) => {
               </div>
               <img className="card-img-top" src={LogoNR} alt=""/>
             </div>
-          </Link>
+            </Link>
             )
           }
         </Col>

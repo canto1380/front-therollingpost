@@ -28,6 +28,7 @@ import moment from 'moment'
 function App() {
 
   const url = process.env.REACT_APP_API_URL;
+
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] = useState(true);
@@ -46,7 +47,7 @@ function App() {
 
   noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
   noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
-  console.log(noticias)
+  
   let ultimaNoticia=noticias.slice(noticias.length-1,noticias.length)
   let ultimasNoticias = noticias.slice(noticias.length-3,noticias.length-1)
 
@@ -70,7 +71,6 @@ useEffect(() => {
   };
       consultarAPICat();
   },[consultarCat]);
-
 
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {
@@ -190,7 +190,9 @@ useEffect(() => {
         }
         {/* Noticia individual */}
         <Route exact path="/noti/:cat/:id">
-          <Noticia/>
+          <Noticia
+            noticias={noticias}
+          />
         </Route>
 
         {/* Menu Admin */}

@@ -7,7 +7,7 @@ import ItemCategoria from './ItemCategoria';
 
 const CategoriaMenu = (props) => {
     const {categorias, cantDestacadas} = props
-    console.log(cantDestacadas)
+    
     return (
         <Container>
             <div className="d-flex justify-content-between align-items-center mt-5">
