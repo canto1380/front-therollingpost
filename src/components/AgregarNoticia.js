@@ -57,7 +57,7 @@ const AgregarNoticia = (props) => {
     setTitValid("");
     setTitInvalid("");
     let texto = expresiones.texto;
-    if (titulo !== "" && texto.test(titulo)) {
+    if (tituloNoticia !== "" && texto.test(tituloNoticia)) {
       setTitValid(true);
       return false;
     } else {
