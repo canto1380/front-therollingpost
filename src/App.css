@@ -142,6 +142,18 @@
   }
 }
 
+<<<<<<< HEAD
+=======
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .content-wrap {
+    flex: 1;
+  }
+  
+>>>>>>> 2383a7762f40d7245ef8005ff70eea53362e3089
 
 @media(min-width:576px){
   

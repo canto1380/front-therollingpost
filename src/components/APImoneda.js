@@ -1,3 +1,7 @@
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMoneyBillAlt} from '@fortawesome/free-regular-svg-icons';
+import {faMoneyBillAlt as solidBill} from '@fortawesome/free-solid-svg-icons';
 import React,{useState ,useEffect} from 'react';
 
 const APImoneda = () => {
@@ -29,12 +33,10 @@ const APImoneda = () => {
 }
          return (
             
-<div className="d-flex justify-content-around align-items-center">
+<div className="d-flex justify-content-center align-items-center my-3">
          
-         <div><b>Dolar Oficial</b></div>
-         <div className="mx-1">${oficial.compra} / ${oficial.venta}</div>
-         <div className="mx-1"><b>Dolar Blue</b></div>
-         <div>${blue.compra} / ${blue.venta}</div>
+         <div className=" p-1 rounded border border-success border-4"><FontAwesomeIcon icon={faMoneyBillAlt} className="me-1 text-success align-middle" size="2x"></FontAwesomeIcon> <span ><b>Dolar Oficial: </b>${oficial.compra} / ${oficial.venta}</span></div>
+         <div className="ms-3 p-1 rounded border border-primary border-4"><FontAwesomeIcon icon={solidBill} className="me-1 text-primary align-middle " size="2x"></FontAwesomeIcon> <b>Dolar Blue: </b>${blue.compra} / ${blue.venta}</div>
      </div>
         
       

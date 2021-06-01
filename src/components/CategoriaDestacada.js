@@ -7,7 +7,6 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 
 const CategoriaDestacada = (props) => {
     const { noticias, cat } = props
-
     
     return (
         <section className="my-5 w-100" >

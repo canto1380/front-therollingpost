@@ -15,8 +15,7 @@ const Navigation = (props) => {
 
   return (
     <Navbar
-      className="container-fluid py-3"
-      bg="secondary"
+      className="container-fluid py-3 backcolor"
       expand="lg"
       variant="dark"
     >
