@@ -15,7 +15,7 @@ const ItemNoticiasxCat = (props) => {
             <hr className="mb-0"/>
             {
                noticiasXCat.map((not) =>(
-                <Col xs={12} sm={6} lg={4} xl={3} className="d-flex justify-content-center align-items-center h-100 my-4" key={not._id}>
+                <Col xs={12} sm={6} lg={4} key={not._id} className="my-2">
                 <Link key={not._id} to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none">
                   <div className="card tarjetaNoticia">
                     <img className="card-img-top w-100" src={LogoNR} alt="" />

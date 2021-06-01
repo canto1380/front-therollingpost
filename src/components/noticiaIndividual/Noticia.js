@@ -21,6 +21,7 @@ const Noticia = (props) => {
     const {cat, id} = useParams();
     let hidden = 'pub-hidden-lg'
     let hiddenmd ="pub-hidden-md"
+    let hiddensm ="pub-hidden-sm"
 
     let ultimas3noticias = noticias.slice(noticias.length-3, noticias.length)
 
@@ -38,7 +39,8 @@ const Noticia = (props) => {
             }
         }
         consultarCategorias();
-    }, []);
+    }, [id]);
+    console.log(not)
     
 
 
@@ -62,25 +64,24 @@ const Noticia = (props) => {
                 <Col className="my-5" sm={12} lg={8} >
                     <CardNoticiaIndividual not={not}/>
                 </Col>
-                <Col sm={8} lg={4} className="component-mas-leidas">
+                <Col sm={12} md={8} lg={4} className="component-mas-leidas">
                     <CardMasLeidas  noticias={props.noticias} noticiasXCat={noticiasXCat} categoria={cat}/>
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
                 </Col>
-                <Col sm={4} lg={4}>
-                    <Publicidad className="d-flex justify-content-center align-items-center" classnamehidden={hidden} publicidad={covidCuidados} />
-                </Col>
-                <Col sm={12}>
-                    <Publicidad classnamehidden={hiddenmd} publicidad={vacunas}/>
+                <Col md={4} lg={4} className="d-flex justify-content-center align-items-center">
+                    <Publicidad classnamehidden={hidden} publicidad={covidCuidados} />
                 </Col>
                 <hr className="my-2"/>
-                <Col sm={8} lg={8} >
+                
+                <hr className="my-2"/>
+                <Col sm={12} md={8} >
                     {
                     <CardUltimasNoticias ultimas3noticias={ultimas3noticias}/>
                     }
                 </Col>
                 <Col sm={4} lg={4} className="d-flex justify-content-center align-items-center">
-                <Publicidad publicidad={Coca}/>
+                <Publicidad publicidad={Coca} classnamehidden={hiddensm}/>
                 </Col>
                 <hr className="my2"/>
                 <Col sm={12}>

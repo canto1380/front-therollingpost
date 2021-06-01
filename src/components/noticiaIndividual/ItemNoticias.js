@@ -5,8 +5,9 @@ import LogoNR from "../../img/Logo-NR.png";
 import "../../App.css"
 
 const ItemNoticias = (props) => {
-    const {masLeidas}= props
-    console.log(props.n)
+    const {noticias, categoria}= props
+    console.log(noticias)
+    console.log(categoria)
     // console.log(props.ml)
     // console.log(props.noticias)
 

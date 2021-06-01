@@ -55,8 +55,7 @@ function App() {
 
   let ultimaNoticia = noticias.slice(noticias.length - 1, noticias.length)
   let ultimasNoticias = noticias.slice(noticias.length - 3, noticias.length - 1)
-  
-
+  console.log(noticias)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
@@ -72,10 +71,10 @@ function App() {
         title: 'Ya llega el diario.',
         showConfirmButton: false
       })
-      const respuesta = await fetch(URL + "/noticias/listNoticias");
+      const respuesta = await fetch(URL + "/noticias/");
       const informacion = await respuesta.json();
       if (respuesta.status === 200) {
-        setNoticias(informacion);
+        // setNoticias(informacion);
       }
     } catch (error) {
       console.log(error)
