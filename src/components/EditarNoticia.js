@@ -21,11 +21,112 @@ const EditarNoticia = (props) => {
   const [error, setError] = useState(false);
   const url = process.env.REACT_APP_API_URL;
   const { categorias, setConsultarCat } = props;
+  //Feed
+  const [titValid, setTitValid] = useState("");
+  const [titInvalid, setTitInvalid] = useState("");
+  const [subTValid, setSubTValid] = useState("");
+  const [subTInvalid, setSubTInvalid] = useState("");
+  const [autorValid, setAutorValid] = useState("");
+  const [autorInvalid, setAutorInvalid] = useState("");
+  const [resValid, setResValid] = useState("");
+  const [resInvalid, setResInvalid] = useState("");
+  const [catValid, setCatValid] = useState("");
+  const [catInvalid, setCatInvalid] = useState("");
+  const [imgValid, setImgValid] = useState("");
+  const [imgInvalid, setImgInvalid] = useState("");
+  const [pieImgValid, setPieImgValid] = useState("");
+  const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const campoRequerido = (valor) => {
-    if (valor.trim() === "") {
+  const expresiones = {
+    texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
+    autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
+  };
+
+  //Validaciones
+  const valTit = () => {
+    setTitValid("");
+    setTitInvalid("");
+    let titulo = expresiones.texto;
+    if (tituloNoticiaRef.trim() !== "" && titulo.test(tituloNoticiaRef)) {
+      setTitValid(true);
       return false;
     } else {
+      setTitInvalid(true);
+      return true;
+    }
+  };
+  const valSubT = () => {
+    setSubTValid("");
+    setSubTInvalid("");
+    let texto = expresiones.texto;
+    if (subtituloNoticiaRef.trim() !== "" && texto.test(subtituloNoticiaRef)) {
+      setSubTValid(true);
+      return false;
+    } else {
+      setSubTInvalid(true);
+      return true;
+    }
+  };
+
+  const valAutor = () => {
+    setAutorValid("");
+    setAutorInvalid("");
+    let nombre = expresiones.autor;
+    if (autorRef.trim() !== "" && nombre.test(autorRef)) {
+      setAutorValid(true);
+      return false;
+    } else {
+      setAutorInvalid(true);
+      return true;
+    }
+  };
+
+  const valResumen = () => {
+    setResValid("");
+    setResInvalid("");
+    let res = expresiones.resumen;
+    if (resumenNoticiaRef.trim() !== "" && res.test(resumenNoticiaRef)) {
+      setResValid(true);
+      return false;
+    } else {
+      setResInvalid(true);
+      return true;
+    }
+  };
+
+  const valCat = () => {
+    setCatValid("");
+    setCatInvalid("");
+    if (categoria === "") {
+      setCatValid(true);
+      return false;
+    } else {
+      setCatInvalid(true);
+      return true;
+    }
+  };
+  const valImg = () => {
+    setImgValid("");
+    setImgInvalid("");
+    if (imagenRef === "") {
+      setImgValid(true);
+      return false;
+    } else {
+      setImgInvalid(true);
+      return true;
+    }
+  };
+
+  const valPieImg = () => {
+    setPieImgValid("");
+    setPieImgInvalid("");
+    let texto = expresiones.texto;
+    if (piedefotoRef !== "" && texto.test(piedefotoRef)) {
+      setPieImgValid(true);
+      return false;
+    } else {
+      setPieImgInvalid(true);
       return true;
     }
   };
@@ -58,12 +159,12 @@ const EditarNoticia = (props) => {
 
     //validar los datos
     if (
-      campoRequerido(tituloNoticiaRef.current.value) &&
-      campoRequerido(subtituloNoticiaRef.current.value) &&
-      campoRequerido(resumenNoticiaRef.current.value) &&
-      campoRequerido(autorRef.current.value) &&
-      campoRequerido(imagenRef.current.value) &&
-      campoRequerido(categoriaModificada)
+      tituloNoticiaRef.current.value &&
+      subtituloNoticiaRef.current.value &&
+      resumenNoticiaRef.current.value &&
+      autorRef.current.value &&
+      imagenRef.current.value &&
+      categoriaModificada
     ) {
       setError(false);
       try {
@@ -124,11 +225,19 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="40"
               type="text"
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
               defaultValue={noticias.titulo}
+              onBlur={valTit}
+              isValid={titValid}
+              isInvalid={titInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12 - 40
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -137,11 +246,19 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="50"
               type="text"
               placeholder="Enfrentamiento policial"
               ref={subtituloNoticiaRef}
               defaultValue={noticias.descripcion}
+              onBlur={valSubT}
+              isValid={subTValid}
+              isInvalid={subTInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12 - 50
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -150,11 +267,18 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="40"
               type="text"
               placeholder="Alejandro Poviña"
               ref={autorRef}
               defaultValue={noticias.autor}
+              onBlur={valAutor}
+              isValid={autorValid}
+              isInvalid={autorInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 12-40 caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -163,11 +287,22 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
+              maxLength="6500"
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
               defaultValue={noticias.descripNoticia}
+              onBlur={valResumen}
+              isValid={resValid}
+              isInvalid={resInvalid}
             />
+            <Form.Label>
+              <p>{resumenNoticiaRef.length}/6500</p>
+            </Form.Label>
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, al menos debe contener entre 2000-5000
+              caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -180,6 +315,9 @@ const EditarNoticia = (props) => {
               selected
               value={noticias.categoria}
               onChange={cambioCategoria}
+              onBlur={valCat}
+              isValid={catValid}
+              isInvalid={catInvalid}
             >
               <option>Seleccione..</option>
               {categorias.map((cat) => (
@@ -202,7 +340,13 @@ const EditarNoticia = (props) => {
             <Form.File
               ref={imagenRef}
               defaultValue={noticias.imagen}
+              onBlur={valImg}
+              isValid={imgValid}
+              isInvalid={imgInvalid}
             ></Form.File>
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, debe seleccionar una Imagen.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -214,7 +358,13 @@ const EditarNoticia = (props) => {
               maxLength="25"
               type="text"
               placeholder="Choque en la Ruta Nacional"
+              onBlur={valPieImg}
+              isValid={pieImgValid}
+              isInvalid={pieImgInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo Obligatorio, Debe escribir de 12-25 caracteres.
+            </Form.Control.Feedback>
           </Form.Group>
         </div>
         <div className="d-flex justify-content-center">

@@ -104,10 +104,10 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valCat = (cat) => {
+  const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (cat === "") {
+    if (categoria === "") {
       setCatValid(true);
       return false;
     } else {
