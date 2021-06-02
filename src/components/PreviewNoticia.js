@@ -23,7 +23,7 @@ const PreviewNoticia = (props) => {
 
   const consultarNoticia = async () => {
     try {
-      const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
+      const url = process.env.REACT_APP_API_URL + "/noticias/noticia/" + id;
       const respuesta = await fetch(url);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
@@ -56,16 +56,16 @@ const PreviewNoticia = (props) => {
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            <h1 ref={tituloNoticiaRef} defaultValue={noticia.tituloNoticia}>
-              {noticia.tituloNoticia}
+            <h1 ref={tituloNoticiaRef} defaultValue={noticia.titulo}>
+              {noticia.titulo}
             </h1>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             <h3
               ref={subtituloNoticiaRef}
-              defaultValue={noticia.subtituloNoticia}
+              defaultValue={noticia.descripcion}
             >
-              {noticia.subtituloNoticia}
+              {noticia.descripcion}
             </h3>
           </Card.Subtitle>
           <Card.Text>
@@ -73,13 +73,14 @@ const PreviewNoticia = (props) => {
               <div className="col-sm-12 col-md-8">
                 <p
                   ref={resumenNoticiaRef}
-                  defaultValue={noticia.resumenNoticia}
+                  defaultValue={noticia.descripNoticia}
                 >
-                  {noticia.resumenNoticia}
+                  {noticia.descripNoticia}
                 </p>
               </div>
+              <div className="col-sm-12 col-md-4">
               <div className="row">
-                <div className="col-12 border mb-2">
+                <div className="col-12 border border-danger mb-2">
                   <Figure>
                     <Image
                       src={noticia.imagen}
@@ -89,10 +90,11 @@ const PreviewNoticia = (props) => {
                   </Figure>
                 </div>
                 <div className="col-12 border mb-2">
-                  <h5 ref={pieDeFotoRef} defaultValue={noticia.pieDeImagen}>
-                    {noticia.pieDeImagen}
+                  <h5 ref={pieDeFotoRef} defaultValue={noticia.pieDeFoto}>
+                    {noticia.pieDeFoto}
                   </h5>
                 </div>
+              </div>
               </div>
             </div>
           </Card.Text>

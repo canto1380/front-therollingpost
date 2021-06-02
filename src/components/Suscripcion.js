@@ -118,11 +118,7 @@ const Suscripcion = (props) => {
 
             // props.history.push("./");
             
-            // Swal.fire(
-            //   'Solicitud de suscripcion enviada',
-            //   'Nos pondremos en contacto para confirmar aceptacion',
-            //   'success'
-            // )
+           
             setConsultarClientes(true);
             console.log(clientes)
             e.target.reset();

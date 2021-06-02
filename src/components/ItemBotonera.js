@@ -50,8 +50,8 @@ const ItemBotonera = (props) => {
   return (
     <div className="d-flex justify-content-evenly">
       <Link
-        className="btn btn-warning me-1 text-light botones"
-        to={`/editar-noticia/${props.noticia._id}`}
+        className="btn btn-warning me-1 text-light "
+        to={`/editar-noticia/${props.noticia.id}`}
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
       </Link>
@@ -63,12 +63,12 @@ const ItemBotonera = (props) => {
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
-        className="btn btn-info me-1 text-light botones"
+        className="btn btn-info me-1 text-light"
         to={`/preview/${props.noticia._id}`}
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
-      <Button variant="primary" className="botones">
+      <Button variant="primary" className="">
         <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
       </Button>
     </div>

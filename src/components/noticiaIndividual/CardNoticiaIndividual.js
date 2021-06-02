@@ -10,6 +10,8 @@ import "../../App.css"
 
 const CardNoticiaIndividual = (props) => {
     const {not} = props
+    let url = `${process.env.REACT_APP_API_URL}/noticias/foto/${not._id}`
+    console.log(url)
     return (
         <section>
             <div>
@@ -22,7 +24,7 @@ const CardNoticiaIndividual = (props) => {
                 <span className="me-3"> {not.fecha}</span>
                 <span><FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon>6</span>
             </div>
-            <Image src={LogoNR} className="d-block w-100 image-height"/>
+            <Image src={url} className="d-block w-100 image-height"/>
             <div>
                 <p className="text-secondary">{not.pieDeFoto}</p>
             </div>
