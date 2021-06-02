@@ -1,9 +1,16 @@
 import React from 'react';
-import { Container, Button, ListGroup } from 'react-bootstrap';
-import ItemMasLeidas from './ItemNoticias';
+import { Container, Button, ListGroup, Row, Col, Image } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import LogoNR from "../../img/Logo-NR.png";
 
+const CardUltimasNoticias = (props) => {
+    const {ultimas3noticias} = props
+    console.log(ultimas3noticias)
+    ultimas3noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
+    ultimas3noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
 
-const CardUltimasNoticias = () => {
+    let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
+
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
@@ -13,7 +20,28 @@ const CardUltimasNoticias = () => {
             <hr className="mt-0"/>
             <ListGroup className="my-3">
                 {/* Map donde recorre las primeras 5 noticias  */}
-                <ItemMasLeidas/>
+                {
+                    ultimas3noticias.map((mas) => (
+                        <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria}/${mas._id}`}>
+                            {/* // `/noti/${not.categoria}/${not._id}`> */}
+                            <Row className="d-flex-justify-content-between card-masLeidas">
+                                <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
+                                    <Image src={`${url}/${mas._id}`} rounded className="img-items-noticias" />
+                                </Col>
+                                <Col xs={10} sm={9} className="p-1">
+                                    <div>
+                                        <p className="mb-0">{mas.titulo}</p>
+                                    </div>
+                                    <div className="">
+                                        <p className="text-success text-end mb-0 qww">{mas.hora}</p>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <hr className="my-1"/>
+                        </Link>
+                    ))
+                }
+                
             </ListGroup>
         </Container>
     );

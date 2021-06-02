@@ -8,6 +8,7 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 
 const ItemBotonera = (props) => {
   const eliminarProductos = (id) => {
+    console.log(id);
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
       text: "Una vez eliminado no se puede volver atrás!",
@@ -33,7 +34,7 @@ const ItemBotonera = (props) => {
               "success"
             );
             //actualizar los datos de la lista
-            props.consultarAPI();
+            props.setConsultarNoticias(!props.consultarNoticias);
           }
         } catch (error) {
           console.log(error);

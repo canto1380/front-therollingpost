@@ -11,7 +11,7 @@ import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
-  const {categorias, categoriasDestacadas, categoriasNoDestacadas } = props
+  const { noticias, categorias, categoriasDestacadas, categoriasNoDestacadas } = props
 
   return (
     <Navbar
@@ -29,7 +29,7 @@ const Navigation = (props) => {
             className="li-navbar-responsive w-50"
           >
           {categoriasNoDestacadas.map((cat)=>(
-              <NavDropdown.Item key={cat._id} href={"/sociales"}>{cat.nombreCategoria}</NavDropdown.Item>
+              <NavDropdown.Item key={cat._id} href={`/${cat.nombreCategoria.toLowerCase()}`}>{cat.nombreCategoria}</NavDropdown.Item>
                 ))}
           </NavDropdown> 
             {
@@ -38,7 +38,7 @@ const Navigation = (props) => {
             key={cat._id}
             className="li-navbar-responsive nav-link"
             exact={true}
-            to="/deportes"
+            to={`/${cat.nombreCategoria.toLowerCase()}`}
           >
             {cat.nombreCategoria}
           </NavLink>
@@ -48,9 +48,9 @@ const Navigation = (props) => {
             {
               categorias.map((cat) =>(
                 <NavLink
-                key={cat._id}
+                key={cat._id}  
                 exact={true}
-                to={"/policiales"}
+                to={`/${cat.nombreCategoria.toLowerCase()}`}
                 className="nav-link li-navbar-lg"
               >
                 {cat.nombreCategoria}

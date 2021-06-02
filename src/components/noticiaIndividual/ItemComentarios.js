@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Form, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 import LogoNR from "../../img/Logo-NR.png";
 
 const ItemComentarios = () => {

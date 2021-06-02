@@ -38,7 +38,6 @@ const MenuAdmin = (props) => {
           if (result.dismiss === Swal.DismissReason.timer) {
             deleteToken()
             props.history.push("/");
-            props.setConsultar(true)
           }
         });
       };

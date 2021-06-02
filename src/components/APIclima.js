@@ -6,7 +6,6 @@ const APIclima = () => {
     const [clima, setClima]=useState({});
     const [temp, setTtemp]=useState({})
     const [icon, setIcon]= useState({})
-    // const [consulta, setConsulta]=useState(false);
 
     useEffect(()=>{
             consultarAPIclima();

@@ -3,13 +3,12 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { campoRequerido, setToken } from "../helpers/helpers";
+import { setToken } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
-  const { user, setConsultar } = props;
   /* State */
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
@@ -36,15 +35,6 @@ const Login = (props) => {
     }
     console.log(valoresUser)
 
-    const config ={
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify(valoresUser)
-    }
-    const res = await fetch(url,config)
-    
     try {
       const config ={
         method: "POST",
@@ -55,13 +45,13 @@ const Login = (props) => {
       }
       const res = await fetch(url,config)
       
-      if(res.status === 200){
+      if(res.status === 201){
         
         console.log(res)
         setErr(false);
         /* Local Storage */
-        validacion.token = "res.params.token"
-        setToken(JSON.stringify(validacion))
+        // validacion.token = "res.params.token"
+        setToken(JSON.stringify("jwt","token"))
 
         /*Swal */
         let timerInterval;
@@ -89,7 +79,6 @@ const Login = (props) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
             props.history.push(`/`);
-            setConsultar(true)
           }
         });
       } else {
@@ -137,6 +126,7 @@ const Login = (props) => {
                     name="email"
                     placeholder="nombre@gmail.com"
                     onChange={handleValores}
+                    
                   />
                 </Form.Group>
 

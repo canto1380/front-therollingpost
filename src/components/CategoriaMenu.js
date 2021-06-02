@@ -7,7 +7,7 @@ import ItemCategoria from './ItemCategoria';
 
 const CategoriaMenu = (props) => {
     const {categorias, cantDestacadas} = props
-    console.log(cantDestacadas)
+    
     return (
         <Container>
             <div className="d-flex justify-content-between align-items-center mt-5">
@@ -17,7 +17,7 @@ const CategoriaMenu = (props) => {
             <ListGroup className="my-4">
             <span className="text-muted">* Se puede destacar un maximo de 4 categorias</span>
                 {
-                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat} cantDestacadas={cantDestacadas}/>)
+                    categorias.map((cat) =><ItemCategoria cat={cat} key={cat._id} consultarCat={props.consultarCat} setConsultarCat={props.setConsultarCat} cantDestacadas={cantDestacadas}/>)
                     
                 }
             </ListGroup>

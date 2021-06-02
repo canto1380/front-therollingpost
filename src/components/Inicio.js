@@ -14,7 +14,8 @@ import BnB from "../img/bon-o-bon.jpg";
 import vacunas from "../img/vacunasCovid.png";
 import slogan from "../img/sloganCovid.png";
 
-const Inicio = () => {
+const Inicio = (props) => {
+  const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia} = props
   
   return (
     
@@ -22,7 +23,7 @@ const Inicio = () => {
       <Publicidad publicidad={slogan}></Publicidad>
       <Row className="my-3">
     <Col sm={10}>
-    <NoticiasPrincipal></NoticiasPrincipal>
+    <NoticiasPrincipal noticias={props.noticias} ultimasNoticias={ultimasNoticias} ultimaNoticia={ultimaNoticia}/>
     </Col>
     <Col className=" d-none d-md-block " md={2} >
     <Publicidad publicidad={Coca} href="https://www.cocacoladeargentina.com.ar/"></Publicidad>
@@ -33,10 +34,9 @@ const Inicio = () => {
     <Publicidad publicidad={BnB} href="https://www.arcor.com/ar/marca/bon-o-bon"></Publicidad>
     </Col>
   </Row>
-        <CategoriaDestacada></CategoriaDestacada>
-        <Publicidad publicidad={vacunas}></Publicidad>
-        <CategoriaDestacada></CategoriaDestacada>
-        <CategoriaDestacada></CategoriaDestacada>
+      {
+        categoriasDestacadas.map((cat) =>(<CategoriaDestacada noticias={noticias} cat={cat} key={cat._id}/>))
+      }
     </Container>
   );
 };

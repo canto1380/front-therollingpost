@@ -1,13 +1,13 @@
-import React, {useState, useRef, useEffect} from 'react';
-import { ListGroup, Button, Form } from 'react-bootstrap';
+import React from 'react';
+import { ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faStar} from '@fortawesome/free-solid-svg-icons';
 import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
-    const {cat, cantDestacadas} = props
-
+    const { cantDestacadas} = props
+    console.log(props.cat)
 const eliminarCategoria =(id) =>{
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',
@@ -39,7 +39,7 @@ const eliminarCategoria =(id) =>{
                             'success'
                           )
                         // actualizar los datos de la lista de productos
-                        props.setConsultarCat(true);
+                        props.setConsultarCat(!props.consultarCat);
                     }
                 } catch (error) {
                     console.log(error)
@@ -62,14 +62,39 @@ const eliminarCategoria =(id) =>{
                         body: JSON.stringify(categoriaModificada)
                     })
                     if(res.status ===200){
-                        props.setConsultarCat(true);
+                        props.setConsultarCat(!props.consultarCat);
                         props.history.push("/menu-categorias");
                     }
                 } catch (error) {
                     
                 }        
             } else {
-                console.log("ya estan las 4")
+                let timerInterval
+                Swal.fire({
+                  title: 'No se puede definir mas categorias como destacadas',
+                  timer: 1000,
+                  timerProgressBar: true,
+                  didOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                      const content = Swal.getHtmlContainer()
+                      if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                          b.textContent = Swal.getTimerLeft()
+                        }
+                      }
+                    }, 100)
+                  },
+                  willClose: () => {
+                    clearInterval(timerInterval)
+                  }
+                }).then((result) => {
+                  /* Read more about handling dismissals below */
+                  if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('No se puede definir mas categorias como destacadas')
+                  }
+                })
             }
         } else {
             try {
@@ -83,7 +108,7 @@ const eliminarCategoria =(id) =>{
                     body: JSON.stringify(categoriaModificada)
                 })
                 if(res.status ===200){
-                    props.setConsultarCat(true);
+                    props.setConsultarCat(!props.consultarCat);
                     props.history.push("/menu-categorias");
                 }
             } catch (error) {
@@ -113,6 +138,7 @@ const eliminarCategoria =(id) =>{
                 <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)}>
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
+
             </div>
         </ListGroup.Item>
     );

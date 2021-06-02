@@ -8,7 +8,6 @@ import ItemCategoria from "./ItemCategoria";
 import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
-
     const { id } = useParams();
     console.log(id);
 
@@ -22,12 +21,11 @@ const EditarCategoria = (props) => {
     console.log(id)
     const URL = process.env.REACT_APP_API_URL;
     console.log(URL)
-    let mensaje;
 
     useEffect(() => {
         const consultarCategorias = async () => {
             try {
-                const res = await fetch(URL + "/categorias/categoria/" + id)
+                const res = await fetch(process.env.REACT_APP_API_URL + "/categorias/categoria/" + id)
                 console.log(res)
                 if (res.status === 200) {
                     const resp = await res.json();
@@ -72,7 +70,7 @@ const EditarCategoria = (props) => {
                         'success'
                     )
 
-                    props.setConsultarCat(true);
+                    props.setConsultarCat(!props.consultarCat);
 
                     props.history.push("/menu-categorias");
                 };
