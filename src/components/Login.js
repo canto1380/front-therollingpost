@@ -35,13 +35,6 @@ const Login = (props) => {
     }
     console.log(valoresUser)
 
-    const config ={
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify(valoresUser)
-    }
     try {
       const config ={
         method: "POST",
@@ -52,13 +45,13 @@ const Login = (props) => {
       }
       const res = await fetch(url,config)
       
-      if(res.status === 200){
+      if(res.status === 201){
         
         console.log(res)
         setErr(false);
         /* Local Storage */
-        validacion.token = "res.params.token"
-        setToken(JSON.stringify(validacion))
+        // validacion.token = "res.params.token"
+        setToken(JSON.stringify("jwt","token"))
 
         /*Swal */
         let timerInterval;

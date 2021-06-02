@@ -121,6 +121,27 @@ function App() {
     }
   }
 
+  /*ConsultarAPI -Clientes*/
+
+  useEffect (()=>{
+    if(consultarClientes){
+      const consultarAPI = async()=> {
+        try{
+          const respuesta = await fetch (process.env.REACT_APP_API_URL + "/clientes/suscripcion");
+          const infoClientes = await respuesta.json();
+          if (respuesta.status ===200){
+            setClientes(infoClientes);
+            setConsultarClientes(false);
+          }
+        }catch(error){
+          console.log(error);
+        }
+      }
+      consultarAPI();
+    };
+  },[consultarClientes]);
+
+
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {
     const consultarLS = async () => {
