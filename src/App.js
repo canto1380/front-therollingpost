@@ -50,11 +50,8 @@ function App() {
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
 
-  noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
-  noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
-
-  let ultimaNoticia = noticias.slice(noticias.length - 1, noticias.length)
-  let ultimasNoticias = noticias.slice(noticias.length - 3, noticias.length - 1)
+  let ultimaNoticia = noticias.slice(0, 1)
+  let ultimasNoticias = noticias.slice(1,3)
   console.log(noticias)
   /* Usuarios */
   const [user, setUser] = useState([])
@@ -120,27 +117,6 @@ function App() {
       console.log(error)
     }
   }
-
-  /*ConsultarAPI -Clientes*/
-
-  useEffect (()=>{
-    if(consultarClientes){
-      const consultarAPI = async()=> {
-        try{
-          const respuesta = await fetch (process.env.REACT_APP_API_URL + "/clientes/suscripcion");
-          const infoClientes = await respuesta.json();
-          if (respuesta.status ===200){
-            setClientes(infoClientes);
-            setConsultarClientes(false);
-          }
-        }catch(error){
-          console.log(error);
-        }
-      }
-      consultarAPI();
-    };
-  },[consultarClientes]);
-
 
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {

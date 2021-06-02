@@ -23,7 +23,7 @@ const Noticia = (props) => {
     let hiddenmd ="pub-hidden-md"
     let hiddensm ="pub-hidden-sm"
 
-    let ultimas3noticias = noticias.slice(noticias.length-3, noticias.length)
+    let ultimas3noticias = noticias.slice(0, 3)
 
     /* Obtener la noticias a mostrar */
     useEffect(() => {
@@ -41,21 +41,19 @@ const Noticia = (props) => {
         consultarCategorias();
     }, [id]);
     console.log(not)
-    
 
-
-    /* VER PASO DE INFORMACION */
-    const [noticiasXCat, setNoticiasXCat] = useState([])
-    // const [masLeidas, setMasLeidas] = useState([])
-    const [consultar, setConsultar] = useState(true)
-    useEffect(() => {
-        if(consultar){
-            setNoticiasXCat(noticias.filter(not => not.categoria === cat))
-            // setMasLeidas(noticiasXCat.slice(1,4))
-            console.log('aa')
-        }
-    }, [consultar])
-    /* ARRIBA */
+    // /* VER PASO DE INFORMACION */
+    // const [noticiasXCat, setNoticiasXCat] = useState([])
+    // // const [masLeidas, setMasLeidas] = useState([])
+    // const [consultar, setConsultar] = useState(true)
+    // useEffect(() => {
+    //     if(consultar){
+    //         setNoticiasXCat(noticias.filter(not => not.categoria === cat))
+    //         // setMasLeidas(noticiasXCat.slice(1,4))
+    //         console.log('aa')
+    //     }
+    // }, [consultar])
+    // /* ARRIBA */
 
     return (
         <Container fluid className="p-4">
@@ -65,7 +63,7 @@ const Noticia = (props) => {
                     <CardNoticiaIndividual not={not}/>
                 </Col>
                 <Col sm={12} md={8} lg={4} className="component-mas-leidas">
-                    <CardMasLeidas  noticias={props.noticias} noticiasXCat={noticiasXCat} categoria={cat}/>
+                    <CardMasLeidas  noticias={props.noticias}  categoria={cat}/>
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
                 </Col>

@@ -8,15 +8,12 @@ const CardMasLeidas = (props) => {
 
     let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
     console.log(noticiasXCat)
-    noticiasXCat.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
-    noticiasXCat.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
-    console.log(noticiasXCat)
-    let masLeidas = noticiasXCat.slice(1, 4);
+    let masLeidas = noticiasXCat.slice(0, 3);
 
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
-                <p className="m-0 fw-bolder">Mas leidas de {categoria}</p>
+                <p className="m-0 fw-bolder">Mas noticias de {categoria}</p>
                 <Button size="sm" className="btn btn-primary" to={"/"}>
                     Ver mas
         </Button>

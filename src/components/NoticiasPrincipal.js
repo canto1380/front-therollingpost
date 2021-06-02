@@ -17,7 +17,7 @@ const NoticiasPrincipal = (props) => {
       <Row>
           {
             ultimaNoticia.map((not) =>
-        <Col className="" xs={12} md={8} key={not._id}>
+            <Col className="" xs={12} md={8} key={not._id}>
               <Link to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
                 <div className="card tarjetaNoticia">
                   <img className="card-img-top w-100" src={LogoNR} alt="" />
