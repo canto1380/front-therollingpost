@@ -53,11 +53,11 @@ const AgregarNoticia = (props) => {
   };
 
   //Validaciones
-  const valTit = (titulo) => {
+  const valTit = () => {
     setTitValid("");
     setTitInvalid("");
-    let texto = expresiones.texto;
-    if (titulo !== "" && texto.test(titulo)) {
+    let titulo = expresiones.texto;
+    if (tituloNoticia.trim() !== "" && titulo.test(tituloNoticia)) {
       setTitValid(true);
       return false;
     } else {
@@ -65,11 +65,11 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valSubT = (titulo) => {
+  const valSubT = () => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
-    if (titulo !== "" && texto.test(titulo)) {
+    if (subtituloNoticia.trim() !== "" && texto.test(subtituloNoticia)) {
       setSubTValid(true);
       return false;
     } else {
@@ -78,11 +78,11 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valAutor = (autor) => {
+  const valAutor = () => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autor !== "" && nombre.test(autor)) {
+    if (autor.trim() !== "" && nombre.test(autor)) {
       setAutorValid(true);
       return false;
     } else {
@@ -91,11 +91,11 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valResumen = (noti) => {
+  const valResumen = () => {
     setResValid("");
     setResInvalid("");
-    let resumen = expresiones.resumen;
-    if (noti !== "" && resumen.test(noti)) {
+    let res = expresiones.resumen;
+    if (resumenNoticia.trim() !== "" && res.test(resumenNoticia)) {
       setResValid(true);
       return false;
     } else {
@@ -115,10 +115,10 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valImg = (img) => {
+  const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (img === "") {
+    if (imagen === "") {
       setImgValid(true);
       return false;
     } else {
@@ -127,11 +127,11 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valPieImg = (pie) => {
+  const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.texto;
-    if (pie !== "" && texto.test(pie)) {
+    if (pieDeFoto !== "" && texto.test(pieDeFoto)) {
       setPieImgValid(true);
       return false;
     } else {
