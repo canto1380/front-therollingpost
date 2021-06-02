@@ -3,9 +3,14 @@ import { Container, Table, Form } from "react-bootstrap";
 import ItemBotonera from "./ItemBotonera";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStickyNote } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
+  const { noticias } = props;
+  noticias.sort((a, b) => parseInt(a.hora) - parseInt(b.hora));
+  noticias.sort((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha));
+  console.log(noticias);
+
   return (
     <Container>
       <h1 className="text-center mt-3">Menu de Administracion de Noticias</h1>
@@ -19,9 +24,9 @@ const NoticiasMenu = (props) => {
             <div className="d-flex justify-content-end">
               <Link
                 className="btn btn-success text-light botones"
-                to={"/agregar-noticia"}
+                to={"/menu-noticias/agregar-noticia"}
               >
-                <FontAwesomeIcon icon={faStickyNote}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Link>
             </div>
           </div>
@@ -38,14 +43,15 @@ const NoticiasMenu = (props) => {
           </thead>
           <tbody>
             {props.noticias.map((noticia) => (
-              <tr noticia={noticia} key={noticia.id}>
-                <td>{noticia.tituloNoticia}</td>
+              <tr noticia={noticia} key={noticia._id}>
+                <td>{noticia.titulo}</td>
                 <td>{noticia.categoria}</td>
                 <td>
                   <ItemBotonera
                     noticia={noticia}
-                    key={noticia.id}
-                    consultarAPI={props.consultarAPI}
+                    key={noticia._id}
+                    consultarNoticias={props.consultarNoticias}
+                    setConsultarNoticias={props.setConsultarNoticias}
                   ></ItemBotonera>
                 </td>
               </tr>
