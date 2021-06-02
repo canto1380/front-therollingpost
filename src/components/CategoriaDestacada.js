@@ -8,7 +8,7 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 const CategoriaDestacada = (props) => {
     const { noticias, cat } = props
 
-
+    let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
     return (
         <section className="my-5 w-100" >
             <div className="d-flex justify-content-between">
@@ -26,7 +26,7 @@ const CategoriaDestacada = (props) => {
                                 <Col xs={12} md={6} lg={4} key={not._id} className="my-2">
                                     <Link to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none" >
                                         <div className="card tarjetaNoticia">
-                                            <img className="card-img-top w-100" src={LogoNR} alt="" />
+                                            <img className="card-img-top w-100" src={`${url}/${not._id}`} alt="" />
                                             <div className="card-body tarjetaNoticia-body">
                                                 <h5 className="card-title">{not.titulo}</h5>
                                             </div>

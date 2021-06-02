@@ -7,8 +7,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
   const { noticias } = props;
-  noticias.sort((a, b) => parseInt(a.hora) - parseInt(b.hora));
-  noticias.sort((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha));
   console.log(noticias);
 
   return (

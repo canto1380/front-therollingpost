@@ -10,6 +10,7 @@ const CardMasLeidas = (props) => {
     console.log(noticiasXCat)
     let masLeidas = noticiasXCat.slice(0, 3);
 
+    let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
@@ -28,7 +29,7 @@ const CardMasLeidas = (props) => {
                         {/* // `/noti/${not.categoria}/${not._id}`> */}
                         <Row className="d-flex-justify-content-between card-masLeidas">
                             <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
-                                <Image src={LogoNR} rounded className="img-items-noticias" />
+                                <Image src={`${url}/${mas._id}`} rounded className="img-items-noticias" />
                             </Col>
                             <Col xs={10} sm={9} className="p-1">
                                 <div>

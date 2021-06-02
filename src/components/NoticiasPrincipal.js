@@ -9,7 +9,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 const NoticiasPrincipal = (props) => {
   const { ultimasNoticias, ultimaNoticia } = props
   console.log(ultimasNoticias)
-
+  let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
   return (
     <section className="my-3">
       <h4>Destacados</h4>
@@ -20,7 +20,7 @@ const NoticiasPrincipal = (props) => {
             <Col className="" xs={12} md={8} key={not._id}>
               <Link to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
                 <div className="card tarjetaNoticia">
-                  <img className="card-img-top w-100" src={LogoNR} alt="" />
+                  <img className="card-img-top w-100" src={`${url}/${not._id}`} alt="" />
                   <div className="card-body">
                     <h5 className="card-title">{not.titulo}</h5>
                     <p className="card-text">{not.descripcion}</p>
@@ -40,7 +40,7 @@ const NoticiasPrincipal = (props) => {
           ultimasNoticias.map((not) =>
             <Link to={`/noti/${not.categoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
               <div className="card tarjetaNoticia">
-                <img className="card-img-top" src={LogoNR} alt="" />
+                <img className="card-img-top" src={`${url}/${not._id}`} alt="" />
                 <div className="card-body">
                   <h5 className="card-title">{not.titulo}</h5>
                 </div>

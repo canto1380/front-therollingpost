@@ -16,7 +16,7 @@ import slogan from "../img/sloganCovid.png";
 
 const Inicio = (props) => {
   const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia} = props
-
+  
   return (
     
     <Container className="my-5">

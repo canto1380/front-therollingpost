@@ -78,7 +78,7 @@ function App() {
     }
     setTimeout(() => {
       Swal.close()
-    }, 2500);
+    }, 500);
   })
 
   useEffect(() => {
