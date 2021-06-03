@@ -47,18 +47,13 @@ const Suscripcion = (props) => {
     const [passInValid, setPassInvalid] = useState("")
     const [termsInValid, setTermsInValid] = useState("")
     
-    // console.log(props.clientes.nomAp)
-    // let ultimoCliente = clientes.slice(clientes.length - 1, clientes.length).email
-    // console.log(ultimoCliente)
-    // console.log(clientes[clientes.length-1])
-    // console.log([clientes.length-1])  
-
     /*Expresiones regulares para validaciones*/
     const expresiones = {
       nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/,  // Letras y espacios, pueden llevar acentos.
       email:  /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
-      cp: /^[0-9]{4}$/,
-      tel: /^[0-9]{10}$/
+      cp: /^[0-9]{4,8}$/,
+      tel: /^[0-9]{8,15}$/,
+      pas:/^[a-z0-9_-]{6,15}$/
     };
 
 
@@ -70,6 +65,7 @@ const Suscripcion = (props) => {
       let nom = expresiones.nombre
       if(nomApRef.current.value.trim() !=="" & nom.test(nomApRef.current.value) & nomApRef.current.value.length <=40){
         setNomValid(true)
+        console.log("nombre valido")
         return true
       }else{
         setNomInvalid(true)
@@ -81,7 +77,7 @@ const Suscripcion = (props) => {
       setDirecValid("");
       setDirecInvalid("");
       let dir= expresiones.nombre
-      if(direccionRef.current.value.trim() !== "" & dir.test(direccionRef.current.value) ){
+      if(direccionRef.current.value.trim() !== ""  ){
         setDirecValid(true);
         console.log(" direccion valido")
         return true;
@@ -112,7 +108,7 @@ const Suscripcion = (props) => {
       setCpInvalid("");
       setCpValid("");
       let codP= expresiones.cp;
-      if(codigoPostalRef.current.value.trim() !=="" & codP.test(codigoPostalRef.current.value)){
+      if(codigoPostalRef.current.value.trim() !=="" & codP.test(codigoPostalRef.current.value) ){
         console.log("cp valido")
         setCpValid(true);
         return true
@@ -128,6 +124,7 @@ const Suscripcion = (props) => {
       let telef = expresiones.tel
       if(telefonoRef.current.value.trim() !=="" & telef.test(telefonoRef.current.value)){
         setTelValid(true);
+        console.log("tel valido")
         return true
       }else{
         setTelInvalid(true);
@@ -141,6 +138,7 @@ const Suscripcion = (props) => {
       let mail = expresiones.email
       if(emailRef.current.value.trim() !=="" & mail.test(emailRef.current.value) ){
         setEmailValid(true);
+        console.log("email valido")
         return true
       }else{
         setEmailInvalid(true);
@@ -148,17 +146,31 @@ const Suscripcion = (props) => {
       }
     }
     const validarPass = ()=>{
-
+      setPassValid("");
+      setPassInvalid("");
+      let pass = expresiones.pas
+      if(passwordRef.current.value.trim()!=="" & pass.test(passwordRef.current.value)){
+        setPassValid(true);
+        console.log("pass valido")
+        return true
+      }else{
+        setPassInvalid(true);
+        console.log("pass invalido")
+        return false
+      }
     }
+
     const validarPlan = ()=>{
       
     }
     const validarTerminos=()=>{
+      // let terms= document.getElementById("checkTerminos")
+      // if(terms.checked)
     }
     
 
     const validarGeneral = ()=>{
-      if(validarNombre & validarDireccion & validarLocalidad & validarLocalidad & validarTel & validarEmail & validarPass){
+      if(validarNombre & validarDireccion & validarLocalidad & validarCP & validarTel & validarEmail ){
         return true
       }else{
         return false
@@ -171,11 +183,31 @@ const Suscripcion = (props) => {
       num.target.value = num.target.value.slice(0, num.target.maxLength);
     }
   };
+
+  /*limpiar states para estilos en formulario*/
+  const clearForm = ()=>{
+    setNomValid("")
+      setNomInvalid("")
+      setDirecValid("");
+      setDirecInvalid("");
+      setLocInvalid("");
+      setLocValid("");
+      setCpInvalid("");
+      setCpValid("");
+      setTelInvalid("");
+      setTelValid("");
+      setEmailInvalid("");
+      setEmailValid("");
+  }
+
+  const cambioPlan = (e)=>{
+    setPlan(e.target.value)
+  }
     
     const handleSubmit = async(e)=>{
         e.preventDefault();
 
-      if(validarGeneral==true){
+      if(validarGeneral){
         setError(false)
 
 
@@ -241,16 +273,30 @@ const Suscripcion = (props) => {
                 console.log(result);
                 
               },
-              (error) => {
+              async(error) => {
                 console.log(error.text);
                 Swal.fire(
                   'A ocurrido un error',
                   'Por favor intentelo de nuevo mas tarde',
                   'warning'
                 )
-                
+                const url = `${process.env.REACT_APP_API_URL}/clientes/buscar/${cliente.email}`;
+                try {
+                    const config ={
+                        method:"DELETE",
+                        headers:{
+                            "Content-Type":"application/json"
+                        }
+                    }
+                    const res = await fetch(url, config)
+                    console.log(res)
+                    if(res.status === 200){
+                      console.log("intente nuevamente")
               }
-
+            }catch(error){
+              console.log(error)
+            }
+          }
                 
             );
 
@@ -260,6 +306,7 @@ const Suscripcion = (props) => {
           setConsultarClientes(true);
           console.log(clientes)
           e.target.reset();
+          clearForm();
         }
 
         
@@ -270,32 +317,14 @@ const Suscripcion = (props) => {
           'Por favor intentelo de nuevo mas tarde',
           'error'
         )}
-
-
       }else{
         setError(true)
         setErr(true)
             setTimeout(() => {
                 setErr(false)
             }, 2000);
-      }
-     
-
-        
-        }
-        
-        
-        // setEmailValid(false)
-        // setEmailInValid(true)
-        // setPassValid(true)
-        // setPassInValid(false)
-        // setTermsInValid(true)
-    
-
-    const cambioPlan = (e)=>{
-      setPlan(e.target.value)
-    }
-  
+      }   
+        } 
 
 
     return (
@@ -353,8 +382,8 @@ const Suscripcion = (props) => {
         </Form.Group>
         <Form.Group  className="mt-2">
           <Form.Label><b>*Password</b></Form.Label>
-          <Form.Control type="password" ref={passwordRef} placeholder="Ingrese su contraseña" onBlur={validarPass}  maxLength="40"   isValid={passValid} isInvalid={passInValid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control type="password" ref={passwordRef} placeholder="Ingrese su contraseña" onBlur={validarPass}  maxLength="12"   isValid={passValid} isInvalid={passInValid}/>
+          <Form.Control.Feedback type="invalid"  className="text-danger small" >Su contraseña debe contener entre 6 y 12 caracteres, letras y numeros</Form.Control.Feedback> 
         </Form.Group>
         <Form.Label className="my-3 "><b>*Seleccione su plan</b></Form.Label>
         <FormGroup >
@@ -364,7 +393,7 @@ const Suscripcion = (props) => {
         </FormGroup>
         <Form.Group  className="mt-4">
       
-          <Form.Check type="checkbox" label="Acepto términos y condiciones"  />
+          <Form.Check type="checkbox" id="checkTerminos" label="Acepto términos y condiciones"  />
          
         </Form.Group>
         <div className="d-flex justify-content-center my-4">
