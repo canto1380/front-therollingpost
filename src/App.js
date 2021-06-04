@@ -45,7 +45,7 @@ function App() {
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
-
+  console.log(localStorage.getItem('jwt'))
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)

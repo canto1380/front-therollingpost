@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { setToken } from "../helpers/helpers";
+import { authenticate, setToken, signin } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
@@ -13,15 +13,12 @@ const Login = (props) => {
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
     email: "",
-    password: "",
+    password: ""
   });
-  const validacion = {
-    token: "",
-  };
 
   /*variables */
   let mensaje;
-  const url = process.env.REACT_APP_API_URL+"/user/signin"
+  const url = process.env.REACT_APP_API_URL + "/user/signin"
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -29,29 +26,28 @@ const Login = (props) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const valoresUser ={
+    const valoresUser = {
       email: usuario.email,
       clave: usuario.password
     }
-    console.log(valoresUser)
-
     try {
       const config ={
         method: "POST",
         headers:{
+          Accept:'application/json',
           "Content-Type":"application/json"
         },
         body: JSON.stringify(valoresUser)
       }
       const res = await fetch(url,config)
-      
+
       if(res.status === 201){
-        
+
         console.log(res)
         setErr(false);
         /* Local Storage */
         // validacion.token = "res.params.token"
-        setToken(JSON.stringify("jwt","token"))
+        // setToken(JSON.stringify("jwt","token"))
 
         /*Swal */
         let timerInterval;
@@ -78,7 +74,7 @@ const Login = (props) => {
         }).then((result) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
-            props.history.push(`/`);
+            
           }
         });
       } else {
@@ -95,8 +91,8 @@ const Login = (props) => {
         setErr(false);
       }, 3000);
     }
-    
-  };
+  }
+
   if (err) {
     mensaje = (
       <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
@@ -126,7 +122,7 @@ const Login = (props) => {
                     name="email"
                     placeholder="nombre@gmail.com"
                     onChange={handleValores}
-                    
+
                   />
                 </Form.Group>
 

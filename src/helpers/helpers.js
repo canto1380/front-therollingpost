@@ -1,3 +1,4 @@
+import { Redirect} from 'react-router-dom';
 
 export const setToken = (token) =>{
     return localStorage.setItem('jwt',token)
@@ -19,6 +20,34 @@ export const isAuthenticated =() =>{
         return false
     }
 }
+
+/* SignIn */
+const url = process.env.REACT_APP_API_URL+"/user/signin"
+export const signin = user => {
+    return fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user) // user: 
+    })
+      .then(response => {
+        // return response.json();
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  };
+
+/* Crea Token */
+export const authenticate = (data, next) => {
+    if(typeof window !== 'undefined') {
+      localStorage.setItem('jwt', JSON.stringify(data));
+      next();
+    }
+  }
 
 export const campoRequerido = (value) =>{
     if(value.trim() === ''){
