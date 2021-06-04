@@ -48,30 +48,18 @@
     {
       "nombreCategoria": "Deportes",
       "id": 63
-    },
-    {
-      "nombreCategoria": "cine",
-      "id": 64
-    },
-    {
-      "nombreCategoria": "futbol",
-      "id": 65
-    },
-    {
-      "nombreCategoria": "actualidad",
-      "id": 66
     }
   ],
   "noticias": [
     {
-      "tituloNoticia": "holaasd",
-      "subtituloNoticiaRef": "asdasd",
-      "resumenNoticiaRef": "asdasd",
-      "autorRef": "asdasd",
-      "imagenRef": "C:\\fakepath\\logopaisa.png",
-      "categoria": "cine",
-      "pieDeImagen" : "",
-      "id": 1
+      "tituloNoticia": "asASas",
+      "subtituloNoticia": "ASasAS",
+      "resumenNoticia": "asdasdasdasdasdasdasdasdasdasda",
+      "autor": "asASasAS",
+      "categoria": "Politica",
+      "imagen": "C:\\fakepath\\EWnk0fdUYAAJWBI.jpg",
+      "id": 2,
+      "publicado": true
     },
     {
       "tituloNoticia": "cxzzx",

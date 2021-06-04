@@ -7,7 +7,6 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 
 const ItemNoticiasxCat = (props) => {
     const {cat, noticiasXCat} = props
-    console.log(noticiasXCat)
 
     return (
         <Row>

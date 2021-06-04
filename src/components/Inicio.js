@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Container,} from "react-bootstrap";
 import CategoriaDestacada from "./CategoriaDestacada";
 import NoticiasPrincipal from "./NoticiasPrincipal";
@@ -13,9 +13,16 @@ import RollingLogo from "../img/RollingCode.jpg";
 import BnB from "../img/bon-o-bon.jpg";
 import vacunas from "../img/vacunasCovid.png";
 import slogan from "../img/sloganCovid.png";
+import { spinner } from "../helpers/sweetAlerts";
+import { useScrollToTop } from "../helpers/hooks";
 
 const Inicio = (props) => {
   const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia} = props
+  useEffect(() => {
+    spinner()
+  }, [])
+
+  useScrollToTop();
   
   return (
     

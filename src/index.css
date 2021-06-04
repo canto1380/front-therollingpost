@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.btn-primary.disabled, .btn-primary:disabled {
+  opacity: .4;
+  filter: grayscale(.1);
+}

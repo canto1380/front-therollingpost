@@ -17,7 +17,7 @@ const eliminarCategoria =(id) =>{
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Eliminar',
-            CancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar'
           })
           .then(async(result)=>{
             if(result.isConfirmed){

@@ -1,13 +1,12 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useCallback, useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.css";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
-
 import Login from "./components/Login";
 import Registro from "./components/Registro";
 import Suscripcion from "./components/Suscripcion";
@@ -16,22 +15,19 @@ import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
 import { getToken } from "./helpers/helpers";
-
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
 
 import Error404 from "./components/Error404";
-import logoSpinner from "./img/The Rolling Post.jpg"
 
 import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
-import Swal from "sweetalert2";
 import APImoneda from "./components/APImoneda";
 
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-import moment from 'moment'
+const URL = process.env.REACT_APP_API_URL;
 
 function App() {
   /*Clientes suscriptos*/
@@ -48,42 +44,15 @@ function App() {
   console.log(localStorage.getItem('jwt'))
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
+  const [noticiasPublicadas, setNoticiasPublicadas] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
 
-  let ultimaNoticia = noticias.slice(0, 1)
-  let ultimasNoticias = noticias.slice(1,3)
-  console.log(noticias)
+  let ultimaNoticia = noticiasPublicadas.slice(0, 1)
+  let ultimasNoticias = noticiasPublicadas.slice(1,3)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
   const [tok, setTok] = useState([]);
-
-  const consultarAPI = useCallback(async () => {
-    try {
-      Swal.fire({
-        imageUrl: logoSpinner,
-        imageWidth: 300,
-        imageHeight: 300,
-        imageAlt: 'Rolling Post Logo',
-        title: 'Ya llega el diario.',
-        showConfirmButton: false
-      })
-      const respuesta = await fetch(URL + "/noticias/");
-      const informacion = await respuesta.json();
-      if (respuesta.status === 200) {
-        // setNoticias(informacion);
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    setTimeout(() => {
-      Swal.close()
-    }, 500);
-  })
-
-  useEffect(() => {
-    consultarAPI();
-  }, [consultarAPI]);
 
   /* Consulta API - categorias */
   useEffect(() => {
@@ -108,10 +77,13 @@ function App() {
 
   const consultarAPINoticias = async () => {
     try {
+      //  const respuesta = await fetch(URL + "/noticias?publicado=true");
       const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/listNoticias")
       const infNoticias = await res.json()
       if (res.status === 200) {
         setNoticias(infNoticias)
+        const publicadas = infNoticias.filter((noti) => noti.publicado === true);
+        setNoticiasPublicadas(publicadas)
       }
     } catch (error) {
       console.log(error)
@@ -151,7 +123,6 @@ function App() {
           <div className="content-wrap">
             <Navigation
               categorias={categorias}
-              noticias={noticias}
               categoriasDestacadas={categoriasDestacadas}
               categoriasNoDestacadas={categoriasNoDestacadas}
             />
@@ -164,7 +135,7 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Inicio
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                   consultarCat={consultarCat}
                   setConsultarNoticias={setConsultarNoticias}
                   categoriasDestacadas={categoriasDestacadas}
@@ -192,8 +163,9 @@ function App() {
                 categorias.map((cat) => (
                   <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
                     <CardCategorias
+                      categorias={categorias}
                       cat={cat}
-                      noticias={noticias}
+                      noticias={noticiasPublicadas}
                     />
                   </Route>
                 ))
@@ -201,7 +173,7 @@ function App() {
               {/* Noticia individual */}
               <Route exact path="/noti/:cat/:id">
                 <Noticia
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                 />
               </Route>
 
@@ -228,7 +200,7 @@ function App() {
                   setConsultarCat={setConsultarCat}
                 />
               </Route>
-              {/* Menu Noticias */}
+              {/* Admin Menu Noticias */}
               <Route exact path="/menu-noticias">
                 <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias} />
               </Route>
@@ -259,9 +231,12 @@ function App() {
               <Route exact path="/contactenos">
                 <Contacto></Contacto>
               </Route>
+              <Route exact path="*">
+                <Error404></Error404>
+              </Route>
             </Switch>
-            <Footer categorias={categorias}/>
           </div>
+            <Footer categorias={categorias}/>
         </div>
       </Router>
     );

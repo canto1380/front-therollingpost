@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, withRouter } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import Publicidad from '../Publicidad';
 import CardNoticiaIndividual from './CardNoticiaIndividual';
@@ -29,7 +29,7 @@ const Noticia = (props) => {
     useEffect(() => {
         const consultarCategorias = async () => {
             try {
-                const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/noticia/" + id)
+                const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/" + id)
                 if (res.status === 200) {
                     const resp = await res.json();
                     setNot(resp);

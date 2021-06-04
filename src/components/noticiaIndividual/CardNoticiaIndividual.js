@@ -3,15 +3,11 @@ import {withRouter} from 'react-router-dom'
 import {Image} from 'react-bootstrap'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment} from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment'
 
-import LogoNR from "../../img/Logo-NR.png";
 import "../../App.css"
 
 const CardNoticiaIndividual = (props) => {
     const {not} = props
-    let url = `${process.env.REACT_APP_API_URL}/noticias/foto/${not._id}`
-    console.log(url)
     return (
         <section>
             <div>
@@ -24,13 +20,13 @@ const CardNoticiaIndividual = (props) => {
                 <span className="me-3"> {not.fecha}</span>
                 <span><FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon>6</span>
             </div>
-            <Image src={url} className="d-block w-100 image-height"/>
+            <Image src={not.foto} className="d-block w-100 image-height"/>
             <div>
                 <p className="text-secondary">{not.pieDeFoto}</p>
             </div>
             <hr/>
             </div>
-            <div className="border border-danger">
+            <div>
                 <p className="text-font m-2">{not.descripNoticia}</p>
             </div>
             <hr/>
