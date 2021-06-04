@@ -8,7 +8,6 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 
 const ItemBotonera = (props) => {
   const eliminarProductos = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
       text: "Una vez eliminado no se puede volver atrás!",
@@ -17,7 +16,7 @@ const ItemBotonera = (props) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Eliminar",
-      CancelButtonText: "Cancelar",
+      cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
         //aqui se borra el producto
@@ -29,7 +28,7 @@ const ItemBotonera = (props) => {
           });
           if (respuesta.status === 200) {
             Swal.fire(
-              "Noticia Eliminado!",
+              "Noticia Eliminada!",
               "La noticia seleccionada se borro correctamente",
               "success"
             );
@@ -85,7 +84,7 @@ const ItemBotonera = (props) => {
         as={Link}
         type="button"
         className="btn btn-warning me-1 text-light "
-        to={`/editar-noticia/${props.noticia.id}`}
+        to={`/editar-noticia/${props.noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -93,19 +92,19 @@ const ItemBotonera = (props) => {
       <Button
         className="me-1"
         variant="danger"
-        onClick={() => eliminarProductos(props.noticia.id)}
+        onClick={() => eliminarProductos(props.noticia._id)}
         title="Eliminar noticia"
       >
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
         className="btn btn-info me-1 text-light "
-        to={`/preview/${props.noticia.id}`}
+        to={`/preview/${props.noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
-      <Button variant="primary" title="Publicar" onClick={() =>publicarNoticia(props.noticia.id)} disabled={props.noticia.publicado}>
+      <Button variant="primary" title="Publicar" onClick={() =>publicarNoticia(props.noticia._id)} disabled={props.noticia.publicado}>
         <FontAwesomeIcon icon={faNewspaper}></FontAwesomeIcon>
       </Button>
     </div>

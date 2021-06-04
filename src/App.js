@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useCallback, useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -21,15 +21,12 @@ import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
 
 import Error404 from "./components/Error404";
-import logoSpinner from "./img/The Rolling Post.jpg"
 
 import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
-import Swal from "sweetalert2";
 import APImoneda from "./components/APImoneda";
 
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-//import moment from 'moment'
 const URL = process.env.REACT_APP_API_URL;
 
 function App() {
@@ -51,39 +48,10 @@ function App() {
 
   let ultimaNoticia = noticias.slice(0, 1)
   let ultimasNoticias = noticias.slice(1,3)
-  console.log(noticias)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
   const [tok, setTok] = useState([]);
-
-  const consultarAPI = useCallback(async () => {
-    try {
-      Swal.fire({
-        imageUrl: logoSpinner,
-        imageWidth: 300,
-        imageHeight: 300,
-        imageAlt: 'Rolling Post Logo',
-        title: 'Ya llega el diario.',
-        showConfirmButton: false
-      })
-       const respuesta = await fetch(URL + "/noticias?publicado=true");
-     // const respuesta = await fetch(URL + "/noticias");
-      const informacion = await respuesta.json();
-      if (respuesta.status === 200) {
-        // setNoticias(informacion);
-      }
-    } catch (error) {
-      console.log(error)
-    }
-    setTimeout(() => {
-      Swal.close()
-    }, 500);
-  })
-
-  useEffect(() => {
-    consultarAPI();
-  }, [consultarAPI]);
 
   /* Consulta API - categorias */
   useEffect(() => {
@@ -108,6 +76,7 @@ function App() {
 
   const consultarAPINoticias = async () => {
     try {
+      //  const respuesta = await fetch(URL + "/noticias?publicado=true&categoria=deporte");
       const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/listNoticias")
       const infNoticias = await res.json()
       if (res.status === 200) {
@@ -192,6 +161,7 @@ function App() {
                 categorias.map((cat) => (
                   <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
                     <CardCategorias
+                      categorias={categorias}
                       cat={cat}
                       noticias={noticias}
                     />
@@ -260,8 +230,8 @@ function App() {
                 <Contacto></Contacto>
               </Route>
               <Route exact path="*">
-              <Error404></Error404>
-            </Route>
+                <Error404></Error404>
+              </Route>
             </Switch>
           </div>
             <Footer categorias={categorias}/>
