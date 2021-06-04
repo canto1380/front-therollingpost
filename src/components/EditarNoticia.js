@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
-import "./span.css";
 
-//import moment from "moment";
+import moment from "moment";
 
 const EditarNoticia = (props) => {
   const { id } = useParams();
@@ -75,8 +74,8 @@ const EditarNoticia = (props) => {
           foto: imagenRef.current.value,
           categoria: categoriaModificada,
           pieDeFoto: piedefotoRef.current.value,
-     //     hora: moment().format("HH:mm"),
-    //      fecha: moment().format("DD MMMM, YYYY"),
+          hora: moment().format("HH:mm"),
+          fecha: moment().format("DD MMMM, YYYY"),
         };
         const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
           method: "PUT",
@@ -194,7 +193,7 @@ const EditarNoticia = (props) => {
             </Form.Control>
           </Form.Group>
           <Form.Group className="mb-3">
-            <InputGroup.Text className="span">
+            <InputGroup.Text>
               <Form.Label>
                 *<b>Imagen:</b>
               </Form.Label>
