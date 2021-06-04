@@ -7,7 +7,7 @@ import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
-  const { noticias, categorias, categoriasDestacadas, categoriasNoDestacadas } = props
+  const { categorias, categoriasDestacadas, categoriasNoDestacadas } = props
 
   return (
     <Navbar

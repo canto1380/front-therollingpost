@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup } from "react-bootstrap";
+import { Container, Form, Button, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -370,6 +370,7 @@ const AgregarNoticia = (props) => {
               isValid={imgValid}
               isInvalid={imgInvalid}
             ></Form.Control>
+            {imagen && <Image width="100" src={imagen} />}
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, debe seleccionar una Imagen.
             </Form.Control.Feedback>
