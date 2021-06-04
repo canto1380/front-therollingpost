@@ -7,7 +7,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
   const { noticias } = props;
-  console.log(noticias);
 
   return (
     <Container className="mb-3">

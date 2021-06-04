@@ -6,10 +6,6 @@ import "../../App.css"
 
 const ItemNoticias = (props) => {
     const {noticias, categoria}= props
-    console.log(noticias)
-    console.log(categoria)
-    // console.log(props.ml)
-    // console.log(props.noticias)
 
     return (
         <ListGroup.Item className="py-0">
@@ -23,7 +19,7 @@ const ItemNoticias = (props) => {
                 <Col xs={10} sm={9} md={10} className="p-1">
                     <div>
                     <h5 className="">props.n.titulo</h5>
-                    <p className="m-0">Pequena descripcion de la ntoicia</p>
+                    <p className="m-0">Pequeña descripción de la noticia</p>
                     </div>
                     <div className="">
                     <p className="w-100 text-success text-end m-0">17/05/2021</p>

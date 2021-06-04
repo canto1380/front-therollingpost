@@ -14,8 +14,8 @@ const CardUltimasNoticias = (props) => {
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
-            <p className="m-0 fw-bolder">Ultimas noticias</p>
-                <Button size="sm" className="btn btn-primary" to={'/'}>Ver mas</Button>
+            <p className="m-0 fw-bolder">Últimas noticias</p>
+                <Button size="sm" className="btn btn-primary" as={Link} to={'/'}>Ver más</Button>
             </div>
             <hr className="mt-0"/>
             <ListGroup className="my-3">
@@ -26,7 +26,7 @@ const CardUltimasNoticias = (props) => {
                             {/* // `/noti/${not.categoria}/${not._id}`> */}
                             <Row className="d-flex-justify-content-between card-masLeidas">
                                 <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
-                                    <Image src={`${url}/${mas._id}`} rounded className="img-items-noticias" />
+                                    <Image src={mas.foto} rounded className="img-items-noticias" />
                                 </Col>
                                 <Col xs={10} sm={9} className="p-1">
                                     <div>
