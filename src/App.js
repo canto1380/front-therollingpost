@@ -44,10 +44,11 @@ function App() {
 
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
+  const [noticiasPublicadas, setNoticiasPublicadas] = useState([])
   const [consultarNoticias, setConsultarNoticias] = useState(true)
 
-  let ultimaNoticia = noticias.slice(0, 1)
-  let ultimasNoticias = noticias.slice(1,3)
+  let ultimaNoticia = noticiasPublicadas.slice(0, 1)
+  let ultimasNoticias = noticiasPublicadas.slice(1,3)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
@@ -76,11 +77,13 @@ function App() {
 
   const consultarAPINoticias = async () => {
     try {
-      //  const respuesta = await fetch(URL + "/noticias?publicado=true&categoria=deporte");
+      //  const respuesta = await fetch(URL + "/noticias?publicado=true");
       const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/listNoticias")
       const infNoticias = await res.json()
       if (res.status === 200) {
         setNoticias(infNoticias)
+        const publicadas = infNoticias.filter((noti) => noti.publicado === true);
+        setNoticiasPublicadas(publicadas)
       }
     } catch (error) {
       console.log(error)
@@ -120,7 +123,6 @@ function App() {
           <div className="content-wrap">
             <Navigation
               categorias={categorias}
-              noticias={noticias}
               categoriasDestacadas={categoriasDestacadas}
               categoriasNoDestacadas={categoriasNoDestacadas}
             />
@@ -133,7 +135,7 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Inicio
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                   consultarCat={consultarCat}
                   setConsultarNoticias={setConsultarNoticias}
                   categoriasDestacadas={categoriasDestacadas}
@@ -163,7 +165,7 @@ function App() {
                     <CardCategorias
                       categorias={categorias}
                       cat={cat}
-                      noticias={noticias}
+                      noticias={noticiasPublicadas}
                     />
                   </Route>
                 ))
@@ -171,7 +173,7 @@ function App() {
               {/* Noticia individual */}
               <Route exact path="/noti/:cat/:id">
                 <Noticia
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                 />
               </Route>
 
@@ -198,7 +200,7 @@ function App() {
                   setConsultarCat={setConsultarCat}
                 />
               </Route>
-              {/* Menu Noticias */}
+              {/* Admin Menu Noticias */}
               <Route exact path="/menu-noticias">
                 <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias} />
               </Route>

@@ -50,7 +50,7 @@ const ItemBotonera = (props) => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Publicar",
-      CancelButtonText: "Cancelar",
+      cancelButtonText: "Cancelar",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
@@ -59,17 +59,17 @@ const ItemBotonera = (props) => {
             publicado: true
           }
           const respuesta = await fetch(url, {
-            method: "PATCH",
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(noticiaPublicada),
           });
           if (respuesta.status === 200) {
-            Swal.fire(
-              "Noticia publicada!",
-              "success"
-            );
+            Swal.fire({
+              title: "Noticia publicada!",
+              icon: "success"
+            });
             //actualizar los datos de la lista
-            props.consultarAPI();
+          props.setConsultarNoticias(!props.consultarNoticias);
           }
         } catch (error) {
           console.log(error);

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
-  const { noticias } = props;
+  const { noticias, consultarNoticias, setConsultarNoticias } = props;
 
   return (
     <Container className="mb-3">
@@ -40,7 +40,7 @@ const NoticiasMenu = (props) => {
             </tr>
           </thead>
           <tbody>
-            {props.noticias.map((noticia) => (
+            {noticias.map((noticia) => (
               <tr noticia={noticia} key={noticia._id}>
                 <td>{noticia.titulo}</td>
                 <td>{noticia.categoria}</td>
@@ -48,8 +48,8 @@ const NoticiasMenu = (props) => {
                   <ItemBotonera
                     noticia={noticia}
                     key={noticia._id}
-                    consultarNoticias={props.consultarNoticias}
-                    setConsultarNoticias={props.setConsultarNoticias}
+                    consultarNoticias={consultarNoticias}
+                    setConsultarNoticias={setConsultarNoticias}
                   ></ItemBotonera>
                 </td>
               </tr>
