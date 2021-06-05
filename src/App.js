@@ -41,7 +41,7 @@ function App() {
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
-
+  console.log(localStorage.getItem('jwt'))
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [noticiasPublicadas, setNoticiasPublicadas] = useState([])
@@ -49,6 +49,8 @@ function App() {
 
   let ultimaNoticia = noticiasPublicadas.slice(0, 1)
   let ultimasNoticias = noticiasPublicadas.slice(1,3)
+  console.log(ultimaNoticia)
+  console.log(ultimasNoticias)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
