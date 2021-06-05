@@ -49,6 +49,8 @@ function App() {
 
   let ultimaNoticia = noticiasPublicadas.slice(0, 1)
   let ultimasNoticias = noticiasPublicadas.slice(1,3)
+  console.log(ultimaNoticia)
+  console.log(ultimasNoticias)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)

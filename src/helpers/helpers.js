@@ -33,7 +33,7 @@ export const signin = user => {
       body: JSON.stringify(user) // user: 
     })
       .then(response => {
-        // return response.json();
+        return response.json();
         
       })
       .catch(err => {
