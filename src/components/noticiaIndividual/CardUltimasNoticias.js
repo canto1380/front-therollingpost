@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Button, ListGroup, Row, Col, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import LogoNR from "../../img/Logo-NR.png";
 
 const CardUltimasNoticias = (props) => {
     const {ultimas3noticias} = props

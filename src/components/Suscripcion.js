@@ -4,7 +4,7 @@ import suscripcion from '../img/suscripcion.png'
 import familia from '../img/familiar1.jpg'
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faKey, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
 import {withRouter} from 'react-router-dom'
 import emailjs from 'emailjs-com'
 
@@ -151,8 +151,8 @@ const Suscripcion = (props) => {
     return (
         <Container className="my-4">
           <div className="text-center my-3">
-          <h1 className="text-primary ">Informate de verdad</h1>
-          <h4 className="lead">Accedé sin límite a la informacion más confiable</h4>
+          <h1 >Mantente al día con la noticias del mundo</h1>
+          <h5 className="">Accedé sin límite a información de la mejor calidad</h5>
           </div>
           <div className="row">
         <Card className="col-sm-12 col-md-6 col-lg-4">

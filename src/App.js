@@ -8,7 +8,6 @@ import Inicio from "./components/Inicio";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
 import Login from "./components/Login";
-import Registro from "./components/Registro";
 import Suscripcion from "./components/Suscripcion";
 import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
@@ -41,7 +40,6 @@ function App() {
   let categoriasDestacadas = categorias.filter(cat => cat.destacada)
   let cantDestacadas = categoriasDestacadas.length
   let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
-  console.log(localStorage.getItem('jwt'))
   /* Noticias guardadas */
   const [noticias, setNoticias] = useState([])
   const [noticiasPublicadas, setNoticiasPublicadas] = useState([])
@@ -49,8 +47,6 @@ function App() {
 
   let ultimaNoticia = noticiasPublicadas.slice(0, 1)
   let ultimasNoticias = noticiasPublicadas.slice(1,3)
-  console.log(ultimaNoticia)
-  console.log(ultimasNoticias)
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
@@ -147,9 +143,6 @@ function App() {
               </Route>
               <Route exact path="/inicio-sesion">
                 <Login />
-              </Route>
-              <Route exact path="/registro">
-                <Registro />
               </Route>
               <Route exact path="/suscripcion">
                 <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes} />

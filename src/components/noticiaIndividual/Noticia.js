@@ -7,7 +7,6 @@ import CardNoticiaIndividual from './CardNoticiaIndividual';
 import slogan from "../../img/sloganCovid.png";
 import Coca from "../../img/cokeMusic.gif";
 import Corona from "../../img/corona.jpg";
-import vacunas from "../../img/vacunasCovid.png";
 import covidCuidados from "../../img/covidCuidados.jpg";
 import CardMasLeidas from './CardMasLeidas';
 

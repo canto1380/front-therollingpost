@@ -1,17 +1,8 @@
 import React, { useRef, useState } from "react";
-import {
-  Container,
-  Form,
-  Button,
-  InputGroup,
-  FormControl,
-} from "react-bootstrap";
+import { Container, Form, Button, InputGroup, FormControl} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faEnvelope, faMobileAlt, faHome, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import emailjs from "emailjs-com";
 
@@ -172,19 +163,19 @@ const Contacto = () => {
   };
 
   return (
-    <Container>
+    <Container className="mb-4">
       <h1 className="text-center mt-3">Formulario de Contacto</h1>
       <Form
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="row mb-3 m-0 p-0 py-2 bg-secondary text-white">
-          <div className="col-sm-12 col-md-10 m-0 p-0">
+        <section className="d-flex mb-2 m-0 p-2 backcolor text-white">
+          <div className="">
             <h2 className="mx-1">Ingresa tu motivo de contacto: </h2>
           </div>
-          <div className="col-sm-12 col-md-2 m-0 p-0">
-            <div className="d-flex justify-content-end pt-1 mx-1">
-              <Link className="btn btn-primary w-50 " to={"/"}>
+          <div className="ms-auto">
+            <div className="d-flex justify-content-end  mx-1">
+              <Link className="btn btn-primary px-4" to={"/"}>
                 <FontAwesomeIcon
                   icon={faHome}
                   className="fa-2x"
@@ -197,7 +188,7 @@ const Contacto = () => {
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text>
-                *<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faUser} className="fa-2x"></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
@@ -211,14 +202,14 @@ const Contacto = () => {
               isInvalid={nomApInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 12 - 40
+              Campo obligatorio, debe contener al menos entre 12 - 40
               caracteres.
             </Form.Control.Feedback>
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text>
-                *<FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faEnvelope} className="fa-2x"></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
@@ -232,14 +223,14 @@ const Contacto = () => {
               isInvalid={mailInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 12 - 50
+              Campo obligatorio, debe contener al menos entre 12 - 25
               caracteres.
             </Form.Control.Feedback>
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
               <InputGroup.Text>
-                *<FontAwesomeIcon icon={faPhoneAlt}></FontAwesomeIcon>
+                <FontAwesomeIcon icon={faMobileAlt} className="fa-2x"></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
@@ -253,14 +244,15 @@ const Contacto = () => {
               isInvalid={telInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 10 - 12
+              Campo obligatorio, debe contener al menos entre 10 - 12
               caracteres.
             </Form.Control.Feedback>
           </InputGroup>
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Comentanos tu motivo de Contacto</b>
+              <FontAwesomeIcon icon={faEdit} className="fa-2x"></FontAwesomeIcon>
+                <b>Comentanos tu motivo para contactarnos</b>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -277,7 +269,7 @@ const Contacto = () => {
               <p>{consulta.length}/300</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 12 - 40
+              Campo obligatorio, debe contener al menos 25
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
@@ -289,9 +281,9 @@ const Contacto = () => {
         </div>
       </Form>
       {error ? (
-        <p className="text-danger">
-          Este campo es obligatorio y debes ingresar como minimo 12 caracteres.
-        </p>
+        <h5 className="text-danger text-center">
+         <b>Todos los campos deben estar completados correctamente.</b> 
+        </h5>
       ) : null}
     </Container>
   );
