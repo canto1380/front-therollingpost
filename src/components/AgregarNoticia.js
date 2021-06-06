@@ -53,7 +53,7 @@ const AgregarNoticia = (props) => {
   };
 
   //Validaciones
-  const valTit = (titulo) => {
+  const valTit = () => {
     setTitValid("");
     setTitInvalid("");
     let texto = expresiones.texto;
@@ -65,7 +65,7 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valSubT = (titulo) => {
+  const valSubT = () => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
@@ -82,7 +82,7 @@ const AgregarNoticia = (props) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autor !== "" && nombre.test(autor)) {
+    if (autor.trim() !== "" && nombre.test(autor)) {
       setAutorValid(true);
       return false;
     } else {
@@ -91,7 +91,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valResumen = (noti) => {
+  const valResumen = () => {
     setResValid("");
     setResInvalid("");
     let resumen = expresiones.resumen;
@@ -104,7 +104,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valCat = (cat) => {
+  const valCat = () => {
     setCatValid("");
     setCatInvalid("");
     if (categoria !== "") {
@@ -115,7 +115,7 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valImg = (img) => {
+  const valImg = () => {
     setImgValid("");
     setImgInvalid("");
     if (imagen !== "") {
@@ -127,7 +127,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valPieImg = (pie) => {
+  const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.textoPie;
