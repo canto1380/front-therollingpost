@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
@@ -22,7 +22,7 @@ import Error404 from "./components/Error404";
 import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
-import CardCategorias from "./components/categoriaIndividual/CardCategorias.js";
+import CardCategorias from "./components/categoriaIndividual.js/CardCategorias"
 import moment from 'moment'
 import { Container } from "react-bootstrap";
 function App() {
