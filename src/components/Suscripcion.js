@@ -3,6 +3,14 @@ import {Form, Button, Container, Card, FormGroup} from 'react-bootstrap';
 import suscripcion from '../img/suscripcion.png'
 import familia from '../img/familiar1.jpg'
 import Swal from 'sweetalert2';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faKey, faMobileAlt } from "@fortawesome/free-solid-svg-icons";
+=======
+>>>>>>> validacionesForm
+>>>>>>> e96981fe5163c760e141fb7a4b8cd2af03e205bb
 import {withRouter} from 'react-router-dom'
 import emailjs from 'emailjs-com'
 import MsjError from './MsjError'

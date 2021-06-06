@@ -18,17 +18,13 @@ import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
-
 import Error404 from "./components/Error404";
-
 import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
-
-import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
+import CardCategorias from "./components/categoriaIndividual/CardCategorias.js";
 import moment from 'moment'
 import { Container } from "react-bootstrap";
-
 function App() {
   /*Clientes suscriptos*/
   const [clientes, setClientes] = useState([]);
