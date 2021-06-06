@@ -1,4 +1,3 @@
-import { Redirect} from 'react-router-dom';
 
 export const setToken = (token) =>{
     return localStorage.setItem('jwt',token)

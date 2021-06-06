@@ -9,7 +9,6 @@ import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
     const { id } = useParams();
-    console.log(id);
 
     /* State */
     const [nombreCategoria, setNombreCat] = useState({});
@@ -18,9 +17,7 @@ const EditarCategoria = (props) => {
 
     //variables useRef para precio y nombre producto
     const nombreCategoriaRef = useRef("");
-    console.log(id)
     const URL = process.env.REACT_APP_API_URL;
-    console.log(URL)
 
     useEffect(() => {
         const consultarCategorias = async () => {

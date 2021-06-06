@@ -6,7 +6,6 @@ const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
 
     let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
-    console.log(noticiasXCat)
     let masLeidas = noticiasXCat.slice(0, 3);
 
     return (

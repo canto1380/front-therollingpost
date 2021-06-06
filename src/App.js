@@ -1,20 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
 import Login from "./components/Login";
-import Registro from "./components/Registro";
 import Suscripcion from "./components/Suscripcion";
 import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
-import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
@@ -27,7 +25,6 @@ import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-const URL = process.env.REACT_APP_API_URL;
 
 function App() {
   /*Clientes suscriptos*/
@@ -49,8 +46,7 @@ function App() {
 
   let ultimaNoticia = noticiasPublicadas.slice(0, 1)
   let ultimasNoticias = noticiasPublicadas.slice(1,3)
-  console.log(ultimaNoticia)
-  console.log(ultimasNoticias)
+
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
@@ -147,9 +143,6 @@ function App() {
               </Route>
               <Route exact path="/inicio-sesion">
                 <Login />
-              </Route>
-              <Route exact path="/registro">
-                <Registro />
               </Route>
               <Route exact path="/suscripcion">
                 <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes} />

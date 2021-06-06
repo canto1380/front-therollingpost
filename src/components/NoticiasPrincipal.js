@@ -9,7 +9,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 const NoticiasPrincipal = (props) => {
   const { ultimasNoticias, ultimaNoticia } = props
   let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
-  console.log(ultimasNoticias)
+  
   return (
     <section className="my-3">
       <h4>Destacados</h4>
