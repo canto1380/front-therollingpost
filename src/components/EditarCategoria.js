@@ -9,7 +9,8 @@ import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
     const { id } = useParams();
-
+    const {tok} = props
+    
     /* State */
     const [nombreCategoria, setNombreCat] = useState({});
     const [categoria, setCategoria] = useState("");
@@ -69,7 +70,7 @@ const EditarCategoria = (props) => {
 
                     props.setConsultarCat(!props.consultarCat);
 
-                    props.history.push("/menu-categorias");
+                    props.history.push(`/menu-categorias/${(tok)}`);
                 };
             } catch (error) {
                 console.log(error)

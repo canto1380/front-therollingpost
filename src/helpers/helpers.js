@@ -32,11 +32,10 @@ export const signin = user => {
       body: JSON.stringify(user) // user: 
     })
       .then(response => {
+        if(response.status !== 201){
+          throw Error("Error de credenciales")
+        }
         return response.json();
-        
-      })
-      .catch(err => {
-        console.log(err)
       })
   };
 

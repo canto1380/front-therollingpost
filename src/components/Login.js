@@ -44,7 +44,7 @@ const Login = (props) => {
       .then(data => {
         
         if (data.error) {
-          setUsuario({... usuario, error: data.error, cargando:false})
+          setUsuario({... usuario})
           console.log('error')
           console.log("ERRRORRRR")
            setErr(true);
@@ -86,6 +86,7 @@ const Login = (props) => {
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
               props.history.push(`/`);
+              props.setConsultarToken(!props.consultarToken)
             }
           });
         }
@@ -99,60 +100,6 @@ const Login = (props) => {
             setErr(false);
             }, 3000);
       })
-      /***** *****/
-      
-    //   const res = await fetch(url,config)
-
-    //   if(res.status === 201){
-
-    //     console.log(res)
-    //     setErr(false);
-    //     /* Local Storage */
-    //     // validacion.token = "res.params.token"
-    //     setToken(JSON.stringify("jwt","token"))
-
-    //     /*Swal */
-    //     let timerInterval;
-    //     Swal.fire({
-    //       title: "Iniciando sesion",
-    //       html: "",
-    //       timer: 1500,
-    //       timerProgressBar: true,
-    //       didOpen: () => {
-    //         Swal.showLoading();
-    //         timerInterval = setInterval(() => {
-    //           const content = Swal.getContent();
-    //           if (content) {
-    //             const b = content.querySelector("b");
-    //             if (b) {
-    //               b.textContent = Swal.getTimerLeft();
-    //             }
-    //           }
-    //         }, 100);
-    //       },
-    //       willClose: () => {
-    //         clearInterval(timerInterval);
-    //       },
-    //     }).then((result) => {
-    //       /* Read more about handling dismissals below */
-    //       if (result.dismiss === Swal.DismissReason.timer) {
-    //         props.history.push(`/`);
-    //       }
-    //     });
-    //   } else {
-    //     console.log("ERRRORRRR")
-    //     setErr(true);
-    //     setTimeout(() => {
-    //     setErr(false);
-    //   }, 3000);
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    //   setErr(true);
-    //   setTimeout(() => {
-    //     setErr(false);
-    //   }, 3000);
-    // }
   }
 
   if (err) {

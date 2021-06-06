@@ -9,6 +9,7 @@
     margin: 2px 0px 2px 0px;
     width: 100%;
     box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
+    transition-duration: 300ms;
   }
 .tarjetaNoticia-body{
     height: 150px;  
@@ -16,12 +17,8 @@
 
 
   .tarjetaNoticia:hover{
-    color: black;
     cursor: pointer;
-    position: relative;
-      bottom: 2px;
-      right: 2px;
-      transition: 100ms;
+    transform: translate(-2px, -2px);
   }
   .botones-hover:hover{
     color: rgb(185, 186, 186);
@@ -51,6 +48,14 @@
   left: 50%,;
    transform: translate(0,20%); 
 }
+
+.boxAPI{
+  display: flex;
+  justify-content: start;
+}
+
+
+
 
 /** Noticia individual **/
 .image-height{
@@ -86,6 +91,10 @@
       width: 100%;
       box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
     }
+    .imgAPI{
+      display: none;
+      }
+
 }
 
 @media (min-width: 768px) {
@@ -157,10 +166,8 @@
   }
   
 
-@media(min-width:576px){
-  
-}
-@media(max-width:767px){
+
+@media(max-width:768px){
 
   .img-card-masLeidas{
     width: 60px;

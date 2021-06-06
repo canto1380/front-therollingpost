@@ -59,7 +59,7 @@ const Navigation = (props) => {
         )}
         {/* Admin */}
         {isAuthenticated() && (
-          <MenuAdmin setConsultar={props.setConsultar} ls={props.ls} />
+          <MenuAdmin setConsultar={props.setConsultar} ls={props.ls} tok={props.tok}/>
         )}
       </Navbar.Collapse>
     </Navbar>

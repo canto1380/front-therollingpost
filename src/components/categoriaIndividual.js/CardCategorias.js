@@ -5,7 +5,6 @@ import Publicidad from "../Publicidad";
 import NoticiasPrincipal from "../NoticiasPrincipal";
 import slogan from "../../img/sloganCovid.png";
 import vacunas from "../../img/vacunasCovid.png";
-import CategoriaDestacada from '../CategoriaDestacada';
 import ItemNoticiasxCat from './ItemNoticiasxCat';
 import { useScrollToTop } from '../../helpers/hooks';
 
@@ -19,8 +18,8 @@ const CardCategorias = (props) => {
     useScrollToTop();
 
     return (
-        <Container fluid className="my-3 px-4">
-            <h1 className="mt-5">{props.cat.nombreCategoria}</h1>
+        <Container className="my-3 px-4">
+            <h1 className="mt-2">{props.cat.nombreCategoria}</h1>
             <ListGroup className="border-0">
                 {/* map que lea */}
                 <hr className="my-1"/>
