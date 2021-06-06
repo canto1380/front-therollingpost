@@ -5,6 +5,9 @@ import ImgAvPA from "../img/AvPA.png";
 import ImgAvNG from "../img/AvNG.jpg";
 import ImgAvAP from "../img/AvAP.png";
 import ImgAvAle from "../img/AvAle.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const AcercaDeNosotros = () => {
   return (
@@ -117,7 +120,7 @@ const AcercaDeNosotros = () => {
             blandit vitae gravida odio ad parturient conubia.
           </p>
         </section>
-        <section className="py-5 bg-info">
+        <section className="py-5 bg-info mb-3">
           <h3 className="text-center text-light">¿Como Contactarnos?</h3>
           <hr className="mx-1 text-light" />
           <p className="mx-1 text-light">
@@ -134,6 +137,14 @@ const AcercaDeNosotros = () => {
             blandit vitae gravida odio ad parturient conubia.
           </p>
         </section>
+        <div className="d-flex justify-content-center mb-4">
+          <Link className="btn btn-light w-50 border-dark" to={"/"}>
+            <FontAwesomeIcon
+              icon={faHome}
+              className="fa-2x text-dark"
+            ></FontAwesomeIcon>
+          </Link>
+        </div>
       </Container>
     </Fragment>
   );
