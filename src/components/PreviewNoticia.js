@@ -1,21 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState} from "react";
 import { Container, Card, Figure, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 const PreviewNoticia = (props) => {
   const { id } = useParams();
 
-  //variables de Ref
-  const tituloNoticiaRef = useRef("");
-  const subtituloNoticiaRef = useRef("");
-  const resumenNoticiaRef = useRef("");
-  const autorRef = useRef("");
-  const imagenRef = useRef("");
-  const categoriaRef = useRef("");
-  const pieDeFotoRef = useRef("");
   // states
   const [noticia, setNoticia] = useState({});
-  //const [categoria, SetCategoria] = useState("");
 
   useEffect(() => {
     consultarNoticia();
@@ -46,61 +37,48 @@ const PreviewNoticia = (props) => {
       </div>
       <Card className="mt-5 mb-3">
         <Card.Header>
-          <p
-            className="display-6"
-            ref={categoriaRef}
-            defaultValue={noticia.categoria}
-          >
+          <p className="display-6">
             {noticia.categoria}
           </p>
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            <h1 ref={tituloNoticiaRef} defaultValue={noticia.tituloNoticia}>
-              {noticia.tituloNoticia}
+            <h1>
+              {noticia.titulo}
             </h1>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            <h3
-              ref={subtituloNoticiaRef}
-              defaultValue={noticia.subtituloNoticia}
-            >
-              {noticia.subtituloNoticia}
+            <h3>
+              {noticia.descripcion}
             </h3>
           </Card.Subtitle>
-          <Card.Text>
+          <div className="row">
+            <div className="col-sm-12 col-md-8">
+              <p>
+                {noticia.descripNoticia}
+              </p>
+            </div>
+            <div className="col-sm-12 col-md-4">
             <div className="row">
-              <div className="col-sm-12 col-md-8">
-                <p
-                  ref={resumenNoticiaRef}
-                  defaultValue={noticia.resumenNoticia}
-                >
-                  {noticia.resumenNoticia}
-                </p>
+              <div className="col-12 mb-2">
+                <Figure>
+                  <Image
+                    className="img-fluid "
+                    src={noticia.foto}
+                  />
+                </Figure>
               </div>
-              <div className="row">
-                <div className="col-12 border mb-2">
-                  <Figure>
-                    <Image
-                      src={noticia.imagen}
-                      ref={imagenRef}
-                      defaultValue={noticia.imagen}
-                    />
-                  </Figure>
-                </div>
-                <div className="col-12 border mb-2">
-                  <h5 ref={pieDeFotoRef} defaultValue={noticia.pieDeImagen}>
-                    {noticia.pieDeImagen}
-                  </h5>
-                </div>
+              <div className="col-12 border mb-2">
+                <h5>
+                  {noticia.pieDeImagen}
+                </h5>
               </div>
             </div>
-          </Card.Text>
+            </div>
+          </div>
         </Card.Body>
         <Card.Footer className="text-muted">
-          <h5 ref={autorRef} defaultValue={noticia.autor}>
-            {noticia.autor}
-          </h5>
+          <h5>{noticia.autor}</h5>
         </Card.Footer>
       </Card>
       <div className="d-flex justify-content-center mb-5">

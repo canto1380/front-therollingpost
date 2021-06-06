@@ -8,7 +8,7 @@ const SuscriptosMenu = (props) => {
 
     return (
         <Container>
-<h1 className="text-center my-4">Listado de Suscripciones</h1>
+<h1 className="text-center my-2">Listado de Suscripciones</h1>
 <ListGroup>
 {
                 props.clientes.map((clientes)=><ItemClientes clientes={clientes} key={clientes._id} setConsultarClientes={props.setConsultarClientes}></ItemClientes> )  

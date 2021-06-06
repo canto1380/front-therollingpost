@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { setToken } from "../helpers/helpers";
+import { authenticate, setToken, signin } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
@@ -13,15 +13,12 @@ const Login = (props) => {
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
     email: "",
-    password: "",
+    password: ""
   });
-  const validacion = {
-    token: "",
-  };
 
   /*variables */
   let mensaje;
-  const url = process.env.REACT_APP_API_URL+"/user/signin"
+  const url = process.env.REACT_APP_API_URL + "/user/signin"
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -29,81 +26,81 @@ const Login = (props) => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    const valoresUser ={
+    const valoresUser = {
       email: usuario.email,
       clave: usuario.password
     }
-    console.log(valoresUser)
-
-    const config ={
-      method: "POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify(valoresUser)
-    }
-    try {
+    // try {
       const config ={
         method: "POST",
         headers:{
+          Accept:'application/json',
           "Content-Type":"application/json"
         },
         body: JSON.stringify(valoresUser)
       }
-      const res = await fetch(url,config)
-      
-      if(res.status === 200){
+      /* OPCION CON SIGNIN EXPORTADA */
+    signin(valoresUser)
+      .then(data => {
         
-        console.log(res)
-        setErr(false);
-        /* Local Storage */
-        validacion.token = "res.params.token"
-        setToken(JSON.stringify(validacion))
-
-        /*Swal */
-        let timerInterval;
-        Swal.fire({
-          title: "Iniciando sesion",
-          html: "",
-          timer: 1500,
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-            timerInterval = setInterval(() => {
-              const content = Swal.getContent();
-              if (content) {
-                const b = content.querySelector("b");
-                if (b) {
-                  b.textContent = Swal.getTimerLeft();
+        if (data.error) {
+          setUsuario({... usuario, error: data.error, cargando:false})
+          console.log('error')
+          console.log("ERRRORRRR")
+           setErr(true);
+           setTimeout(() => {
+            setErr(false);
+            }, 3000);
+        } else {
+          authenticate(
+            data, () => {
+              setUsuario({
+                ...usuario
+              })
+            }
+          )
+          setErr(false);
+          /*Swal */
+          let timerInterval;
+          Swal.fire({
+            title: "Iniciando sesion",
+            html: "",
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading();
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent();
+                if (content) {
+                  const b = content.querySelector("b");
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft();
+                  }
                 }
-              }
-            }, 100);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          /* Read more about handling dismissals below */
-          if (result.dismiss === Swal.DismissReason.timer) {
-            props.history.push(`/`);
-          }
-        });
-      } else {
-        console.log("ERRRORRRR")
-        setErr(true);
-        setTimeout(() => {
-        setErr(false);
-      }, 3000);
-      }
-    } catch (error) {
-      console.log(error)
-      setErr(true);
-      setTimeout(() => {
-        setErr(false);
-      }, 3000);
-    }
-    
-  };
+              }, 100);
+            },
+            willClose: () => {
+              clearInterval(timerInterval);
+            },
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              props.history.push(`/`);
+            }
+          });
+        }
+      })
+      .catch(err =>{
+        setUsuario({... usuario})
+          console.log('error')
+          console.log("ERRRORRRR")
+           setErr(true);
+           setTimeout(() => {
+            setErr(false);
+            }, 3000);
+      })
+  }
+
   if (err) {
     mensaje = (
       <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
@@ -117,7 +114,7 @@ const Login = (props) => {
       </div>
       <Row className="mt-3 d-flex justify-content-around">
         <Col sm={6} md={8}>
-          <div className="">
+          <div className="mb-5">
             <Image className="w-100" src={ImgPortada} rounded />
           </div>
         </Col>
@@ -133,7 +130,7 @@ const Login = (props) => {
                     name="email"
                     placeholder="nombre@gmail.com"
                     onChange={handleValores}
-                    
+
                   />
                 </Form.Group>
 
@@ -163,7 +160,7 @@ const Login = (props) => {
               <hr />
               <div className="text-center">
                 <p>
-                  ¿No tienes cuenta? <Link to={"/"}>Registrate!</Link>
+                  ¿No tienes cuenta? <Link to={"/suscripcion"}>Registrate!</Link>
                 </p>
               </div>
             </div>

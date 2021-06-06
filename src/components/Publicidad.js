@@ -1,14 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Publicidad = (props) => {
     const {classnamehidden} = props
     return (
-           <Link to={'/'} className={classnamehidden}>
+           <a href={props.href} target="_blank"  rel="noreferrer" className={classnamehidden}>
                 <img className="card-img-top w-100" src={props.publicidad}  alt="publicidad"/>
-            </Link>
-                
-
+            </a>
     );
 };
 

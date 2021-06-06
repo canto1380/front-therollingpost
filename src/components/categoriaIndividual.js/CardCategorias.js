@@ -3,35 +3,30 @@ import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import ItemNavBarCategoria from './ItemNavBarCategoria';
 import Publicidad from "../Publicidad";
 import NoticiasPrincipal from "../NoticiasPrincipal";
-
 import slogan from "../../img/sloganCovid.png";
 import vacunas from "../../img/vacunasCovid.png";
-import CategoriaDestacada from '../CategoriaDestacada';
 import ItemNoticiasxCat from './ItemNoticiasxCat';
+import { useScrollToTop } from '../../helpers/hooks';
 
 const CardCategorias = (props) => {
-    const {cat, noticias} = props
-    console.log(noticias)
-
-    // let noticiasXCat =  noticias.filter(not => not.categoria === cat.nombreCategoria)
+    const {cat, noticias, categorias} = props
     let noticiasXCat = noticias.filter(not => not.categoria === cat.nombreCategoria)
-    // let ultimaNoticia=noticiasXCat.slice(0,1)
-    // let ultimasNoticias = noticiasXCat.slice(1,3)
-    // let resto = noticiasXCat.slice(3,noticiasXCat.length)
-    let ultimaNoticia = noticiasXCat.slice(noticiasXCat.length-1, noticiasXCat.length)
-    let ultimasNoticias = noticiasXCat.slice(noticiasXCat.length-3, noticiasXCat.length-1)
-    let resto = noticiasXCat.slice(0,noticiasXCat.length-4)
-    
+    let ultimaNoticia = noticiasXCat.slice(0, 1)
+    let ultimasNoticias = noticiasXCat.slice(1, 3)
+    let resto = noticiasXCat.slice(3,noticiasXCat.length)
+
+    useScrollToTop();
+
     return (
-        <Container fluid className="my-3 px-4">
-            <Publicidad publicidad={slogan}></Publicidad>
-            <h1 className="mt-5">{props.cat.nombreCategoria}</h1>
+        <Container className="my-3 px-4">
+            <h1 className="mt-2">{props.cat.nombreCategoria}</h1>
             <ListGroup className="border-0">
                 {/* map que lea */}
                 <hr className="my-1"/>
-                <ItemNavBarCategoria/>
+                <ItemNavBarCategoria categorias={categorias} />
                 <hr className="my-1"/>
             </ListGroup>
+            <Publicidad publicidad={slogan}></Publicidad>
             <Row>
                 <Col xs={12} className="">
                     <NoticiasPrincipal
@@ -47,7 +42,6 @@ const CardCategorias = (props) => {
                     cat={cat}
                     noticiasXCat={resto}
             />
-
         </Container>
     );
 };

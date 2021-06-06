@@ -1,33 +1,28 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  NavDropdown
-} from "react-bootstrap";
-import { NavLink, withRouter } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import "../../App.css";
 import { isAuthenticated } from "../../helpers/helpers";
 import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
 
 const Navigation = (props) => {
-  const { noticias, categorias, categoriasDestacadas, categoriasNoDestacadas } = props
+  const { categorias, categoriasDestacadas, categoriasNoDestacadas } = props
 
   return (
     <Navbar
-      className="container-fluid py-3"
-      bg="secondary"
+      className="container-fluid py-3 backcolor"
       expand="lg"
       variant="dark"
     >
-      <Navbar.Brand href="/">The Rolling Post</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">The Rolling Post</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="align-navbar">
         <Nav className="mr-auto">
           <NavDropdown
             title="Secciones"
             id="collasible-nav-dropdown"
-            className="li-navbar-responsive w-50"
+            className="li-navbar-responsive"
           >
           {categoriasNoDestacadas.map((cat)=>(
               <NavDropdown.Item key={cat._id} href={`/${cat.nombreCategoria.toLowerCase()}`}>{cat.nombreCategoria}</NavDropdown.Item>
@@ -43,7 +38,6 @@ const Navigation = (props) => {
           >
             {cat.nombreCategoria}
           </NavLink>
-          // <span className='aa'></span>
               ))
             }
             {

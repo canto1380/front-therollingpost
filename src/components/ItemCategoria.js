@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
     const { cantDestacadas} = props
+    console.log(props.cat)
 const eliminarCategoria =(id) =>{
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',
@@ -16,7 +17,7 @@ const eliminarCategoria =(id) =>{
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Eliminar',
-            CancelButtonText: 'Cancelar'
+            cancelButtonText: 'Cancelar'
           })
           .then(async(result)=>{
             if(result.isConfirmed){

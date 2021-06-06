@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Container, Form, Button, Alert, InputGroup } from "react-bootstrap";
+import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
-import "./span.css";
 
 import moment from "moment";
 
@@ -137,12 +136,11 @@ const EditarNoticia = (props) => {
 
   const consultarNoticia = async () => {
     try {
-      const respuesta = await fetch(url + "/noticias/noticia/" + id);
+      const respuesta = await fetch(url + "/noticias/" + id);
       //console.log(respuesta);
       if (respuesta.status === 200) {
         const resp = await respuesta.json();
         setNoticia(resp);
-        console.log(resp);
       }
     } catch (error) {
       console.log(error);
@@ -176,17 +174,16 @@ const EditarNoticia = (props) => {
           autor: autorRef.current.value,
           foto: imagenRef.current.value,
           categoria: categoriaModificada,
-          pieDeFoto: piedefotoRef.current.value,
+          pieDeImagen: piedefotoRef.current.value,
           hora: moment().format("HH:mm"),
           fecha: moment().format("DD MMMM, YYYY"),
         };
-        const respuesta = await fetch(url + "/noticias/updateNoticias/" + id, {
+        const respuesta = await fetch(url + "/noticias/" + id, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(noticiaModificada),
         });
         if (respuesta.status === 200) {
-          console.log(url);
           Swal.fire(
             "Noticia Editada!",
             "El archivo fue modificado correctamente",
@@ -206,14 +203,13 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
-  console.log(noticias.categoria);
   return (
     <Container>
       <Form
         className="mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="mb-3 m-0 p-0 py-2 bg-secondary text-white">
+        <section className="mb-3 m-0 p-0 py-2 backcolor text-white">
           <div className="m-0 p-0">
             <h1 className="text-center">Editar Noticia: </h1>
           </div>
@@ -333,21 +329,16 @@ const EditarNoticia = (props) => {
             </Form.Control>
           </Form.Group>
           <Form.Group className="mb-3">
-            <InputGroup.Text className="span">
+            <InputGroup.Text>
               <Form.Label>
                 *<b>Imagen:</b>
               </Form.Label>
             </InputGroup.Text>
-            <Form.File
+            <Form.Control
               ref={imagenRef}
-              defaultValue={noticias.imagen}
-              onBlur={valImg}
-              isValid={imgValid}
-              isInvalid={imgInvalid}
-            ></Form.File>
-            <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, debe seleccionar una Imagen.
-            </Form.Control.Feedback>
+              defaultValue={noticias.foto}
+            ></Form.Control>
+            <Image width="100" src={noticias.foto} />
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
@@ -359,9 +350,8 @@ const EditarNoticia = (props) => {
               maxLength="25"
               type="text"
               placeholder="Choque en la Ruta Nacional"
-              onBlur={valPieImg}
-              isValid={pieImgValid}
-              isInvalid={pieImgInvalid}
+              ref={piedefotoRef}
+              defaultValue={noticias.pieDeImagen}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, Debe escribir de 12-25 caracteres.
@@ -373,8 +363,6 @@ const EditarNoticia = (props) => {
             className="w-100 mb-0 text-light"
             variant="warning"
             type="submit"
-            ref={piedefotoRef}
-            defaultValue={noticias.pieDeImagen}
           >
             Editar
           </Button>

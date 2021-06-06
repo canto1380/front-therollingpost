@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup } from "react-bootstrap";
+import { Container, Form, Button, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
-import "./span.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
@@ -41,8 +40,9 @@ const AgregarNoticia = (props) => {
 
   const expresiones = {
     texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
+    textoPie: /^[a-zA-Z0-9-ZÀ-ÿ\s]{7,}$/, // Letras, numeros
     autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
+    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{25,}$/,
   };
 
   const scrollToTop = () => {
@@ -56,8 +56,8 @@ const AgregarNoticia = (props) => {
   const valTit = () => {
     setTitValid("");
     setTitInvalid("");
-    let titulo = expresiones.texto;
-    if (tituloNoticia.trim() !== "" && titulo.test(tituloNoticia)) {
+    let texto = expresiones.texto;
+    if (tituloNoticia !== "" && texto.test(tituloNoticia)) {
       setTitValid(true);
       return false;
     } else {
@@ -69,7 +69,7 @@ const AgregarNoticia = (props) => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
-    if (subtituloNoticia.trim() !== "" && texto.test(subtituloNoticia)) {
+    if (subtituloNoticia !== "" && texto.test(subtituloNoticia)) {
       setSubTValid(true);
       return false;
     } else {
@@ -78,7 +78,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valAutor = () => {
+  const valAutor = (author) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
@@ -94,8 +94,8 @@ const AgregarNoticia = (props) => {
   const valResumen = () => {
     setResValid("");
     setResInvalid("");
-    let res = expresiones.resumen;
-    if (resumenNoticia.trim() !== "" && res.test(resumenNoticia)) {
+    let resumen = expresiones.resumen;
+    if (resumenNoticia !== "" && resumen.test(resumenNoticia)) {
       setResValid(true);
       return false;
     } else {
@@ -107,7 +107,7 @@ const AgregarNoticia = (props) => {
   const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (categoria === "") {
+    if (categoria !== "") {
       setCatValid(true);
       return false;
     } else {
@@ -118,7 +118,7 @@ const AgregarNoticia = (props) => {
   const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (imagen === "") {
+    if (imagen !== "") {
       setImgValid(true);
       return false;
     } else {
@@ -130,7 +130,7 @@ const AgregarNoticia = (props) => {
   const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
-    let texto = expresiones.texto;
+    let texto = expresiones.textoPie;
     if (pieDeFoto !== "" && texto.test(pieDeFoto)) {
       setPieImgValid(true);
       return false;
@@ -142,7 +142,7 @@ const AgregarNoticia = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    limpiarFormulario();
+
     //validacion
     if (
       valTit(tituloNoticia) ||
@@ -152,8 +152,7 @@ const AgregarNoticia = (props) => {
       valCat(categoria) ||
       valImg(imagen) ||
       valPieImg(pieDeFoto)
-    ) {
-    } else {
+    ){} else {
       const noticia = {
         titulo: tituloNoticia,
         descripcion: subtituloNoticia,
@@ -163,9 +162,8 @@ const AgregarNoticia = (props) => {
         foto: imagen,
         pieDeImagen: pieDeFoto,
         hora: moment().format("HH:mm"),
-        fecha: moment().format("DD MMMM, YYYY"),
+       fecha: moment().format("DD MMMM, YYYY"),
       };
-      console.log(noticia);
 
       try {
         //codigo normal
@@ -176,12 +174,11 @@ const AgregarNoticia = (props) => {
           },
           body: JSON.stringify(noticia),
         };
-
+        
         const respuesta = await fetch(
           url + "/noticias/addNoticia",
           configuracion
-        );
-        console.log(url + "/noticias/addNoticia");
+          );
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(
@@ -230,9 +227,9 @@ const AgregarNoticia = (props) => {
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="row mb-3 m-0 p-0 py-2 bg-secondary text-white">
+        <section className="row mb-3 m-0 p-0 py-2 backcolor text-white">
           <div className="col-sm-12 col-md-10 m-0 p-0">
-            <h1 className="mx-1">Formulario de Noticia: </h1>
+            <h1 className="mx-1 ps-2">Formulario de Noticia: </h1>
           </div>
           <div className="col-sm-12 col-md-2 m-0 p-0">
             <div className="d-flex justify-content-end pt-1 mx-1">
@@ -324,10 +321,10 @@ const AgregarNoticia = (props) => {
               isInvalid={resInvalid}
             />
             <Form.Label>
-              <p>{resumenNoticia.length}/6500</p>
+              <p>{resumenNoticia.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 2000-5000
+              Campo Obligatorio, al menos debe contener entre 1000-5000
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
@@ -362,17 +359,18 @@ const AgregarNoticia = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
-            <InputGroup.Text className="span">
+            <InputGroup.Text>
               <Form.Label>
                 *<b>Imagen:</b>
               </Form.Label>
             </InputGroup.Text>
-            <Form.File
+            <Form.Control
               onChange={(e) => setImagen(e.target.value)}
               onBlur={valImg}
               isValid={imgValid}
               isInvalid={imgInvalid}
-            ></Form.File>
+            ></Form.Control>
+            {imagen && <Image width="100" src={imagen} />}
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, debe seleccionar una Imagen.
             </Form.Control.Feedback>
@@ -393,7 +391,7 @@ const AgregarNoticia = (props) => {
               isInvalid={pieImgInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, Debe escribir de 12-25 caracteres.
+              Campo Obligatorio, Debe escribir de 7-25 caracteres.
             </Form.Control.Feedback>
           </Form.Group>
         </div>
@@ -410,7 +408,7 @@ const AgregarNoticia = (props) => {
       </Form>
       {error ? (
         <Form.Label className="text-danger">
-          Campo obligatorio, El apellido debe contener entre 4 - 25 caracteres
+          Campo obligatorio, al menos debe contener entre 4 - 25 caracteres
         </Form.Label>
       ) : null}
     </Container>

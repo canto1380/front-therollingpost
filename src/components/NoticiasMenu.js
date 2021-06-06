@@ -6,14 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
-  const { noticias } = props;
-  noticias.sort((a, b) => parseInt(a.hora) - parseInt(b.hora));
-  noticias.sort((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha));
-  console.log(noticias);
+  const { noticias, consultarNoticias, setConsultarNoticias } = props;
 
   return (
-    <Container>
-      <h1 className="text-center mt-3">Menu de Administracion de Noticias</h1>
+    <Container className="mb-3">
+      <h1 className="text-center mt-3">Menu de Administración de Noticias</h1>
       <hr />
       <Form>
         <section className="row my-3">
@@ -25,6 +22,7 @@ const NoticiasMenu = (props) => {
               <Link
                 className="btn btn-success text-light botones"
                 to={"/menu-noticias/agregar-noticia"}
+                title="Agregar noticia"
               >
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
               </Link>
@@ -42,7 +40,7 @@ const NoticiasMenu = (props) => {
             </tr>
           </thead>
           <tbody>
-            {props.noticias.map((noticia) => (
+            {noticias.map((noticia) => (
               <tr noticia={noticia} key={noticia._id}>
                 <td>{noticia.titulo}</td>
                 <td>{noticia.categoria}</td>
@@ -50,8 +48,8 @@ const NoticiasMenu = (props) => {
                   <ItemBotonera
                     noticia={noticia}
                     key={noticia._id}
-                    consultarNoticias={props.consultarNoticias}
-                    setConsultarNoticias={props.setConsultarNoticias}
+                    consultarNoticias={consultarNoticias}
+                    setConsultarNoticias={setConsultarNoticias}
                   ></ItemBotonera>
                 </td>
               </tr>

@@ -6,7 +6,6 @@ const APIclima = () => {
     const [clima, setClima]=useState({});
     const [temp, setTtemp]=useState({})
     const [icon, setIcon]= useState({})
-    // const [consulta, setConsulta]=useState(false);
 
     useEffect(()=>{
             consultarAPIclima();
@@ -32,9 +31,14 @@ const APIclima = () => {
 
     return (   
     <div className="d-flex justify-content-center align-items-center">
-        <div><img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} alt=""/></div>
-        <div className="mx-1">{temp.temp +" °C"}</div>
-            <div>{clima.name}</div> 
+        <div>
+            <img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} height="70px" alt="imagen clima" className="imgAPI" />
+        </div>
+     <span className="badge rounded-pill bg-info ">
+        <div className="mx-1 pt-1 small">
+          <h6> {temp.temp +" °C "}{clima.name}</h6> 
+        </div>
+      </span>
      </div> 
     );
 };

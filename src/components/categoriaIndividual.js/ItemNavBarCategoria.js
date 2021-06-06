@@ -1,49 +1,21 @@
-import React from 'react';
-import { ListGroup, Row } from 'react-bootstrap';
-import {Link}  from 'react-router-dom'
+import React from "react";
+import { ListGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const ItemNavBarCategoria = () => {
-    return (
-        <ListGroup.Item className="d-flex justify-content-between border-0">
-            
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                Futbol
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                Tenis
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                Basquet
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                Rugby
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                Futbol Argentino
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-                River
-            </Row>
-            </Link>
-            <Link to={'/'} className="text-decoration-none text-dark fw-bold">
-            <Row>
-            Boca
-            </Row>
-            </Link>
-        </ListGroup.Item>
-        
-    );
+const ItemNavBarCategoria = ({ categorias = [] }) => {
+  return (
+    <ListGroup.Item className="d-flex justify-content-between border-0">
+      {categorias.map((cat) => (
+        <Link
+          key={cat._id}
+          to={`${cat.nombreCategoria}`}
+          className="text-decoration-none text-dark fw-bold"
+        >
+          {cat.nombreCategoria}
+        </Link>
+      ))}
+    </ListGroup.Item>
+  );
 };
 
 export default ItemNavBarCategoria;
