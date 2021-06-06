@@ -26,7 +26,8 @@ import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-const URL = process.env.REACT_APP_API_URL;
+import moment from 'moment'
+import { Container } from "react-bootstrap";
 
 function App() {
   /*Clientes suscriptos*/
@@ -86,7 +87,7 @@ function App() {
     } catch (error) {
       console.log(error)
     }
-  }
+  }   
 
   /* Usado para tomar el token del usuario logueado */
   useEffect(() => {
@@ -124,11 +125,18 @@ function App() {
               categoriasDestacadas={categoriasDestacadas}
               categoriasNoDestacadas={categoriasNoDestacadas}
             />
-
-            <div className="boxAPI">
+  <Container>
+  <div className=" row  ">
+              <div className=" col-sm-12 col-md-6">
               <APImoneda></APImoneda>
+              </div>
+              <div className="col-sm-12 col-md-6">
               <APIclima></APIclima>
+              </div>
+              
             </div>
+  </Container>
+            
 
             <Switch>
               <Route exact path="/">
