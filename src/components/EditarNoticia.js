@@ -159,12 +159,13 @@ const EditarNoticia = (props) => {
 
     //validar los datos
     if (
-      tituloNoticiaRef.current.value &&
-      subtituloNoticiaRef.current.value &&
-      resumenNoticiaRef.current.value &&
-      autorRef.current.value &&
-      imagenRef.current.value &&
-      categoriaModificada
+      valTit(tituloNoticiaRef.current.value) &&
+      valSubT(subtituloNoticiaRef.current.value) &&
+      valResumen(resumenNoticiaRef.current.value) &&
+      valAutor(autorRef.current.value) &&
+      valImg(imagenRef.current.value) &&
+      valCat(categoriaModificada) &&
+      valPieImg(piedefotoRef)
     ) {
       setError(false);
       try {
