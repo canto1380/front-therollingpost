@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {Form, Button, Container, Card, FormGroup} from 'react-bootstrap';
 import suscripcion from '../img/suscripcion.png'
 import familia from '../img/familiar1.jpg'
 import Swal from 'sweetalert2';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import {withRouter} from 'react-router-dom'
 import emailjs from 'emailjs-com'
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import MsjError from './MsjError'
 
 const Suscripcion = (props) => {
@@ -16,19 +13,22 @@ const Suscripcion = (props) => {
 
   const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
 
-    /*variables ref*/
-  const nomApRef = useRef("");
-  const direccionRef =useRef("");
-  const localidadRef = useRef("");
-  const codigoPostalRef=useRef(""); 
-  const telefonoRef= useRef(0)
-  const emailRef =useRef("");
-  const passwordRef= useRef("");
+const [client, setClient]=useState({
+  nomAp: "",
+  direccion: "",
+  localidad: "",
+  codigoPostal: "",
+  telefono: "",
+  email: "",
+  password:"",
+  plan: ""
+})
+const [error, setError]= useState(false);
+const [err, setErr] = useState(false) //mensaje de error en valicaciones general
 
-  /*States*/
-  const [plan, setPlan]=useState("");
-  const [error, setError]= useState(false);
-  const [err, setErr] = useState(false) //mensaje de error en valicaciones general
+const handleValores = (e)=>{
+setClient({...client, [e.target.name]: e.target.value})
+}
 
     /*States para feedback formulario*/
     const [nomValid, setNomValid]= useState("")
@@ -45,135 +45,148 @@ const Suscripcion = (props) => {
     const [emailInvalid, setEmailInvalid] = useState("")
     const [passValid, setPassValid] = useState("")
     const [passInValid, setPassInvalid] = useState("")
-    const [termsInValid, setTermsInValid] = useState("")
+    const [invalidTerms, setInvalidTerms] = useState("")
     
     /*Expresiones regulares para validaciones*/
     const expresiones = {
       nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/,  // Letras y espacios, pueden llevar acentos.
       email:  /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
       cp: /^[0-9]{4,8}$/,
-      tel: /^[0-9]{8,15}$/,
+      tel: /^[0-9]{10,15}$/,
       pas:/^[a-z0-9_-]{6,15}$/
     };
 
-
-/*Validaciones*/
-
+/*States para Validaciones*/
+    const[vNom, setVNom]=useState(false)
+    const[vDir, setVDir]=useState(false)
+    const[vLoc, setVLoc]=useState(false)
+    const[vCP, setVCP]=useState(false)
+    const[vTel, setVTel]=useState(false)
+    const[vEmail, setVEmail]=useState(false)
+    const[vPass, setVPass]=useState(false)
+    const[vPlan, setVPlan]=useState(false)
+    const [terms, setTerms]=useState(false)
+   
     const validarNombre = () =>{
       setNomValid("")
       setNomInvalid("")
       let nom = expresiones.nombre
-      if(nomApRef.current.value.trim() !=="" & nom.test(nomApRef.current.value) & nomApRef.current.value.length <=40){
+      if(client.nomAp.trim() !=="" && nom.test(client.nomAp) && client.nomAp.length <=40){
         setNomValid(true)
         console.log("nombre valido")
-        return true
+        setVNom(true)
+        
       }else{
+        console.log("nombre invalido")
         setNomInvalid(true)
-        return false
+        setVNom(false)
+        // return false
       }
     }
-
     const validarDireccion = ()=>{
       setDirecValid("");
       setDirecInvalid("");
-      let dir= expresiones.nombre
-      if(direccionRef.current.value.trim() !== ""  ){
+      
+      if(client.direccion.trim() !== ""  ){
         setDirecValid(true);
         console.log(" direccion valido")
-        return true;
+        setVDir(true)
       }else{  
         setDirecInvalid(true)
         console.log(" direccion invalido")
-        return false;
+        setVDir(false)
     }
   }
-
     const validarLocalidad =()=>{
       setLocInvalid("");
       setLocValid("");
       let local= expresiones.nombre
-      if(localidadRef.current.value.trim() !== "" & local.test(localidadRef.current.value) ){
+      if(client.localidad.trim() !== "" && local.test(client.localidad) ){
         console.log(" localidad valido")
         setLocValid(true);
-        return true
+        setVLoc(true)
       }else{
         console.log(" localidad invalido")
         setLocInvalid(true)
-        return false 
+        setVLoc(false)
         
       }
-    }
-
+    } 
     const validarCP =()=>{
       setCpInvalid("");
       setCpValid("");
       let codP= expresiones.cp;
-      if(codigoPostalRef.current.value.trim() !=="" & codP.test(codigoPostalRef.current.value) ){
+      if(client.codigoPostal.trim() !=="" && codP.test(client.codigoPostal) ){
         console.log("cp valido")
         setCpValid(true);
-        return true
+       setVCP(true)
       }else{
         console.log("cp invalido")
         setCpInvalid(true);
-        return false
+        setVCP(false)
       }
-    } 
+    }   
     const validarTel = ()=>{
       setTelInvalid("");
       setTelValid("");
       let telef = expresiones.tel
-      if(telefonoRef.current.value.trim() !=="" & telef.test(telefonoRef.current.value)){
+      if(client.telefono.trim() !=="" && telef.test(client.telefono)){
         setTelValid(true);
         console.log("tel valido")
-        return true
+       setVTel(true)
       }else{
+        console.log("tel invalido")
         setTelInvalid(true);
-        return false
+        setVTel(false)
       }
-    }
-
+    } 
     const validarEmail = ()=>{
       setEmailInvalid("");
       setEmailValid("");
       let mail = expresiones.email
-      if(emailRef.current.value.trim() !=="" & mail.test(emailRef.current.value) ){
+      if(client.email.trim() !=="" && mail.test(client.email) ){
         setEmailValid(true);
         console.log("email valido")
-        return true
+        setVEmail(true)
       }else{
         setEmailInvalid(true);
-        return false
+        setVEmail(false)
       }
     }
     const validarPass = ()=>{
       setPassValid("");
       setPassInvalid("");
       let pass = expresiones.pas
-      if(passwordRef.current.value.trim()!=="" & pass.test(passwordRef.current.value)){
+      if(client.password.trim()!=="" && pass.test(client.password)){
         setPassValid(true);
         console.log("pass valido")
-        return true
+        setVPass(true)
       }else{
         setPassInvalid(true);
         console.log("pass invalido")
-        return false
+       setVPass(false)
       }
-    }
-
-    const validarPlan = ()=>{
-      
-    }
-    const validarTerminos=()=>{
-      // let terms= document.getElementById("checkTerminos")
-      // if(terms.checked)
-    }
-    
-
-    const validarGeneral = ()=>{
-      if(validarNombre & validarDireccion & validarLocalidad & validarCP & validarTel & validarEmail ){
-        return true
+    } 
+    const validarPlan = (e)=>{
+      if(client.plan!==""){
+        console.log("plan elegido")
+        setVPlan(true)
       }else{
-        return false
+        console.log("elija un plan")
+        setVPlan(false)
+      }
+    } 
+    const validarTerminos=(e)=>{
+      setInvalidTerms("")
+      if(e.target.checked){
+        console.log("terminos aceptados")
+        setTerms(true)
+        
+      }else{
+        console.log("Tiene que aceptar terminos")
+        setTerms(false)
+        setInvalidTerms(true)
+        
       }
     }
 
@@ -198,29 +211,32 @@ const Suscripcion = (props) => {
       setTelValid("");
       setEmailInvalid("");
       setEmailValid("");
+      setPassValid("");
+      setPassInvalid("")
+      setInvalidTerms("")
+      setTerms(false)
+      setVPlan(false)
+      setVNom(false)
+      setVDir(false)
+      setVLoc(false)
+      setVCP(false)
+      setVTel(false)
+      setVEmail(false)
+      setVPass(false)
   }
 
-  const cambioPlan = (e)=>{
-    setPlan(e.target.value)
+  const terminos = (e)=>{
+    setTerms(e.target.checked)
   }
     
-    const handleSubmit = async(e)=>{
+const handleSubmit = async(e)=>{
         e.preventDefault();
-
-      if(validarGeneral){
+   
+      if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vPlan && terms){
+        console.log("creando clientes")
         setError(false)
 
-
-        const cliente = {
-          nomAp: nomApRef.current.value,
-          direccion: direccionRef.current.value,
-          localidad: localidadRef.current.value,  
-          codigoPostal: codigoPostalRef.current.value,
-          telefono: telefonoRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-          plan
-        }
+        const cliente = client
         console.log(cliente)
         
         try{
@@ -237,21 +253,18 @@ const Suscripcion = (props) => {
 
         console.log(respuesta)
         if(respuesta.status===201){
-
-            /*Enviar mensaje a administrador*/
           const mensajeSuscripcion = {
-            nombre: nomApRef.current.value,
-            email: emailRef.current.value,
+            nombre: client.nomAp,
+            email: client.email,
             to_name: "Administrador",
-            direcLocalCp: `Direccion: ${direccionRef.current.value} -
-            Localidad: ${localidadRef.current.value} -
-            Código Postal: ${codigoPostalRef.current.value}`,
-            telEmailPass: `Telefono: ${telefonoRef.current.value} - 
-            Email: ${emailRef.current.value} - 
-            Password: ${passwordRef.current.value}`,  
-            plan: `Plan: ${plan}`
+            direcLocalCp: `Direccion: ${client.direccion} -
+            Localidad: ${client.localidad} -
+            Código Postal: ${client.codigoPostal}`,
+            telEmailPass: `Telefono: ${client.telefono} - 
+            Email: ${client.email} - 
+            Password: ${client.password}`,  
+            plan: `Plan: ${client.plan}`
           };
-    
           console.log(mensajeSuscripcion);
     
           emailjs
@@ -301,15 +314,12 @@ const Suscripcion = (props) => {
             );
 
           // props.history.push("./");
-          
-         
+           
           setConsultarClientes(true);
           console.log(clientes)
           e.target.reset();
           clearForm();
         }
-
-        
       }catch(err){
         console.log(err)
         Swal.fire(
@@ -318,6 +328,7 @@ const Suscripcion = (props) => {
           'error'
         )}
       }else{
+        console.log("debe validar todos los campos")
         setError(true)
         setErr(true)
             setTimeout(() => {
@@ -352,49 +363,126 @@ const Suscripcion = (props) => {
         <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label><b>*Nombre y Apellido</b></Form.Label>
-          <Form.Control type="text" ref={nomApRef}  placeholder="Ingrese su nombre y apellido" onBlur={validarNombre}  maxLength="40"  isValid={nomValid} isInvalid={nomInvalid}/>
+          <Form.Control 
+          type="text" 
+          placeholder="Ingrese su nombre y apellido" 
+          name="nomAp" 
+          onChange={handleValores}
+          onBlur={validarNombre}  
+          maxLength="40"  
+          isValid={nomValid} 
+          isInvalid={nomInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Dirección</b></Form.Label>
-          <Form.Control type="text" ref={direccionRef} placeholder="Ingrese su dirección" onBlur={validarDireccion}  maxLength="40"  isValid={direcValid} isInvalid={direcInvalid}/>
+          <Form.Control 
+          type="text" 
+          placeholder="Ingrese su dirección" 
+          name="direccion" 
+          onChange={handleValores}
+          onBlur={validarDireccion}  
+          maxLength="40"  
+          isValid={direcValid} 
+          isInvalid={direcInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Localidad</b></Form.Label>
-          <Form.Control type="text" ref={localidadRef} placeholder="Ingrese la localidad donde vive" onBlur={validarLocalidad}  maxLength="40"  isValid={locValid} isInvalid={locInvalid}/>
+          <Form.Control 
+          type="text" 
+          placeholder="Ingrese la localidad donde vive"
+          name="localidad" 
+          onChange={handleValores}
+          onBlur={validarLocalidad}  
+          maxLength="40"  
+          isValid={locValid} 
+          isInvalid={locInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Código Postal</b></Form.Label>
-          <Form.Control type="number" ref={codigoPostalRef} placeholder="Ingrese su codigo postal" onBlur={validarCP}  maxLength="8" onInput={maxNum}   isValid={cpValid} isInvalid={cpInvalid}/>
+          <Form.Control 
+          type="number" 
+          placeholder="Ingrese su codigo postal" 
+          name="codigoPostal" 
+          onChange={handleValores}
+          onBlur={validarCP}  
+          maxLength="8" 
+          onInput={maxNum}   
+          isValid={cpValid} 
+          isInvalid={cpInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label><b>*Teléfono</b></Form.Label>
-          <Form.Control type="number" ref={telefonoRef} placeholder="Ingrese su numero de telefono" onBlur={validarTel}  maxLength="15" onInput={maxNum}  isValid={telValid} isInvalid={telInvalid} />
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control 
+          type="number" 
+          placeholder="Ingrese su numero de telefono"
+          name="telefono" 
+          onChange={handleValores}
+          onBlur={validarTel}  
+          maxLength="15" 
+          onInput={maxNum}  
+          isValid={telValid} 
+          isInvalid={telInvalid} />
+          <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe contener numero de area y telefono</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2">
           <Form.Label> <b>*Email</b></Form.Label>
-          <Form.Control type="email" ref={emailRef} placeholder="Ingrese su email" onBlur={validarEmail}  maxLength="40"  isValid={emailValid} isInvalid={emailInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control 
+          type="email" 
+          placeholder="Ingrese su email"
+          name="email" 
+          onChange={handleValores}
+          onBlur={validarEmail}  
+          maxLength="40"  
+          isValid={emailValid} 
+          isInvalid={emailInvalid}/>
+          <Form.Control.Feedback type="invalid"  className="text-danger small" >Email incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group  className="mt-2">
           <Form.Label><b>*Password</b></Form.Label>
-          <Form.Control type="password" ref={passwordRef} placeholder="Ingrese su contraseña" onBlur={validarPass}  maxLength="12"   isValid={passValid} isInvalid={passInValid}/>
+          <Form.Control 
+          type="password" 
+          placeholder="Ingrese su contraseña"
+          name="password" 
+          onChange={handleValores}
+          onBlur={validarPass}  
+          maxLength="12"   
+          isValid={passValid} 
+          isInvalid={passInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Su contraseña debe contener entre 6 y 12 caracteres, letras y numeros</Form.Control.Feedback> 
         </Form.Group>
         <Form.Label className="my-3 "><b>*Seleccione su plan</b></Form.Label>
         <FormGroup >
-        <Form.Check type="radio" name="plan de acceso" inline label="Plan de Acceso individual"  value="individual" onChange={cambioPlan} />
-        <Form.Check type="radio" name="plan de acceso" inline label="Plan de Acceso Familiar"  value="familiar" onChange={cambioPlan} />
-        
+        <Form.Check 
+        type="radio" 
+        name="plan" 
+        inline 
+        label="Plan de Acceso individual"  
+        value="individual" 
+        onChange={handleValores} 
+        onBlur={validarPlan} />
+        <Form.Check
+         type="radio" 
+         name="plan" 
+         inline 
+         label="Plan de Acceso Familiar" 
+          value="familiar" 
+          onChange={handleValores} 
+          onBlur={validarPlan}  />
         </FormGroup>
         <Form.Group  className="mt-4">
-      
-          <Form.Check type="checkbox" id="checkTerminos" label="Acepto términos y condiciones"  />
-         
+          <Form.Check.Input  
+          type="checkbox" 
+          checked={terms}
+          label="Acepto términos y condiciones" 
+          onChange={terminos} 
+          onBlur={validarTerminos} 
+          isInvalid={invalidTerms} />
+          <Form.Check.Label>Acepto términos y condiciones</Form.Check.Label>
+          <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe aceptar términos y condiciones</Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex justify-content-center my-4">
         <Button className="w-75 rounded-pill" variant="primary" type="submit">

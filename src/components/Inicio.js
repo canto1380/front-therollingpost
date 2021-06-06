@@ -19,7 +19,7 @@ const Inicio = (props) => {
 
   return (
     
-    <Container className="my-5">
+    <Container className="my-2">
       <Publicidad publicidad={slogan}></Publicidad>
       <Row className="my-3">
     <Col sm={10}>
