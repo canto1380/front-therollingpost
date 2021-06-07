@@ -3,13 +3,12 @@ import { useParams} from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import Publicidad from '../Publicidad';
 import CardNoticiaIndividual from './CardNoticiaIndividual';
-
 import slogan from "../../img/sloganCovid.png";
 import Coca from "../../img/cokeMusic.gif";
-import Corona from "../../img/corona.jpg";
+import RollingLogo from "../../img/RollingCode.jpg";
+import PedidosYa from "../../img/Pedidos Ya.jpg";
 import covidCuidados from "../../img/covidCuidados.jpg";
 import CardMasLeidas from './CardMasLeidas';
-
 import "../../App.css"
 import CardUltimasNoticias from './CardUltimasNoticias';
 import CardComentarios from './CardComentarios';
@@ -39,48 +38,32 @@ const Noticia = (props) => {
         }
         consultarCategorias();
     }, [id]);
-    console.log(not)
-
-    // /* VER PASO DE INFORMACION */
-    // const [noticiasXCat, setNoticiasXCat] = useState([])
-    // // const [masLeidas, setMasLeidas] = useState([])
-    // const [consultar, setConsultar] = useState(true)
-    // useEffect(() => {
-    //     if(consultar){
-    //         setNoticiasXCat(noticias.filter(not => not.categoria === cat))
-    //         // setMasLeidas(noticiasXCat.slice(1,4))
-    //         console.log('aa')
-    //     }
-    // }, [consultar])
-    // /* ARRIBA */
 
     return (
         <Container fluid className="p-4">
-            <Publicidad publicidad={slogan} />
             <Row >
-                <Col className="my-5" sm={12} lg={8} >
+                <Col sm={12} lg={9} >
+            <Publicidad publicidad={slogan} />
                     <CardNoticiaIndividual not={not}/>
                 </Col>
-                <Col sm={12} md={8} lg={4} className="component-mas-leidas">
+                <Col sm={12} md={8} lg={3} className="">
                     <CardMasLeidas  noticias={props.noticias}  categoria={cat}/>
+                    <Publicidad classnamehidden={hiddenmd} publicidad={PedidosYa} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
-                    <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
+                    <Publicidad classnamehidden={hiddenmd} publicidad={RollingLogo} />
                 </Col>
                 <Col md={4} lg={4} className="d-flex justify-content-center align-items-center">
                     <Publicidad classnamehidden={hidden} publicidad={covidCuidados} />
                 </Col>
                 <hr className="my-2"/>
-                
-                <hr className="my-2"/>
-                <Col sm={12} md={8} >
+                <Col sm={12} md={9} >
                     {
                     <CardUltimasNoticias ultimas3noticias={ultimas3noticias}/>
                     }
                 </Col>
-                <Col sm={4} lg={4} className="d-flex justify-content-center align-items-center">
+                <Col sm={4} md={3} className="d-flex justify-content-center align-items-center">
                 <Publicidad publicidad={Coca} classnamehidden={hiddensm}/>
                 </Col>
-                <hr className="my2"/>
                 <Col sm={12}>
                     <CardComentarios/>
                 </Col>

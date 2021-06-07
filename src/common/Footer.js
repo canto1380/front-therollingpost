@@ -10,7 +10,7 @@ const Footer = (props) => {
   return (
     <Container fluid className="backcolor py-3 text-light">
       <Row className="align-items-center py-2" xs={1} sm={2}>
-        <Col><h1 className="text-center text-md-start">The Rolling Post</h1></Col>
+        <Col><h1 className="text-center text-md-start"><i>The Rolling Post</i></h1></Col>
         <Col>
           <div className="text-center text-md-end">
           <a href="https://www.instagram.com/?hl=es-la" target="_blank" rel="noreferrer" className="text-light"><FontAwesomeIcon icon={faInstagram} className="me-2 turn insta" size="3x"></FontAwesomeIcon></a>

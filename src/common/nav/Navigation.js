@@ -11,11 +11,11 @@ const Navigation = (props) => {
 
   return (
     <Navbar
-      className="container-fluid py-3 backcolor"
+      className="container-fluid py-2 backcolor"
       expand="lg"
       variant="dark"
     >
-      <Navbar.Brand as={Link} to="/">The Rolling Post</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/"><h4><i>The Rolling Post</i></h4></Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="align-navbar">
         <Nav className="mr-auto">

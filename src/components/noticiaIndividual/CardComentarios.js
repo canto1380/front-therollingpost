@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Image, Form, Row, Col, ListGroup, Button } from 'react-bootstrap';
-import LogoNR from "../../img/Logo-NR.png";
+import LogoNR from "../../img/The Rolling Post.jpg";
 import ItemComentarios from './ItemComentarios';
 
 const CardComentarios = () => {
@@ -11,7 +11,7 @@ const CardComentarios = () => {
             </div>
             <Row className="d-flex justify-content-between m-0 h-100">
                 <Col xs={2} md={2} className="p-0 text-center">
-                    <Image src={LogoNR} rounded className=" image-comentario text-center"/>
+                    <Image src={LogoNR} rounded className="text-center" width="110px"/>
                 </Col>
                 <Col xs={10} md={10}  className="">
                     <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -30,6 +30,12 @@ const CardComentarios = () => {
             <hr className="my-2"/>
             <ListGroup className="my-3">
                 {/* Map donde recorre las primeras 5 noticias  */}
+                <ItemComentarios/>
+                <hr/>
+                <ItemComentarios/>
+                <hr/>
+                <ItemComentarios/>
+                <hr/>
                 <ItemComentarios/>
             </ListGroup>
         </Container>
