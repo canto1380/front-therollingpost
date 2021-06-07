@@ -7,6 +7,8 @@ import { faEdit,faTrashAlt,faEye } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 
 const ItemBotonera = (props) => {
+  const {tok} =props
+
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -84,7 +86,7 @@ const ItemBotonera = (props) => {
         as={Link}
         type="button"
         className="btn btn-warning me-1 text-light "
-        to={`/editar-noticia/${props.noticia._id}`}
+        to={`/editar-noticia/${tok}/${props.noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -99,7 +101,7 @@ const ItemBotonera = (props) => {
       </Button>
       <Link
         className="btn btn-info me-1 text-light "
-        to={`/preview/${props.noticia._id}`}
+        to={`/preview/${tok}/${props.noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>

@@ -9,8 +9,8 @@ import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
     const { id } = useParams();
-    console.log(id);
-
+    const {tok} = props
+    
     /* State */
     const [nombreCategoria, setNombreCat] = useState({});
     const [categoria, setCategoria] = useState("");
@@ -18,9 +18,7 @@ const EditarCategoria = (props) => {
 
     //variables useRef para precio y nombre producto
     const nombreCategoriaRef = useRef("");
-    console.log(id)
     const URL = process.env.REACT_APP_API_URL;
-    console.log(URL)
 
     useEffect(() => {
         const consultarCategorias = async () => {
@@ -72,7 +70,7 @@ const EditarCategoria = (props) => {
 
                     props.setConsultarCat(!props.consultarCat);
 
-                    props.history.push("/menu-categorias");
+                    props.history.push(`/menu-categorias/${(tok)}`);
                 };
             } catch (error) {
                 console.log(error)

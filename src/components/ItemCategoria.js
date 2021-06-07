@@ -6,9 +6,9 @@ import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
-    const { cantDestacadas} = props
-    console.log(props.cat)
-const eliminarCategoria =(id) =>{
+    const { cantDestacadas, tok} = props
+    console.log(tok)
+    const eliminarCategoria =(id) =>{
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',
             text: "No podras recuperarla",
@@ -63,7 +63,7 @@ const eliminarCategoria =(id) =>{
                     })
                     if(res.status ===200){
                         props.setConsultarCat(!props.consultarCat);
-                        props.history.push("/menu-categorias");
+                        props.history.push(`/menu-categorias/${tok}`);
                     }
                 } catch (error) {
                     
@@ -109,7 +109,7 @@ const eliminarCategoria =(id) =>{
                 })
                 if(res.status ===200){
                     props.setConsultarCat(!props.consultarCat);
-                    props.history.push("/menu-categorias");
+                    props.history.push(`/menu-categorias/${tok}`);
                 }
             } catch (error) {
                 
@@ -132,7 +132,7 @@ const eliminarCategoria =(id) =>{
                         </Button>
                     )
                 }  
-            <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${props.cat._id}`}>
+            <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
                 <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)}>

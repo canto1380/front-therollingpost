@@ -39,20 +39,6 @@ const Noticia = (props) => {
         }
         consultarCategorias();
     }, [id]);
-    console.log(not)
-
-    // /* VER PASO DE INFORMACION */
-    // const [noticiasXCat, setNoticiasXCat] = useState([])
-    // // const [masLeidas, setMasLeidas] = useState([])
-    // const [consultar, setConsultar] = useState(true)
-    // useEffect(() => {
-    //     if(consultar){
-    //         setNoticiasXCat(noticias.filter(not => not.categoria === cat))
-    //         // setMasLeidas(noticiasXCat.slice(1,4))
-    //         console.log('aa')
-    //     }
-    // }, [consultar])
-    // /* ARRIBA */
 
     return (
         <Container fluid className="p-4">

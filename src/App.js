@@ -1,12 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -18,7 +13,6 @@ import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
-import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
@@ -30,7 +24,9 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import moment from "moment";
 import { Container } from "react-bootstrap";
+
 function App() {
+
   /*Clientes suscriptos*/
   const [clientes, setClientes] = useState([]);
   const [consultarClientes, setConsultarClientes] = useState(true);
@@ -50,10 +46,22 @@ function App() {
   let ultimaNoticia = noticiasPublicadas.slice(0, 1);
   let ultimasNoticias = noticiasPublicadas.slice(1, 3);
   /* Usuarios */
-  const [user, setUser] = useState([]);
-  const [consultarUser, setConsultarUser] = useState(true);
-  const [tok, setTok] = useState([]);
+  const [user, setUser] = useState([])
+  const [consultarUser, setConsultarUser] = useState(true)
 
+  const [tok, setTok] = useState('');
+  const [consultarToken, setConsultarToken] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      console.log(JSON.parse(localStorage.getItem("jwt")))
+      const { token } = JSON.parse(localStorage.getItem("jwt"))
+      setTok(token)
+    } else {
+      console.log('usuario no registrado')
+    }
+  }, [consultarToken])
+  console.log(tok)
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
@@ -96,18 +104,6 @@ function App() {
     }
   };
 
-  /* Usado para tomar el token del usuario logueado */
-  useEffect(() => {
-    const consultarLS = async () => {
-      try {
-        setTok(localStorage.getItem("jwt"));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    consultarLS();
-  }, []);
-
   /* Consulta API - Usuarios */
   useEffect(() => {
     const consultarAPIUsuarios = async () => {
@@ -133,6 +129,7 @@ function App() {
             categorias={categorias}
             categoriasDestacadas={categoriasDestacadas}
             categoriasNoDestacadas={categoriasNoDestacadas}
+            tok={tok}
           />
           <Container>
             <div className=" row  ">
@@ -157,15 +154,13 @@ function App() {
               />
             </Route>
             <Route exact path="/inicio-sesion">
-              <Login />
+              <Login
+                consultarToken={consultarToken}
+                setConsultarToken={setConsultarToken}
+              />
             </Route>
             <Route exact path="/suscripcion">
-              <Suscripcion
-                individual={"$150"}
-                familia={"$250"}
-                clientes={clientes}
-                consultarClientes={consultarClientes}
-                setConsultarClientes={setConsultarClientes}
+              <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
               />
             </Route>
 
@@ -194,63 +189,65 @@ function App() {
             </Route>
 
             {/* Menu Admin */}
-            <Route exact path="/menu-categorias">
+            <Route exact path={`/menu-categorias/:tok`}>
               <CategoriaMenu
                 categorias={categorias}
                 setConsultarCat={setConsultarCat}
                 consultarCat={consultarCat}
                 cantDestacadas={cantDestacadas}
+                tok={tok}
               />
             </Route>
-            <Route exact path="/menu-categorias/addCategoria">
+            <Route exact path='/menu-categorias/addCategoria/:tok'>
               <AgregarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
+                tok={tok}
               />
             </Route>
-            <Route exact path="/menu-categorias/editarCategorias/:id">
+            <Route exact path="/menu-categorias/editarCategorias/:tok/:id">
               <EditarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
+                tok={tok}
               />
             </Route>
             {/* Admin Menu Noticias */}
-            <Route exact path="/menu-noticias">
-              <NoticiasMenu
-                noticias={noticias}
-                consultarNoticias={consultarNoticias}
-                setConsultarNoticias={setConsultarNoticias}
+            <Route exact path="/menu-noticias/:tok">
+              <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias}
+                tok={tok}
               />
             </Route>
-            <Route exact path="/menu-suscriptos">
-              <SuscriptosMenu
-                clientes={clientes}
-                setClientes={setClientes}
-                consultarClientes={consultarClientes}
-                setConsultarClientes={setConsultarClientes}
+            <Route exact path="/menu-suscriptos/:tok">
+              <SuscriptosMenu clientes={clientes} setClientes={setClientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
+                tok={tok}
               />
             </Route>
-            <Route exact path="/preview/:id">
-              <PreviewNoticia></PreviewNoticia>
+            <Route exact path="/preview/:tok/:id">
+              <PreviewNoticia
+                tok={tok}
+              />
             </Route>
-            <Route exact path="/menu-noticias/agregar-Noticia">
+            <Route exact path="/menu-noticias/agregar-Noticia/:tok">
               <AgregarNoticia
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
+                tok={tok}
               ></AgregarNoticia>
             </Route>
-            <Route exact path="/editar-noticia/:id">
+            <Route exact path="/editar-noticia/:tok/:id">
               <EditarNoticia
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
+                tok={tok}
               ></EditarNoticia>
             </Route>
             <Route exact path="/contactenos">
@@ -263,7 +260,7 @@ function App() {
         </div>
         <Footer categorias={categorias} />
       </div>
-    </Router>
+    </Router >
   );
 }
 

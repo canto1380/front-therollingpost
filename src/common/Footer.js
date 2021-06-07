@@ -86,18 +86,12 @@ const Footer = (props) => {
       </Row>
 
       <Dropdown.Divider className="bg-light" />
-      <Row className="text-center py-2" xs={3} sm={6} md={6} lg={12}>
-        {categorias.map((cat) => (
-          <Link
-            className="text-light text-decoration-none my-1"
-            key={cat._id}
-            to={`${cat.nombreCategoria}`}
-          >
-            <Col className="botones-hover" sm>
-              {cat.nombreCategoria}
-            </Col>
-          </Link>
-        ))}
+       <Row className="text-center py-2" xs={3} sm={6} md={6} lg={12}>
+        {
+        categorias.map((cat) =>(
+        <Link className="text-light text-decoration-none my-1" key={cat._id} to={`/${cat.nombreCategoria}`}><Col className="botones-hover" sm>{cat.nombreCategoria}</Col></Link>
+        ))
+        }
       </Row>
       <Dropdown.Divider className="bg-light" />
       <Row className="text-center py-2" xs={3} sm={6}>
