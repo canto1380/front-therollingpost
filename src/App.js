@@ -45,6 +45,11 @@ function App() {
 
   let ultimaNoticia = noticiasPublicadas.slice(0, 1);
   let ultimasNoticias = noticiasPublicadas.slice(1, 3);
+
+  /* Comentarios */
+  const [comentario, setComentario]= useState([])
+  const [consultarComent, setConsultarComent] = useState(true)
+
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
@@ -60,6 +65,22 @@ function App() {
       console.log('usuario no registrado')
     }
   }, [consultarToken])
+
+  /* Consultar API - Comentarios */
+  useEffect(() => {
+    const consultarAPIComent = async() =>{
+      try {
+        const res = await fetch(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
+        const inforComentarios = await res.json();
+        if(res.status===200) {
+          setComentario(inforComentarios)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    consultarAPIComent()
+  }, [consultarComent])
 
   /* Consulta API - categorias */
   useEffect(() => {
@@ -150,6 +171,7 @@ function App() {
                 categoriasDestacadas={categoriasDestacadas}
                 ultimasNoticias={ultimasNoticias}
                 ultimaNoticia={ultimaNoticia}
+                comentario={comentario}
               />
             </Route>
             <Route exact path="/inicio-sesion">
@@ -184,7 +206,12 @@ function App() {
             ))}
             {/* Noticia individual */}
             <Route exact path="/noti/:cat/:id">
-              <Noticia noticias={noticiasPublicadas} />
+              <Noticia noticias={noticiasPublicadas} 
+              comentario={comentario}
+              setComentario={setComentario}
+              setConsultarComent={setConsultarComent}
+              consultarComent={consultarComent}
+              />
             </Route>
 
             {/* Menu Admin */}

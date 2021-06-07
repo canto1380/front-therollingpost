@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
 
-    let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
+    let noticiasXCat = noticias.filter((not) => not.categoria.nombreCategoria === categoria);
     let masLeidas = noticiasXCat.slice(0, 3);
-
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
@@ -18,11 +17,8 @@ const CardMasLeidas = (props) => {
             </div>
             <hr className="mt-0" />
             <ListGroup className="my-3">
-                {/* {
-                    masLeidas.map((m)=><ItemMasLeidas ml={m} noticias={noticiasXCat} key={m._id}/>)
-                } */}
                 {masLeidas.map((mas) => (
-                    <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria}/${mas._id}`}>
+                    <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
                         {/* // `/noti/${not.categoria}/${not._id}`> */}
                         <Row className="d-flex-justify-content-between card-masLeidas">
                             <Col xs={2} sm={3} className="p-0 d-flex align-items-center">

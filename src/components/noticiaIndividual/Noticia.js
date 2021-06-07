@@ -15,8 +15,9 @@ import CardUltimasNoticias from './CardUltimasNoticias';
 import CardComentarios from './CardComentarios';
 
 const Noticia = (props) => {
-    const {noticias} = props
+    const {noticias, comentario} = props
     const [not, setNot] = useState({});
+
     const {cat, id} = useParams();
     let hidden = 'pub-hidden-lg'
     let hiddenmd ="pub-hidden-md"
@@ -39,16 +40,19 @@ const Noticia = (props) => {
         }
         consultarCategorias();
     }, [id]);
-    
+    /* Filtro de comentarios a mostrar */
+    let coment = comentario.filter((c) => c.idNoticia._id === id);
+    let comentLength = coment.length;
+
     return (
         <Container fluid className="p-4">
             <Publicidad publicidad={slogan} />
             <Row >
                 <Col className="my-5" sm={12} lg={8} >
-                    <CardNoticiaIndividual not={not}/>
+                    <CardNoticiaIndividual not={not} comentLength={comentLength}/>
                 </Col>
                 <Col sm={12} md={8} lg={4} className="component-mas-leidas">
-                    <CardMasLeidas  noticias={props.noticias}  categoria={cat}/>
+                    <CardMasLeidas  noticias={props.noticias} categoria={cat}/>
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={Corona} />
                 </Col>
@@ -68,7 +72,7 @@ const Noticia = (props) => {
                 </Col>
                 <hr className="my2"/>
                 <Col sm={12}>
-                    <CardComentarios/>
+                    <CardComentarios consultarComent={props.consultarComent} setConsultarComent={props.setConsultarComent} coment={coment} comentLength={comentLength} id={id}/>
                 </Col>
             </Row>
         </Container>
