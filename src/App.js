@@ -54,14 +54,13 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
-      console.log(JSON.parse(localStorage.getItem("jwt")))
       const { token } = JSON.parse(localStorage.getItem("jwt"))
       setTok(token)
     } else {
       console.log('usuario no registrado')
     }
   }, [consultarToken])
-  console.log(tok)
+
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
