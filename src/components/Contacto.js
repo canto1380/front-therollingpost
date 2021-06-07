@@ -30,7 +30,7 @@ const Contacto = () => {
 
   const expresiones = {
     nombre: /^[a-zA-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    consulta: /^[a-zA-Z0-9-ZÀ-ÿ\s]{50,}$/, // Letras y espacios, pueden llevar acentos.
+    consulta: /^[a-zA-Z0-9-ZÀ-ÿ\s]{30,}$/, // Letras y espacios, pueden llevar acentos.
     telefono: /^\d{10,}$/, // 7 a 14 numeros.
     email: /\w+@\w+\.[a-z]{2,}$/,
   };
@@ -90,7 +90,7 @@ const Contacto = () => {
       setConsultaValid(true);
       return false;
     } else {
-      setConsultaInvalid(false);
+      setConsultaInvalid(true);
       return true;
     }
   };
@@ -108,7 +108,7 @@ const Contacto = () => {
     } else {
       setError(false);
       enviarConsulta();
-      limpiarForm();
+      limpiarForm(e);
       scrollToTop();
     }
   };
@@ -150,7 +150,7 @@ const Contacto = () => {
           if (result.status === 200) {
             Swal.fire(
               "Consulta enviada",
-              "Su consulta fue enviada con exito, responderemos a la brevedad",
+              "Su consulta fue enviada con éxito, responderemos a la brevedad",
               "success"
             );
           }
@@ -169,12 +169,12 @@ const Contacto = () => {
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="d-flex mb-2 m-0 p-2 backcolor text-white">
-          <div className="">
+        <section className="d-flex align-content-center mb-2 m-0 p-2 backcolor text-white">
+          <div>
             <h2 className="mx-1">Ingresa tu motivo de contacto: </h2>
           </div>
           <div className="ms-auto">
-            <div className="d-flex justify-content-end  mx-1">
+            <div className="d-flex justify-content-end  mx-1 align-content-center">
               <Link className="btn btn-primary px-4" to={"/"}>
                 <FontAwesomeIcon
                   icon={faHome}
@@ -187,7 +187,7 @@ const Contacto = () => {
         <div className="mx-3 mt-3">
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
-              <InputGroup.Text>
+              <InputGroup.Text className="symbolBox d-flex justify-content-center">
                 <FontAwesomeIcon icon={faUser} className="fa-2x"></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
@@ -229,7 +229,7 @@ const Contacto = () => {
           </InputGroup>
           <InputGroup className="mb-3">
             <InputGroup.Prepend>
-              <InputGroup.Text>
+              <InputGroup.Text className="symbolBox d-flex justify-content-center">
                 <FontAwesomeIcon icon={faMobileAlt} className="fa-2x"></FontAwesomeIcon>
               </InputGroup.Text>
             </InputGroup.Prepend>
@@ -250,13 +250,13 @@ const Contacto = () => {
           </InputGroup>
           <Form.Group className="mb-3">
             <InputGroup.Text>
-              <Form.Label>
-              <FontAwesomeIcon icon={faEdit} className="fa-2x"></FontAwesomeIcon>
-                <b>Comentanos tu motivo para contactarnos</b>
+              <Form.Label className="d-flex align-items-end">
+              <FontAwesomeIcon icon={faEdit} className="fa-2x pt-1"></FontAwesomeIcon>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
               ref={consultaRef}
+              placeholder="Dejanos tu consulta"
               maxLength="300"
               as="textarea"
               rows={3}
@@ -265,13 +265,13 @@ const Contacto = () => {
               isValid={consultaValid}
               isInvalid={consultaInvalid}
             />
+            <Form.Control.Feedback type="invalid" className="text-danger small">
+              Campo obligatorio, debe contener al menos 30
+              caracteres.
+            </Form.Control.Feedback>
             <Form.Label>
               <p>{consulta.length}/300</p>
             </Form.Label>
-            <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo obligatorio, debe contener al menos 25
-              caracteres.
-            </Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-center mb-3">
             <Button className="btn w-75" type="submit" variant="primary">

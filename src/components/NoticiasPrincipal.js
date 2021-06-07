@@ -25,7 +25,7 @@ const NoticiasPrincipal = (props) => {
                   </div>
                   <div className="d-flex justify-content-between align-items-center mb-3 mx-3">
                     <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
-                    <p className="my-0 text-muted">6<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
+                    <p className="my-0 text-muted">4<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
                   </div>
                 </div>
           </Link>
@@ -44,7 +44,7 @@ const NoticiasPrincipal = (props) => {
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-3 mx-3">
                     <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
-                    <p className="my-0 text-muted">6<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
+                    <p className="my-0 text-muted">4<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
                   </div>
               </div>
               <hr/>

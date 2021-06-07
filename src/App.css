@@ -183,3 +183,11 @@
   border-color: black;
   border-right-style: solid;
 }
+
+.symbolBox{
+  width:58px;
+}
+
+.cardTall{
+  height: 350px;
+}
