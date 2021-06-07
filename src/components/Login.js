@@ -44,7 +44,7 @@ const Login = (props) => {
       .then(data => {
         
         if (data.error) {
-          setUsuario({... usuario, error: data.error, cargando:false})
+          setUsuario({... usuario})
           console.log('error')
           console.log("ERRRORRRR")
            setErr(true);
@@ -86,6 +86,7 @@ const Login = (props) => {
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
               props.history.push(`/`);
+              props.setConsultarToken(!props.consultarToken)
             }
           });
         }

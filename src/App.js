@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navigation from "./common/nav/Navigation";
 import Footer from "./common/Footer";
 import Inicio from "./components/Inicio";
@@ -13,56 +13,88 @@ import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
 import AgregarCategoria from "./components/AgregarCategoria";
-import { getToken } from "./helpers/helpers";
 import EditarCategoria from "./components/EditarCategoria";
 import PreviewNoticia from "./components/PreviewNoticia";
 import AgregarNoticia from "./components/AgregarNoticia";
 import EditarNoticia from "./components/EditarNoticia";
-
 import Error404 from "./components/Error404";
-
 import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
-
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-const URL = process.env.REACT_APP_API_URL;
+import moment from "moment";
+import { Container } from "react-bootstrap";
 
 function App() {
+
   /*Clientes suscriptos*/
   const [clientes, setClientes] = useState([]);
-  const [consultarClientes, setConsultarClientes] = useState(true)
+  const [consultarClientes, setConsultarClientes] = useState(true);
 
   /* Categorias registradas */
   const [categorias, setCategorias] = useState([]);
   const [consultarCat, setConsultarCat] = useState(true);
 
-  let categoriasDestacadas = categorias.filter(cat => cat.destacada)
-  let cantDestacadas = categoriasDestacadas.length
-  let categoriasNoDestacadas = categorias.filter(cat => !cat.destacada)
+  let categoriasDestacadas = categorias.filter((cat) => cat.destacada);
+  let cantDestacadas = categoriasDestacadas.length;
+  let categoriasNoDestacadas = categorias.filter((cat) => !cat.destacada);
   /* Noticias guardadas */
-  const [noticias, setNoticias] = useState([])
-  const [noticiasPublicadas, setNoticiasPublicadas] = useState([])
-  const [consultarNoticias, setConsultarNoticias] = useState(true)
+  const [noticias, setNoticias] = useState([]);
+  const [noticiasPublicadas, setNoticiasPublicadas] = useState([]);
+  const [consultarNoticias, setConsultarNoticias] = useState(true);
 
-  let ultimaNoticia = noticiasPublicadas.slice(0, 1)
-  let ultimasNoticias = noticiasPublicadas.slice(1,3)
+  let ultimaNoticia = noticiasPublicadas.slice(0, 1);
+  let ultimasNoticias = noticiasPublicadas.slice(1, 3);
+
+  /* Comentarios */
+  const [comentario, setComentario]= useState([])
+  const [consultarComent, setConsultarComent] = useState(true)
+
   /* Usuarios */
   const [user, setUser] = useState([])
   const [consultarUser, setConsultarUser] = useState(true)
-  const [tok, setTok] = useState([]);
+
+  const [tok, setTok] = useState('');
+  const [consultarToken, setConsultarToken] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      const { token } = JSON.parse(localStorage.getItem("jwt"))
+      setTok(token)
+    } else {
+      console.log('usuario no registrado')
+    }
+  }, [consultarToken])
+
+  /* Consultar API - Comentarios */
+  useEffect(() => {
+    const consultarAPIComent = async() =>{
+      try {
+        const res = await fetch(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
+        const inforComentarios = await res.json();
+        if(res.status===200) {
+          setComentario(inforComentarios)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    consultarAPIComent()
+  }, [consultarComent])
 
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
       try {
-        const res = await fetch(process.env.REACT_APP_API_URL + "/categorias/listCategoria")
-        const inforCategorias = await res.json()
+        const res = await fetch(
+          process.env.REACT_APP_API_URL + "/categorias/listCategoria"
+        );
+        const inforCategorias = await res.json();
         if (res.status === 200) {
-          setCategorias(inforCategorias)
+          setCategorias(inforCategorias);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     };
     consultarAPICat();
@@ -70,171 +102,211 @@ function App() {
 
   /* Consulta API - Noticias */
   useEffect(() => {
-    consultarAPINoticias()
-  }, [consultarNoticias])
+    consultarAPINoticias();
+  }, [consultarNoticias]);
 
   const consultarAPINoticias = async () => {
     try {
       //  const respuesta = await fetch(URL + "/noticias?publicado=true");
-      const res = await fetch(process.env.REACT_APP_API_URL + "/noticias/listNoticias")
-      const infNoticias = await res.json()
+      const res = await fetch(
+        process.env.REACT_APP_API_URL + "/noticias/listNoticias"
+      );
+      const infNoticias = await res.json();
       if (res.status === 200) {
-        setNoticias(infNoticias)
-        const publicadas = infNoticias.filter((noti) => noti.publicado === true);
-        setNoticiasPublicadas(publicadas)
+        setNoticias(infNoticias);
+        const publicadas = infNoticias.filter(
+          (noti) => noti.publicado === true
+        );
+        setNoticiasPublicadas(publicadas);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  /* Usado para tomar el token del usuario logueado */
+  /* Consulta API - Usuarios */
   useEffect(() => {
-    const consultarLS = async () => {
+    const consultarAPIUsuarios = async () => {
       try {
-        setTok(localStorage.getItem("jwt"));
+        const res = await fetch(
+          process.env.REACT_APP_API_URL + "/user/listUser"
+        );
+        const infUsuarios = await res.json();
+        if (res.status === 200) {
+          setUser(infUsuarios);
+        }
       } catch (error) {
         console.log(error);
       }
-    }
-    consultarLS();
-    },[]);
+    };
+  }, [consultarUser]);
 
-  /* Consulta API - Usuarios */
-    useEffect(() => {
-      const consultarAPIUsuarios = async () => {
-        try {
-          const res = await fetch(process.env.REACT_APP_API_URL + "/user/listUser")
-          const infUsuarios = await res.json()
-          if (res.status === 200) {
-            setUser(infUsuarios)
-          }
-        } catch (error) {
-          console.log(error)
+  /*Consulta API clientes*/
+  useEffect(()=>{
+    const consultarAPIClientes = async ()=>{
+      try{
+        const res = await fetch (
+          process.env.REACT_APP_API_URL + "/clientes/suscripcion"
+        )
+        const infoClientes= await res.json();
+        if (res.status === 200){
+          setClientes(infoClientes);
         }
       }
-    }, [consultarUser]);
+      catch(error){
+        console.log(error)
+      }
+    };
+    consultarAPIClientes();
+  },[consultarClientes])
 
-    return (
-      <Router>
-        <div className="page-container">
-          <div className="content-wrap">
-            <Navigation
-              categorias={categorias}
-              categoriasDestacadas={categoriasDestacadas}
-              categoriasNoDestacadas={categoriasNoDestacadas}
-            />
-
-            <div className="boxAPI">
-              <APImoneda></APImoneda>
-              <APIclima></APIclima>
+  return (
+    <Router>
+      <div className="page-container">
+        <div className="content-wrap">
+          <Navigation
+            categorias={categorias}
+            categoriasDestacadas={categoriasDestacadas}
+            categoriasNoDestacadas={categoriasNoDestacadas}
+            tok={tok}
+          />
+          <Container>
+            <div className=" row  ">
+              <div className=" col-sm-12 col-md-6 ">
+                <APImoneda></APImoneda>
+              </div>
+              <div className="col-sm-12 col-md-6 ">
+                <APIclima></APIclima>
+              </div>
             </div>
+          </Container>
 
-            <Switch>
-              <Route exact path="/">
-                <Inicio
+          <Switch>
+            <Route exact path="/">
+              <Inicio
+                noticias={noticiasPublicadas}
+                consultarCat={consultarCat}
+                setConsultarNoticias={setConsultarNoticias}
+                categoriasDestacadas={categoriasDestacadas}
+                ultimasNoticias={ultimasNoticias}
+                ultimaNoticia={ultimaNoticia}
+                comentario={comentario}
+              />
+            </Route>
+            <Route exact path="/inicio-sesion">
+              <Login
+                consultarToken={consultarToken}
+                setConsultarToken={setConsultarToken}
+              />
+            </Route>
+            <Route exact path="/suscripcion">
+              <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
+              />
+            </Route>
+
+            <Route exact path="/contactanos">
+              <Contacto />
+            </Route>
+            <Route exact path="/acerca-de-nosotros">
+              <AcercaDeNosotros />
+            </Route>
+            {categorias.map((cat) => (
+              <Route
+                key={cat._id}
+                exact
+                path={`/${cat.nombreCategoria.toLowerCase()}`}
+              >
+                <CardCategorias
+                  categorias={categorias}
+                  cat={cat}
                   noticias={noticiasPublicadas}
-                  consultarCat={consultarCat}
-                  setConsultarNoticias={setConsultarNoticias}
-                  categoriasDestacadas={categoriasDestacadas}
-                  ultimasNoticias={ultimasNoticias}
-                  ultimaNoticia={ultimaNoticia}
                 />
               </Route>
-              <Route exact path="/inicio-sesion">
-                <Login />
-              </Route>
-              <Route exact path="/suscripcion">
-                <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes} />
-              </Route>
+            ))}
+            {/* Noticia individual */}
+            <Route exact path="/noti/:cat/:id">
+              <Noticia noticias={noticiasPublicadas} 
+              comentario={comentario}
+              setComentario={setComentario}
+              setConsultarComent={setConsultarComent}
+              consultarComent={consultarComent}
+              />
+            </Route>
 
-              <Route exact path="/contactanos">
-                <Contacto />
-              </Route>
-              <Route exact path="/acerca-de-nosotros">
-                <AcercaDeNosotros />
-              </Route>
-              {
-                categorias.map((cat) => (
-                  <Route key={cat._id} exact path={`/${cat.nombreCategoria.toLowerCase()}`}>
-                    <CardCategorias
-                      categorias={categorias}
-                      cat={cat}
-                      noticias={noticiasPublicadas}
-                    />
-                  </Route>
-                ))
-              }
-              {/* Noticia individual */}
-              <Route exact path="/noti/:cat/:id">
-                <Noticia
-                  noticias={noticiasPublicadas}
-                />
-              </Route>
-
-              {/* Menu Admin */}
-              <Route exact path="/menu-categorias">
-                <CategoriaMenu
-                  categorias={categorias}
-                  setConsultarCat={setConsultarCat}
-                  consultarCat={consultarCat}
-                  cantDestacadas={cantDestacadas}
-                />
-              </Route>
-              <Route exact path='/menu-categorias/addCategoria'>
-                <AgregarCategoria
-                  categorias={categorias}
-                  consultarCat={consultarCat}
-                  setConsultarCat={setConsultarCat}
-                />
-              </Route>
-              <Route exact path="/menu-categorias/editarCategorias/:id">
-                <EditarCategoria
-                  categorias={categorias}
-                  consultarCat={consultarCat}
-                  setConsultarCat={setConsultarCat}
-                />
-              </Route>
-              {/* Admin Menu Noticias */}
-              <Route exact path="/menu-noticias">
-                <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias} />
-              </Route>
-              <Route exact path="/menu-suscriptos">
-                <SuscriptosMenu clientes={clientes} setClientes={setClientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes} />
-              </Route>
-              <Route exact path="/preview/:id">
-                <PreviewNoticia></PreviewNoticia>
-              </Route>
-              <Route exact path="/menu-noticias/agregar-Noticia">
-                <AgregarNoticia
-                  categorias={categorias}
-                  consultarCat={consultarCat}
-                  setConsultarCat={setConsultarCat}
-                  consultarNoticias={consultarNoticias}
-                  setConsultarNoticias={setConsultarNoticias}
-                ></AgregarNoticia>
-              </Route>
-              <Route exact path="/editar-noticia/:id">
-                <EditarNoticia
-                  consultarNoticias={consultarNoticias}
-                  setConsultarNoticias={setConsultarNoticias}
-                  categorias={categorias}
-                  consultarCat={consultarCat}
-                  setConsultarCat={setConsultarCat}
-                ></EditarNoticia>
-              </Route>
-              <Route exact path="/contactenos">
-                <Contacto></Contacto>
-              </Route>
-              <Route exact path="*">
-                <Error404></Error404>
-              </Route>
-            </Switch>
-          </div>
-            <Footer categorias={categorias}/>
+            {/* Menu Admin */}
+            <Route exact path={`/menu-categorias/:tok`}>
+              <CategoriaMenu
+                categorias={categorias}
+                setConsultarCat={setConsultarCat}
+                consultarCat={consultarCat}
+                cantDestacadas={cantDestacadas}
+                tok={tok}
+              />
+            </Route>
+            <Route exact path='/menu-categorias/addCategoria/:tok'>
+              <AgregarCategoria
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+                tok={tok}
+              />
+            </Route>
+            <Route exact path="/menu-categorias/editarCategorias/:tok/:id">
+              <EditarCategoria
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+                tok={tok}
+              />
+            </Route>
+            {/* Admin Menu Noticias */}
+            <Route exact path="/menu-noticias/:tok">
+              <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias}
+                tok={tok}
+              />
+            </Route>
+            <Route exact path="/menu-suscriptos/:tok">
+              <SuscriptosMenu clientes={clientes} setClientes={setClientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
+                tok={tok}
+              />
+            </Route>
+            <Route exact path="/preview/:tok/:id">
+              <PreviewNoticia
+                tok={tok}
+              />
+            </Route>
+            <Route exact path="/menu-noticias/agregar-Noticia/:tok">
+              <AgregarNoticia
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+                consultarNoticias={consultarNoticias}
+                setConsultarNoticias={setConsultarNoticias}
+                tok={tok}
+              ></AgregarNoticia>
+            </Route>
+            <Route exact path="/editar-noticia/:tok/:id">
+              <EditarNoticia
+                consultarNoticias={consultarNoticias}
+                setConsultarNoticias={setConsultarNoticias}
+                categorias={categorias}
+                consultarCat={consultarCat}
+                setConsultarCat={setConsultarCat}
+                tok={tok}
+              ></EditarNoticia>
+            </Route>
+            <Route exact path="/contactenos">
+              <Contacto></Contacto>
+            </Route>
+            <Route exact path="*">
+              <Error404></Error404>
+            </Route>
+          </Switch>
         </div>
-      </Router>
-    );
-  }
+        <Footer categorias={categorias} />
+      </div>
+    </Router >
+  );
+}
 
 export default App;

@@ -8,7 +8,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-    const { consultarCat ,setConsultarCat, categorias } = props; 
+    const { consultarCat ,setConsultarCat, categorias, tok } = props; 
     
     const url= process.env.REACT_APP_API_URL+'/categorias/addCategoria';
 
@@ -76,7 +76,7 @@ const AgregarCategoria = (props) => {
             <Button className="my-3 mx-2" variant="primary" type="submit">
               Agregar
             </Button>
-            <Link className="my-3 btn btn-primary" variant="primary" to={'/menu-categorias'}>
+            <Link className="my-3 btn btn-primary" variant="primary" to={`/menu-categorias/${tok}`}>
               Volver
             </Link>
             </Form.Group>

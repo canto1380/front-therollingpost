@@ -49,6 +49,14 @@
    transform: translate(0,20%); 
 }
 
+.boxAPI{
+  display: flex;
+  justify-content: start;
+}
+
+
+
+
 /** Noticia individual **/
 .image-height{
   object-fit: cover;
@@ -83,6 +91,10 @@
       width: 100%;
       box-shadow: 5px 10px 5px rgb(117, 113, 113); ;
     }
+    .imgAPI{
+      display: none;
+      }
+
 }
 
 @media (min-width: 768px) {
@@ -154,10 +166,8 @@
   }
   
 
-@media(min-width:576px){
-  
-}
-@media(max-width:767px){
+
+@media(max-width:768px){
 
   .img-card-masLeidas{
     width: 60px;

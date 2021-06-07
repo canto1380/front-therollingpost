@@ -14,7 +14,13 @@ import { spinner } from "../helpers/sweetAlerts";
 import { useScrollToTop } from "../helpers/hooks";
 
 const Inicio = (props) => {
-  const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia} = props
+  const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia, comentario} = props
+  console.log(ultimaNoticia)
+
+  /* Filtro de comentarios a mostrar */
+  let coment = comentario.filter((c) => c.idNoticia._id === ultimaNoticia._id);
+  let comentLength = coment.length;
+  console.log(coment)
   useEffect(() => {
     spinner()
   }, [])
@@ -27,7 +33,7 @@ const Inicio = (props) => {
       <Publicidad publicidad={slogan}></Publicidad>
       <Row className="my-1">
     <Col sm={10}>
-    <NoticiasPrincipal noticias={props.noticias} ultimasNoticias={ultimasNoticias} ultimaNoticia={ultimaNoticia}/>
+    <NoticiasPrincipal noticias={props.noticias} ultimasNoticias={ultimasNoticias} ultimaNoticia={ultimaNoticia} comentario={comentario}/>
     </Col>
     <Col className=" d-none d-md-block mt-4" md={2} >
     <Publicidad publicidad={Coca} href="https://www.cocacoladeargentina.com.ar/"></Publicidad>
@@ -37,7 +43,7 @@ const Inicio = (props) => {
     </Col>
   </Row>
       {
-        categoriasDestacadas.map((cat) =>(<CategoriaDestacada noticias={noticias} cat={cat} key={cat._id}/>))
+        categoriasDestacadas.map((cat) =>(<CategoriaDestacada noticias={noticias} cat={cat} key={cat._id} comentario={comentario}/>))
       }
     </Container>
   );

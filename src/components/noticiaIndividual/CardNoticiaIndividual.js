@@ -6,7 +6,7 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 import "../../App.css"
 
 const CardNoticiaIndividual = (props) => {
-    const {not} = props
+    const {not, comentLength} = props
     return (
         <section className="container">
             <div className="mt-3">
@@ -16,7 +16,7 @@ const CardNoticiaIndividual = (props) => {
             <div className="ms-2 text-secondary">
                 <span>{not.hora} hs |</span>
                 <span className="me-3"> {not.fecha}</span>
-                <span><FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon>4</span>
+                <span><FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon>{comentLength}</span>
             </div>
             <Image src={not.foto} className="d-block w-100 image-height"/>
             <div>

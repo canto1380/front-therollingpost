@@ -8,7 +8,7 @@ import "../../App.css"
 import { deleteToken } from "../../helpers/helpers";
 
 const MenuAdmin = (props) => {
-  
+    const {tok}= props
     const cerrarSesion = (e) => {
       // fun()  
       /*Swal */
@@ -49,9 +49,9 @@ const MenuAdmin = (props) => {
               id="dropdown-menu-align-right"
               variant="outline-light"
             >
-              <Dropdown.Item href={`/menu-noticias`} eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
-              <Dropdown.Item href={`/menu-categorias`} eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorias</Dropdown.Item>
-              <Dropdown.Item href={`/menu-suscriptos`} eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
+              <Dropdown.Item href={`/menu-noticias/${(tok)}`} eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
+              <Dropdown.Item href={`/menu-categorias/${(tok)}`} eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorias</Dropdown.Item>
+              <Dropdown.Item href={`/menu-suscriptos/${(tok)}`} eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
             </DropdownButton>
             <Button variant="botones-navbar" onClick={cerrarSesion} className="p-0"><NavLink className="btn btn-outline-light" exact={true} to={'/'}><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Salir</NavLink></Button>
           </Nav>

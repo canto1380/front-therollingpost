@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 
 const PreviewNoticia = (props) => {
   const { id } = useParams();
+  const {tok} = props
 
   // states
   const [noticia, setNoticia] = useState({});
@@ -82,7 +83,7 @@ const PreviewNoticia = (props) => {
         </Card.Footer>
       </Card>
       <div className="d-flex justify-content-center mb-5">
-        <Link className="btn btn-info text-light w-75" to={"/menu-noticias"}>
+        <Link className="btn btn-info text-light w-75" to={`/menu-noticias/${tok}`}>
           Volver a Noticias
         </Link>
       </div>

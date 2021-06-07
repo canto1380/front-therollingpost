@@ -32,7 +32,7 @@ const AgregarNoticia = (props) => {
   const [pieImgValid, setPieImgValid] = useState("");
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const { categorias, setConsultarCat } = props;
+  const { categorias, setConsultarCat, tok } = props;
 
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
@@ -53,7 +53,7 @@ const AgregarNoticia = (props) => {
   };
 
   //Validaciones
-  const valTit = (titulo) => {
+  const valTit = () => {
     setTitValid("");
     setTitInvalid("");
     let texto = expresiones.texto;
@@ -65,7 +65,7 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valSubT = (titulo) => {
+  const valSubT = () => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
@@ -82,7 +82,7 @@ const AgregarNoticia = (props) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autor !== "" && nombre.test(autor)) {
+    if (autor.trim() !== "" && nombre.test(autor)) {
       setAutorValid(true);
       return false;
     } else {
@@ -91,11 +91,11 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valResumen = (noti) => {
+  const valResumen = () => {
     setResValid("");
     setResInvalid("");
     let resumen = expresiones.resumen;
-    if (resumenNoticia !== "" && resumen.test(resumenNoticia)) {
+    if (resumenNoticia !== "" ) {
       setResValid(true);
       return false;
     } else {
@@ -104,7 +104,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valCat = (cat) => {
+  const valCat = () => {
     setCatValid("");
     setCatInvalid("");
     if (categoria !== "") {
@@ -115,7 +115,7 @@ const AgregarNoticia = (props) => {
       return true;
     }
   };
-  const valImg = (img) => {
+  const valImg = () => {
     setImgValid("");
     setImgInvalid("");
     if (imagen !== "") {
@@ -127,7 +127,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valPieImg = (pie) => {
+  const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.textoPie;
@@ -164,6 +164,7 @@ const AgregarNoticia = (props) => {
         hora: moment().format("HH:mm"),
        fecha: moment().format("DD MMMM, YYYY"),
       };
+      console.log(noticia)
 
       try {
         //codigo normal
@@ -235,7 +236,7 @@ const AgregarNoticia = (props) => {
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
                 className="btn btn-primary text-light mx-1"
-                to={"/menu-noticias"}
+                to={`/menu-noticias/${tok}`}
               >
                 <FontAwesomeIcon
                   className="fa-2x"
@@ -347,7 +348,7 @@ const AgregarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={categorias.nombreCategoria}
+                  value={cat._id}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}
