@@ -16,7 +16,7 @@ const NoticiasPrincipal = (props) => {
           {
             ultimaNoticia.map((not) =>
             <Col className="" xs={12} md={8} key={not._id}>
-              <Link to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
+              <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
                 <div className="card tarjetaNoticia">
                   <img className="card-img-top w-100" src={not.foto} alt="" />
                   <div className="card-body">
@@ -36,7 +36,7 @@ const NoticiasPrincipal = (props) => {
           <Col xs={12} md={4} className="qww">
         {
           ultimasNoticias.map((not) =>
-            <Link to={`/noti/${not.categoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
+            <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
               <div className="card tarjetaNoticia ">
                 <img className="card-img-top" src={not.foto} alt="" />
                 <div className="card-body">

@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 
 const ItemCategoria = (props) => {
     const { cantDestacadas, tok} = props
-    console.log(tok)
     const eliminarCategoria =(id) =>{
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',

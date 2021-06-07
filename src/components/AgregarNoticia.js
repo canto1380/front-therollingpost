@@ -95,7 +95,7 @@ const AgregarNoticia = (props) => {
     setResValid("");
     setResInvalid("");
     let resumen = expresiones.resumen;
-    if (resumenNoticia !== "" && resumen.test(resumenNoticia)) {
+    if (resumenNoticia !== "" ) {
       setResValid(true);
       return false;
     } else {
@@ -164,6 +164,7 @@ const AgregarNoticia = (props) => {
         hora: moment().format("HH:mm"),
        fecha: moment().format("DD MMMM, YYYY"),
       };
+      console.log(noticia)
 
       try {
         //codigo normal
@@ -347,7 +348,7 @@ const AgregarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={categorias.nombreCategoria}
+                  value={cat._id}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}

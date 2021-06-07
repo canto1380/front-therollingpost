@@ -43,7 +43,7 @@ const NoticiasMenu = (props) => {
             {noticias.map((noticia) => (
               <tr noticia={noticia} key={noticia._id}>
                 <td>{noticia.titulo}</td>
-                <td>{noticia.categoria}</td>
+                <td>{noticia.categoria.nombreCategoria}</td>
                 <td>
                   <ItemBotonera
                     noticia={noticia}

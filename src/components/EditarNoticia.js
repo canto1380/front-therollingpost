@@ -321,7 +321,7 @@ const EditarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={cat.nombreCategoria}
+                  value={cat._id}
                 >
                   {cat.nombreCategoria}
                 </option>

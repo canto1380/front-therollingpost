@@ -39,7 +39,7 @@ const Noticia = (props) => {
         }
         consultarCategorias();
     }, [id]);
-
+    
     return (
         <Container fluid className="p-4">
             <Publicidad publicidad={slogan} />

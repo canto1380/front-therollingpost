@@ -17,7 +17,7 @@ const CategoriaDestacada = (props) => {
             <Row>
                 {
                     noticias.map((not) => {
-                        if (not.categoria === props.cat.nombreCategoria) {
+                        if (not.categoria.nombreCategoria === props.cat.nombreCategoria) {
                             
                             return (
                                 <Col xs={12} md={6} lg={4} key={not._id} className="mt-2">
