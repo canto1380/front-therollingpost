@@ -72,7 +72,7 @@ const EditarNoticia = (props) => {
           autor: autorRef.current.value,
           foto: imagenRef.current.value,
           categoria: categoriaModificada,
-          pieDeImagen: piedefotoRef.current.value,
+          pieDeFoto: piedefotoRef.current.value,
           hora: moment().format("HH:mm"),
           fecha: moment().format("DD MMMM, YYYY"),
         };
@@ -212,7 +212,7 @@ const EditarNoticia = (props) => {
               type="text"
               placeholder="Choque en la Ruta Nacional"
               ref={piedefotoRef}
-              defaultValue={noticias.pieDeImagen}
+              defaultValue={noticias.pieDeFoto}
             />
           </Form.Group>
         </div>
@@ -227,7 +227,7 @@ const EditarNoticia = (props) => {
         </div>
         {error ? (
           <Alert variant="danger" className=" mt-3 mb-0">
-            Todos los campos deben ser validados!
+            Todos los campos deben ser completados!
           </Alert>
         ) : null}
       </Form>

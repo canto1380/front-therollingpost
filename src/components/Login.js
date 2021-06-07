@@ -110,7 +110,7 @@ const Login = (props) => {
   return (
     <Container>
       <div>
-        <h1 className="display-1 mt-4 mb-3">Bienvenido!</h1>
+        <h1 className="display-1 mt-4 mb-3"><i>Bienvenido!</i></h1>
       </div>
       <Row className="mt-3 d-flex justify-content-around">
         <Col sm={6} md={8}>
@@ -120,7 +120,7 @@ const Login = (props) => {
         </Col>
         <Col sm={6} md={4}>
           <div className="">
-            <h1 className="text-center">Ingrese a su cuenta</h1>
+            <h1 className="text-center"><badge className="backcolor text-light px-3 pt-0 pb-2 rounded-3">Ingrese a su cuenta</badge></h1>
             <div>
               <Form className="my-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicEmail">

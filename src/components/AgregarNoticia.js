@@ -160,7 +160,7 @@ const AgregarNoticia = (props) => {
         autor,
         categoria,
         foto: imagen,
-        pieDeImagen: pieDeFoto,
+        pieDeFoto: pieDeFoto,
         hora: moment().format("HH:mm"),
        fecha: moment().format("DD MMMM, YYYY"),
       };

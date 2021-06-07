@@ -30,7 +30,7 @@ const PreviewNoticia = (props) => {
     <Container>
       <div className="mt-5">
         <h1 className="text-center">Previsualizacion de Noticia</h1>
-        <p className="text-muted text center">
+        <p className="text-muted text-center">
           En esta pagina podras ver como es el maquetado de la noticia antes de
           publicarla.
         </p>
@@ -70,7 +70,7 @@ const PreviewNoticia = (props) => {
               </div>
               <div className="col-12 border mb-2">
                 <h5>
-                  {noticia.pieDeImagen}
+                  {noticia.pieDeFoto}
                 </h5>
               </div>
             </div>

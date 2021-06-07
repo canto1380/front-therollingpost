@@ -151,7 +151,7 @@ const Suscripcion = (props) => {
     return (
         <Container className="my-4">
           <div className="text-center my-3">
-          <h1 >Mantente al día con la noticias del mundo</h1>
+          <h1 >Mantente al día con las noticias del mundo</h1>
           <h5 className="">Accedé sin límite a información de la mejor calidad</h5>
           </div>
           <div className="row">
