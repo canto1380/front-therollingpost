@@ -121,6 +121,25 @@ function App() {
     };
   }, [consultarUser]);
 
+  /*Consulta API clientes*/
+  useEffect(()=>{
+    const consultarAPIClientes = async ()=>{
+      try{
+        const res = await fetch (
+          process.env.REACT_APP_API_URL + "/clientes/suscripcion"
+        )
+        const infoClientes= await res.json();
+        if (res.status === 200){
+          setClientes(infoClientes);
+        }
+      }
+      catch(error){
+        console.log(error)
+      }
+    };
+    consultarAPIClientes();
+  },[consultarClientes])
+
   return (
     <Router>
       <div className="page-container">
