@@ -136,10 +136,10 @@ function App() {
           />
           <Container>
             <div className=" row  ">
-              <div className=" col-sm-12 col-md-6">
+              <div className=" col-sm-12 col-md-6 ">
                 <APImoneda></APImoneda>
               </div>
-              <div className="col-sm-12 col-md-6">
+              <div className="col-sm-12 col-md-6 ">
                 <APIclima></APIclima>
               </div>
             </div>
