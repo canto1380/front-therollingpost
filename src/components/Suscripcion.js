@@ -462,7 +462,7 @@ const handleSubmit = async(e)=>{
         name="plan" 
         inline 
         label="Plan de Acceso individual"  
-        value="individual" 
+        value="plan individual" 
         onChange={handleValores} 
         onBlur={validarPlan} />
         <Form.Check
@@ -470,7 +470,7 @@ const handleSubmit = async(e)=>{
          name="plan" 
          inline 
          label="Plan de Acceso Familiar" 
-          value="familiar" 
+          value="plan familiar" 
           onChange={handleValores} 
           onBlur={validarPlan}  />
         </FormGroup>
