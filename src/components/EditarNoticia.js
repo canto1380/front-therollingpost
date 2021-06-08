@@ -47,7 +47,7 @@ const EditarNoticia = (props) => {
     setTitValid("");
     setTitInvalid("");
     let titulo = expresiones.texto;
-    if (tituloNoticiaRef.trim() !== "" && titulo.test(tituloNoticiaRef)) {
+    if (tituloNoticiaRef.current.value.trim() !== "" && titulo.test(tituloNoticiaRef.current.value)) {
       setTitValid(true);
       return false;
     } else {
@@ -59,7 +59,7 @@ const EditarNoticia = (props) => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
-    if (subtituloNoticiaRef.trim() !== "" && texto.test(subtituloNoticiaRef)) {
+    if (subtituloNoticiaRef.current.value.trim() !== "" && texto.test(subtituloNoticiaRef.current.value)) {
       setSubTValid(true);
       return false;
     } else {
@@ -72,7 +72,7 @@ const EditarNoticia = (props) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autorRef.trim() !== "" && nombre.test(autorRef)) {
+    if (autorRef.current.value.trim() !== "" && nombre.test(autorRef.current.value)) {
       setAutorValid(true);
       return false;
     } else {
@@ -85,7 +85,7 @@ const EditarNoticia = (props) => {
     setResValid("");
     setResInvalid("");
     let res = expresiones.resumen;
-    if (resumenNoticiaRef.trim() !== "" && res.test(resumenNoticiaRef)) {
+    if (resumenNoticiaRef.current.value.trim() !== "" && res.test(resumenNoticiaRef.current.value)) {
       setResValid(true);
       return false;
     } else {
@@ -97,7 +97,7 @@ const EditarNoticia = (props) => {
   const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (categoria === "") {
+    if (categoria !== "") {
       setCatValid(true);
       return false;
     } else {
@@ -108,7 +108,7 @@ const EditarNoticia = (props) => {
   const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (imagenRef === "") {
+    if (imagenRef.current.value.trim() !== "") {
       setImgValid(true);
       return false;
     } else {
@@ -121,7 +121,7 @@ const EditarNoticia = (props) => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.texto;
-    if (piedefotoRef !== "" && texto.test(piedefotoRef)) {
+    if (piedefotoRef.current.value.trim() !== "" && texto.test(piedefotoRef.current.value)) {
       setPieImgValid(true);
       return false;
     } else {
@@ -163,7 +163,7 @@ const EditarNoticia = (props) => {
       valAutor(autorRef.current.value) &&
       valImg(imagenRef.current.value) &&
       valCat(categoriaModificada) &&
-      valPieImg(piedefotoRef)
+      valPieImg(piedefotoRef.current.value)
     ) {
       setError(false);
       try {
@@ -337,6 +337,9 @@ const EditarNoticia = (props) => {
             <Form.Control
               ref={imagenRef}
               defaultValue={noticias.foto}
+              onBlur={valImg}
+              isValid={imgValid}
+              isInvalid={imgInvalid}
             ></Form.Control>
             <Image width="100" src={noticias.foto} />
           </Form.Group>
@@ -350,8 +353,11 @@ const EditarNoticia = (props) => {
               maxLength="25"
               type="text"
               placeholder="Choque en la Ruta Nacional"
+              onBlur={valPieImg}
               ref={piedefotoRef}
               defaultValue={noticias.pieDeFoto}
+              isValid={pieImgValid}
+              isInvalid={pieImgInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, Debe escribir de 12-25 caracteres.

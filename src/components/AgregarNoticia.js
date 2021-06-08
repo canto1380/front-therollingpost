@@ -348,7 +348,7 @@ const AgregarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={cat._id}
+                  // value={cat._id}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}
