@@ -4,28 +4,28 @@ import { Link, useParams } from "react-router-dom";
 
 const PreviewNoticia = (props) => {
   const { id } = useParams();
-  const {tok,noticias} = props
+  const {tok} = props
   // states
   const [noticia, setNoticia] = useState({});
 
   useEffect(() => {
-    consultarNoticia();
-  }, []);
-
-console.log(noticias)
-  const consultarNoticia = async () => {
-    try {
-      const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
-      const respuesta = await fetch(url);
-      if (respuesta.status === 200) {
-        const resp = await respuesta.json();
-        setNoticia(resp);
+    const consultarNoticia = async () => {
+      try {
+        const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
+        const respuesta = await fetch(url);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          setNoticia(resp);
+        }
+      } catch (error) {
+        console.log(error);
+        //cartel de error
       }
-    } catch (error) {
-      console.log(error);
-      //cartel de error
-    }
-  };
+    };
+    consultarNoticia();
+  }, [id]);
+
+ 
 
   return (
     <Container>
@@ -39,7 +39,7 @@ console.log(noticias)
       <Card className="mt-5 mb-3">
         <Card.Header>
           <p className="display-6">
-            {noticia.categoria}
+            {noticia.categoria?.nombreCategoria}
           </p>
         </Card.Header>
         <Card.Body>
