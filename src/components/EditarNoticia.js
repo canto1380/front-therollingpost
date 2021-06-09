@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { useParams, withRouter } from "react-router-dom";
+import { useParams, withRouter, Link } from "react-router-dom";
 import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 
 const EditarNoticia = (props) => {
   const { id } = useParams();
@@ -18,7 +20,7 @@ const EditarNoticia = (props) => {
   const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
   const url = process.env.REACT_APP_API_URL;
-  const { categorias, setConsultarCat } = props;
+  const { categorias, setConsultarCat, tok } = props;
   //Feed
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
@@ -96,7 +98,7 @@ const EditarNoticia = (props) => {
   const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (categoria === "") {
+    if (categoria !== "") {
       setCatValid(true);
       return false;
     } else {
@@ -107,7 +109,7 @@ const EditarNoticia = (props) => {
   const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (imagenRef.current.value.trim() === "") {
+    if (imagenRef.current.value.trim() !== "") {
       setImgValid(true);
       return false;
     } else {
@@ -208,8 +210,23 @@ const EditarNoticia = (props) => {
         className="mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="mb-3 m-0 py-2 backcolor text-white">
-            <h1 className="ps-2"><i>Editar Noticia:</i>  </h1>
+    <section className="row mb-3 m-0 py-2 backcolor text-white rounded-top">
+          <div className="col-sm-12 col-md-10 m-0 p-0">
+            <h1 className="mx-1 ps-2"><i>Formulario de  edición de noticia: </i></h1>
+          </div>
+          <div className="col-sm-12 col-md-2 m-0 p-0">
+            <div className="d-flex justify-content-end pt-1 mx-1">
+              <Link
+                className="btn btn-primary text-light mx-1"
+                to={`/menu-noticias/${tok}`}
+              >
+                <FontAwesomeIcon
+                  className="fa-2x"
+                  icon={faNewspaper}
+                ></FontAwesomeIcon>
+              </Link>
+            </div>
+          </div>
         </section>
         <div className="m-2">
           <Form.Group className="mb-3">
@@ -281,7 +298,7 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="6500"
+              maxLength="5000"
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
@@ -291,7 +308,7 @@ const EditarNoticia = (props) => {
               isInvalid={resInvalid}
             />
             <Form.Label>
-              <p>{resumenNoticiaRef.length}/6500</p>
+              <p>{resumenNoticiaRef.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, al menos debe contener entre 2000-5000
@@ -334,6 +351,9 @@ const EditarNoticia = (props) => {
             <Form.Control
               ref={imagenRef}
               defaultValue={noticias.foto}
+              onBlur={valImg}
+              isValid={imgValid}
+              isInvalid={imgInvalid}
             ></Form.Control>
             <Image width="100" src={noticias.foto} />
           </Form.Group>
@@ -347,8 +367,11 @@ const EditarNoticia = (props) => {
               maxLength="25"
               type="text"
               placeholder="Choque en la Ruta Nacional"
+              onBlur={valPieImg}
               ref={piedefotoRef}
               defaultValue={noticias.pieDeFoto}
+              isValid={pieImgValid}
+              isInvalid={pieImgInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, Debe escribir de 12-25 caracteres.

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const AcercaDeNosotros = () => {
   return (
     <Fragment>
-      <section className="py-4 mt-3 backcolor container">
+      <section className="py-4 mt-3 backcolor container rounded">
         <h1 className="text-center text-light"><i>Acerca de Nosotros</i></h1>
       </section>
       <Container className="my-4">

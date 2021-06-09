@@ -228,7 +228,7 @@ const AgregarNoticia = (props) => {
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="row mb-3 m-0 p-0 py-2 backcolor text-white rounded-top">
+        <section className="row mb-3 m-0 py-2 backcolor text-white rounded-top">
           <div className="col-sm-12 col-md-10 m-0 p-0">
             <h1 className="mx-1 ps-2"><i>Formulario de Noticia: </i></h1>
           </div>
@@ -348,7 +348,7 @@ const AgregarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={categorias.nombreCategoria}
+                  // value={cat._id}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}

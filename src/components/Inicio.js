@@ -17,8 +17,8 @@ const Inicio = (props) => {
   const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia, comentario} = props
 
   /* Filtro de comentarios a mostrar */
-  let coment = comentario.filter((c) => c.idNoticia._id === ultimaNoticia._id);
-  let comentLength = coment.length;
+  // let coment = comentario.filter((c) => c.idNoticia._id === ultimaNoticia._id);
+  // let comentLength = coment.length;
   useEffect(() => {
     spinner()
   }, [])
