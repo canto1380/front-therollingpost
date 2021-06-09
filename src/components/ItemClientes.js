@@ -103,7 +103,7 @@ const ItemClientes = (props) => {
         <ListGroupItem>
  <div className="row d-flex align-content-center">
                 <div className="col-sm-6 col-md-4 col-lg-4">
-                <p>{props.clientes.email} <span class="badge bg-warning" hidden={btnAceptRech}>Pendiente</span> </p>
+                <p>{props.clientes.email} <span className="badge bg-warning" hidden={btnAceptRech}>Pendiente</span> </p>
                 </div>
                 <div className="col-sm-6 col-md-4 col-lg-4">
                 <p><b><i>{props.clientes.plan}</i></b></p>

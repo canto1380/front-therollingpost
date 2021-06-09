@@ -50,9 +50,6 @@ function App() {
   const [consultarComent, setConsultarComent] = useState(true)
 
   /* Usuarios */
-  const [user, setUser] = useState([])
-  const [consultarUser, setConsultarUser] = useState(true)
-
   const [tok, setTok] = useState('');
   const [consultarToken, setConsultarToken] = useState(true)
 
@@ -122,23 +119,6 @@ function App() {
       console.log(error);
     }
   };
-
-  /* Consulta API - Usuarios */
-  useEffect(() => {
-    const consultarAPIUsuarios = async () => {
-      try {
-        const res = await fetch(
-          process.env.REACT_APP_API_URL + "/user/listUser"
-        );
-        const infUsuarios = await res.json();
-        if (res.status === 200) {
-          setUser(infUsuarios);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  }, [consultarUser]);
 
   /*Consulta API clientes*/
   useEffect(()=>{
