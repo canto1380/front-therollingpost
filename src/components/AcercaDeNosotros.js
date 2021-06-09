@@ -12,15 +12,15 @@ import { Link } from "react-router-dom";
 const AcercaDeNosotros = () => {
   return (
     <Fragment>
-      <section className="py-5 bg-secondary">
-        <h1 className="text-center text-light">Acerca de Nosotros</h1>
+      <section className="py-4 mt-3 backcolor container">
+        <h1 className="text-center text-light"><i>Acerca de Nosotros</i></h1>
       </section>
       <Container className="my-4">
         <Row>
           <Col className="mb-3" xs={12} md={6}>
-            <Card>
+            <Card className="border border-dark">
               <Card.Title className="text-center">
-                <h2>Alejandro Peñalva</h2>
+                <h2><i>Alejandro Peñalva</i></h2>
               </Card.Title>
               <Card.Img
                 variant="top"
@@ -36,9 +36,9 @@ const AcercaDeNosotros = () => {
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
-            <Card>
+            <Card className="border border-dark">
               <Card.Title className="text-center">
-                <h2>Alejandro Poviña</h2>
+                <h2><i>Alejandro Poviña</i></h2>
               </Card.Title>
               <Card.Img
                 variant="top"
@@ -54,9 +54,9 @@ const AcercaDeNosotros = () => {
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
-            <Card>
+            <Card className="border border-dark">
               <Card.Title className="text-center">
-                <h2>Nicolas Guardo</h2>
+                <h2><i>Nicolas Guardo</i></h2>
               </Card.Title>
               <Card.Img
                 variant="top"
@@ -72,9 +72,9 @@ const AcercaDeNosotros = () => {
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
-            <Card>
+            <Card className="border border-dark">
               <Card.Title className="text-center">
-                <h2>Pablo Alonso</h2>
+                <h2><i>Pablo Alonso</i></h2>
               </Card.Title>
               <Card.Img variant="top" src={ImgAvPA} alt="Pablo Alonso Avatar" />
               <Card.Body>
@@ -86,10 +86,10 @@ const AcercaDeNosotros = () => {
             </Card>
           </Col>
         </Row>
-        <section className="py-5 bg-secondary mb-3">
-          <h3 className="text-center text-light">¿Quienes Somos?</h3>
+        <section className="py-2 backcolor mb-3 rounded-1">
+          <h3 className="text-center text-light"><i>¿Quienes somos?</i></h3>
           <hr className="mx-1 text-light" />
-          <p className="mx-1 text-light">
+          <p className="mx-4 text-light">
             Lorem ipsum dolor sit amet consectetur adipiscing elit, euismod
             fusce suspendisse nostra viverra vestibulum, scelerisque nam gravida
             himenaeos facilisis tempus. Cum enim viverra sodales eu mus
@@ -103,10 +103,10 @@ const AcercaDeNosotros = () => {
             blandit vitae gravida odio ad parturient conubia.
           </p>
         </section>
-        <section className="py-5 bg-primary mb-3">
-          <h3 className="text-center text-light">¿Que es Rolling-Post?</h3>
+        <section className="py-2 bg-primary mb-3 rounded-1">
+          <h3 className="text-center text-light"><i>¿Que es Rolling-Post?</i></h3>
           <hr className="mx-1 text-light" />
-          <p className="mx-1 text-light">
+          <p className="mx-4 text-light">
             Lorem ipsum dolor sit amet consectetur adipiscing elit, euismod
             fusce suspendisse nostra viverra vestibulum, scelerisque nam gravida
             himenaeos facilisis tempus. Cum enim viverra sodales eu mus
@@ -120,10 +120,10 @@ const AcercaDeNosotros = () => {
             blandit vitae gravida odio ad parturient conubia.
           </p>
         </section>
-        <section className="py-5 bg-info mb-3">
-          <h3 className="text-center text-light">¿Como Contactarnos?</h3>
+        <section className="py-2 bg-info mb-3 rounded-1">
+          <h3 className="text-center text-light"><i>¿Como contactarnos?</i></h3>
           <hr className="mx-1 text-light" />
-          <p className="mx-1 text-light">
+          <p className="mx-4 text-light">
             Lorem ipsum dolor sit amet consectetur adipiscing elit, euismod
             fusce suspendisse nostra viverra vestibulum, scelerisque nam gravida
             himenaeos facilisis tempus. Cum enim viverra sodales eu mus
@@ -138,10 +138,10 @@ const AcercaDeNosotros = () => {
           </p>
         </section>
         <div className="d-flex justify-content-center mb-4">
-          <Link className="btn btn-light w-50 border-dark" to={"/"}>
+          <Link className="btn btn-primary w-50 border-dark" to={"/"}>
             <FontAwesomeIcon
               icon={faHome}
-              className="fa-2x text-dark"
+              className="fa-2x "
             ></FontAwesomeIcon>
           </Link>
         </div>

@@ -22,7 +22,6 @@ import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
-import moment from "moment";
 import { Container } from "react-bootstrap";
 
 function App() {
@@ -107,7 +106,6 @@ function App() {
 
   const consultarAPINoticias = async () => {
     try {
-      //  const respuesta = await fetch(URL + "/noticias?publicado=true");
       const res = await fetch(
         process.env.REACT_APP_API_URL + "/noticias/listNoticias"
       );
@@ -171,11 +169,11 @@ function App() {
             tok={tok}
           />
           <Container>
-            <div className=" row  ">
-              <div className=" col-sm-12 col-md-6 ">
+            <div className=" row">
+              <div className=" col-sm-12 col-md-6 ps-3 ps-md-0">
                 <APImoneda></APImoneda>
               </div>
-              <div className="col-sm-12 col-md-6 ">
+              <div className="col-sm-12 col-md-6 pe-0">
                 <APIclima></APIclima>
               </div>
             </div>

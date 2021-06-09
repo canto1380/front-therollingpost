@@ -30,13 +30,13 @@ const APIclima = () => {
      };
 
     return (   
-    <div className="d-flex justify-content-center align-items-center">
+    <div className="d-flex  justify-content-sm-center justify-content-lg-end align-items-center">
         <div>
-            <img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} height="70px" alt="imagen clima" className="imgAPI" />
+            <img src={"http://openweathermap.org/img/w/"+ icon.icon +".png"} height="70px" alt="imagen clima"/>
         </div>
-     <span className="badge rounded-pill bg-info ">
-        <div className="mx-1 pt-1 small">
-          <h6> {temp.temp +" °C "}{clima.name}</h6> 
+     <span className="badge rounded-pill bg-info">
+        <div className="mx-1 pt-1 ">
+          <h6><i>{temp.temp +" °C "}{clima.name}</i> </h6> 
         </div>
       </span>
      </div> 

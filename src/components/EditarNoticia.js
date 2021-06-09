@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useParams, withRouter } from "react-router-dom";
-
 import moment from "moment";
 
 const EditarNoticia = (props) => {
@@ -39,7 +38,7 @@ const EditarNoticia = (props) => {
   const expresiones = {
     texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
     autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
+    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{30,}$/,
   };
 
   //Validaciones
@@ -47,7 +46,7 @@ const EditarNoticia = (props) => {
     setTitValid("");
     setTitInvalid("");
     let titulo = expresiones.texto;
-    if (tituloNoticiaRef.trim() !== "" && titulo.test(tituloNoticiaRef)) {
+    if (tituloNoticiaRef.current.value.trim() !== "" && titulo.test(tituloNoticiaRef.current.value)) {
       setTitValid(true);
       return false;
     } else {
@@ -59,7 +58,7 @@ const EditarNoticia = (props) => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
-    if (subtituloNoticiaRef.trim() !== "" && texto.test(subtituloNoticiaRef)) {
+    if (subtituloNoticiaRef.current.value.trim() !== "" && texto.test(subtituloNoticiaRef.current.value)) {
       setSubTValid(true);
       return false;
     } else {
@@ -72,7 +71,7 @@ const EditarNoticia = (props) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autorRef.trim() !== "" && nombre.test(autorRef)) {
+    if (autorRef.current.value.trim() !== "" && nombre.test(autorRef.current.value)) {
       setAutorValid(true);
       return false;
     } else {
@@ -85,7 +84,7 @@ const EditarNoticia = (props) => {
     setResValid("");
     setResInvalid("");
     let res = expresiones.resumen;
-    if (resumenNoticiaRef.trim() !== "" && res.test(resumenNoticiaRef)) {
+    if (resumenNoticiaRef.current.value.trim() !== "" && res.test(resumenNoticiaRef.current.value)) {
       setResValid(true);
       return false;
     } else {
@@ -108,7 +107,7 @@ const EditarNoticia = (props) => {
   const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (imagenRef === "") {
+    if (imagenRef.current.value.trim() === "") {
       setImgValid(true);
       return false;
     } else {
@@ -121,7 +120,7 @@ const EditarNoticia = (props) => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.texto;
-    if (piedefotoRef !== "" && texto.test(piedefotoRef)) {
+    if (piedefotoRef.current.value.trim() !== "" && texto.test(piedefotoRef.current.value)) {
       setPieImgValid(true);
       return false;
     } else {
@@ -153,7 +152,7 @@ const EditarNoticia = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let categoriaModificada = categoria === "" ? noticias.categoria : categoria;
+    let categoriaModificada = categoria !== "" ? noticias.categoria : categoria;
 
     //validar los datos
     if (
@@ -163,7 +162,7 @@ const EditarNoticia = (props) => {
       valAutor(autorRef.current.value) &&
       valImg(imagenRef.current.value) &&
       valCat(categoriaModificada) &&
-      valPieImg(piedefotoRef)
+      valPieImg(piedefotoRef.current.value)
     ) {
       setError(false);
       try {
@@ -209,16 +208,14 @@ const EditarNoticia = (props) => {
         className="mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="mb-3 m-0 p-0 py-2 backcolor text-white">
-          <div className="m-0 p-0">
-            <h1 className="text-center">Editar Noticia: </h1>
-          </div>
+        <section className="mb-3 m-0 py-2 backcolor text-white">
+            <h1 className="ps-2"><i>Editar Noticia:</i>  </h1>
         </section>
         <div className="m-2">
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Titulo de la Noticia:</b>
+               <i><b>Titulo de la Noticia:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -239,7 +236,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Subtitulo:</b>
+               <i><b>Subtitulo:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -260,7 +257,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Autor:</b>
+               <i><b>Autor:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -280,7 +277,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Resumen</b>
+               <i><b>Resumen</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -304,7 +301,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Categoria</b>
+               <i><b>Categoria</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -316,12 +313,12 @@ const EditarNoticia = (props) => {
               isValid={catValid}
               isInvalid={catInvalid}
             >
-              <option>Seleccione..</option>
+              <option>Seleccione una categoría</option>
               {categorias.map((cat) => (
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={cat._id}
+                  value={cat.nombreCategoria}
                 >
                   {cat.nombreCategoria}
                 </option>
@@ -331,7 +328,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Imagen:</b>
+               <i><b>Imagen:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -343,7 +340,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Pie de Imagen:</b>
+               <i><b>Pie de Imagen:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -364,7 +361,7 @@ const EditarNoticia = (props) => {
             variant="warning"
             type="submit"
           >
-            Editar
+        <big><b><i>Editar</i></b></big>    
           </Button>
         </div>
         {error ? (
