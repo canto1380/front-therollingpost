@@ -18,7 +18,7 @@ const NoticiasPrincipal = (props) => {
               // let coment = comentario.filter((c) => c.idNoticia._id === not._id);
               // let comentLength = coment.length; 
             return (<Col className="" xs={12} md={8} key={not._id}>
-              <Link to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
+              <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
                 <div className="card tarjetaNoticia">
                   <img className="card-img-top w-100" src={not.foto} alt="" />
                   <div className="card-body">
@@ -41,7 +41,7 @@ const NoticiasPrincipal = (props) => {
           ultimasNoticias.map((not) =>{
             // let coment = comentario.filter((c) => c.idNoticia._id === not._id);
             // let comentLength = coment.length;
-            return (<Link to={`/noti/${not.categoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
+            return (<Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
                <div className="card tarjetaNoticia ">
                  <img className="card-img-top" src={not.foto} alt="" />
                  <div className="card-body">

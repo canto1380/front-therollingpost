@@ -111,7 +111,10 @@ const EditarCategoria = (props) => {
                     <h1 className="mt-5">Categorias existentes</h1>
                     <ListGroup className="my-3">
                         {
-                            props.categorias.map((cat) => <ItemCategoria cat={cat} key={cat._id} consultarCat={props.consultarCat} />)
+                            props.categorias.map((cat) => <ListGroup.Item className="d-flex justify-content-between align-items-center"
+                            cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}>
+                            <h5 className="text-dark">{cat.nombreCategoria}</h5>
+                            </ListGroup.Item>)
                         }
                     </ListGroup>
                 </Col>

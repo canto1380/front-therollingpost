@@ -4,8 +4,7 @@ import { Link, useParams } from "react-router-dom";
 
 const PreviewNoticia = (props) => {
   const { id } = useParams();
-  const {tok} = props
-
+  const {tok,noticias} = props
   // states
   const [noticia, setNoticia] = useState({});
 
@@ -13,6 +12,7 @@ const PreviewNoticia = (props) => {
     consultarNoticia();
   }, []);
 
+console.log(noticias)
   const consultarNoticia = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/noticias/" + id;

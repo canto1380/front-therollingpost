@@ -9,7 +9,7 @@ const ItemComentarios = (props) => {
         <Container fluid>
              <Row className="d-flex justify-content-between m-0 h-100">
                 <Col xs={2} md={2} className="p-0 text-center">
-                    <Image src={LogoNR} rounded className="image-comentario text-center"/>
+                    <Image src={LogoNR} rounded className=" text-center" width="95px"/>
                 </Col>
                 <Col xs={10} md={10} >
                     <h6>Nombre de usuario</h6>

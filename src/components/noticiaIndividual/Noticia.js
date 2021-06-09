@@ -40,8 +40,8 @@ const Noticia = (props) => {
         consultarCategorias();
     }, [id]);
     /* Filtro de comentarios a mostrar */
-    // let coment = comentario.filter((c) => c.idNoticia._id === id);
-    // let comentLength = coment.length;
+    let coment = comentario.filter((c) => c.idNoticia._id === id);
+    let comentLength = coment.length;
 
     return (
         <Container fluid className="p-4">
@@ -69,7 +69,7 @@ const Noticia = (props) => {
                 <Publicidad publicidad={Coca} classnamehidden={hiddensm}/>
                 </Col>
                 <Col sm={12}>
-                    {/* <CardComentarios consultarComent={props.consultarComent} setConsultarComent={props.setConsultarComent} coment={coment} comentLength={comentLength} id={id}/> */}
+                    <CardComentarios consultarComent={props.consultarComent} setConsultarComent={props.setConsultarComent} coment={coment} comentLength={comentLength} id={id}/>
                 </Col>
             </Row>
         </Container>

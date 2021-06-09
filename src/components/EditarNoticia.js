@@ -324,7 +324,7 @@ const EditarNoticia = (props) => {
             <Form.Control
               as="select"
               selected
-              value={noticias.categoria}
+              value={noticias.categoria.nombreCategoria}
               onChange={cambioCategoria}
               onBlur={valCat}
               isValid={catValid}

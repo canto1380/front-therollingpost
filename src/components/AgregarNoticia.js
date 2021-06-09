@@ -164,8 +164,7 @@ const AgregarNoticia = (props) => {
         hora: moment().format("HH:mm"),
        fecha: moment().format("DD MMMM, YYYY"),
       };
-      console.log(noticia)
-
+    console.log(noticia)
       try {
         //codigo normal
         const configuracion = {
@@ -348,7 +347,7 @@ const AgregarNoticia = (props) => {
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  // value={cat._id}
+                   value={cat._id}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}

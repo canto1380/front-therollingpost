@@ -10,7 +10,7 @@ import { useScrollToTop } from '../../helpers/hooks';
 
 const CardCategorias = (props) => {
     const {cat, noticias, categorias} = props
-    let noticiasXCat = noticias.filter(not => not.categoria === cat.nombreCategoria)
+    let noticiasXCat = noticias.filter(not => not.categoria.nombreCategoria === cat.nombreCategoria)
     let ultimaNoticia = noticiasXCat.slice(0, 1)
     let ultimasNoticias = noticiasXCat.slice(1, 3)
     let resto = noticiasXCat.slice(3,noticiasXCat.length)

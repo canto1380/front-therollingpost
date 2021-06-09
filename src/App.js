@@ -56,6 +56,7 @@ function App() {
   const [tok, setTok] = useState('');
   const [consultarToken, setConsultarToken] = useState(true)
 
+
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
       const { token } = JSON.parse(localStorage.getItem("jwt"))
@@ -271,6 +272,7 @@ function App() {
             <Route exact path="/preview/:tok/:id">
               <PreviewNoticia
                 tok={tok}
+                noticias={noticias}
               />
             </Route>
             <Route exact path="/menu-noticias/agregar-Noticia/:tok">
