@@ -13,52 +13,72 @@ const Login = (props) => {
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
     email: "",
-    password: ""
+    password: "",
   });
+
+  const expresiones = {
+    email: /\w+@\w+\.[a-z]{2,}$/,
+    password: /^[a-zA-Z0-9-ZÀ-ÿ\s]{7,}$/,
+  };
+
+  const logUsuario = () => {
+    const mail = expresiones.email;
+    if (usuario.email.trim() !== "" && mail.test(usuario.email)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const logPass = () => {
+    const pass = expresiones.password;
+    if (usuario.password.trim() !== "" && pass.test(usuario.password)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   /*variables */
   let mensaje;
-  const url = process.env.REACT_APP_API_URL + "/user/signin"
+  const url = process.env.REACT_APP_API_URL + "/user/signin";
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const valoresUser = {
       email: usuario.email,
-      clave: usuario.password
-    }
+      clave: usuario.password,
+    };
     // try {
-      const config ={
-        method: "POST",
-        headers:{
-          Accept:'application/json',
-          "Content-Type":"application/json"
-        },
-        body: JSON.stringify(valoresUser)
-      }
-      /* OPCION CON SIGNIN EXPORTADA */
+    const config = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(valoresUser),
+    };
+    /* OPCION CON SIGNIN EXPORTADA */
     signin(valoresUser)
-      .then(data => {
-        
+      .then((data) => {
         if (data.error) {
-          setUsuario({... usuario, error: data.error, cargando:false})
-          console.log('error')
-          console.log("ERRRORRRR")
-           setErr(true);
-           setTimeout(() => {
+          setUsuario({ ...usuario, error: data.error, cargando: false });
+          console.log("error");
+          console.log("ERRRORRRR");
+          setErr(true);
+          setTimeout(() => {
             setErr(false);
-            }, 3000);
+          }, 3000);
         } else {
-          authenticate(
-            data, () => {
-              setUsuario({
-                ...usuario
-              })
-            }
-          )
+          authenticate(data, () => {
+            setUsuario({
+              ...usuario,
+            });
+          });
           setErr(false);
           /*Swal */
           let timerInterval;
@@ -90,16 +110,16 @@ const Login = (props) => {
           });
         }
       })
-      .catch(err =>{
-        setUsuario({... usuario})
-          console.log('error')
-          console.log("ERRRORRRR")
-           setErr(true);
-           setTimeout(() => {
-            setErr(false);
-            }, 3000);
-      })
-  }
+      .catch((err) => {
+        setUsuario({ ...usuario });
+        console.log("error");
+        console.log("ERRRORRRR");
+        setErr(true);
+        setTimeout(() => {
+          setErr(false);
+        }, 3000);
+      });
+  };
 
   if (err) {
     mensaje = (
@@ -130,7 +150,6 @@ const Login = (props) => {
                     name="email"
                     placeholder="nombre@gmail.com"
                     onChange={handleValores}
-
                   />
                 </Form.Group>
 
@@ -160,7 +179,8 @@ const Login = (props) => {
               <hr />
               <div className="text-center">
                 <p>
-                  ¿No tienes cuenta? <Link to={"/suscripcion"}>Registrate!</Link>
+                  ¿No tienes cuenta?{" "}
+                  <Link to={"/suscripcion"}>Registrate!</Link>
                 </p>
               </div>
             </div>

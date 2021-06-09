@@ -78,7 +78,7 @@ const AgregarNoticia = (props) => {
     }
   };
 
-  const valAutor = (author) => {
+  const valAutor = () => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
@@ -152,7 +152,8 @@ const AgregarNoticia = (props) => {
       valCat(categoria) ||
       valImg(imagen) ||
       valPieImg(pieDeFoto)
-    ){} else {
+    ) {
+    } else {
       const noticia = {
         titulo: tituloNoticia,
         descripcion: subtituloNoticia,
@@ -162,7 +163,7 @@ const AgregarNoticia = (props) => {
         foto: imagen,
         pieDeImagen: pieDeFoto,
         hora: moment().format("HH:mm"),
-       fecha: moment().format("DD MMMM, YYYY"),
+        fecha: moment().format("DD MMMM, YYYY"),
       };
 
       try {
@@ -174,11 +175,11 @@ const AgregarNoticia = (props) => {
           },
           body: JSON.stringify(noticia),
         };
-        
+
         const respuesta = await fetch(
           url + "/noticias/addNoticia",
           configuracion
-          );
+        );
         if (respuesta.status === 201) {
           //mostar cartel de se agrego noticia
           Swal.fire(

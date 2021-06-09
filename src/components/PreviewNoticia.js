@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card, Figure, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
@@ -30,50 +30,37 @@ const PreviewNoticia = (props) => {
     <Container>
       <div className="mt-5">
         <h1 className="text-center">Previsualizacion de Noticia</h1>
-        <p className="text-muted text center">
+        <p className="text-muted text-center">
           En esta pagina podras ver como es el maquetado de la noticia antes de
           publicarla.
         </p>
       </div>
       <Card className="mt-5 mb-3">
         <Card.Header>
-          <p className="display-6">
-            {noticia.categoria}
-          </p>
+          <p className="display-6">{noticia.categoria}</p>
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            <h1>
-              {noticia.titulo}
-            </h1>
+            <h1>{noticia.titulo}</h1>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            <h3>
-              {noticia.descripcion}
-            </h3>
+            <h3>{noticia.descripcion}</h3>
           </Card.Subtitle>
           <div className="row">
             <div className="col-sm-12 col-md-8">
-              <p>
-                {noticia.descripNoticia}
-              </p>
+              <p>{noticia.descripNoticia}</p>
             </div>
             <div className="col-sm-12 col-md-4">
-            <div className="row">
-              <div className="col-12 mb-2">
-                <Figure>
-                  <Image
-                    className="img-fluid "
-                    src={noticia.foto}
-                  />
-                </Figure>
+              <div className="row">
+                <div className="col-12 mb-2">
+                  <Figure>
+                    <Image className="img-fluid " src={noticia.foto} />
+                  </Figure>
+                </div>
+                <div className="col-12 border mb-2">
+                  <h5>{noticia.pieDeImagen}</h5>
+                </div>
               </div>
-              <div className="col-12 border mb-2">
-                <h5>
-                  {noticia.pieDeImagen}
-                </h5>
-              </div>
-            </div>
             </div>
           </div>
         </Card.Body>
