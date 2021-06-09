@@ -82,6 +82,8 @@ const PreviewNoticia = (props) => {
           <h5>{noticia.autor}</h5>
         </Card.Footer>
       </Card>
+              )
+            
       <div className="d-flex justify-content-center mb-5">
         <Link className="btn btn-info text-light w-75" to={`/menu-noticias/${tok}`}>
           Volver a Noticias
