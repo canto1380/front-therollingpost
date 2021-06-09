@@ -5,22 +5,21 @@ import { useParams, withRouter, Link } from "react-router-dom";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+const url = process.env.REACT_APP_API_URL;
 
 const EditarNoticia = (props) => {
   const { id } = useParams();
   //Variables useRef
-  const tituloNoticiaRef = useRef("");
-  const subtituloNoticiaRef = useRef("");
-  const resumenNoticiaRef = useRef("");
-  const autorRef = useRef("");
-  const imagenRef = useRef("");
-  const piedefotoRef = useRef("");
+  const tituloNoticiaRef = useRef();
+  const subtituloNoticiaRef = useRef();
+  const resumenNoticiaRef = useRef();
+  const autorRef = useRef();
+  const imagenRef = useRef();
+  const piedefotoRef = useRef();
   // creo los state
   const [noticias, setNoticia] = useState({});
-  const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
-  const url = process.env.REACT_APP_API_URL;
-  const { categorias, setConsultarCat, tok } = props;
+  const { categorias, tok } = props;
   //Feed
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
@@ -38,9 +37,9 @@ const EditarNoticia = (props) => {
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
   const expresiones = {
-    texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
-    autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{30,}$/,
+    texto: /^[^\n]{12,}$/, // Letras, numeros
+    autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    resumen: /^[\s\S]{25,}$/,
   };
 
   //Validaciones
@@ -98,7 +97,7 @@ const EditarNoticia = (props) => {
   const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (categoria !== "") {
+    if (noticias.categoria !== "") {
       setCatValid(true);
       return false;
     } else {
@@ -132,40 +131,41 @@ const EditarNoticia = (props) => {
   };
 
   useEffect(() => {
-    consultarNoticia();
-  }, []);
-
-  const consultarNoticia = async () => {
-    try {
-      const respuesta = await fetch(url + "/noticias/" + id);
-      //console.log(respuesta);
-      if (respuesta.status === 200) {
-        const resp = await respuesta.json();
-        setNoticia(resp);
+    const consultarNoticia = async () => {
+      try {
+        const respuesta = await fetch(url + "/noticias/" + id);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          setNoticia(resp);
+        }
+      } catch (error) {
+        console.log(error);
+        //Cartel de error que aguarde unos instantes
       }
-    } catch (error) {
-      console.log(error);
-      //Cartel de error que aguarde unos instantes
-    }
-  };
+    };
+    consultarNoticia();
+  }, [id]);
+ 
   const cambioCategoria = (e) => {
-    setCategoria(e.target.value);
+    setNoticia({ ...noticias, categoria: e.target.value });
+  };
+
+  const cambioDescripNoticia = (e) => {
+    setNoticia({ ...noticias, descripNoticia: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let categoriaModificada = categoria !== "" ? noticias.categoria : categoria;
-
     //validar los datos
-    if (
-      valTit(tituloNoticiaRef.current.value) &&
-      valSubT(subtituloNoticiaRef.current.value) &&
-      valResumen(resumenNoticiaRef.current.value) &&
-      valAutor(autorRef.current.value) &&
-      valImg(imagenRef.current.value) &&
-      valCat(categoriaModificada) &&
+    if( !(
+      valTit(tituloNoticiaRef.current.value) ||
+      valSubT(subtituloNoticiaRef.current.value) ||
+      valResumen(resumenNoticiaRef.current.value) ||
+      valAutor(autorRef.current.value) ||
+      valImg(imagenRef.current.value) ||
+      valCat(noticias.categoria) ||
       valPieImg(piedefotoRef.current.value)
-    ) {
+    ) ){
       setError(false);
       try {
         const noticiaModificada = {
@@ -174,7 +174,7 @@ const EditarNoticia = (props) => {
           descripNoticia: resumenNoticiaRef.current.value,
           autor: autorRef.current.value,
           foto: imagenRef.current.value,
-          categoria: categoriaModificada,
+          categoria: noticias.categoria,
           pieDeFoto: piedefotoRef.current.value,
           hora: moment().format("HH:mm"),
           fecha: moment().format("DD MMMM, YYYY"),
@@ -193,7 +193,7 @@ const EditarNoticia = (props) => {
           //
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
-          props.history.push("/menu-noticias");
+          props.history.push("/menu-noticias/tok");
           e.target.reset();
         }
       } catch (error) {
@@ -204,6 +204,7 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
+  
   return (
     <Container>
       <Form
@@ -306,12 +307,13 @@ const EditarNoticia = (props) => {
               onBlur={valResumen}
               isValid={resValid}
               isInvalid={resInvalid}
+              onChange={cambioDescripNoticia}
             />
             <Form.Label>
-              <p>{resumenNoticiaRef.length}/5000</p>
+              <p>{noticias.descripNoticia?.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 2000-5000
+              Campo Obligatorio, al menos debe contener entre 500-5000
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
@@ -323,8 +325,7 @@ const EditarNoticia = (props) => {
             </InputGroup.Text>
             <Form.Control
               as="select"
-              selected
-              value={noticias.categoria.nombreCategoria}
+              value={noticias.categoria?._id}
               onChange={cambioCategoria}
               onBlur={valCat}
               isValid={catValid}
@@ -334,8 +335,7 @@ const EditarNoticia = (props) => {
               {categorias.map((cat) => (
                 <option
                   key={cat._id}
-                  label={cat.nombreCategoria}
-                  value={cat.nombreCategoria}
+                  value={cat._id}
                 >
                   {cat.nombreCategoria}
                 </option>

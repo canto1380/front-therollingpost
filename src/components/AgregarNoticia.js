@@ -32,17 +32,17 @@ const AgregarNoticia = (props) => {
   const [pieImgValid, setPieImgValid] = useState("");
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const { categorias, setConsultarCat, tok } = props;
+  const { categorias, tok } = props;
 
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
   };
 
   const expresiones = {
-    texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
-    textoPie: /^[a-zA-Z0-9-ZÀ-ÿ\s]{7,}$/, // Letras, numeros
-    autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{25,}$/,
+    texto: /^[^\n]{12,}$/, // Letras, numeros
+    textoPie: /^[^\n]{7,}$/, // Letras, numeros
+    autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    resumen: /[\s\S]{25,}$/,
   };
 
   const scrollToTop = () => {
@@ -346,9 +346,7 @@ const AgregarNoticia = (props) => {
               {categorias.map((cat) => (
                 <option
                   key={cat._id}
-                  label={cat.nombreCategoria}
                    value={cat._id}
-                  onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}
                 </option>
