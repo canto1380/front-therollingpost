@@ -95,7 +95,7 @@ const AgregarNoticia = (props) => {
     setResValid("");
     setResInvalid("");
     let resumen = expresiones.resumen;
-    if (resumenNoticia !== "" ) {
+    if (resumenNoticia !== ""  && resumen.test(resumenNoticia)) {
       setResValid(true);
       return false;
     } else {
@@ -228,9 +228,9 @@ const AgregarNoticia = (props) => {
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="row mb-3 m-0 p-0 py-2 backcolor text-white">
+        <section className="row mb-3 m-0 p-0 py-2 backcolor text-white rounded-top">
           <div className="col-sm-12 col-md-10 m-0 p-0">
-            <h1 className="mx-1 ps-2">Formulario de Noticia: </h1>
+            <h1 className="mx-1 ps-2"><i>Formulario de Noticia: </i></h1>
           </div>
           <div className="col-sm-12 col-md-2 m-0 p-0">
             <div className="d-flex justify-content-end pt-1 mx-1">
@@ -250,7 +250,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Titulo de la Noticia:</b>
+               <i><b>Titulo de la Noticia:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -270,7 +270,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Subtitulo:</b>
+               <i><b>Subtitulo:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -290,7 +290,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Autor:</b>
+               <i><b>Autor:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -309,7 +309,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Resumen</b>
+               <i><b>Resumen</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -325,14 +325,14 @@ const AgregarNoticia = (props) => {
               <p>{resumenNoticia.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 1000-5000
+              Campo Obligatorio, al menos debe contener entre 500-5000
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Categoria</b>
+               <i><b>Categoria</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -343,12 +343,12 @@ const AgregarNoticia = (props) => {
               isValid={catValid}
               isInvalid={catInvalid}
             >
-              <option disabled>Seleccione una Categoria</option>
+              <option>Seleccione una Categoria</option>
               {categorias.map((cat) => (
                 <option
                   key={cat._id}
                   label={cat.nombreCategoria}
-                  value={cat._id}
+                  value={categorias.nombreCategoria}
                   onChange={cambioCategoria}
                 >
                   {cat.nombreCategoria}
@@ -362,7 +362,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Imagen:</b>
+               <i><b>Imagen:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -379,7 +379,7 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Pie de Imagen:</b>
+               <i><b>Pie de Imagen:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -403,7 +403,7 @@ const AgregarNoticia = (props) => {
             type="submit"
             onClick={scrollToTop}
           >
-            Guardar
+         <big><b><i>Guardar</i></b></big>   
           </Button>
         </div>
       </Form>

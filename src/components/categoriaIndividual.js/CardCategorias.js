@@ -10,7 +10,7 @@ import { useScrollToTop } from '../../helpers/hooks';
 
 const CardCategorias = (props) => {
     const {cat, noticias, categorias} = props
-    let noticiasXCat = noticias.filter(not => not.categoria.nombreCategoria === cat.nombreCategoria)
+    let noticiasXCat = noticias.filter(not => not.categoria === cat.nombreCategoria)
     let ultimaNoticia = noticiasXCat.slice(0, 1)
     let ultimasNoticias = noticiasXCat.slice(1, 3)
     let resto = noticiasXCat.slice(3,noticiasXCat.length)
@@ -19,7 +19,7 @@ const CardCategorias = (props) => {
 
     return (
         <Container className="my-3 px-4">
-            <h1 className="mt-2">{props.cat.nombreCategoria}</h1>
+            <h1 className="mt-2"><i>{props.cat.nombreCategoria}</i></h1>
             <ListGroup className="border-0">
                 {/* map que lea */}
                 <hr className="my-1"/>
@@ -28,7 +28,7 @@ const CardCategorias = (props) => {
             </ListGroup>
             <Publicidad publicidad={slogan}></Publicidad>
             <Row>
-                <Col xs={12} className="">
+                <Col xs={12}>
                     <NoticiasPrincipal
                         ultimasNoticias={ultimasNoticias}
                         ultimaNoticia={ultimaNoticia}

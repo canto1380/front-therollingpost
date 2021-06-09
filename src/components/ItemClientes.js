@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Button, ListGroupItem, Badge  } from 'react-bootstrap';
+import {  Button, ListGroupItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCheck, faUserTimes, faUserMinus } from '@fortawesome/free-solid-svg-icons'
 import Swal from "sweetalert2";
@@ -67,7 +67,6 @@ const ItemClientes = (props) => {
             cancelButtonText: "Cancelar"
           }).then(async(result) => {
             if (result.isConfirmed) {
-              
               const URL = `${process.env.REACT_APP_API_URL}/clientes/${id}`;
               try{
                 const respuesta = await fetch(URL, {
@@ -100,22 +99,19 @@ const ItemClientes = (props) => {
           })
         };  
     
-        console.log(props.clientes)
-
     return (
-
         <ListGroupItem>
- <div className="row">
+ <div className="row d-flex align-content-center">
                 <div className="col-sm-6 col-md-4 col-lg-4">
                 <p>{props.clientes.email} <span class="badge bg-warning" hidden={btnAceptRech}>Pendiente</span> </p>
                 </div>
                 <div className="col-sm-6 col-md-4 col-lg-4">
-                <p> {props.clientes.plan}</p>
+                <p><b><i>{props.clientes.plan}</i></b></p>
                 </div>
                 <div className="col-sm-6 col-md-4 col-lg-4 d-flex justify-content-end">
-                        <Button variant="success" className="mx-3 " hidden={btnAceptRech} onClick={()=>aceptarSuscripcion()}> <FontAwesomeIcon icon={faUserCheck} className="fa-lg"></FontAwesomeIcon></Button>
-                        <Button variant="danger" className="mx-3" hidden={btnAceptRech} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)}><FontAwesomeIcon icon={faUserTimes} className="fa-lg"></FontAwesomeIcon></Button>
-                        <Button variant="danger" className="mx-3" hidden={btnCancelar} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)}><FontAwesomeIcon icon={faUserMinus} className="fa-lg"></FontAwesomeIcon></Button>
+                        <Button variant="success" className="mx-3 " hidden={btnAceptRech} onClick={()=>aceptarSuscripcion()} title="Aceptar suscripción"> <FontAwesomeIcon icon={faUserCheck} className="fa-lg"></FontAwesomeIcon></Button>
+                        <Button variant="danger" className="mx-3" hidden={btnAceptRech} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Rechazar suscripción"><FontAwesomeIcon icon={faUserTimes} className="fa-lg"></FontAwesomeIcon></Button>
+                        <Button variant="danger" className="mx-3" hidden={btnCancelar} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Cancelar suscripción"><FontAwesomeIcon icon={faUserMinus} className="fa-lg"></FontAwesomeIcon></Button>
                 </div>
                 
                 

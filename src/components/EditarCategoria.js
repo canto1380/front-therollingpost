@@ -90,7 +90,7 @@ const EditarCategoria = (props) => {
             <Row className="d-flex justify-content-between">
                 <Col sm={12} lg={6}>
                     <h1 className="mt-5">Editar Categoria</h1>
-                    <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secundary">
+                    <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secondary">
                         <Form.Group>
                             <Form.Label>Nombre Categoria</Form.Label>
                         </Form.Group>

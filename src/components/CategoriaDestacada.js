@@ -10,14 +10,14 @@ const CategoriaDestacada = (props) => {
     return (
         <section className="my-5 w-100" >
             <div className="d-flex justify-content-between">
-            <h4>{props.cat.nombreCategoria}</h4>
+            <h4><i>{props.cat.nombreCategoria}</i></h4>
             <Button variant="primary" as={Link} to={`/${cat.nombreCategoria.toLowerCase()}`}>Ver más</Button>
             </div>
             <hr />
             <Row>
                 {
                     noticias.map((not) => {
-                        if (not.categoria.nombreCategoria === props.cat.nombreCategoria) {
+                        if (not.categoria === props.cat.nombreCategoria) {
                             let coment = comentario.filter((c) => c.idNoticia._id === not._id);
                             let comentLength = coment.length; 
                             return (
@@ -28,7 +28,6 @@ const CategoriaDestacada = (props) => {
                                             <div className="card-body tarjetaNoticia-body">
                                                 <h5 className="card-title">{not.titulo}</h5>
                                                 <p className="card-text">{not.descripcion}</p>
-
                                             </div>
                                             <div className="d-flex justify-content-between align-items-center mb-3 mx-3">
                                                 <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>

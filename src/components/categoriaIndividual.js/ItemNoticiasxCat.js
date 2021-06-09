@@ -6,10 +6,9 @@ import { faComment} from "@fortawesome/free-solid-svg-icons";
 
 const ItemNoticiasxCat = (props) => {
     const {cat, noticiasXCat} = props
-    console.log(noticiasXCat)
     return (
         <Row>
-            <h1>Más noticias de {cat.nombreCategoria}</h1>
+            <h1><i>Más noticias de {cat.nombreCategoria}</i></h1>
             <hr className="mb-0"/>
             {
                noticiasXCat.map((not) =>(

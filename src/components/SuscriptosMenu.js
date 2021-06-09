@@ -6,7 +6,7 @@ const SuscriptosMenu = (props) => {
 
     return (
         <Container>
-<h1 className="text-center my-2">Listado de Suscripciones</h1>
+<h1 className="text-center mt-2 mb-4"><badge className="backcolor text-light rounded-3 px-3 pb-1"><i> Listado de Suscripciones</i></badge></h1>
 <ListGroup>
 {
                 props.clientes.map((clientes)=><ItemClientes clientes={clientes} key={clientes._id} consultarClientes={props.consultarClientes} setConsultarClientes={props.setConsultarClientes}></ItemClientes> )  

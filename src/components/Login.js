@@ -121,7 +121,7 @@ const Login = (props) => {
         </Col>
         <Col sm={6} md={4}>
           <div className="">
-            <h1 className="text-center"><badge className="backcolor text-light px-3 pt-0 pb-2 rounded-3">Ingrese a su cuenta</badge></h1>
+            <h1 className="text-center"><badge className="backcolor text-light px-3 pt-0 pb-2 rounded-3"><i>Ingrese a su cuenta</i></badge></h1>
             <div>
               <Form className="my-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicEmail">

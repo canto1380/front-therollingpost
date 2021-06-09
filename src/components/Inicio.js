@@ -15,12 +15,10 @@ import { useScrollToTop } from "../helpers/hooks";
 
 const Inicio = (props) => {
   const {categoriasDestacadas, noticias, ultimasNoticias, ultimaNoticia, comentario} = props
-  console.log(ultimaNoticia)
 
   /* Filtro de comentarios a mostrar */
   let coment = comentario.filter((c) => c.idNoticia._id === ultimaNoticia._id);
   let comentLength = coment.length;
-  console.log(coment)
   useEffect(() => {
     spinner()
   }, [])

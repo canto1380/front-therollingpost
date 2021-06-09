@@ -10,8 +10,8 @@ const ItemNavBarCategoria = ({ categorias = [] }) => {
           key={cat._id}
           to={`${cat.nombreCategoria}`}
           className="text-decoration-none fw-bold btn btn-outline-info"
-        >
-          {cat.nombreCategoria}
+        ><i>
+          {cat.nombreCategoria}</i>
         </Link>
       ))}
     </ListGroup.Item>

@@ -164,14 +164,14 @@ const Contacto = () => {
 
   return (
     <Container className="mb-4">
-      <h1 className="text-center mt-3">Formulario de Contacto</h1>
+      <h1 className="text-center mt-3"><i> Formulario de Contacto</i></h1>
       <Form
         className=" mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
         <section className="d-flex align-content-center mb-2 m-0 p-2 backcolor text-white">
           <div>
-            <h2 className="mx-1">Ingresa tu motivo de contacto: </h2>
+            <h2 className="mx-1"><i> Ingresa tu motivo de contacto: </i></h2>
           </div>
           <div className="ms-auto">
             <div className="d-flex justify-content-end  mx-1 align-content-center">
