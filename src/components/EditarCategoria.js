@@ -4,7 +4,6 @@ import { ListGroup, Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { useParams, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { campoRequerido } from '../helpers/helpers'
-import ItemCategoria from "./ItemCategoria";
 import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
@@ -13,7 +12,6 @@ const EditarCategoria = (props) => {
     
     /* State */
     const [nombreCategoria, setNombreCat] = useState({});
-    const [categoria, setCategoria] = useState("");
     const [err, setErr] = useState(false)
 
     //variables useRef para precio y nombre producto
@@ -24,7 +22,6 @@ const EditarCategoria = (props) => {
         const consultarCategorias = async () => {
             try {
                 const res = await fetch(process.env.REACT_APP_API_URL + "/categorias/categoria/" + id)
-                console.log(res)
                 if (res.status === 200) {
                     const resp = await res.json();
                     setNombreCat(resp);
@@ -34,17 +31,10 @@ const EditarCategoria = (props) => {
             }
         }
         consultarCategorias();
-    }, []);
-
-
-    const cambioCategoria = (e) => {
-        setCategoria(e.target.value)
-    };
-
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //  let catModificada = (categoria === "")?(nombreCategoria.nombreCategoria):(categoria);
 
         if (campoRequerido(nombreCategoriaRef.current.value)) {
             setErr(false);
@@ -94,7 +84,7 @@ const EditarCategoria = (props) => {
                         <Form.Group>
                             <Form.Label>Nombre Categoria</Form.Label>
                         </Form.Group>
-                        <Form.Control type="text" ref={nombreCategoriaRef} defaultValue={nombreCategoria.nombreCategoria} onChange={cambioCategoria} />
+                        <Form.Control type="text" ref={nombreCategoriaRef} defaultValue={nombreCategoria.nombreCategoria}  />
                         <Form.Group className="d-flex justify-content-end">
                             <Button className="my-3 mx-2" variant="primary" type="submit">
                                 Guardar

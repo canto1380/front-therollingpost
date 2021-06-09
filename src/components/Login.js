@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { authenticate, setToken, signin } from "../helpers/helpers";
+import { authenticate, signin } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
@@ -18,7 +18,6 @@ const Login = (props) => {
 
   /*variables */
   let mensaje;
-  const url = process.env.REACT_APP_API_URL + "/user/signin"
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -31,20 +30,13 @@ const Login = (props) => {
       clave: usuario.password
     }
     // try {
-      const config ={
-        method: "POST",
-        headers:{
-          Accept:'application/json',
-          "Content-Type":"application/json"
-        },
-        body: JSON.stringify(valoresUser)
-      }
+
       /* OPCION CON SIGNIN EXPORTADA */
     signin(valoresUser)
       .then(data => {
         
         if (data.error) {
-          setUsuario({... usuario})
+          setUsuario({...usuario})
           console.log('error')
           console.log("ERRRORRRR")
            setErr(true);
@@ -92,7 +84,7 @@ const Login = (props) => {
         }
       })
       .catch(err =>{
-        setUsuario({... usuario})
+        setUsuario({...usuario})
           console.log('error')
           console.log("ERRRORRRR")
            setErr(true);

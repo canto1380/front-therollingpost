@@ -10,7 +10,7 @@ import MsjError from './MsjError'
 
 const Suscripcion = (props) => {
 
-  const {setConsultarClientes, clientes, setClientes}=props;
+  const {setConsultarClientes, clientes}=props;
 
   const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
 
@@ -51,7 +51,7 @@ setClient({...client, [e.target.name]: e.target.value})
     /*Expresiones regulares para validaciones*/
     const expresiones = {
       nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/,  // Letras y espacios, pueden llevar acentos.
-      email:  /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
+      email:  /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
       cp: /^[0-9]{4,8}$/,
       tel: /^[0-9]{10,15}$/,
       pas:/^[a-z0-9_-]{6,15}$/

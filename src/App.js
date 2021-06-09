@@ -272,7 +272,6 @@ function App() {
             <Route exact path="/preview/:tok/:id">
               <PreviewNoticia
                 tok={tok}
-                noticias={noticias}
               />
             </Route>
             <Route exact path="/menu-noticias/agregar-Noticia/:tok">

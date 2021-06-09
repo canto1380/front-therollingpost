@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import { Container, Form, Button, Row, Col, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Container, Form, Button, Row, Col, ListGroup } from "react-bootstrap";
 import Swal from 'sweetalert2'
 import {Link} from 'react-router-dom'
-import ItemCategoria from "./ItemCategoria";
 import { campoRequerido } from "../helpers/helpers";
 import MsjError from "./MsjError";
 import { withRouter } from "react-router";
