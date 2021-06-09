@@ -57,6 +57,8 @@ function App() {
   const [tok, setTok] = useState('');
   const [consultarToken, setConsultarToken] = useState(true)
 
+  console.log(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
+
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
       const { token } = JSON.parse(localStorage.getItem("jwt"))
