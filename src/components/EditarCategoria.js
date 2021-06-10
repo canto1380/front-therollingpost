@@ -4,23 +4,19 @@ import { ListGroup, Button, Form, Row, Col, Container } from "react-bootstrap";
 import { useParams, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
 import { campoRequerido } from "../helpers/helpers";
-import ItemCategoria from "./ItemCategoria";
 import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
   const { id } = useParams();
-  console.log(id);
+  const { tok } = props;
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState({});
-  const [categoria, setCategoria] = useState("");
   const [err, setErr] = useState(false);
 
   //variables useRef para precio y nombre producto
   const nombreCategoriaRef = useRef("");
-  console.log(id);
   const URL = process.env.REACT_APP_API_URL;
-  console.log(URL);
 
   useEffect(() => {
     const consultarCategorias = async () => {
@@ -28,7 +24,6 @@ const EditarCategoria = (props) => {
         const res = await fetch(
           process.env.REACT_APP_API_URL + "/categorias/categoria/" + id
         );
-        console.log(res);
         if (res.status === 200) {
           const resp = await res.json();
           setNombreCat(resp);
@@ -38,15 +33,10 @@ const EditarCategoria = (props) => {
       }
     };
     consultarCategorias();
-  }, []);
-
-  const cambioCategoria = (e) => {
-    setCategoria(e.target.value);
-  };
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //  let catModificada = (categoria === "")?(nombreCategoria.nombreCategoria):(categoria);
 
     if (campoRequerido(nombreCategoriaRef.current.value)) {
       setErr(false);
@@ -74,7 +64,7 @@ const EditarCategoria = (props) => {
 
           props.setConsultarCat(!props.consultarCat);
 
-          props.history.push("/menu-categorias");
+          props.history.push(`/menu-categorias/${tok}`);
         }
       } catch (error) {
         console.log(error);
@@ -96,7 +86,7 @@ const EditarCategoria = (props) => {
           <h1 className="mt-5">Editar Categoria</h1>
           <Form
             onSubmit={handleSubmit}
-            className="my-3 p-3 border border-secundary"
+            className="my-3 p-3 border border-secondary"
           >
             <Form.Group>
               <Form.Label>Nombre Categoria</Form.Label>
@@ -105,7 +95,6 @@ const EditarCategoria = (props) => {
               type="text"
               ref={nombreCategoriaRef}
               defaultValue={nombreCategoria.nombreCategoria}
-              onChange={cambioCategoria}
             />
             <Form.Group className="d-flex justify-content-end">
               <Button className="my-3 mx-2" variant="primary" type="submit">
@@ -131,11 +120,14 @@ const EditarCategoria = (props) => {
           <h1 className="mt-5">Categorias existentes</h1>
           <ListGroup className="my-3">
             {props.categorias.map((cat) => (
-              <ItemCategoria
+              <ListGroup.Item
+                className="d-flex justify-content-between align-items-center"
                 cat={cat}
                 key={cat._id}
-                consultarCat={props.consultarCat}
-              />
+                setConsultarCat={props.setConsultarCat}
+              >
+                <h5 className="text-dark">{cat.nombreCategoria}</h5>
+              </ListGroup.Item>
             ))}
           </ListGroup>
         </Col>

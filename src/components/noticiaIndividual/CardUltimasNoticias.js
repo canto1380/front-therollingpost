@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 
 const CardUltimasNoticias = (props) => {
     const {ultimas3noticias} = props
-    console.log(ultimas3noticias)
     ultimas3noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
     ultimas3noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
-
-    let url = `${process.env.REACT_APP_API_URL}/noticias/foto`
 
     return (
         <Container fluid className="p-0 component-mas-leidas">
@@ -21,18 +18,18 @@ const CardUltimasNoticias = (props) => {
                 {/* Map donde recorre las primeras 5 noticias  */}
                 {
                     ultimas3noticias.map((mas) => (
-                        <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria}/${mas._id}`}>
-                            {/* // `/noti/${not.categoria}/${not._id}`> */}
+                        <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
                             <Row className="d-flex-justify-content-between card-masLeidas">
                                 <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
                                     <Image src={mas.foto} rounded className="img-items-noticias" />
                                 </Col>
                                 <Col xs={10} sm={9} className="p-1">
                                     <div>
-                                        <p className="mb-0">{mas.titulo}</p>
+                                        <h3 className="mb-0">{mas.titulo}</h3>
+                                        <p className="lead">{mas.descripcion}</p>
                                     </div>
                                     <div className="">
-                                        <p className="text-success text-end mb-0 qww">{mas.hora}</p>
+                                        <p className="text-secondary text-end mb-0 qww">{mas.hora}</p>
                                     </div>
                                 </Col>
                             </Row>

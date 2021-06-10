@@ -6,8 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
-  const { noticias, consultarNoticias, setConsultarNoticias } = props;
-
+  const { noticias, consultarNoticias, setConsultarNoticias, tok } = props;
   return (
     <Container className="mb-3">
       <h1 className="text-center mt-3">Menu de Administración de Noticias</h1>
@@ -15,13 +14,13 @@ const NoticiasMenu = (props) => {
       <Form>
         <section className="row my-3">
           <div className="col-sm-12 col-md-10 ">
-            <h4>Agregar Noticia</h4>
+            <h4>Agregar noticia</h4>
           </div>
           <div className="col-sm-12 col-md-2">
             <div className="d-flex justify-content-end">
               <Link
                 className="btn btn-success text-light botones"
-                to={"/menu-noticias/agregar-noticia"}
+                to={`/menu-noticias/agregar-noticia/${tok}`}
                 title="Agregar noticia"
               >
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
@@ -30,12 +29,12 @@ const NoticiasMenu = (props) => {
           </div>
         </section>
         <hr />
-        <h2 className="text-center my-3">Listado de Noticias</h2>
+        <h2 className="text-center my-3"><span className="backcolor badge"><i>Listado de Noticias</i></span></h2>
         <Table className="border my-3" striped bordered hover responsive>
           <thead>
             <tr>
               <th>Titulo de Noticia</th>
-              <th>Categoria</th>
+              <th>Categoría</th>
               <th>Funcionalidades</th>
             </tr>
           </thead>
@@ -43,13 +42,14 @@ const NoticiasMenu = (props) => {
             {noticias.map((noticia) => (
               <tr noticia={noticia} key={noticia._id}>
                 <td>{noticia.titulo}</td>
-                <td>{noticia.categoria}</td>
+                <td>{noticia.categoria.nombreCategoria}</td>
                 <td>
                   <ItemBotonera
                     noticia={noticia}
                     key={noticia._id}
                     consultarNoticias={consultarNoticias}
                     setConsultarNoticias={setConsultarNoticias}
+                    tok={tok}
                   ></ItemBotonera>
                 </td>
               </tr>

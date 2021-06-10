@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Container, Form, Button, Row, Col, ListGroup } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import ItemCategoria from "./ItemCategoria";
 import { campoRequerido } from "../helpers/helpers";
 import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-  const { consultarCat, setConsultarCat, categorias } = props;
+  const { consultarCat, setConsultarCat, categorias, tok } = props;
 
   const url = process.env.REACT_APP_API_URL + "/categorias/addCategoria";
 
@@ -73,13 +72,13 @@ const AgregarCategoria = (props) => {
     <Container>
       <Row className="d-flex justify-content-between">
         <Col sm={12} lg={6}>
-          <h1 className="mt-5">Agregar categoria</h1>
+          <h1 className="mt-5">Agregar categoría</h1>
           <Form
             onSubmit={handleSubmit}
             className="my-3 p-3 border border-secundary"
           >
             <Form.Group>
-              <Form.Label>Nombre Categoria</Form.Label>
+              <Form.Label>Nombre categoría</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Nombre categoria"
@@ -93,7 +92,7 @@ const AgregarCategoria = (props) => {
               <Link
                 className="my-3 btn btn-primary"
                 variant="primary"
-                to={"/menu-categorias"}
+                to={`/menu-categorias/${tok}`}
               >
                 Volver
               </Link>
@@ -102,14 +101,17 @@ const AgregarCategoria = (props) => {
           </Form>
         </Col>
         <Col sm={12} lg={6}>
-          <h1 className="mt-5">Categorias existentes</h1>
+          <h1 className="mt-5">Categorías existentes</h1>
           <ListGroup className="my-3">
             {categorias.map((cat) => (
-              <ItemCategoria
+              <ListGroup.Item
+                className="d-flex justify-content-between align-items-center"
                 cat={cat}
                 key={cat._id}
                 setConsultarCat={props.setConsultarCat}
-              />
+              >
+                <h5 className="text-dark">{cat.nombreCategoria}</h5>
+              </ListGroup.Item>
             ))}
           </ListGroup>
         </Col>

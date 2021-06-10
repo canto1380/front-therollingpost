@@ -1,25 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
-import { useParams, withRouter } from "react-router-dom";
-
+import { useParams, withRouter, Link } from "react-router-dom";
 import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+const url = process.env.REACT_APP_API_URL;
 
 const EditarNoticia = (props) => {
   const { id } = useParams();
   //Variables useRef
-  const tituloNoticiaRef = useRef("");
-  const subtituloNoticiaRef = useRef("");
-  const resumenNoticiaRef = useRef("");
-  const autorRef = useRef("");
-  const imagenRef = useRef("");
-  const piedefotoRef = useRef("");
+  const tituloNoticiaRef = useRef();
+  const subtituloNoticiaRef = useRef();
+  const resumenNoticiaRef = useRef();
+  const autorRef = useRef();
+  const imagenRef = useRef();
+  const piedefotoRef = useRef();
   // creo los state
   const [noticias, setNoticia] = useState({});
-  const [categoria, setCategoria] = useState("");
   const [error, setError] = useState(false);
-  const url = process.env.REACT_APP_API_URL;
-  const { categorias, setConsultarCat } = props;
+  const { categorias, tok } = props;
   //Feed
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
@@ -37,9 +37,9 @@ const EditarNoticia = (props) => {
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
   const expresiones = {
-    texto: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras, numeros
-    autor: /^[a-zA-Z0-9-ZÀ-ÿ\s]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[a-zA-Z0-9-ZÀ-ÿ\s]{2000,}$/,
+    texto: /^[^\n]{12,}$/, // Letras, numeros
+    autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    resumen: /^[\s\S]{25,}$/,
   };
 
   //Validaciones
@@ -47,7 +47,7 @@ const EditarNoticia = (props) => {
     setTitValid("");
     setTitInvalid("");
     let titulo = expresiones.texto;
-    if (tituloNoticiaRef.trim() !== "" && titulo.test(tituloNoticiaRef)) {
+    if (tituloNoticiaRef.current.value.trim() !== "" && titulo.test(tituloNoticiaRef.current.value)) {
       setTitValid(true);
       return false;
     } else {
@@ -59,7 +59,7 @@ const EditarNoticia = (props) => {
     setSubTValid("");
     setSubTInvalid("");
     let texto = expresiones.texto;
-    if (subtituloNoticiaRef.trim() !== "" && texto.test(subtituloNoticiaRef)) {
+    if (subtituloNoticiaRef.current.value.trim() !== "" && texto.test(subtituloNoticiaRef.current.value)) {
       setSubTValid(true);
       return false;
     } else {
@@ -72,7 +72,7 @@ const EditarNoticia = (props) => {
     setAutorValid("");
     setAutorInvalid("");
     let nombre = expresiones.autor;
-    if (autorRef.trim() !== "" && nombre.test(autorRef)) {
+    if (autorRef.current.value.trim() !== "" && nombre.test(autorRef.current.value)) {
       setAutorValid(true);
       return false;
     } else {
@@ -85,7 +85,7 @@ const EditarNoticia = (props) => {
     setResValid("");
     setResInvalid("");
     let res = expresiones.resumen;
-    if (resumenNoticiaRef.trim() !== "" && res.test(resumenNoticiaRef)) {
+    if (resumenNoticiaRef.current.value.trim() !== "" && res.test(resumenNoticiaRef.current.value)) {
       setResValid(true);
       return false;
     } else {
@@ -97,7 +97,7 @@ const EditarNoticia = (props) => {
   const valCat = () => {
     setCatValid("");
     setCatInvalid("");
-    if (categoria === "") {
+    if (noticias.categoria !== "") {
       setCatValid(true);
       return false;
     } else {
@@ -108,7 +108,7 @@ const EditarNoticia = (props) => {
   const valImg = () => {
     setImgValid("");
     setImgInvalid("");
-    if (imagenRef === "") {
+    if (imagenRef.current.value.trim() !== "") {
       setImgValid(true);
       return false;
     } else {
@@ -121,7 +121,7 @@ const EditarNoticia = (props) => {
     setPieImgValid("");
     setPieImgInvalid("");
     let texto = expresiones.texto;
-    if (piedefotoRef !== "" && texto.test(piedefotoRef)) {
+    if (piedefotoRef.current.value.trim() !== "" && texto.test(piedefotoRef.current.value)) {
       setPieImgValid(true);
       return false;
     } else {
@@ -131,40 +131,41 @@ const EditarNoticia = (props) => {
   };
 
   useEffect(() => {
-    consultarNoticia();
-  }, []);
-
-  const consultarNoticia = async () => {
-    try {
-      const respuesta = await fetch(url + "/noticias/" + id);
-      //console.log(respuesta);
-      if (respuesta.status === 200) {
-        const resp = await respuesta.json();
-        setNoticia(resp);
+    const consultarNoticia = async () => {
+      try {
+        const respuesta = await fetch(url + "/noticias/" + id);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          setNoticia(resp);
+        }
+      } catch (error) {
+        console.log(error);
+        //Cartel de error que aguarde unos instantes
       }
-    } catch (error) {
-      console.log(error);
-      //Cartel de error que aguarde unos instantes
-    }
-  };
+    };
+    consultarNoticia();
+  }, [id]);
+ 
   const cambioCategoria = (e) => {
-    setCategoria(e.target.value);
+    setNoticia({ ...noticias, categoria: e.target.value });
+  };
+
+  const cambioDescripNoticia = (e) => {
+    setNoticia({ ...noticias, descripNoticia: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let categoriaModificada = categoria === "" ? noticias.categoria : categoria;
-
     //validar los datos
-    if (
-      valTit(tituloNoticiaRef.current.value) &&
-      valSubT(subtituloNoticiaRef.current.value) &&
-      valResumen(resumenNoticiaRef.current.value) &&
-      valAutor(autorRef.current.value) &&
-      valImg(imagenRef.current.value) &&
-      valCat(categoriaModificada) &&
-      valPieImg(piedefotoRef)
-    ) {
+    if( !(
+      valTit(tituloNoticiaRef.current.value) ||
+      valSubT(subtituloNoticiaRef.current.value) ||
+      valResumen(resumenNoticiaRef.current.value) ||
+      valAutor(autorRef.current.value) ||
+      valImg(imagenRef.current.value) ||
+      valCat(noticias.categoria) ||
+      valPieImg(piedefotoRef.current.value)
+    ) ){
       setError(false);
       try {
         const noticiaModificada = {
@@ -173,8 +174,8 @@ const EditarNoticia = (props) => {
           descripNoticia: resumenNoticiaRef.current.value,
           autor: autorRef.current.value,
           foto: imagenRef.current.value,
-          categoria: categoriaModificada,
-          pieDeImagen: piedefotoRef.current.value,
+          categoria: noticias.categoria,
+          pieDeFoto: piedefotoRef.current.value,
           hora: moment().format("HH:mm"),
           fecha: moment().format("DD MMMM, YYYY"),
         };
@@ -192,7 +193,7 @@ const EditarNoticia = (props) => {
           //
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
-          props.history.push("/menu-noticias");
+          props.history.push("/menu-noticias/tok");
           e.target.reset();
         }
       } catch (error) {
@@ -203,22 +204,36 @@ const EditarNoticia = (props) => {
     }
     //si falla la validacion que de un error
   };
+  
   return (
     <Container>
       <Form
         className="mt-4 m-3 border rounded bg-light"
         onSubmit={handleSubmit}
       >
-        <section className="mb-3 m-0 p-0 py-2 backcolor text-white">
-          <div className="m-0 p-0">
-            <h1 className="text-center">Editar Noticia: </h1>
+    <section className="row mb-3 m-0 py-2 backcolor text-white rounded-top">
+          <div className="col-sm-12 col-md-10 m-0 p-0">
+            <h1 className="mx-1 ps-2"><i>Formulario de  edición de noticia: </i></h1>
+          </div>
+          <div className="col-sm-12 col-md-2 m-0 p-0">
+            <div className="d-flex justify-content-end pt-1 mx-1">
+              <Link
+                className="btn btn-primary text-light mx-1"
+                to={`/menu-noticias/${tok}`}
+              >
+                <FontAwesomeIcon
+                  className="fa-2x"
+                  icon={faNewspaper}
+                ></FontAwesomeIcon>
+              </Link>
+            </div>
           </div>
         </section>
         <div className="m-2">
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Titulo de la Noticia:</b>
+               <i><b>Titulo de la Noticia:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -239,7 +254,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Subtitulo:</b>
+               <i><b>Subtitulo:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -260,7 +275,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Autor:</b>
+               <i><b>Autor:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -280,11 +295,11 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Resumen</b>
+               <i><b>Resumen</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="6500"
+              maxLength="5000"
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
@@ -292,36 +307,35 @@ const EditarNoticia = (props) => {
               onBlur={valResumen}
               isValid={resValid}
               isInvalid={resInvalid}
+              onChange={cambioDescripNoticia}
             />
             <Form.Label>
-              <p>{resumenNoticiaRef.length}/6500</p>
+              <p>{noticias.descripNoticia?.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 2000-5000
+              Campo Obligatorio, al menos debe contener entre 500-5000
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Categoria</b>
+               <i><b>Categoria</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
               as="select"
-              selected
-              value={noticias.categoria}
+              value={noticias.categoria?._id}
               onChange={cambioCategoria}
               onBlur={valCat}
               isValid={catValid}
               isInvalid={catInvalid}
             >
-              <option>Seleccione..</option>
+              <option>Seleccione una categoría</option>
               {categorias.map((cat) => (
                 <option
                   key={cat._id}
-                  label={cat.nombreCategoria}
-                  value={cat.nombreCategoria}
+                  value={cat._id}
                 >
                   {cat.nombreCategoria}
                 </option>
@@ -331,27 +345,33 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Imagen:</b>
+               <i><b>Imagen:</b></i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
               ref={imagenRef}
               defaultValue={noticias.foto}
+              onBlur={valImg}
+              isValid={imgValid}
+              isInvalid={imgInvalid}
             ></Form.Control>
             <Image width="100" src={noticias.foto} />
           </Form.Group>
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-                *<b>Pie de Imagen:</b>
+               <i><b>Pie de Imagen:</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
               maxLength="25"
               type="text"
               placeholder="Choque en la Ruta Nacional"
+              onBlur={valPieImg}
               ref={piedefotoRef}
-              defaultValue={noticias.pieDeImagen}
+              defaultValue={noticias.pieDeFoto}
+              isValid={pieImgValid}
+              isInvalid={pieImgInvalid}
             />
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, Debe escribir de 12-25 caracteres.
@@ -364,12 +384,12 @@ const EditarNoticia = (props) => {
             variant="warning"
             type="submit"
           >
-            Editar
+        <big><b><i>Editar</i></b></big>    
           </Button>
         </div>
         {error ? (
           <Alert variant="danger" className=" mt-3 mb-0">
-            Todos los campos deben ser validados!
+            Todos los campos deben ser completados!
           </Alert>
         ) : null}
       </Form>

@@ -10,7 +10,7 @@ import MsjError from './MsjError'
 
 const Suscripcion = (props) => {
 
-  const {setConsultarClientes, clientes, setClientes}=props;
+  const {setConsultarClientes, clientes}=props;
 
   const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
 
@@ -51,7 +51,7 @@ setClient({...client, [e.target.name]: e.target.value})
     /*Expresiones regulares para validaciones*/
     const expresiones = {
       nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/,  // Letras y espacios, pueden llevar acentos.
-      email:  /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
+      email:  /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
       cp: /^[0-9]{4,8}$/,
       tel: /^[0-9]{10,15}$/,
       pas:/^[a-z0-9_-]{6,15}$/
@@ -74,11 +74,9 @@ setClient({...client, [e.target.name]: e.target.value})
       let nom = expresiones.nombre
       if(client.nomAp.trim() !=="" && nom.test(client.nomAp) && client.nomAp.length <=40){
         setNomValid(true)
-        console.log("nombre valido")
         setVNom(true)
         
       }else{
-        console.log("nombre invalido")
         setNomInvalid(true)
         setVNom(false)
         // return false
@@ -90,11 +88,9 @@ setClient({...client, [e.target.name]: e.target.value})
       
       if(client.direccion.trim() !== ""  ){
         setDirecValid(true);
-        console.log(" direccion valido")
         setVDir(true)
       }else{  
         setDirecInvalid(true)
-        console.log(" direccion invalido")
         setVDir(false)
     }
   }
@@ -103,11 +99,9 @@ setClient({...client, [e.target.name]: e.target.value})
       setLocValid("");
       let local= expresiones.nombre
       if(client.localidad.trim() !== "" && local.test(client.localidad) ){
-        console.log(" localidad valido")
         setLocValid(true);
         setVLoc(true)
       }else{
-        console.log(" localidad invalido")
         setLocInvalid(true)
         setVLoc(false)
         
@@ -118,11 +112,9 @@ setClient({...client, [e.target.name]: e.target.value})
       setCpValid("");
       let codP= expresiones.cp;
       if(client.codigoPostal.trim() !=="" && codP.test(client.codigoPostal) ){
-        console.log("cp valido")
         setCpValid(true);
        setVCP(true)
       }else{
-        console.log("cp invalido")
         setCpInvalid(true);
         setVCP(false)
       }
@@ -133,10 +125,8 @@ setClient({...client, [e.target.name]: e.target.value})
       let telef = expresiones.tel
       if(client.telefono.trim() !=="" && telef.test(client.telefono)){
         setTelValid(true);
-        console.log("tel valido")
        setVTel(true)
       }else{
-        console.log("tel invalido")
         setTelInvalid(true);
         setVTel(false)
       }
@@ -147,7 +137,6 @@ setClient({...client, [e.target.name]: e.target.value})
       let mail = expresiones.email
       if(client.email.trim() !=="" && mail.test(client.email) ){
         setEmailValid(true);
-        console.log("email valido")
         setVEmail(true)
       }else{
         setEmailInvalid(true);
@@ -160,34 +149,27 @@ setClient({...client, [e.target.name]: e.target.value})
       let pass = expresiones.pas
       if(client.password.trim()!=="" && pass.test(client.password)){
         setPassValid(true);
-        console.log("pass valido")
         setVPass(true)
       }else{
         setPassInvalid(true);
-        console.log("pass invalido")
        setVPass(false)
       }
     } 
     const validarPlan = (e)=>{
       if(client.plan!==""){
-        console.log("plan elegido")
         setVPlan(true)
       }else{
-        console.log("elija un plan")
         setVPlan(false)
       }
     } 
     const validarTerminos=(e)=>{
       setInvalidTerms("")
       if(e.target.checked){
-        console.log("terminos aceptados")
         setTerms(true)
         
       }else{
-        console.log("Tiene que aceptar terminos")
         setTerms(false)
         setInvalidTerms(true)
-        
       }
     }
 
@@ -234,12 +216,9 @@ const handleSubmit = async(e)=>{
         e.preventDefault();
    
       if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vPlan && terms){
-        console.log("creando clientes")
         setError(false)
 
-        const cliente = client
-        console.log(cliente)
-        
+        const cliente = client        
         try{
           const configuracion = {
             method: "POST" ,
@@ -248,11 +227,9 @@ const handleSubmit = async(e)=>{
             },
           body: JSON.stringify(cliente)
         };
-        console.log(configuracion)
 
         const respuesta = await fetch (URL, configuracion);
 
-        console.log(respuesta)
         if(respuesta.status===201){
           const mensajeSuscripcion = {
             nombre: client.nomAp,
@@ -266,7 +243,6 @@ const handleSubmit = async(e)=>{
             Password: ${client.password}`,  
             plan: `Plan: ${client.plan}`
           };
-          console.log(mensajeSuscripcion);
     
           emailjs
             .send(
@@ -284,7 +260,6 @@ const handleSubmit = async(e)=>{
                     'success'
                   );
                 }
-                console.log(result);
                 
               },
               async(error) => {
@@ -303,7 +278,6 @@ const handleSubmit = async(e)=>{
                         }
                     }
                     const res = await fetch(url, config)
-                    console.log(res)
                     if(res.status === 200){
                       console.log("intente nuevamente")
               }
@@ -315,7 +289,6 @@ const handleSubmit = async(e)=>{
             );
 
           // props.history.push("./");
-           
           setConsultarClientes(true);
           console.log(clientes)
           e.target.reset();
@@ -338,11 +311,10 @@ const handleSubmit = async(e)=>{
       }   
         } 
 
-
     return (
         <Container className="my-4">
           <div className="text-center my-3">
-          <h1 >Mantente al día con la noticias del mundo</h1>
+          <h1 >Mantente al día con las noticias del mundo</h1>
           <h5 className="">Accedé sin límite a información de la mejor calidad</h5>
           </div>
           <div className="row">
@@ -443,7 +415,7 @@ const handleSubmit = async(e)=>{
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Email incorrectos</Form.Control.Feedback> 
         </Form.Group>
         <Form.Group  className="mt-2">
-          <Form.Label><b>*Password</b></Form.Label>
+          <Form.Label><b>Contraseña</b></Form.Label>
           <Form.Control 
           type="password" 
           placeholder="Ingrese su contraseña"
@@ -462,7 +434,7 @@ const handleSubmit = async(e)=>{
         name="plan" 
         inline 
         label="Plan de Acceso individual"  
-        value="individual" 
+        value="Plan individual" 
         onChange={handleValores} 
         onBlur={validarPlan} />
         <Form.Check
@@ -470,7 +442,7 @@ const handleSubmit = async(e)=>{
          name="plan" 
          inline 
          label="Plan de Acceso Familiar" 
-          value="familiar" 
+          value="Plan familiar" 
           onChange={handleValores} 
           onBlur={validarPlan}  />
         </FormGroup>

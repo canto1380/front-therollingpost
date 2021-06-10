@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {  Button, ListGroupItem, Badge  } from 'react-bootstrap';
+import {  Button, ListGroupItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCheck, faUserTimes, faUserMinus } from '@fortawesome/free-solid-svg-icons'
 import Swal from "sweetalert2";
+import emailjs from "emailjs-com"
 
 
 const ItemClientes = (props) => {
@@ -13,8 +14,47 @@ const ItemClientes = (props) => {
     const aceptarSuscripcion = () =>{
         setBtnAceptRech(true)
         setBtnCancelar(false)
-    }
+        
+        try{
+          const msjAceptar = {
+            to_name: props.clientes.nomAp,
+            to_email: props.clientes.email
+          };
+          console.log(msjAceptar);
 
+          emailjs
+          .send(
+            "service_rv2mgme",
+            "template_dbxgmzc",
+            msjAceptar,
+            "user_wpyRroNYiS1PONkZ8OEJe"
+          )
+          .then(
+            (result) => {
+              if (result.status === 200) {
+                Swal.fire(
+                  'Solicitud aceptada',
+                  "la solicitud de suscripcion ha sido aceptada",
+                  'success'
+                );
+              }
+              console.log(result);
+              setBtnAceptRech(true)
+        setBtnCancelar(false)
+            },
+            async(error) => {
+              console.log(error.text);
+              Swal.fire(
+                'A ocurrido un error',
+                'Por favor intentelo de nuevo mas tarde',
+                'warning'
+              )
+      })
+        }catch(error){
+          console.log(error)
+        }
+      }
+  
     const rechazarCancelarSuscripcion = (id)=> {
         Swal.fire({
             title: 'Esta seguro que desea cancelar o rechazar la suscripcion?',
@@ -27,7 +67,6 @@ const ItemClientes = (props) => {
             cancelButtonText: "Cancelar"
           }).then(async(result) => {
             if (result.isConfirmed) {
-              
               const URL = `${process.env.REACT_APP_API_URL}/clientes/${id}`;
               try{
                 const respuesta = await fetch(URL, {
@@ -38,13 +77,14 @@ const ItemClientes = (props) => {
                 } ); 
                 console.log(respuesta);
                 if(respuesta.status ===200){
+                  props.setConsultarClientes(!props.consultarClientes);
                   console.log(URL)
                   Swal.fire(
                     'Eliminada',
                     'La suscripcion ha sido cancelada o rechazada',
                     'success'
                   )
-                props.setConsultarClientes(true);
+                  props.setConsultarClientes(!props.consultarClientes);
                 }
               }catch(error){
                   console.log(error)
@@ -59,34 +99,24 @@ const ItemClientes = (props) => {
           })
         };  
     
-
     return (
-
         <ListGroupItem>
- <div className="row">
+ <div className="row d-flex align-content-center">
                 <div className="col-sm-6 col-md-4 col-lg-4">
-                <p>{props.clientes.email} <Badge variant="warning">Solicitud Pendiente</Badge></p>
-                
+                <p>{props.clientes.email} <span className="badge bg-warning" hidden={btnAceptRech}>Pendiente</span> </p>
                 </div>
                 <div className="col-sm-6 col-md-4 col-lg-4">
-                <p> {props.clientes.plan}</p>
+                <p><b><i>{props.clientes.plan}</i></b></p>
                 </div>
                 <div className="col-sm-6 col-md-4 col-lg-4 d-flex justify-content-end">
-                        <Button variant="success" className="mx-3" hidden={btnAceptRech} onClick={()=>aceptarSuscripcion()}> <FontAwesomeIcon icon={faUserCheck}></FontAwesomeIcon>Aceptar</Button>
-                        <Button variant="danger" className="mx-3" hidden={btnAceptRech} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)}><FontAwesomeIcon icon={faUserTimes}></FontAwesomeIcon>Rechazar</Button>
-                        <Button variant="danger" className="mx-3" hidden={btnCancelar} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)}><FontAwesomeIcon icon={faUserMinus}></FontAwesomeIcon>Cancelar suscripcion</Button>
+                        <Button variant="success" className="mx-3 " hidden={btnAceptRech} onClick={()=>aceptarSuscripcion()} title="Aceptar suscripción"> <FontAwesomeIcon icon={faUserCheck} className="fa-lg"></FontAwesomeIcon></Button>
+                        <Button variant="danger" className="mx-3" hidden={btnAceptRech} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Rechazar suscripción"><FontAwesomeIcon icon={faUserTimes} className="fa-lg"></FontAwesomeIcon></Button>
+                        <Button variant="danger" className="mx-3" hidden={btnCancelar} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Cancelar suscripción"><FontAwesomeIcon icon={faUserMinus} className="fa-lg"></FontAwesomeIcon></Button>
                 </div>
                 
                 
             </div>
-              {/* <tr>
-             <td>{props.clientes.email}</td>
-             <td>{props.clientes.plan}</td>
-             <td className="d-flex justify-content-end">
-              <Button variant="success" className="mx-2">Aceptar</Button>
-                 <Button variant="danger" className="mx-2">Rechazar</Button>
-             </td>
-             </tr> */}
+              
         </ListGroupItem>
        
 

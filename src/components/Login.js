@@ -3,7 +3,7 @@ import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
-import { authenticate, setToken, signin } from "../helpers/helpers";
+import { authenticate, signin } from "../helpers/helpers";
 
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
@@ -41,7 +41,6 @@ const Login = (props) => {
 
   /*variables */
   let mensaje;
-  const url = process.env.REACT_APP_API_URL + "/user/signin";
 
   const handleValores = (e) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -54,19 +53,12 @@ const Login = (props) => {
       clave: usuario.password,
     };
     // try {
-    const config = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(valoresUser),
-    };
+
     /* OPCION CON SIGNIN EXPORTADA */
     signin(valoresUser)
       .then((data) => {
         if (data.error) {
-          setUsuario({ ...usuario, error: data.error, cargando: false });
+          setUsuario({ ...usuario });
           console.log("error");
           console.log("ERRRORRRR");
           setErr(true);
@@ -106,6 +98,7 @@ const Login = (props) => {
             /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
               props.history.push(`/`);
+              props.setConsultarToken(!props.consultarToken);
             }
           });
         }
@@ -130,7 +123,9 @@ const Login = (props) => {
   return (
     <Container>
       <div>
-        <h1 className="display-1 mt-4 mb-3">Bienvenido!</h1>
+        <h1 className="display-1 mt-4 mb-3">
+          <i>Bienvenido!</i>
+        </h1>
       </div>
       <Row className="mt-3 d-flex justify-content-around">
         <Col sm={6} md={8}>
@@ -140,7 +135,11 @@ const Login = (props) => {
         </Col>
         <Col sm={6} md={4}>
           <div className="">
-            <h1 className="text-center">Ingrese a su cuenta</h1>
+            <h1 className="text-center">
+              <badge className="backcolor text-light px-3 pt-0 pb-2 rounded-3">
+                <i>Ingrese a su cuenta</i>
+              </badge>
+            </h1>
             <div>
               <Form className="my-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicEmail">

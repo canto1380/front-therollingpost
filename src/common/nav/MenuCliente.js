@@ -8,9 +8,9 @@ import "../../App.css"
 const MenuCliente = () => {
     return (
         <Nav>
-            <Button variant="outline-light botones-navbar" className="p-0 me-2">
+            <Button variant="botones-navbar" className="p-0 me-2">
               <NavLink
-                className="btn text-light text-hover"
+                className="btn btn-outline-light"
                 exact={true}
                 to={"/suscripcion"}
               >
@@ -21,9 +21,9 @@ const MenuCliente = () => {
                 Suscribirse
               </NavLink>
             </Button>
-            <Button variant="outline-light botones-navbar" className="p-0">
+            <Button variant="botones-navbar" className="p-0">
               <NavLink
-                className="btn text-light text-hover"
+                className="btn btn-outline-light"
                 exact={true}
                 to={"/inicio-sesion"}
               >

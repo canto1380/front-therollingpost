@@ -4,27 +4,28 @@ import { Link, useParams } from "react-router-dom";
 
 const PreviewNoticia = (props) => {
   const { id } = useParams();
-
+  const {tok} = props
   // states
   const [noticia, setNoticia] = useState({});
 
   useEffect(() => {
-    consultarNoticia();
-  }, []);
-
-  const consultarNoticia = async () => {
-    try {
-      const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
-      const respuesta = await fetch(url);
-      if (respuesta.status === 200) {
-        const resp = await respuesta.json();
-        setNoticia(resp);
+    const consultarNoticia = async () => {
+      try {
+        const url = process.env.REACT_APP_API_URL + "/noticias/" + id;
+        const respuesta = await fetch(url);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          setNoticia(resp);
+        }
+      } catch (error) {
+        console.log(error);
+        //cartel de error
       }
-    } catch (error) {
-      console.log(error);
-      //cartel de error
-    }
-  };
+    };
+    consultarNoticia();
+  }, [id]);
+
+ 
 
   return (
     <Container>
@@ -37,7 +38,9 @@ const PreviewNoticia = (props) => {
       </div>
       <Card className="mt-5 mb-3">
         <Card.Header>
-          <p className="display-6">{noticia.categoria}</p>
+          <p className="display-6">
+            {noticia.categoria?.nombreCategoria}
+          </p>
         </Card.Header>
         <Card.Body>
           <Card.Title>
@@ -61,6 +64,12 @@ const PreviewNoticia = (props) => {
                   <h5>{noticia.pieDeImagen}</h5>
                 </div>
               </div>
+              <div className="col-12 border mb-2">
+                <h5>
+                  {noticia.pieDeFoto}
+                </h5>
+              </div>
+            </div>
             </div>
           </div>
         </Card.Body>
@@ -68,8 +77,10 @@ const PreviewNoticia = (props) => {
           <h5>{noticia.autor}</h5>
         </Card.Footer>
       </Card>
+              )
+            
       <div className="d-flex justify-content-center mb-5">
-        <Link className="btn btn-info text-light w-75" to={"/menu-noticias"}>
+        <Link className="btn btn-info text-light w-75" to={`/menu-noticias/${tok}`}>
           Volver a Noticias
         </Link>
       </div>
