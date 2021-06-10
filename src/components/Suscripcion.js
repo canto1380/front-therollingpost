@@ -313,29 +313,29 @@ const handleSubmit = async(e)=>{
 
     return (
         <Container className="my-4">
-          <div className="text-center my-3">
-          <h1 >Mantente al día con las noticias del mundo</h1>
-          <h5 className="">Accedé sin límite a información de la mejor calidad</h5>
+          <div className="text-center my-3 ">
+          <h1 className="backcolor text-light rounded py-1 px-2"><i>Mantente al día con las noticias del mundo</i></h1>
+          <h5><i>Accedé sin límite a información de la mejor calidad</i></h5>
           </div>
           <div className="row">
-        <Card className="col-sm-12 col-md-6 col-lg-4">
+        <Card className="col-sm-12 col-md-6 col-lg-4 border border-secondary rounded">
         <div className="text-center my-3 mx-4">
           <h2>Acceso Digital individual</h2>
             <h3 className="text-primary">{props.individual}<span>/mes</span></h3>
           <img src={suscripcion} className="w-100" alt="" />
           </div>
-          <hr />
+          <hr/>
           <div className="text-center my-3 mx-4">
           <h2>Acceso Digital grupo familiar</h2>
             <h3 className="text-primary">{props.familia}<span>/mes</span></h3>
           <img src={familia} className="w-100" alt="" />
           </div>
         </Card>
-        <Card className="col-sm-12 col-md-6 col-lg-8">  
+        <Card className="col-sm-12 col-md-6 col-lg-8 border-start-0 border-secondary rounded">  
             <div className="mx-4 my-4">   
-        <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label><b>*Nombre y Apellido</b></Form.Label>
+        <Form onSubmit={handleSubmit} >
+        <Form.Group className="border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Nombre y Apellido</b></i></Form.Label>
           <Form.Control 
           type="text" 
           placeholder="Ingrese su nombre y apellido" 
@@ -347,8 +347,8 @@ const handleSubmit = async(e)=>{
           isInvalid={nomInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Label><b>*Dirección</b></Form.Label>
+        <Form.Group className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Dirección</b></i></Form.Label>
           <Form.Control 
           type="text" 
           placeholder="Ingrese su dirección" 
@@ -360,8 +360,8 @@ const handleSubmit = async(e)=>{
           isInvalid={direcInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Label><b>*Localidad</b></Form.Label>
+        <Form.Group className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Localidad</b></i></Form.Label>
           <Form.Control 
           type="text" 
           placeholder="Ingrese la localidad donde vive"
@@ -373,8 +373,8 @@ const handleSubmit = async(e)=>{
           isInvalid={locInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Label><b>*Código Postal</b></Form.Label>
+        <Form.Group className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Código Postal</b></i></Form.Label>
           <Form.Control 
           type="number" 
           placeholder="Ingrese su codigo postal" 
@@ -387,8 +387,8 @@ const handleSubmit = async(e)=>{
           isInvalid={cpInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Label><b>*Teléfono</b></Form.Label>
+        <Form.Group className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Teléfono</b></i></Form.Label>
           <Form.Control 
           type="number" 
           placeholder="Ingrese su numero de telefono"
@@ -401,8 +401,8 @@ const handleSubmit = async(e)=>{
           isInvalid={telInvalid} />
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe contener numero de area y telefono</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group className="mt-2">
-          <Form.Label> <b>*Email</b></Form.Label>
+        <Form.Group className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Email</b></i></Form.Label>
           <Form.Control 
           type="email" 
           placeholder="Ingrese su email"
@@ -414,8 +414,8 @@ const handleSubmit = async(e)=>{
           isInvalid={emailInvalid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Email incorrectos</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Group  className="mt-2">
-          <Form.Label><b>Contraseña</b></Form.Label>
+        <Form.Group  className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Contraseña</b></i></Form.Label>
           <Form.Control 
           type="password" 
           placeholder="Ingrese su contraseña"
@@ -427,7 +427,7 @@ const handleSubmit = async(e)=>{
           isInvalid={passInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Su contraseña debe contener entre 6 y 12 caracteres, letras y numeros</Form.Control.Feedback> 
         </Form.Group>
-        <Form.Label className="my-3 "><b>*Seleccione su plan</b></Form.Label>
+        <Form.Label className="my-3 "><i><b>Seleccione su plan</b></i></Form.Label>
         <FormGroup >
         <Form.Check 
         type="radio" 
@@ -454,12 +454,12 @@ const handleSubmit = async(e)=>{
           onChange={terminos} 
           onBlur={validarTerminos} 
           isInvalid={invalidTerms} />
-          <Form.Check.Label>Acepto términos y condiciones</Form.Check.Label>
+          <Form.Check.Label className="ms-2">Acepto términos y condiciones</Form.Check.Label>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe aceptar términos y condiciones</Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex justify-content-center my-4">
-        <Button className="w-75 rounded-pill" variant="primary" type="submit">
-          Suscribirme
+        <Button className="w-75 rounded" variant="primary" type="submit">
+         <b>Suscribirme</b>
         </Button>
           </div>
           {

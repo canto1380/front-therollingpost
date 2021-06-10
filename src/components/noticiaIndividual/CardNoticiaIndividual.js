@@ -10,7 +10,8 @@ const CardNoticiaIndividual = (props) => {
     return (
         <section className="container border border-dark rounded-3 mt-3">
             <div className="mt-1">
-                <h1 className="mb-3 mt-3"><span className="backcolor fs-1 badge text-info px-3 pt-0 pb-2 rounded-3"><big>{not.titulo}</big></span></h1>
+                <div className="backcolor rounded-3"><h1 className="mb-3 mt-3 py-1 px-2"><span className="fs-1  text-light">{not.titulo}</span></h1>
+                </div>
                 <h4><i>{not.descripcion}</i></h4>
             </div>
             <div className="ms-2 text-secondary">

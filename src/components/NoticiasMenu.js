@@ -9,14 +9,16 @@ const NoticiasMenu = (props) => {
   const { noticias, consultarNoticias, setConsultarNoticias, tok } = props;
   return (
     <Container className="mb-3">
-      <h1 className="text-center mt-3"><span className="backcolor badge"><i>Menu de Administración de Noticias</i></span></h1>
+      <div className="backcolor rounded-3 ">
+      <h1 className="text-center mt-3 text-light "><i>Menu de Administración de Noticias</i></h1>
+     </div>
       <hr />
       <Form>
         <section className="row my-3">
-          <div className="col-sm-12 col-md-10 ">
+          <div className="col-10 ">
             <h4><i>Agregar noticia</i></h4>
           </div>
-          <div className="col-sm-12 col-md-2">
+          <div className="col-2">
             <div className="d-flex justify-content-end">
               <Link
                 className="btn btn-success text-light botones"
