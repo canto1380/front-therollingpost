@@ -51,7 +51,7 @@ const Noticia = (props) => {
                     <CardNoticiaIndividual not={not}  />
                 </Col>
                 <Col sm={12} md={8} lg={3} >
-                    <CardMasLeidas  noticias={props.noticias}  categoria={cat}/>
+                    <CardMasLeidas  noticias={noticias}  categoria={cat}/>
                     <Publicidad classnamehidden={hiddenmd} publicidad={PedidosYa} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={covidCuidados} />
                     <Publicidad classnamehidden={hiddenmd} publicidad={RollingLogo} />

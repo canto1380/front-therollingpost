@@ -21,7 +21,7 @@ const CategoriaDestacada = (props) => {
                             // let coment = comentario.filter((c) => c.idNoticia._id === not._id);
                             // let comentLength = coment.length; 
                             return (
-                                <Col xs={12} md={6} lg={3} key={not._id} >
+                                <Col xs={12} md={6} lg={4} key={not._id} >
                                     <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none" >
                                         <div className="card tarjetaNoticia cardTall mt-3">
                                             <img className="card-img-top w-100" src={not.foto} alt="" height="65%"/>

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
-    let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
+    let noticiasXCat = noticias.filter((not) => not.categoria.nombreCategoria === categoria);
     let masLeidas = noticiasXCat.slice(0, 3);
     return (
         <Container fluid>
