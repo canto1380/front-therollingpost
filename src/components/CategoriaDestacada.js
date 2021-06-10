@@ -18,20 +18,20 @@ const CategoriaDestacada = (props) => {
                 {
                     noticias.map((not) => {
                         if (not.categoria.nombreCategoria === props.cat.nombreCategoria) {
-                            let coment = comentario.filter((c) => c.idNoticia._id === not._id);
-                            let comentLength = coment.length; 
+                            // let coment = comentario.filter((c) => c.idNoticia._id === not._id);
+                            // let comentLength = coment.length; 
                             return (
                                 <Col xs={12} md={6} lg={4} key={not._id} >
                                     <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none" >
                                         <div className="card tarjetaNoticia cardTall mt-3">
                                             <img className="card-img-top w-100" src={not.foto} alt="" height="65%"/>
                                             <div className="card-body tarjetaNoticia-body">
-                                                <h5 className="card-title">{not.titulo}</h5>
-                                                <p className="card-text">{not.descripcion}</p>
+                                                <h5 className="card-title titleShort">{not.titulo}</h5>
+                                                <p className="card-text textShort">{not.descripcion}</p>
                                             </div>
                                             <div className="d-flex justify-content-between align-items-center mb-3 mx-3">
                                                 <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
-                                                <p className="my-0 text-muted">{comentLength}<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
+                                                <p className="my-0 text-muted">{}<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
                                             </div>
                                         </div>  
                                     </Link>

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
-
     let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
     let masLeidas = noticiasXCat.slice(0, 3);
     return (
@@ -19,7 +18,6 @@ const CardMasLeidas = (props) => {
             <ListGroup className="my-3">
                 {masLeidas.map((mas) => (
                     <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
-                        {/* // `/noti/${not.categoria}/${not._id}`> */}
                         <Row className="d-flex-justify-content-between card-masLeidas">
                             <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
                                 <Image src={mas.foto} rounded className="img-items-noticias" />

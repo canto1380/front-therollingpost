@@ -254,7 +254,7 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="40"
+              maxLength="100"
               type="text"
               placeholder="Balacera en la Costanera"
               onChange={(e) => setTituloNoticia(e.target.value)}
@@ -274,7 +274,7 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="50"
+              maxLength="100"
               type="text"
               placeholder="Enfrentamiento policial"
               onChange={(e) => setSubtituloNoticia(e.target.value)}

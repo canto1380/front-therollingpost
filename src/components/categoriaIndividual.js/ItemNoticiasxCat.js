@@ -17,8 +17,8 @@ const ItemNoticiasxCat = (props) => {
                   <div className="card tarjetaNoticia cardTall mt-3">
                     <img className="card-img-top w-100" src={not.foto} alt="" />
                     <div className="card-body tarjetaNoticia-body">
-                      <h5 className="card-title">{not.titulo}</h5>
-                      <p className="card-text">{not.descripcion}</p>
+                      <h5 className="card-title titleShort">{not.titulo}</h5>
+                      <p className="card-text textShort">{not.descripcion}</p>
                     </div>
                       <div className="d-flex justify-content-between align-items-center m-3">
                         <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>

@@ -47,14 +47,6 @@ export const authenticate = (data, next) => {
     }
   }
 
-export const campoRequerido = (value) =>{
-    if(value.trim() === ''){
-        return false
-    } else {
-        return true
-    }
-}
-
 export const emailValidacion = (value) =>{
     let expresion = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     if(value.trim() === expresion){

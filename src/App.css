@@ -188,5 +188,15 @@
 }
 
 .cardTall{
-  height: 350px;
+  height: 425px;
+}
+
+.textShort{
+line-height: 15px;
+max-height: 48px;
+}
+
+.titleShort{
+  line-height: 18px;
+  max-height: 48px;
 }

@@ -39,6 +39,7 @@ const EditarNoticia = (props) => {
   const expresiones = {
     texto: /^[^\n]{12,}$/, // Letras, numeros
     autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
+    textoPie: /^[^\n]{7,}$/, // Letras, numeros
     resumen: /^[\s\S]{500,}$/,
   };
 
@@ -120,7 +121,7 @@ const EditarNoticia = (props) => {
   const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
-    let texto = expresiones.texto;
+    let texto = expresiones.textoPie;
     if (piedefotoRef.current.value.trim() !== "" && texto.test(piedefotoRef.current.value)) {
       setPieImgValid(true);
       return false;
@@ -237,7 +238,7 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="40"
+              maxLength="100"
               type="text"
               placeholder="Balacera en la Costanera"
               ref={tituloNoticiaRef}
@@ -258,7 +259,7 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="50"
+              maxLength="100"
               type="text"
               placeholder="Enfrentamiento policial"
               ref={subtituloNoticiaRef}
@@ -320,7 +321,7 @@ const EditarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Categoria</b></i> 
+               <i><b>Categoría</b></i> 
               </Form.Label>
             </InputGroup.Text>
             <Form.Control

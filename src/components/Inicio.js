@@ -27,7 +27,7 @@ const Inicio = (props) => {
     
     <Container className="my-2">
       <Publicidad publicidad={slogan}></Publicidad>
-      <Row className="my-1">
+      <Row className="mt-1">
     <Col sm={10}>
     <NoticiasPrincipal noticias={props.noticias} ultimasNoticias={ultimasNoticias} ultimaNoticia={ultimaNoticia} comentario={comentario}/>
     </Col>
