@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, Figure, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-
 const PreviewNoticia = (props) => {
   const { id } = useParams();
-  const {tok} = props
+  const { tok } = props;
   // states
   const [noticia, setNoticia] = useState({});
-
   useEffect(() => {
     const consultarNoticia = async () => {
       try {
@@ -24,22 +22,26 @@ const PreviewNoticia = (props) => {
     };
     consultarNoticia();
   }, [id]);
-
- 
-
   return (
     <Container>
       <div className="mt-5">
-        <h1 className="text-center">Previsualizacion de Noticia</h1>
-        <p className="text-muted text-center">
-          En esta pagina podras ver como es el maquetado de la noticia antes de
-          publicarla.
+        <h1 className="text-center ">
+          <span className="badge backcolor">
+            <i>Previsualización de Noticia</i>
+          </span>
+        </h1>
+        <p className=" text-center">
+          <big>
+            {" "}
+            En esta pagina podras ver como es el maquetado de la noticia antes
+            de publicarla.
+          </big>
         </p>
       </div>
-      <Card className="mt-5 mb-3">
+      <Card className="mt-5 mb-3 border-dark">
         <Card.Header>
           <p className="display-6">
-            {noticia.categoria?.nombreCategoria}
+            <i>{noticia.categoria?.nombreCategoria}</i>
           </p>
         </Card.Header>
         <Card.Body>
@@ -61,15 +63,9 @@ const PreviewNoticia = (props) => {
                   </Figure>
                 </div>
                 <div className="col-12 border mb-2">
-                  <h5>{noticia.pieDeImagen}</h5>
+                  <h5>{noticia.pieDeFoto}</h5>
                 </div>
               </div>
-              <div className="col-12 border mb-2">
-                <h5>
-                  {noticia.pieDeFoto}
-                </h5>
-              </div>
-            </div>
             </div>
           </div>
         </Card.Body>
@@ -77,15 +73,19 @@ const PreviewNoticia = (props) => {
           <h5>{noticia.autor}</h5>
         </Card.Footer>
       </Card>
-              )
-            
       <div className="d-flex justify-content-center mb-5">
-        <Link className="btn btn-info text-light w-75" to={`/menu-noticias/${tok}`}>
-          Volver a Noticias
+        <Link
+          className="btn btn-info text-light w-75"
+          to={`/menu-noticias/${tok}`}
+        >
+          <big>
+            <b>
+              <i>Volver al menu de Noticias</i>
+            </b>
+          </big>
         </Link>
       </div>
     </Container>
   );
 };
-
 export default PreviewNoticia;
