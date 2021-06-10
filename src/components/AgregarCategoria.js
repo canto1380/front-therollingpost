@@ -15,23 +15,27 @@ const AgregarCategoria = (props) => {
   const [nombreCategoria, setNombreCat] = useState("");
   const [err, setErr] = useState(false);
   //valicaciones de feed
-  const [titValid, setTitValid] = useState("");
-  const [titInvalid, setTitInvalid] = useState("");
+  const [catValid, setCatValid] = useState("");
+  const [catInvalid, setCatInvalid] = useState("");
   /* Variables */
   let mensaje;
 
   const valCate = () => {
-    let newCat = /^[a-zA-ZÀ-ÿ\s]{12,}$/;
+    setCatValid("");
+    setCatInvalid("");
+    let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
     if (consultarCat.trim() !== "" && newCat.test(consultarCat)) {
+      setCatValid(true);
       return false;
     } else {
+      setCatInvalid(true);
       return true;
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!campoRequerido(nombreCategoria)) {
+    if (valCate(nombreCategoria)) {
       setErr(true);
       setTimeout(() => {
         setErr(false);
@@ -80,10 +84,21 @@ const AgregarCategoria = (props) => {
             <Form.Group>
               <Form.Label>Nombre categoría</Form.Label>
               <Form.Control
+                maxLength="15"
                 type="text"
                 placeholder="Nombre categoria"
                 onChange={(e) => setNombreCat(e.target.value)}
+                onBlur={valCate}
+                isValid={catValid}
+                isInvalid={catInvalid}
               />
+              <Form.Control.Feedback
+                type="invalid"
+                className="text-danger small"
+              >
+                Campo Obligatorio, al menos debe contener entre 6 - 15
+                caracteres.
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="d-flex justify-content-end">
               <Button className="my-3 mx-2" variant="primary" type="submit">

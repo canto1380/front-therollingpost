@@ -14,9 +14,29 @@ const EditarCategoria = (props) => {
   const [nombreCategoria, setNombreCat] = useState({});
   const [err, setErr] = useState(false);
 
+  //valicaciones de feed
+  const [catValid, setCatValid] = useState("");
+  const [catInvalid, setCatInvalid] = useState("");
+
   //variables useRef para precio y nombre producto
   const nombreCategoriaRef = useRef("");
   const URL = process.env.REACT_APP_API_URL;
+
+  const valCate = () => {
+    setCatValid("");
+    setCatInvalid("");
+    let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
+    if (
+      nombreCategoriaRef.current.value.trim() !== "" &&
+      newCat.test(nombreCategoriaRef.current.value)
+    ) {
+      setCatValid(true);
+      return false;
+    } else {
+      setCatInvalid(true);
+      return true;
+    }
+  };
 
   useEffect(() => {
     const consultarCategorias = async () => {
