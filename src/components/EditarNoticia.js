@@ -39,7 +39,7 @@ const EditarNoticia = (props) => {
   const expresiones = {
     texto: /^[^\n]{12,}$/, // Letras, numeros
     autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /^[\s\S]{25,}$/,
+    resumen: /^[\s\S]{500,}$/,
   };
 
   //Validaciones
@@ -299,7 +299,7 @@ const EditarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="5000"
+              maxLength="6500"
               as="textarea"
               rows={5}
               ref={resumenNoticiaRef}
@@ -310,10 +310,10 @@ const EditarNoticia = (props) => {
               onChange={cambioDescripNoticia}
             />
             <Form.Label>
-              <p>{noticias.descripNoticia?.length}/5000</p>
+              <p>{noticias.descripNoticia?.length}/6500</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 500-5000
+              Campo Obligatorio, al menos debe contener entre 500-6500
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
@@ -389,7 +389,9 @@ const EditarNoticia = (props) => {
         </div>
         {error ? (
           <Alert variant="danger" className=" mt-3 mb-0">
-            Todos los campos deben ser completados!
+             <h5 className="text-danger text-center">
+         <b>Todos los campos deben estar completados correctamente.</b> 
+        </h5>
           </Alert>
         ) : null}
       </Form>

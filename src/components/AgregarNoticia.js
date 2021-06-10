@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup, Image } from "react-bootstrap";
+import { Container, Form, Button, InputGroup, Image, Alert } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -42,7 +42,7 @@ const AgregarNoticia = (props) => {
     texto: /^[^\n]{12,}$/, // Letras, numeros
     textoPie: /^[^\n]{7,}$/, // Letras, numeros
     autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /[\s\S]{25,}$/,
+    resumen: /[\s\S]{500,}$/,
   };
 
   const scrollToTop = () => {
@@ -312,7 +312,7 @@ const AgregarNoticia = (props) => {
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
-              maxLength="5000"
+              maxLength="6500"
               as="textarea"
               rows={5}
               onChange={(e) => setResumenNoticia(e.target.value)}
@@ -324,7 +324,7 @@ const AgregarNoticia = (props) => {
               <p>{resumenNoticia.length}/5000</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
-              Campo Obligatorio, al menos debe contener entre 500-5000
+              Campo Obligatorio, al menos debe contener entre 500-6500
               caracteres.
             </Form.Control.Feedback>
           </Form.Group>
@@ -400,14 +400,16 @@ const AgregarNoticia = (props) => {
             type="submit"
             onClick={scrollToTop}
           >
-         <big><b><i>Guardar</i></b></big>   
+         <big><b><i>Agregar</i></b></big>   
           </Button>
         </div>
       </Form>
       {error ? (
-        <Form.Label className="text-danger">
-          Campo obligatorio, al menos debe contener entre 4 - 25 caracteres
-        </Form.Label>
+        <Alert variant="danger" className=" mt-3 mb-0">
+        <h5 className="text-danger text-center">
+    <b>Todos los campos deben estar completados correctamente.</b> 
+   </h5>
+     </Alert>
       ) : null}
     </Container>
   );
