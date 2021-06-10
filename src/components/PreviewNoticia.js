@@ -1,13 +1,11 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Card, Figure, Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-
 const PreviewNoticia = (props) => {
   const { id } = useParams();
-  const {tok} = props
+  const { tok } = props;
   // states
   const [noticia, setNoticia] = useState({});
-
   useEffect(() => {
     const consultarNoticia = async () => {
       try {
@@ -28,7 +26,11 @@ const PreviewNoticia = (props) => {
   return (
     <Container>
       <div className="mt-5">
-        <h1 className="text-center "><span className="badge backcolor"><i>Previsualización de Noticia</i></span></h1>
+        <h1 className="text-center ">
+          <span className="badge backcolor">
+            <i>Previsualización de Noticia</i>
+            </span>
+            </h1>
         <p className=" text-center">
          <big> En esta pagina podras ver como es el maquetado de la noticia antes de
           publicarla.</big>
@@ -42,37 +44,26 @@ const PreviewNoticia = (props) => {
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            <h1>
-              {noticia.titulo}
-            </h1>
+            <h1>{noticia.titulo}</h1>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            <h3>
-              {noticia.descripcion}
-            </h3>
+            <h3>{noticia.descripcion}</h3>
           </Card.Subtitle>
           <div className="row">
             <div className="col-sm-12 col-md-8">
-              <p>
-                {noticia.descripNoticia}
-              </p>
+              <p>{noticia.descripNoticia}</p>
             </div>
             <div className="col-sm-12 col-md-4">
-            <div className="row">
-              <div className="col-12 mb-2">
-                <Figure>
-                  <Image
-                    className="img-fluid "
-                    src={noticia.foto}
-                  />
-                </Figure>
+              <div className="row">
+                <div className="col-12 mb-2">
+                  <Figure>
+                    <Image className="img-fluid " src={noticia.foto} />
+                  </Figure>
+                </div>
+                <div className="col-12 border mb-2">
+                  <h5>{noticia.pieDeFoto}</h5>
+                </div>
               </div>
-              <div className="col-12 border mb-2">
-                <h5>
-                  {noticia.pieDeFoto}
-                </h5>
-              </div>
-            </div>
             </div>
           </div>
         </Card.Body>
@@ -90,5 +81,4 @@ const PreviewNoticia = (props) => {
     </Container>
   );
 };
-
 export default PreviewNoticia;
