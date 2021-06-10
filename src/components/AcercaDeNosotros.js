@@ -7,6 +7,8 @@ import ImgAvAP from "../img/AvAP.png";
 import ImgAvAle from "../img/AvAle.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { faGithub} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope} from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 
 const AcercaDeNosotros = () => {
@@ -34,8 +36,8 @@ const AcercaDeNosotros = () => {
               <Card.Body>
                 <Card.Text>
                   <p>
-                    Edad: 27 años, Hola soy Pablo Peñalba y soy Estudiante de
-                    Ingenieria en Sistemas, proximamente programador Full Stack.
+                    Edad: 27 años. Hola soy Alejandro Peñalba y soy Estudiante de
+                    Ingeniería en Sistemas, próximamente programador Full Stack.
                   </p>
                 </Card.Text>
               </Card.Body>
@@ -56,8 +58,8 @@ const AcercaDeNosotros = () => {
               <Card.Body>
                 <Card.Text>
                   <p>
-                    Edad: 31 años, Hola soy Pablo Poviña, soy Ingreniero
-                    Industrial proximamente programador Full Stack.
+                    Edad: 31 años. Hola soy Alejandro Poviña, soy Ingeniero
+                    Industrial próximamente programador Full Stack.
                   </p>
                 </Card.Text>
               </Card.Body>
@@ -78,8 +80,8 @@ const AcercaDeNosotros = () => {
               <Card.Body>
                 <Card.Text>
                   <p>
-                    Edad: 27 años, Hola soy Nicolas Guardo, soy Tecnico Superior
-                    en Programacion proximamente programador Full Stack.
+                    Edad: 27 años. Hola soy Nicolas Guardo, soy Técnico Superior
+                    en Programación, próximamente programador Full Stack.
                   </p>
                 </Card.Text>
               </Card.Body>
@@ -96,8 +98,8 @@ const AcercaDeNosotros = () => {
               <Card.Body>
                 <Card.Text>
                   <p>
-                    Edad: 28 años, Hola soy Pablo Alonso, soy ayudante en
-                    laboratorio, programador Full Stack.
+                    Edad: 28 años. Hola soy Pablo Julian Alonso Olivera, soy ayudante de
+                    laboratorio y programador Full Stack.
                   </p>
                 </Card.Text>
               </Card.Body>
@@ -110,9 +112,9 @@ const AcercaDeNosotros = () => {
           </h3>
           <hr className="mx-1 text-light" />
           <p className="mx-4 text-light">
-            Buenas tardes somos el grupo 1, de la comision 7A, Y este es nuestro
-            proyecto final : "The Rolling Post" somos un grupo de estudiantes ,
-            apasionados por el desarrollo web, aspirantes a ser programadores
+            Somos el grupo 1 de la comisión 7A del curso de FullStack de RollingCode School, y este es nuestro
+            proyecto final : "The Rolling Post". Somos un grupo de estudiantes
+            apasionados por el desarrollo web, aspirantes a ser programadores de
             Full Stack.
           </p>
         </section>
@@ -122,72 +124,90 @@ const AcercaDeNosotros = () => {
           </h3>
           <hr className="mx-1 text-light" />
           <p className="mx-4 text-light">
-            The Rolling Post: Es una plataforma de noticias, orientada a un
-            mercado mas joven y moderno Es un diario digital, donde encontraras
-            las mejores noticias, en los diversos ambitos, sea nacional o
-            internacional, nos enfocamos en traerte las ultimas noticias,
-            informacion actualizada, al instante No te pierdas las oportunidad
-            de estar al dia con los ultimos eventos que ocurren esperamos que
-            disfruten de esta nueva expriencia.
+            The Rolling Post es una plataforma de noticias, orientada a un
+            mercado mas joven y moderno. Es un diario digital, donde encontraras
+            las mejores noticias en los diversos ámbitos, sea nacional o
+            internacional. Nuestro enfoque es traerte las ultimas noticias e
+            información actualizada, al instante. No te pierdas la oportunidad
+            de estar al dia con los últimos eventos del dia a dia. Esperamos que
+            disfruten de esta nueva experiencia.
           </p>
         </section>
-        <section className="py-2 bg-info mb-3 rounded-1">
+        <section className="py-2 bg-info mb-3 rounded-1 ">
           <h3 className="text-center text-light">
             <i>¿Como contactarnos?</i>
           </h3>
           <hr className="mx-1 text-light" />
-          <p className="mx-4 text-light">
-            <ul className="list-group bg-info">
-              <li className="list-group-item bg-info">
-                Alejandro Poviña:
-                <hr />
-                <ul className="list-group bg-info">
-                  <li className="list-group-item bg-info">
-                    alejandro.povina@gmail.com
-                  </li>
-                  <li className="list-group-item bg-info">
-                    https://github.com/alejandro-povina
-                  </li>
-                </ul>
-              </li>
-              <li className="list-group-item bg-info">
-                Alejandro Peñalba:
-                <hr />
-                <ul className="list-group bg-info">
-                  <li className="list-group-item bg-info">
+          <div className="row">
+            <div className="col-12 col-md-6">
+            <ul className="list-group-flush">
+              <li className="list-group-item bg-info text-light">
+               <i><b>Alejandro Peñalba:</b></i> 
+                <ul className="list-group bg-info mt-2">
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faEnvelope} className="fa-2x me-3"></FontAwesomeIcon>
                     atapenalba16@gmail.com
                   </li>
-                  <li className="list-group-item bg-info">
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faGithub} className="fa-2x me-3"></FontAwesomeIcon>
+                   <a href="https://github.com/canto1380" className="text-light" target="_blank"  rel="noreferrer">
                     https://github.com/canto1380
+                   </a>
                   </li>
                 </ul>
               </li>
-              <li className="list-group-item bg-info">
-                Pablo Julian Alonso Olivera:
-                <hr />
-                <ul className="list-group bg-info">
-                  <li className="list-group-item bg-info">
-                    pepoalonso1@gmail.com
+              <li className="list-group-item bg-info text-light ">
+               <i><b>Nicolas Guardo:</b></i>
+                <ul className="list-group bg-info mt-2">
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faEnvelope} className="fa-2x me-3"></FontAwesomeIcon>
+                  nguardorui@gmail.com  
                   </li>
-                  <li className="list-group-item bg-info">
-                    https://github.com/PaulJaver
-                  </li>
-                </ul>
-              </li>
-              <li className="list-group-item bg-info">
-                Nicolas Guardo:
-                <hr />
-                <ul className="list-group bg-info">
-                  <li className="list-group-item bg-info">
-                    nguardorui@gmail.com
-                  </li>
-                  <li className="list-group-item bg-info">
-                    https://github.com/NicoG72/
+                  <li className="list-group-item bg-info text-light ">
+                  <FontAwesomeIcon icon={faGithub} className="fa-2x me-3"></FontAwesomeIcon>
+                  <a href="https://github.com/NicoG72/" className="text-light" target="_blank"  rel="noreferrer">
+                  https://github.com/NicoG72/
+                  </a>
                   </li>
                 </ul>
               </li>
-            </ul>
-          </p>
+              </ul>
+              </div>
+            <div className="col-12 col-md-6">
+            <ul className="list-group-flush">
+              <li className="list-group-item bg-info text-light">
+               <i><b>Pablo Julian Alonso Olivera:</b></i> 
+                <ul className="list-group bg-info mt-2">
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faEnvelope} className="fa-2x me-3"></FontAwesomeIcon>
+                   pepoalonso1@gmail.com
+                  </li>
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faGithub} className="fa-2x me-3"></FontAwesomeIcon>
+                  <a href="https://github.com/PaulJaver" className="text-light" target="_blank"  rel="noreferrer">
+                     https://github.com/PaulJaver
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li className="list-group-item bg-info text-light">
+               <i><b>Alejandro Poviña:</b></i> 
+                <ul className="list-group bg-info mt-2">
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faEnvelope} className="fa-2x me-3"></FontAwesomeIcon>
+                   alejandro.povina@gmail.com
+                  </li>
+                  <li className="list-group-item bg-info text-light">
+                  <FontAwesomeIcon icon={faGithub} className="fa-2x me-3"></FontAwesomeIcon>
+                   <a href="https://github.com/alejandro-povina" className="text-light" target="_blank"  rel="noreferrer">
+                     https://github.com/alejandro-povina
+                     </a> 
+                  </li>
+                </ul>
+              </li>
+              </ul>
+            </div>
+            </div>
         </section>
         <div className="d-flex justify-content-center mb-4">
           <Link className="btn btn-primary w-50 border-dark" to={"/"}>
