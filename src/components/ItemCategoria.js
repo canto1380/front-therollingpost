@@ -116,8 +116,8 @@ const ItemCategoria = (props) => {
         }
     }
     return (
-        <ListGroup.Item className="d-flex justify-content-between align-items-center">
-            <h5  className="text-dark">{props.cat.nombreCategoria}</h5>
+        <ListGroup.Item className="d-flex justify-content-between align-items-center border border-secondary rounded">
+            <h5  className="text-dark"><i>{props.cat.nombreCategoria}</i></h5>
             <div>
                 {
                     (!props.cat.destacada) ? (
@@ -126,15 +126,15 @@ const ItemCategoria = (props) => {
                         </Button>
                     ) : 
                     (
-                        <Button variant='success' onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
+                        <Button variant='primary' title="Destacar categoria" onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
                             <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                         </Button>
                     )
                 }  
-            <Link className="btn btn-primary mx-3" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
+            <Link className="btn btn-warning mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
-                <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)}>
+                <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)} title="Eliminar categoria">
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
 

@@ -199,6 +199,7 @@ function App() {
                   categorias={categorias}
                   cat={cat}
                   noticias={noticiasPublicadas}
+                comentario={comentario}
                 />
               </Route>
             ))}

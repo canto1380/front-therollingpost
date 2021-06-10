@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
-
 import { Link, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
 import { authenticate, signin } from "../helpers/helpers";
-
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
@@ -102,18 +100,20 @@ const Login = (props) => {
 
   return (
     <Container>
-      <div>
+      <div className="d-none d-lg-block">
         <h1 className="display-1 mt-4 mb-3"><i>Bienvenido!</i></h1>
       </div>
       <Row className="mt-3 d-flex justify-content-around">
-        <Col sm={6} md={8}>
-          <div className="mb-5">
+        <Col lg={8}>
+          <div className="mb-5 d-none d-lg-block">
             <Image className="w-100" src={ImgPortada} rounded />
           </div>
         </Col>
-        <Col sm={6} md={4}>
-          <div className="">
-            <h1 className="text-center"><badge className="backcolor text-light px-3 pt-0 pb-2 rounded-3"><i>Ingrese a su cuenta</i></badge></h1>
+        <Col sm={12} lg={4}>
+            <h1 className="text-center">
+              <span className="backcolor badge text-light pb-3 px-3  rounded-3">
+                <big><i>Ingrese a su cuenta</i></big></span>
+                </h1>
             <div>
               <Form className="my-4" onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
@@ -157,7 +157,6 @@ const Login = (props) => {
                 </p>
               </div>
             </div>
-          </div>
         </Col>
       </Row>
     </Container>

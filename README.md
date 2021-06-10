@@ -14,7 +14,7 @@ Este proyecto fue creado con las herramientas [React](https://es.reactjs.org/), 
 
 [Repositorio Front-End](https://github.com/NicoG72/proyectoFinal.git)
 
-[Repositorio Back-End]()
+[Repositorio Back-End](https://github.com/canto1380/back-TheRollingPost)
 
 ## Para poder usar el proyecto
 - Parte del cliente:
@@ -36,9 +36,13 @@ El siguiente link contiene el proyecto colgado a modo de prueba, para que el usu
 
 # Construido con 🛠
 - [Bootstrap v50](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
-- [Font Awesone](https://fontawesome.com/)
+- [Font Awesome](https://fontawesome.com/)
 - [React-Bootstrap](https://react-bootstrap.netlify.app/)
 - [SweetAlert2](https://sweetalert2.github.io/)
+- [EmailJs](https://www.emailjs.com/)
+- [Moment](https://momentjs.com/)
+- [OpenWeatherMap](http://api.openweathermap.org)
+- [DolarSI](https://www.dolarsi.com/api)
 
 # Autores
 Alejandro Peñalba
@@ -48,18 +52,18 @@ Alejandro Peñalba
 - Contacto: atapenalba16@gmail.com
 
 Alejandro Poviña
-- Repositorio: [GitHub]()
+- Repositorio: [GitHub](https://github.com/alejandro-povina)
 
-- Contacto:
+- Contacto: alejandro.povina@gmail.com
 
 Nicolás Guardo
-- Repositorio: [GitHub]()
+- Repositorio: [GitHub](https://github.com/NicoG72/)
 
-- Contacto:
+- Contacto: nguardorui@gmail.com
 
-Pablo Julián Alonso
-- Repositorio: [GitHub]()
+Pablo Julián Alonso Olivera
+- Repositorio: [GitHub](https://github.com/PaulJaver)
 
-- Contacto: 
+- Contacto: pepoalonso1@gmail.com
 
 # Agradecimientos

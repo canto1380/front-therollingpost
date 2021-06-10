@@ -9,7 +9,7 @@ import ItemNoticiasxCat from './ItemNoticiasxCat';
 import { useScrollToTop } from '../../helpers/hooks';
 
 const CardCategorias = (props) => {
-    const {cat, noticias, categorias} = props
+    const {cat, noticias, categorias, comentario} = props
     let noticiasXCat = noticias.filter(not => not.categoria.nombreCategoria === cat.nombreCategoria)
     let ultimaNoticia = noticiasXCat.slice(0, 1)
     let ultimasNoticias = noticiasXCat.slice(1, 3)
@@ -32,6 +32,7 @@ const CardCategorias = (props) => {
                     <NoticiasPrincipal
                         ultimasNoticias={ultimasNoticias}
                         ultimaNoticia={ultimaNoticia}
+                        comentario={comentario}
                     />
                 </Col>
             </Row>
@@ -41,6 +42,7 @@ const CardCategorias = (props) => {
             <ItemNoticiasxCat
                     cat={cat}
                     noticiasXCat={resto}
+                    comentario={comentario}
             />
         </Container>
     );

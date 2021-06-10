@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Container, Form, Button, InputGroup, FormControl} from "react-bootstrap";
+import { Container, Form, Button, InputGroup, FormControl, Alert} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faMobileAlt, faHome, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -281,9 +281,11 @@ const Contacto = () => {
         </div>
       </Form>
       {error ? (
+        <Alert variant="danger" className=" mt-3 mb-0">
         <h5 className="text-danger text-center">
-         <b>Todos los campos deben estar completados correctamente.</b> 
-        </h5>
+    <b>Todos los campos deben estar completados correctamente.</b> 
+   </h5>
+     </Alert>
       ) : null}
     </Container>
   );

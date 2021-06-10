@@ -65,15 +65,15 @@ const AgregarCategoria = (props) => {
     <Container>
       <Row className="d-flex justify-content-between">
         <Col sm={12} lg={6}>
-          <h1 className="mt-5">Agregar categoría</h1>
-          <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secundary">
+          <h1 className="mt-4"><i className="backcolor badge text-color"> Agregar categoría</i></h1>
+          <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secondary rounded">
             <Form.Group>
-              <Form.Label>Nombre categoría</Form.Label>
+              <Form.Label><i>Nombre de categoría</i></Form.Label>
               <Form.Control type="text" placeholder="Nombre categoria" onChange={(e)=> setNombreCat(e.target.value)} />
             </Form.Group>
             <Form.Group className="d-flex justify-content-end">
-            <Button className="my-3 mx-2" variant="primary" type="submit">
-              Agregar
+            <Button className="my-3 mx-2" variant="success" type="submit">
+             Agregar
             </Button>
             <Link className="my-3 btn btn-primary" variant="primary" to={`/menu-categorias/${tok}`}>
               Volver
@@ -83,12 +83,12 @@ const AgregarCategoria = (props) => {
           </Form>
         </Col>
         <Col sm={12} lg={6}>
-            <h1 className="mt-5">Categorías existentes</h1>
-            <ListGroup className="my-3">
+            <h1 className="mt-4"><i className="backcolor badge text-color">Categorías existentes</i> </h1>
+            <ListGroup className="my-3 ">
                 {
-                    categorias.map((cat) => <ListGroup.Item className="d-flex justify-content-between align-items-center"
+                    categorias.map((cat) => <ListGroup.Item className="d-flex justify-content-between align-items-center border border-secondary rounded"
                     cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}>
-                    <h5 className="text-dark">{cat.nombreCategoria}</h5>
+                    <h5 className="text-dark"><i>{cat.nombreCategoria}</i></h5>
                     </ListGroup.Item>)
                 }
             </ListGroup>

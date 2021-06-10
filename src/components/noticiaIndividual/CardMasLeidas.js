@@ -10,7 +10,7 @@ const CardMasLeidas = (props) => {
     return (
         <Container fluid>
             <div className="d-flex justify-content-between align-items-end mt-0">
-                <p className="m-0 fw-bolder">Más noticias de {categoria}</p>
+                <p className="m-0 fw-bolder"><i>Más noticias de {categoria}</i></p>
                 <Button size="sm" as={Link} className="btn btn-primary" to={`/${categoria.toLowerCase()}`}>
                     Ver más
                 </Button>

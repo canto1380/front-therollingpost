@@ -101,14 +101,14 @@ const ItemClientes = (props) => {
     
     return (
         <ListGroupItem>
- <div className="row d-flex align-content-center">
-                <div className="col-sm-6 col-md-4 col-lg-4">
-                <p>{props.clientes.email} <span className="badge bg-warning" hidden={btnAceptRech}>Pendiente</span> </p>
+ <div className="row ">
+                <div className="col-sm-12 col-md-4 col-lg-4">
+                <p>{props.clientes.email} <span className="badge bg-warning text-dark" hidden={btnAceptRech}><big><i>Pendiente</i></big></span></p>
                 </div>
-                <div className="col-sm-6 col-md-4 col-lg-4">
+                <div className="col-sm-12 col-md-4 col-lg-4">
                 <p><b><i>{props.clientes.plan}</i></b></p>
                 </div>
-                <div className="col-sm-6 col-md-4 col-lg-4 d-flex justify-content-end">
+                <div className="col-sm-12 col-md-4 col-lg-4 d-flex justify-content-end">
                         <Button variant="success" className="mx-3 " hidden={btnAceptRech} onClick={()=>aceptarSuscripcion()} title="Aceptar suscripción"> <FontAwesomeIcon icon={faUserCheck} className="fa-lg"></FontAwesomeIcon></Button>
                         <Button variant="danger" className="mx-3" hidden={btnAceptRech} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Rechazar suscripción"><FontAwesomeIcon icon={faUserTimes} className="fa-lg"></FontAwesomeIcon></Button>
                         <Button variant="danger" className="mx-3" hidden={btnCancelar} onClick={()=>rechazarCancelarSuscripcion(props.clientes._id)} title="Cancelar suscripción"><FontAwesomeIcon icon={faUserMinus} className="fa-lg"></FontAwesomeIcon></Button>

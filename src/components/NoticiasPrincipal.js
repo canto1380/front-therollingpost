@@ -15,8 +15,8 @@ const NoticiasPrincipal = (props) => {
       <Row>
           {
             ultimaNoticia.map((not) =>{
-              // let coment = comentario.filter((c) => c.idNoticia._id === not._id);
-              // let comentLength = coment.length; 
+              let coment = comentario.filter((c) => c.idNoticia._id === not._id);
+              let comentLength = coment.length; 
             return (<Col className="" xs={12} md={8} key={not._id}>
               <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
                 <div className="card tarjetaNoticia">
@@ -27,7 +27,7 @@ const NoticiasPrincipal = (props) => {
                   </div>
                   <div className="d-flex justify-content-between align-items-center mb-3 mx-3">
                     <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
-                    <p className="my-0 text-muted">{}<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
+                    <p className="my-0 text-muted">{comentLength}<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
                   </div>
                 </div>
           </Link>
