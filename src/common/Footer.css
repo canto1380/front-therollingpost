@@ -46,3 +46,7 @@
 .backcolor {
   background-color: #435360;
 }
+
+.backcolor:hover{
+  color: black;
+}

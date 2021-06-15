@@ -21,7 +21,6 @@ const CardCategorias = (props) => {
         <Container className="my-3 px-4">
             <h1 className="mt-2"><i>{props.cat.nombreCategoria}</i></h1>
             <ListGroup className="border-0">
-                {/* map que lea */}
                 <hr className="my-1"/>
                 <ItemNavBarCategoria categorias={categorias} />
                 <hr className="my-1"/>

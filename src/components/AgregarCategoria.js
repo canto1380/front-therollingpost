@@ -23,7 +23,7 @@ const AgregarCategoria = (props) => {
     setCatValid("");
     setCatInvalid("");
     let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
-    if (consultarCat.trim() !== "" && newCat.test(consultarCat)) {
+    if (nombreCategoria.trim() !== "" && newCat.test(nombreCategoria)) {
       setCatValid(true);
       return false;
     } else {

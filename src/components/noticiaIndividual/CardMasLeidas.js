@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
-    let noticiasXCat = noticias.filter((not) => not.categoria === categoria);
+    let noticiasXCat = noticias.filter((not) => not.categoria.nombreCategoria === categoria);
     let masLeidas = noticiasXCat.slice(0, 3);
     return (
         <Container fluid>
             <div className="d-flex justify-content-between align-items-end mt-0">
                 <p className="m-0 fw-bolder"><i>Más noticias de {categoria}</i></p>
-                <Button size="sm" as={Link} className="btn btn-primary" to={`/${categoria.toLowerCase()}`}>
+                <Button size="sm" as={Link}  variant="info" className="btn backcolor text-light" to={`/${categoria.toLowerCase()}`}>
                     Ver más
                 </Button>
             </div>

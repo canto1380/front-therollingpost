@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 const ItemNavBarCategoria = ({ categorias = [] }) => {
   return (
-    <ListGroup.Item className="d-flex justify-content-around border-0">
+    <ListGroup.Item >
+     <div className="d-flex justify-content-around flex-wrap">
       {categorias.map((cat) => (
         <Link
           key={cat._id}
@@ -13,7 +14,7 @@ const ItemNavBarCategoria = ({ categorias = [] }) => {
         ><i>
           {cat.nombreCategoria}</i>
         </Link>
-      ))}
+      ))}</div>
     </ListGroup.Item>
   );
 };
