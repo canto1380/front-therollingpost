@@ -78,6 +78,16 @@ function App() {
     }
     consultarAPIComent()
   }, [consultarComent])
+  console.log('comentarios')
+  console.log(comentario)
+  console.log('noticias')
+  console.log(noticias)
+  console.log('categorias')
+  console.log(categorias)
+  console.log('ultimaNoticia')
+  console.log(ultimaNoticia)
+  console.log('Ultims noticias')
+  console.log(ultimasNoticias)
 
   /* Consulta API - categorias */
   useEffect(() => {
