@@ -322,7 +322,7 @@ const AgregarNoticia = (props) => {
               isInvalid={resInvalid}
             />
             <Form.Label>
-              <p>{resumenNoticia.length}/5000</p>
+              <p>{resumenNoticia.length}/6500</p>
             </Form.Label>
             <Form.Control.Feedback type="invalid" className="text-danger small">
               Campo Obligatorio, al menos debe contener entre 500-6500

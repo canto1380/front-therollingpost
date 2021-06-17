@@ -25,17 +25,16 @@ const EditarCategoria = (props) => {
     setCatValid("");
     setCatInvalid("");
     let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
-    if (
-      nombreCategoriaRef.current.value.trim() !== "" &&
-      newCat.test(nombreCategoriaRef.current.value)
-    ) {
+    if (nombreCategoriaRef.current.value.trim() !== ""
+    && newCat.test(nombreCategoriaRef.current.value)
+    ){
       setCatValid(true);
       return false;
     } else {
       setCatInvalid(true);
       return true;
     }
-  };
+  }
 
   useEffect(() => {
     const consultarCategorias = async () => {
@@ -56,7 +55,7 @@ const EditarCategoria = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!valCate(nombreCategoriaRef.current.value)) {
       setErr(false);
       try {
