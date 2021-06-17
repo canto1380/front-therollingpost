@@ -19,7 +19,7 @@ const Noticia = (props) => {
 
     const {cat, id} = useParams();
     let hidden = 'pub-hidden-lg'
-    let hiddenmd ="pub-hidden-md"
+    let hiddenmd ="hidden-md"
     let hiddensm ="pub-hidden-sm"
 
     let ultimas3noticias = noticias.slice(0, 3)
@@ -61,12 +61,12 @@ const Noticia = (props) => {
                     <Publicidad classnamehidden={hidden} publicidad={covidCuidados} />
                 </Col>
                 <hr className="my-2"/>
-                <Col sm={12} md={9} >
+                <Col sm={12} md={8} >
                     {
                     <CardUltimasNoticias ultimas3noticias={ultimas3noticias}/>
                     }
                 </Col>
-                <Col sm={4} md={3} className="d-flex justify-content-center align-items-center">
+                <Col sm={4} md={4} className="d-flex justify-content-center align-items-center">
                 <Publicidad publicidad={Coca} classnamehidden={hiddensm}/>
                 </Col>
                 <Col sm={12}>

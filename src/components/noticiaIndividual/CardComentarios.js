@@ -3,6 +3,7 @@ import { Container, Image, Form, Row, Col, ListGroup, Button } from 'react-boots
 import LogoNR from "../../img/The Rolling Post.jpg";
 import ItemComentarios from './ItemComentarios';
 import Swal from 'sweetalert2'
+import "../../App.css"
 
 const CardComentarios = (props) => {
     const {coment, comentLength, id, consultarComent, setConsultarComent} = props
@@ -46,10 +47,10 @@ const CardComentarios = (props) => {
             </div>
             <Form onSubmit={handleSubmit}>
             <Row className="d-flex justify-content-between m-0 h-100">
-                <Col xs={2} md={2} className="p-0 text-center">
-                    <Image src={LogoNR} rounded className="text-center" width="110px"/>
+                <Col sm={1} md={2} className="p-0 text-center">
+                    <Image src={LogoNR} rounded className="text-center img-hidden" width="110px"/>
                 </Col>
-                <Col xs={10} md={10}  className="">
+                <Col sm={10} md={10} className="area-comentario">
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Control as="textarea" 
                             rows={3} 

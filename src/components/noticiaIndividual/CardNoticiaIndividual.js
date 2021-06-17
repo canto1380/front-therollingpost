@@ -7,6 +7,14 @@ import "../../App.css"
 
 const CardNoticiaIndividual = (props) => {
     const {not, comentLength} = props
+    
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+    scrollToTop()
     return (
         <section className="container border border-dark rounded-3 mt-3">
             <div className="mt-1">
