@@ -25,8 +25,8 @@ const [client, setClient]=useState({
   plan: ""
 })
 const [error, setError]= useState(false);
-const [err, setErr] = useState(false) //mensaje de error en valicaciones general
-
+const [err1, setErr1] = useState(false) //mensaje de error en valicaciones general
+const [err2, setErr2]= useState(false) //mensaje de error para email en uso
 const handleValores = (e)=>{
 setClient({...client, [e.target.name]: e.target.value})
 }
@@ -215,86 +215,91 @@ setClient({...client, [e.target.name]: e.target.value})
 const handleSubmit = async(e)=>{
         e.preventDefault();
    
-      if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vPlan && terms){
-        setError(false)
-
-        const cliente = client        
-        try{
-          const configuracion = {
-            method: "POST" ,
-            headers:{
-              "Content-Type":"application/json"
-            },
-          body: JSON.stringify(cliente)
-        };
-
-        const respuesta = await fetch (URL, configuracion);
-
-        if(respuesta.status===201){
-          const mensajeSuscripcion = {
-            nombre: client.nomAp,
-            email: client.email,
-            to_name: "Administrador",
-            direcLocalCp: `Direccion: ${client.direccion} -
-            Localidad: ${client.localidad} -
-            Código Postal: ${client.codigoPostal}`,
-            telEmailPass: `Telefono: ${client.telefono} - 
-            Email: ${client.email} - 
-            Password: ${client.password}`,  
-            plan: `Plan: ${client.plan}`
-          };
-    
-          emailjs
-            .send(
-              "service_8p1isqq",
-              "template_k4pd6gd",
-              mensajeSuscripcion,
-              "user_rQqHrh4fAD3sMZEdvbGTI"
-            )
-            .then(
-              (result) => {
-                if (result.status === 200) {
-                  Swal.fire(
-                    'Solicitud de suscripcion enviada',
-                    'Nos pondremos en contacto para confirmar aceptacion',
-                    'success'
-                  );
-                }
-                
+        if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vPlan && terms){
+          setError(false) 
+  
+          const cliente = client        
+          try{
+            const configuracion = {
+              method: "POST" ,
+              headers:{
+                "Content-Type":"application/json"
               },
-              async(error) => {
-                console.log(error.text);
-                Swal.fire(
-                  'A ocurrido un error',
-                  'Por favor intentelo de nuevo mas tarde',
-                  'warning'
-                )
-                const url = `${process.env.REACT_APP_API_URL}/clientes/buscar/${cliente.email}`;
-                try {
-                    const config ={
-                        method:"DELETE",
-                        headers:{
-                            "Content-Type":"application/json"
-                        }
-                    }
-                    const res = await fetch(url, config)
-                    if(res.status === 200){
-                      console.log("intente nuevamente")
+            body: JSON.stringify(cliente)
+          };
+  
+          const respuesta = await fetch (URL, configuracion);
+  
+          if(respuesta.status===200){
+            const mensajeSuscripcion = {
+              nombre: client.nomAp,
+              email: client.email,
+              to_name: "Administrador",
+              direcLocalCp: `Direccion: ${client.direccion} -
+              Localidad: ${client.localidad} -
+              Código Postal: ${client.codigoPostal}`,
+              telEmailPass: `Telefono: ${client.telefono} - 
+              Email: ${client.email} - 
+              Password: ${client.password}`,  
+              plan: `Plan: ${client.plan}`
+            };
+      
+            emailjs
+              .send(
+                "service_8p1isqq",
+                "template_k4pd6gd",
+                mensajeSuscripcion,
+                "user_rQqHrh4fAD3sMZEdvbGTI"
+              )
+              .then(
+                (result) => {
+                  if (result.status === 200) {
+                    Swal.fire(
+                      'Solicitud de suscripcion enviada',
+                      'Nos pondremos en contacto para confirmar aceptacion',
+                      'success'
+                    );
+                  }
+                  
+                },
+                async(error) => {
+                  console.log(error.text);
+                  Swal.fire(
+                    'A ocurrido un error',
+                    'Por favor intentelo de nuevo mas tarde',
+                    'warning'
+                  )
+                  const url = `${process.env.REACT_APP_API_URL}/clientes/buscar/${cliente.email}`;
+                  try {
+                      const config ={
+                          method:"DELETE",
+                          headers:{
+                              "Content-Type":"application/json"
+                          }
+                      }
+                      const res = await fetch(url, config)
+                      if(res.status === 200){
+                        console.log("intente nuevamente")
+                }
+              }catch(error){
+                console.log(error)
               }
-            }catch(error){
-              console.log(error)
             }
-          }
-                
-            );
-
-          // props.history.push("./");
-          setConsultarClientes(true);
-          console.log(clientes)
-          e.target.reset();
-          clearForm();
-        }
-      }catch(err){
+                  
+              );
+  
+            // props.history.push("./");
+            setConsultarClientes(true);
+            console.log(clientes)
+            e.target.reset();
+            clearForm();
+          }else if(respuesta.status===400){
+            setErr2(true)
+              setTimeout(() => {
+                  setErr2(false)
+              }, 2000);
+  
+          }}catch(err){
         console.log(err)
         Swal.fire(
           'A ocurrido un error',
@@ -304,9 +309,9 @@ const handleSubmit = async(e)=>{
       }else{
         console.log("debe validar todos los campos")
         setError(true)
-        setErr(true)
+        setErr1(true)
             setTimeout(() => {
-                setErr(false)
+                setErr1(false)
             }, 2000);
       }   
         } 
@@ -463,8 +468,12 @@ const handleSubmit = async(e)=>{
         </Button>
           </div>
           {
-          (err) ? (<MsjError text1="Datos incorrectos" text2="Todos los campos son obligatorios." />) : (null)
+          (err1) ? (<MsjError text1="Datos incorrectos" text2="Todos los campos son obligatorios." />) : (null)
           }
+          {
+            (err2) ? (<MsjError text1="Su direccion de correo ya se encuentra registrada" text2="Por favor, intente con otra direccion ." />) : (null)
+          }
+          
       </Form>
             </div>
             </Card>
