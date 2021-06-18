@@ -17,7 +17,7 @@ const CategoriaDestacada = (props) => {
             <Row>
                 {
                     noticias.map((not) => {
-                        if (not.categoria.nombreCategoria === props.cat.nombreCategoria) {
+                        if (not.categoria?.nombreCategoria === props.cat.nombreCategoria) {
                             let coment = comentario.filter((c) => c.idNoticia?._id === not._id);
                             let comentLength = coment.length; 
                             return (
