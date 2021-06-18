@@ -22,7 +22,6 @@ const PreviewNoticia = (props) => {
     };
     consultarNoticia();
   }, [id]);
-
   return (
     <Container>
       <div className="mt-5">

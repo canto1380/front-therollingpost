@@ -10,8 +10,8 @@ const CardMasLeidas = (props) => {
         <Container fluid>
             <div className="d-flex justify-content-between align-items-end mt-0">
                 <p className="m-0 fw-bolder"><i>Más noticias de {categoria}</i></p>
-                <Button size="sm" as={Link}  variant="info" className="btn backcolor text-light" to={`/${categoria.toLowerCase()}`}>
-                    Ver más
+                <Button size="sm" as={Link}  variant="info" className="btn boton-tema border-0" to={`/${categoria.toLowerCase()}`}>
+                  <i><b>Ver más</b></i>  
                 </Button>
             </div>
             <hr className="mt-0" />

@@ -53,7 +53,6 @@ const AgregarCategoria = (props) => {
           body: JSON.stringify(nuevaCategoria),
         };
         const res = await fetch(url, config);
-        console.log(res);
         if (res.status === 201) {
           Swal.fire("Categoria agregada!", "SI", "success");
           setConsultarCat(!consultarCat);

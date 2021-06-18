@@ -32,7 +32,7 @@ Este proyecto fue creado con las herramientas [React](https://es.reactjs.org/), 
 # Link del proyecto
 El siguiente link contiene el proyecto colgado a modo de prueba, para que el usuario pueda ir visualizando los avances de su página web
 
-[Link del proyecto]()
+[Link del proyecto](https://therollingpost.netlify.app/)
 
 # Construido con 🛠
 - [Bootstrap v50](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
