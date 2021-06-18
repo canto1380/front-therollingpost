@@ -25,7 +25,7 @@ const [client, setClient]=useState({
   plan: ""
 })
 const [error, setError]= useState(false);
-const [err, setErr] = useState(false) //mensaje de error en valicaciones general
+const [err, setErr] = useState(false) //mensaje de error en validaciones general
 
 const handleValores = (e)=>{
 setClient({...client, [e.target.name]: e.target.value})
@@ -47,7 +47,10 @@ setClient({...client, [e.target.name]: e.target.value})
     const [passValid, setPassValid] = useState("")
     const [passInValid, setPassInvalid] = useState("")
     const [invalidTerms, setInvalidTerms] = useState("")
-    
+    const [rePass, setRePass] = useState("")
+    const [rePassValid, setRePassValid] = useState("")
+    const [rePassInValid, setRePassInvalid] = useState("")
+
     /*Expresiones regulares para validaciones*/
     const expresiones = {
       nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/,  // Letras y espacios, pueden llevar acentos.
@@ -65,6 +68,7 @@ setClient({...client, [e.target.name]: e.target.value})
     const[vTel, setVTel]=useState(false)
     const[vEmail, setVEmail]=useState(false)
     const[vPass, setVPass]=useState(false)
+    const[vRePass, setVRePass]=useState(false)
     const[vPlan, setVPlan]=useState(false)
     const [terms, setTerms]=useState(false)
    
@@ -146,6 +150,7 @@ setClient({...client, [e.target.name]: e.target.value})
     const validarPass = ()=>{
       setPassValid("");
       setPassInvalid("");
+      validarRePass();
       let pass = expresiones.pas
       if(client.password.trim()!=="" && pass.test(client.password)){
         setPassValid(true);
@@ -153,6 +158,17 @@ setClient({...client, [e.target.name]: e.target.value})
       }else{
         setPassInvalid(true);
        setVPass(false)
+      }
+    } 
+    const validarRePass = ()=>{
+      setRePassValid("");
+      setRePassInvalid("");
+      if(client.password.trim() === rePass){
+        setRePassValid(true);
+        setVRePass(true)
+      }else{
+        setRePassInvalid(true);
+       setVRePass(false)
       }
     } 
     const validarPlan = (e)=>{
@@ -426,6 +442,19 @@ const handleSubmit = async(e)=>{
           isValid={passValid} 
           isInvalid={passInValid}/>
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Su contraseña debe contener entre 6 y 12 caracteres, letras y numeros</Form.Control.Feedback> 
+        </Form.Group>
+        <Form.Group  className="mt-2 border rounded-3 backcolor">
+          <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Confirme su contraseña</b></i></Form.Label>
+          <Form.Control 
+          type="password" 
+          placeholder="Ingrese su contraseña nuevamente"
+          name="password" 
+          onChange={(e) => setRePass(e.target.value)}
+          onBlur={validarRePass}  
+          maxLength="12"   
+          isValid={rePassValid} 
+          isInvalid={rePassInValid}/>
+          <Form.Control.Feedback type="invalid"  className="text-danger small" >La confirmación de contraseña no coincide.</Form.Control.Feedback> 
         </Form.Group>
         <Form.Label className="my-3 "><i><b>Seleccione su plan</b></i></Form.Label>
         <FormGroup >
