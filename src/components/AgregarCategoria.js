@@ -12,8 +12,8 @@ const AgregarCategoria = (props) => {
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState("");
-  const [err, setErr] = useState(false);
-  //valicaciones de feed
+  const [err1, setErr1] = useState(false);
+  const [err2, setErr2] = useState(false);  //valicaciones de feed
   const [catValid, setCatValid] = useState("");
   const [catInvalid, setCatInvalid] = useState("");
   /* Variables */
@@ -32,15 +32,21 @@ const AgregarCategoria = (props) => {
     }
   };
 
+  /*limpiar states para estilos en formulario*/
+  const clearForm = ()=>{
+    setCatValid("");
+    setCatInvalid("");
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (valCate(nombreCategoria)) {
-      setErr(true);
+      setErr1(true);
       setTimeout(() => {
-        setErr(false);
+        setErr1(false);
       }, 2000);
     } else {
-      setErr(false);
+      setErr1(false);
       const nuevaCategoria = {
         nombreCategoria,
       };
@@ -53,10 +59,17 @@ const AgregarCategoria = (props) => {
           body: JSON.stringify(nuevaCategoria),
         };
         const res = await fetch(url, config);
-        if (res.status === 201) {
+        if (res.status === 200) {
           Swal.fire("Categoria agregada!", "SI", "success");
           setConsultarCat(!consultarCat);
           e.target.reset();
+          clearForm();
+        }else{
+          setErr2(true);
+      setTimeout(() => {
+        setErr2(false);
+      }, 2000);
+
         }
       } catch (error) {
         console.log(error);
@@ -64,11 +77,6 @@ const AgregarCategoria = (props) => {
     }
   };
 
-  if (err) {
-    mensaje = (
-      <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
-    );
-  }
 
   return (
     <Container>
@@ -106,7 +114,12 @@ const AgregarCategoria = (props) => {
               Volver
             </Link>
             </Form.Group>
-            <div>{mensaje}</div>
+            {
+          (err1) ? (<MsjError text1="Datos incorrectos" text2="Todos los campos son obligatorios." />) : (null)
+          }
+          {
+            (err2) ? (<MsjError text1="Ya existe una categoria con ese nombre" text2="Por favor, intente con otro." />) : (null)
+          }
           </Form>
         </Col>
         <Col sm={12} lg={6}>
