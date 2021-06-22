@@ -44,14 +44,15 @@ const ItemBotonera = (props) => {
   };
 
   const publicarNoticia = async(id, publicado) => {
+
     const urll = process.env.REACT_APP_API_URL;
   try {
     const respuesta = await fetch(urll + "/noticias/" + id);
         if (respuesta.status === 200) {
           const resp = await respuesta.json();
           console.log(resp)
-          console.log(resp.categoria.nombreCategoria)
-          if(resp.categoria.nombreCategoria === null){
+          console.log(resp.categoria?.nombreCategoria)
+          if(resp.categoria?.nombreCategoria === undefined){
             Swal.fire({
               icon: 'error',
               title: 'Ocurrio un problema',
@@ -97,41 +98,6 @@ const ItemBotonera = (props) => {
   } catch (error) {
     console.log(error)
   }
-
-    // verificarCategoriaNoticia(id)
-    // Swal.fire({
-    //   title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonColor: "#3085d6",
-    //   cancelButtonColor: "#d33",
-    //   confirmButtonText: noticia.publicado ? "Quitar publicación" : "Publicar",
-    //   cancelButtonText: "Cancelar",
-    // }).then(async (result) => {
-    //   if (result.isConfirmed) {
-    //     const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
-    //     try {
-    //       const noticiaPublicada = {
-    //         publicado: !publicado
-    //       }
-    //       const respuesta = await fetch(url, {
-    //         method: "PUT",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify(noticiaPublicada),
-    //       });
-    //       if (respuesta.status === 200) {
-    //         Swal.fire({
-    //           title: `Noticia ${publicado ? "removida" : "publicada"}!`,
-    //           icon: "success"
-    //         });
-    //         //actualizar los datos de la lista
-    //       setConsultarNoticias(!consultarNoticias);
-    //       }
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   }
-    // }).catch(()=>Swal.close());
   };
 
   return (

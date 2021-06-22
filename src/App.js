@@ -81,7 +81,8 @@ function App() {
     }
     consultarAPIComent()
   }, [consultarComent])
-
+  console.log(noticias)
+  console.log(categorias)
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
@@ -103,7 +104,7 @@ function App() {
   /* Consulta API - Noticias */
   useEffect(() => {
     consultarAPINoticias();
-  }, [consultarNoticias]);
+  }, [consultarNoticias, consultarCat]);
 
   const consultarAPINoticias = async () => {
     try {

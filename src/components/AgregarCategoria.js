@@ -6,7 +6,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-  const { consultarCat, setConsultarCat, categorias, tok } = props;
+  const { consultarCat, setConsultarCat, categorias} = props;
 
   const url = process.env.REACT_APP_API_URL + "/categorias/addCategoria";
 
@@ -117,7 +117,7 @@ const AgregarCategoria = (props) => {
               <Link
                 className="my-3 btn btn-primary"
                 variant="primary"
-                to={`/menu-categorias/${tok}`}
+                to={`/menu-categorias`}
               >
                 Volver
               </Link>

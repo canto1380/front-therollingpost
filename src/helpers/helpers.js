@@ -66,7 +66,7 @@ export const editarNoticia = async ( id, nott) => {
         descripNoticia: nott.descripNoticia,
         autor: nott.autor,
         foto: nott.foto,
-        categoria: nott.categoria,
+        categoria: undefined,
         pieDeFoto: nott.pieDeFoto,
         hora: nott.hora,
         fecha: nott.fecha

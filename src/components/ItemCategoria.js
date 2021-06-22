@@ -15,9 +15,9 @@ const ItemCategoria = (props) => {
         let not = noticias.filter((n) => n?.categoria?._id === id)
         not.map((nott) =>{
             editarNoticia(nott._id, nott)
-            setConsultarNoticias(!consultarNoticias);
         })
         setConsultarNoticias(!consultarNoticias);
+        
     }
     const eliminarCategoria =(id) =>{
         
