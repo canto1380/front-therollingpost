@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faStar} from '@fortawesome/free-solid-svg-icons';
 import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {editarNoticia} from '../helpers/helpers'
 
 const ItemCategoria = (props) => {
-    const { cantDestacadas, tok} = props
+    const { cantDestacadas, tok, noticias, consultarNoticias, setConsultarNoticias} = props
+    const [noticia, setNoticia] = useState({});
+    const url = process.env.REACT_APP_API_URL;
+
+    const despublicar = (id) =>{
+        let not = noticias.filter((n) => n?.categoria?._id === id)
+        not.map((nott) =>{
+            editarNoticia(nott._id, nott)
+            setConsultarNoticias(!consultarNoticias);
+        })
+        setConsultarNoticias(!consultarNoticias);
+    }
     const eliminarCategoria =(id) =>{
+        
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',
-            text: "No podras recuperarla",
+            text: "Las noticias con esta categoria no podran ser publicadas hasta que se les defina una nueva categoria",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -20,6 +33,7 @@ const ItemCategoria = (props) => {
           })
           .then(async(result)=>{
             if(result.isConfirmed){
+                despublicar(id)
                 const url = `${process.env.REACT_APP_API_URL}/categorias/deleteCategoria/${id}`;
                 try {
                     const config ={

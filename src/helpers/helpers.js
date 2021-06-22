@@ -55,3 +55,36 @@ export const emailValidacion = (value) =>{
         return false
     }
 }
+
+export const editarNoticia = async ( id, nott) => {
+  const urll = process.env.REACT_APP_API_URL;
+    try {
+      const noticiaModificada = {
+        publicado: false,
+        titulo: nott.titulo,
+        descripcion: nott.descripcion,
+        descripNoticia: nott.descripNoticia,
+        autor: nott.autor,
+        foto: nott.foto,
+        categoria: nott.categoria,
+        pieDeFoto: nott.pieDeFoto,
+        hora: nott.hora,
+        fecha: nott.fecha
+        // hora: moment().format("HH:mm"),
+        // fecha: moment().format("DD MMMM, YYYY"),
+      };
+      console.log(noticiaModificada)
+      console.log(urll + "/noticias/" + id)
+      console.log(nott)
+      const respuesta = await fetch(urll + "/noticias/" + id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(noticiaModificada),
+      });
+      if (respuesta.status === 200) {
+        console.log('ee')
+      }
+    } catch (error) {
+      console.log(error);
+    }
+};

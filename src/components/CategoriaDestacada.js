@@ -24,7 +24,7 @@ const CategoriaDestacada = (props) => {
                                 <Col xs={12} md={6} lg={4} key={not._id} >
                                     <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none" >
                                         <div className="card tarjetaNoticia cardTall mt-3">
-                                            <img className="card-img-top w-100" src={not.foto} alt="" height="65%"/>
+                                            <img className="card-img-top w-100" src={not.foto} alt="" height="276px"/>
                                             <div className="card-body tarjetaNoticia-body">
                                                 <h5 className="card-title titleShort">{not.titulo}</h5>
                                                 <p className="card-text textShort">{not.descripcion}</p>

@@ -23,6 +23,9 @@ import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import { Container } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
+
 
 function App() {
 
@@ -78,16 +81,6 @@ function App() {
     }
     consultarAPIComent()
   }, [consultarComent])
-  console.log('comentarios')
-  console.log(comentario)
-  console.log('noticias')
-  console.log(noticias)
-  console.log('categorias')
-  console.log(categorias)
-  console.log('ultimaNoticia')
-  console.log(ultimaNoticia)
-  console.log('Ultims noticias')
-  console.log(ultimasNoticias)
 
   /* Consulta API - categorias */
   useEffect(() => {
@@ -129,7 +122,6 @@ function App() {
       console.log(error);
     }
   };
-
   /*Consulta API clientes*/
   useEffect(()=>{
     const consultarAPIClientes = async ()=>{
@@ -149,6 +141,11 @@ function App() {
     consultarAPIClientes();
   },[consultarClientes])
 
+var cambiarModo = () =>{
+  document.body.classList.toggle('dark')
+  
+}
+
   return (
     <Router>
       <div className="page-container">
@@ -160,12 +157,17 @@ function App() {
             tok={tok}
           />
           <Container>
-            <div className=" row">
+            <div className=" row mx-0">
               <div className=" col-sm-12 col-md-6 ps-3 ps-md-0">
                 <APImoneda></APImoneda>
               </div>
-              <div className="col-sm-12 col-md-6 pe-0">
+              <div className="col-sm-12 col-md-6 pe-0 d-flex flex-wrap justify-content-between">
                 <APIclima></APIclima>
+                <div className="mt-3 ">
+              <button className="boton-tema border-0 py-2 px-3 rounded d-flex align-content-center" onClick={cambiarModo}>
+              <FontAwesomeIcon icon={faLightbulb} className="fa-lg "></FontAwesomeIcon>
+                </button>
+                </div>
               </div>
             </div>
           </Container>
@@ -231,6 +233,9 @@ function App() {
                 consultarCat={consultarCat}
                 cantDestacadas={cantDestacadas}
                 tok={tok}
+                noticias={noticias}
+                consultarNoticias={consultarNoticias}
+                setConsultarNoticias={setConsultarNoticias}
               />
             </Route>
             <Route exact path='/menu-categorias/addCategoria/:tok'>

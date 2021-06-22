@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit,faTrashAlt,faEye } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
-
 const ItemBotonera = (props) => {
-  const {tok} =props
-
+  const {tok, noticia, consultarNoticias, setConsultarNoticias} =props
+  console.log(noticia)
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -35,7 +34,7 @@ const ItemBotonera = (props) => {
               "success"
             );
             //actualizar los datos de la lista
-            props.setConsultarNoticias(!props.consultarNoticias);
+            setConsultarNoticias(!consultarNoticias);
           }
         } catch (error) {
           console.log(error);
@@ -44,40 +43,95 @@ const ItemBotonera = (props) => {
     });
   };
 
-  const publicarNoticia = (id) => {
-    Swal.fire({
-      title: "Estas seguro de publicar esta noticia?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Publicar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
-        try {
-          const noticiaPublicada = {
-            publicado: true
-          }
-          const respuesta = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(noticiaPublicada),
-          });
-          if (respuesta.status === 200) {
+  const publicarNoticia = async(id, publicado) => {
+    const urll = process.env.REACT_APP_API_URL;
+  try {
+    const respuesta = await fetch(urll + "/noticias/" + id);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          console.log(resp)
+          console.log(resp.categoria.nombreCategoria)
+          if(resp.categoria.nombreCategoria === null){
             Swal.fire({
-              title: "Noticia publicada!",
-              icon: "success"
-            });
-            //actualizar los datos de la lista
-          props.setConsultarNoticias(!props.consultarNoticias);
+              icon: 'error',
+              title: 'Ocurrio un problema',
+              text: 'Defina una categoria a la noticia para poder publicarla',
+            })
+          } else {
+            console.log('no null')
+            Swal.fire({
+              title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: noticia.publicado ? "Quitar publicación" : "Publicar",
+              cancelButtonText: "Cancelar",
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
+                try {
+                  const noticiaPublicada = {
+                    publicado: !publicado
+                  }
+                  const respuesta = await fetch(url, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(noticiaPublicada),
+                  });
+                  if (respuesta.status === 200) {
+                    Swal.fire({
+                      title: `Noticia ${publicado ? "removida" : "publicada"}!`,
+                      icon: "success"
+                    });
+                    //actualizar los datos de la lista
+                  setConsultarNoticias(!consultarNoticias);
+                  }
+                } catch (error) {
+                  console.log(error);
+                }
+              }
+            }).catch(()=>Swal.close());
           }
-        } catch (error) {
-          console.log(error);
         }
-      }
-    });
+  } catch (error) {
+    console.log(error)
+  }
+
+    // verificarCategoriaNoticia(id)
+    // Swal.fire({
+    //   title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonColor: "#3085d6",
+    //   cancelButtonColor: "#d33",
+    //   confirmButtonText: noticia.publicado ? "Quitar publicación" : "Publicar",
+    //   cancelButtonText: "Cancelar",
+    // }).then(async (result) => {
+    //   if (result.isConfirmed) {
+    //     const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
+    //     try {
+    //       const noticiaPublicada = {
+    //         publicado: !publicado
+    //       }
+    //       const respuesta = await fetch(url, {
+    //         method: "PUT",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify(noticiaPublicada),
+    //       });
+    //       if (respuesta.status === 200) {
+    //         Swal.fire({
+    //           title: `Noticia ${publicado ? "removida" : "publicada"}!`,
+    //           icon: "success"
+    //         });
+    //         //actualizar los datos de la lista
+    //       setConsultarNoticias(!consultarNoticias);
+    //       }
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    // }).catch(()=>Swal.close());
   };
 
   return (
@@ -85,8 +139,8 @@ const ItemBotonera = (props) => {
       <Button
         as={Link}
         type="button"
-        className="btn btn-warning me-1 text-light "
-        to={`/editar-noticia/${tok}/${props.noticia._id}`}
+        className="btn btn-warning me-1 text-dark "
+        to={`/editar-noticia/${tok}/${noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -94,19 +148,23 @@ const ItemBotonera = (props) => {
       <Button
         className="me-1"
         variant="danger"
-        onClick={() => eliminarProductos(props.noticia._id)}
+        onClick={() => eliminarProductos(noticia._id)}
         title="Eliminar noticia"
       >
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
         className="btn btn-info me-1 text-light "
-        to={`/preview/${tok}/${props.noticia._id}`}
+        to={`/preview/${tok}/${noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
-      <Button variant="primary" title="Publicar" onClick={() =>publicarNoticia(props.noticia._id)} disabled={props.noticia.publicado}>
+      <Button
+        variant={noticia.publicado ? "primary" : "secondary"}
+        title={noticia.publicado ? "Quitar publicación" : "Publicar"}
+        onClick={() => publicarNoticia(noticia._id, noticia.publicado)}
+      >
         <FontAwesomeIcon icon={faNewspaper}></FontAwesomeIcon>
       </Button>
     </div>

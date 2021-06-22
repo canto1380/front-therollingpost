@@ -42,7 +42,6 @@ const Noticia = (props) => {
     /* Filtro de comentarios a mostrar */
     let coment = comentario.filter((c) => c.idNoticia?._id === id);
     let comentLength = coment.length;
-    console.log(comentLength)
 
     return (
         <Container fluid className="p-4">

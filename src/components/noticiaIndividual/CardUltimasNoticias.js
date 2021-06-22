@@ -19,7 +19,9 @@ const CardUltimasNoticias = (props) => {
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
             <p className="m-0 fw-bolder">Últimas noticias</p>
-                <Button size="sm" variant="info" className="btn backcolor text-light" as={Link} to={'/'}>Ver más</Button>
+                <Button size="sm" variant="dark" className="btn boton-tema border-0" as={Link} to={'/'}>
+                    <span className="lead"><i><b>Ver más</b></i> </span>
+                </Button>
             </div>
             <hr className="mt-0"/>
             <ListGroup className="my-3">
