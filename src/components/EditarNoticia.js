@@ -19,7 +19,7 @@ const EditarNoticia = (props) => {
   // creo los state
   const [noticias, setNoticia] = useState({});
   const [error, setError] = useState(false);
-  const { categorias, tok } = props;
+  const { categorias } = props;
   //Feed
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
@@ -194,7 +194,7 @@ const EditarNoticia = (props) => {
           //
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
-          props.history.push("/menu-noticias/tok");
+          props.history.push("/menu-noticias");
           e.target.reset();
         }
       } catch (error) {
@@ -220,7 +220,7 @@ const EditarNoticia = (props) => {
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
                 className="btn btn-primary text-light mx-1"
-                to={`/menu-noticias/${tok}`}
+                to={`/menu-noticias`}
               >
                 <FontAwesomeIcon
                   className="fa-2x"

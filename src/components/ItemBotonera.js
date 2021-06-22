@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit,faTrashAlt,faEye } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 const ItemBotonera = (props) => {
-  const {tok, noticia, consultarNoticias, setConsultarNoticias} =props
+  const { noticia, consultarNoticias, setConsultarNoticias} =props
   console.log(noticia)
   const eliminarProductos = (id) => {
     Swal.fire({
@@ -140,7 +140,7 @@ const ItemBotonera = (props) => {
         as={Link}
         type="button"
         className="btn btn-warning me-1 text-dark "
-        to={`/editar-noticia/${tok}/${noticia._id}`}
+        to={`/editar-noticia/${noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -155,7 +155,7 @@ const ItemBotonera = (props) => {
       </Button>
       <Link
         className="btn btn-info me-1 text-light "
-        to={`/preview/${tok}/${noticia._id}`}
+        to={`/preview/${noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>

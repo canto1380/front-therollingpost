@@ -79,7 +79,7 @@ const EditarCategoria = (props) => {
             "success"
           );
           props.setConsultarCat(!props.consultarCat);
-          props.history.push(`/menu-categorias/${tok}`);
+          props.history.push(`/menu-categorias`);
         }
       } catch (error) {
         console.log(error);
@@ -130,7 +130,7 @@ const EditarCategoria = (props) => {
               <Link
                 className="my-3 btn btn-primary"
                 variant="primary"
-                to={`/menu-categorias/${tok}`}
+                to={`/menu-categorias`}
               >
                 Volver
               </Link>

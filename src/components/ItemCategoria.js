@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import {editarNoticia} from '../helpers/helpers'
 
 const ItemCategoria = (props) => {
-    const { cantDestacadas, tok, noticias, consultarNoticias, setConsultarNoticias} = props
+    const { cantDestacadas, noticias, consultarNoticias, setConsultarNoticias} = props
     const [noticia, setNoticia] = useState({});
     const url = process.env.REACT_APP_API_URL;
 
@@ -76,7 +76,7 @@ const ItemCategoria = (props) => {
                     })
                     if(res.status ===200){
                         props.setConsultarCat(!props.consultarCat);
-                        props.history.push(`/menu-categorias/${tok}`);
+                        props.history.push(`/menu-categorias`);
                     }
                 } catch (error) {
                     
@@ -122,7 +122,7 @@ const ItemCategoria = (props) => {
                 })
                 if(res.status ===200){
                     props.setConsultarCat(!props.consultarCat);
-                    props.history.push(`/menu-categorias/${tok}`);
+                    props.history.push(`/menu-categorias`);
                 }
             } catch (error) {
                 
@@ -145,7 +145,7 @@ const ItemCategoria = (props) => {
                         </Button>
                     )
                 }  
-            <Link className="btn btn-warning mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
+            <Link className="btn btn-warning mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
                 <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)} title="Eliminar categoria">

@@ -32,7 +32,7 @@ const AgregarNoticia = (props) => {
   const [pieImgValid, setPieImgValid] = useState("");
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const { categorias, tok } = props;
+  const { categorias } = props;
 
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
@@ -236,7 +236,7 @@ const AgregarNoticia = (props) => {
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
                 className="btn btn-primary text-light mx-1"
-                to={`/menu-noticias/${tok}`}
+                to={`/menu-noticias`}
               >
                 <FontAwesomeIcon
                   className="fa-2x"
