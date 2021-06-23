@@ -198,7 +198,7 @@ setClient({...client, [e.target.name]: e.target.value})
 
   /*limpiar states para estilos en formulario*/
   const clearForm = ()=>{
-    setNomValid("")
+      setNomValid("")
       setNomInvalid("")
       setDirecValid("");
       setDirecInvalid("");
@@ -222,6 +222,7 @@ setClient({...client, [e.target.name]: e.target.value})
       setVTel(false)
       setVEmail(false)
       setVPass(false)
+      setRePass(false)
   }
 
   const terminos = (e)=>{
@@ -231,7 +232,7 @@ setClient({...client, [e.target.name]: e.target.value})
 const handleSubmit = async(e)=>{
         e.preventDefault();
    
-        if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vPlan && terms){
+        if(vNom && vDir && vLoc && vCP && vTel && vEmail && vPass && vRePass && vPlan && terms){
           setError(false) 
   
           const cliente = client        
@@ -335,11 +336,11 @@ const handleSubmit = async(e)=>{
     return (
         <Container className="my-4">
           <div className="text-center my-3 ">
-          <h1 className="backcolor text-light rounded py-1 px-2"><i>Mantente al día con las noticias del mundo</i></h1>
+          <h1 className="py-1 px-2"><i>Mantente al día con las noticias del mundo</i></h1>
           <h5><i>Accedé sin límite a información de la mejor calidad</i></h5>
           </div>
           <div className="row">
-        <Card className="col-sm-12 col-md-6 col-lg-4 border border-secondary rounded">
+        <Card className="col-sm-12 col-md-6 col-lg-4 border border-secondary rounded herencia">
         <div className="text-center my-3 mx-4">
           <h2>Acceso Digital individual</h2>
             <h3 className="text-primary">{props.individual}<span>/mes</span></h3>
@@ -352,7 +353,7 @@ const handleSubmit = async(e)=>{
           <img src={familia} className="w-100" alt="" />
           </div>
         </Card>
-        <Card className="col-sm-12 col-md-6 col-lg-8 border-start-0 border-secondary rounded">  
+        <Card className="col-sm-12 col-md-6 col-lg-8 border-start-0 border-secondary rounded herencia">  
             <div className="mx-4 my-4">   
         <Form onSubmit={handleSubmit} >
         <Form.Group className="border rounded-3 backcolor">
@@ -366,7 +367,8 @@ const handleSubmit = async(e)=>{
           maxLength="40"  
           isValid={nomValid} 
           isInvalid={nomInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead">
+           <big><b>Datos incorrectos</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Dirección</b></i></Form.Label>
@@ -379,7 +381,8 @@ const handleSubmit = async(e)=>{
           maxLength="40"  
           isValid={direcValid} 
           isInvalid={direcInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid" className="text-danger ms-2 mb-1 lead">
+           <big><b>Datos incorrectos</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Localidad</b></i></Form.Label>
@@ -392,7 +395,8 @@ const handleSubmit = async(e)=>{
           maxLength="40"  
           isValid={locValid} 
           isInvalid={locInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead">
+           <big><b>Datos incorrectos</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Código Postal</b></i></Form.Label>
@@ -406,7 +410,8 @@ const handleSubmit = async(e)=>{
           onInput={maxNum}   
           isValid={cpValid} 
           isInvalid={cpInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Datos incorrectos</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead">
+           <big><b>Datos incorrectos</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Teléfono</b></i></Form.Label>
@@ -420,7 +425,8 @@ const handleSubmit = async(e)=>{
           onInput={maxNum}  
           isValid={telValid} 
           isInvalid={telInvalid} />
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe contener numero de area y telefono</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead">
+           <big><b>Debe contener numero de area y telefono</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Email</b></i></Form.Label>
@@ -433,7 +439,8 @@ const handleSubmit = async(e)=>{
           maxLength="40"  
           isValid={emailValid} 
           isInvalid={emailInvalid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >Email incorrectos</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead">
+           <big><b>Datos incorrectos</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Group  className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Contraseña</b></i></Form.Label>
@@ -446,8 +453,8 @@ const handleSubmit = async(e)=>{
           maxLength="12"   
           isValid={passValid} 
           isInvalid={passInValid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >
-            Su contraseña debe contener entre 6 y 12 caracteres, letras y números</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead" >
+           <big><b>Su contraseña debe contener entre 6 y 12 caracteres, letras o números</b></big> </Form.Control.Feedback> 
         </Form.Group>
         <Form.Group  className="mt-2 border rounded-3 backcolor">
           <Form.Label className="ps-2 pt-1 text-light rounded-top"><i><b>Confirme su contraseña</b></i></Form.Label>
@@ -460,7 +467,8 @@ const handleSubmit = async(e)=>{
           maxLength="12"   
           isValid={rePassValid} 
           isInvalid={rePassInValid}/>
-          <Form.Control.Feedback type="invalid"  className="text-danger small" >La confirmación de contraseña no coincide.</Form.Control.Feedback> 
+          <Form.Control.Feedback type="invalid"  className="text-danger ms-2 mb-1 lead" >
+           <big><b>La confirmación de contraseña no coincide.</b></big></Form.Control.Feedback> 
         </Form.Group>
         <Form.Label className="my-3 "><i><b>Seleccione su plan</b></i></Form.Label>
         <FormGroup >
@@ -493,8 +501,8 @@ const handleSubmit = async(e)=>{
           <Form.Control.Feedback type="invalid"  className="text-danger small" >Debe aceptar términos y condiciones</Form.Control.Feedback>
         </Form.Group>
         <div className="d-flex justify-content-center my-4">
-        <Button className="w-75 rounded" variant="primary" type="submit">
-         <b>Suscribirme</b>
+        <Button className="w-75 rounded mar border-0 text-light" type="submit">
+         <big><i><b>Suscribirme</b></i></big>
         </Button>
           </div>
           {
