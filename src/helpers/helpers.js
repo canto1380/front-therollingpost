@@ -70,8 +70,6 @@ export const editarNoticia = async ( id, nott) => {
         pieDeFoto: nott.pieDeFoto,
         hora: nott.hora,
         fecha: nott.fecha
-        // hora: moment().format("HH:mm"),
-        // fecha: moment().format("DD MMMM, YYYY"),
       };
       const respuesta = await fetch(urll + "/noticias/" + id, {
         method: "PUT",

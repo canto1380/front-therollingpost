@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useParams, withRouter, Link } from "react-router-dom";
-import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 const url = process.env.REACT_APP_API_URL;
