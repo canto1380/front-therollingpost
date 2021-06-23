@@ -1,0 +1,118 @@
+body{
+    --notar-color:transparent;
+  --background-color:white;
+  --text-color: black;
+  --button-text-color:yellow;
+  --transition-delay:background-color 1s;
+  
+  padding: 0 !important;
+  transition: var(--transition-delay);
+  background-color: var(--background-color);
+  color:var(--text-color)
+  }
+  
+  body.dark{
+  --notar-color:#fbfb06;
+  --background-color:#333;
+  --text-color: white;
+  --button-text-color:#333 ;
+  }
+  
+  .boton-tema{
+    background-color: var(--notar-color);
+    color:var(--button-text-color);
+  }
+  .boton-tema:hover{
+    box-shadow: 0 0 15px var(--notar-color);
+    filter: brightness(1.2);
+  }
+  .herencia{
+    background-color: inherit; 
+    color:inherit !important;
+  }
+ 
+  .limpio:visited{
+    background-color: white;
+    color: #435360;
+  }
+  
+  .planta{
+    background-color: #4eaa03;
+  }
+  .planta:hover{
+    background-color: #4eaa03;
+    box-shadow: 0 0 15px #4eaa03;
+    filter: brightness(1.05);
+  }
+  .dolares{
+    color: #4eaa03;
+  }
+  .dolar{
+  border-color:#4eaa03 !important;
+  }
+  .blues{
+    color:#0e4bef;
+  }
+  .mar{
+    background-color:#0e4bef;
+  }
+  .mar:hover{
+    background-color:#0e4bef;
+    box-shadow: 0 0 15px #0e4bef;
+    filter: brightness(1.05);
+  }
+  .blue{
+  border-color:	#0e4bef !important;
+  }
+  .rouge{
+    background-color: #ef0037;
+  }
+  .rouge:hover{
+    background-color: #ef0037;
+    box-shadow: 0 0 15px #ef0037;
+    filter: brightness(1.05);
+  }
+  .sky{
+    background-color: #20c6f3;
+  }
+  .nubes:hover{
+    background-color: #20c6f3;
+    box-shadow:0 0 15px #20c6f3 ;
+    filter: brightness(1.05);
+  }
+  .cielo{
+   background-color: transparent;
+   border-color: #20c6f3;
+   color: #20c6f3;
+  }
+  .sad{
+    background-color: #84939c;
+  }
+  .sad:hover{
+    background-color: #84939c;
+    box-shadow: 0 0 15px #84939c;
+    filter: brightness(1.05);
+  }
+  .limon{
+    background-color: hsl(51, 100%, 48%);
+  }
+  .lemon{
+    background-color: hsl(51, 100%, 48%);
+  }
+  .limon:hover{
+    background-color: hsl(51, 100%, 48%);
+    box-shadow: 0 0 15px hsl(51, 100%, 48%);
+    filter: brightness(1.05);
+    color: #333;
+  }
+  .backtext{
+    color: #435360 !important;
+  }
+  .backbutton{
+    background-color: #435360;
+  }
+  .backbutton:hover{
+    background-color: #435360;
+    box-shadow: 0 0 19px #435360;
+    filter: brightness(1.1);
+  }

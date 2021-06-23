@@ -175,7 +175,7 @@ const Contacto = () => {
           </div>
           <div className="ms-auto">
             <div className="d-flex justify-content-end  mx-1 align-content-center">
-              <Link className="btn btn-primary px-4" to={"/"}>
+              <Link className="btn mar text-light px-4" to={"/"}>
                 <FontAwesomeIcon
                   icon={faHome}
                   className="fa-2x"
@@ -270,12 +270,12 @@ const Contacto = () => {
               caracteres.
             </Form.Control.Feedback>
             <Form.Label>
-              <p>{consulta.length}/300</p>
+              <p className="text-dark">{consulta.length}/300</p>
             </Form.Label>
           </Form.Group>
           <div className="d-flex justify-content-center mb-3">
-            <Button className="btn w-75" type="submit" variant="primary">
-              Enviar
+            <Button className="btn w-75 mar" type="submit" >
+             <big><i><b>Enviar</b> </i></big>
             </Button>
           </div>
         </div>

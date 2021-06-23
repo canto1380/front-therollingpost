@@ -70,7 +70,7 @@ const ItemCategoria = (props) => {
             } else {
                 let timerInterval
                 Swal.fire({
-                  title: 'No se puede definir mas categorias como destacadas',
+                  title: 'No se puede definir mas categorías como destacadas',
                   timer: 1000,
                   timerProgressBar: true,
                   didOpen: () => {
@@ -116,25 +116,25 @@ const ItemCategoria = (props) => {
         }
     }
     return (
-        <ListGroup.Item className="d-flex justify-content-between align-items-center border border-secondary rounded">
-            <h5  className="text-dark"><i>{props.cat.nombreCategoria}</i></h5>
+        <ListGroup.Item className="d-flex justify-content-between align-items-center border border-secondary rounded herencia">
+            <h5><i>{props.cat.nombreCategoria}</i></h5>
             <div>
                 {
                     (!props.cat.destacada) ? (
-                        <Button variant='secondary' onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
+                        <Button className="sad border-0" onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
                             <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
                         </Button>
                     ) : 
                     (
-                        <Button variant='primary' title="Destacar categoria" onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
-                            <FontAwesomeIcon icon={faStar}></FontAwesomeIcon>
+                        <Button className="mar border-0" title="Destacar categoria" onClick={()=> destacarCategoria(props.cat._id, props.cat.nombreCategoria, props.cat.destacada)}>
+                            <FontAwesomeIcon icon={faStar} className="text-warning"></FontAwesomeIcon>
                         </Button>
                     )
                 }  
-            <Link className="btn btn-warning mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
+            <Link className="btn limon mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
-                <Button variant='danger' onClick={()=> eliminarCategoria(props.cat._id)} title="Eliminar categoria">
+                <Button className="rouge text-light border-0" onClick={()=> eliminarCategoria(props.cat._id)} title="Eliminar categoria">
                 <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
                 </Button>
 

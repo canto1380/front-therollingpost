@@ -27,10 +27,13 @@ const APImoneda = () => {
      }
 }
          return (    
-    <div className="d-flex justify-content-center justify-content-lg-start align-items-center my-2">
-         
-         <div className=" p-1 rounded border border-success border-4"><FontAwesomeIcon icon={faMoneyBillAlt} className=" me-1 text-success align-middle" size="2x"></FontAwesomeIcon><i><b> Dolar Oficial: </b>${oficial.compra} / ${oficial.venta}</i></div>
-         <div className=" mx-1 p-1 rounded border border-primary border-4"><FontAwesomeIcon icon={faMoneyBillAlt} className="  me-1 text-primary align-middle " size="2x"></FontAwesomeIcon><i><b>Dolar Blue: </b>${blue.compra} / ${blue.venta}</i></div>
+    <div className="d-flex justify-content-center justify-content-lg-start align-items-center my-2">  
+         <div className=" p-1 rounded border dolar border-4">
+             <FontAwesomeIcon icon={faMoneyBillAlt} className=" me-1 dolares align-middle" size="2x"> </FontAwesomeIcon>
+             <i><b> Dolar Oficial: </b>${oficial.compra} / ${oficial.venta}</i></div>
+         <div className=" mx-1 p-1 rounded border blue border-4">
+             <FontAwesomeIcon icon={faMoneyBillAlt} className="  me-1 blues align-middle " size="2x"></FontAwesomeIcon>
+             <i><b>Dolar Blue: </b>${blue.compra} / ${blue.venta}</i></div>
      </div>
      
       

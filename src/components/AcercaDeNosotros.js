@@ -23,7 +23,7 @@ const AcercaDeNosotros = () => {
         <Row>
           <Col className="mb-3" xs={12} md={6}>
             <Card className="border border-dark">
-              <Card.Title className="text-center">
+              <Card.Title className="text-center text-dark">
                 <h2>
                   <i>Alejandro Peñalba</i>
                 </h2>
@@ -34,18 +34,16 @@ const AcercaDeNosotros = () => {
                 alt="Alejandro Peñalba Avatar"
               />
               <Card.Body>
-                <Card.Text>
-                  <p>
+                <Card.Text className="text-dark">
                     Edad: 27 años. Hola soy Alejandro Peñalba y soy Estudiante de
                     Ingeniería en Sistemas, próximamente programador Full Stack.
-                  </p>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
             <Card className="border border-dark">
-              <Card.Title className="text-center">
+              <Card.Title className="text-center text-dark">
                 <h2>
                   <i>Alejandro Poviña</i>
                 </h2>
@@ -56,18 +54,16 @@ const AcercaDeNosotros = () => {
                 alt="Alejandro Poviña Avatar"
               />
               <Card.Body>
-                <Card.Text>
-                  <p>
+                <Card.Text className="text-dark">
                     Edad: 31 años. Hola soy Alejandro Poviña, soy Ingeniero
                     Industrial próximamente programador Full Stack.
-                  </p>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
             <Card className="border border-dark">
-              <Card.Title className="text-center">
+              <Card.Title className="text-center text-dark">
                 <h2>
                   <i>Nicolas Guardo</i>
                 </h2>
@@ -78,29 +74,25 @@ const AcercaDeNosotros = () => {
                 alt="Nicolas Guardo Avatar"
               />
               <Card.Body>
-                <Card.Text>
-                  <p>
+                <Card.Text className="text-dark">
                     Edad: 27 años. Hola soy Nicolas Guardo, soy Técnico Superior
                     en Programación, próximamente programador Full Stack.
-                  </p>
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col className="mb-3" xs={12} md={6}>
             <Card className="border border-dark">
-              <Card.Title className="text-center">
+              <Card.Title className="text-center text-dark">
                 <h2>
                   <i>Pablo Alonso</i>
                 </h2>
               </Card.Title>
               <Card.Img variant="top" src={ImgAvPA} alt="Pablo Alonso Avatar" />
               <Card.Body>
-                <Card.Text>
-                  <p>
+                <Card.Text className="text-dark">
                     Edad: 28 años. Hola soy Pablo Julian Alonso Olivera, soy ayudante de
                     laboratorio y programador Full Stack.
-                  </p>
                 </Card.Text>
               </Card.Body>
             </Card>
@@ -210,7 +202,7 @@ const AcercaDeNosotros = () => {
             </div>
         </section>
         <div className="d-flex justify-content-center mb-4">
-          <Link className="btn btn-primary w-50 border-dark" to={"/"}>
+          <Link className="btn mar w-50  text-light" to={"/"}>
             <FontAwesomeIcon icon={faHome} className="fa-2x "></FontAwesomeIcon>
           </Link>
         </div>

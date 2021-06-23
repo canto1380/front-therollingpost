@@ -11,16 +11,16 @@ const CardUltimasNoticias = (props) => {
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end my-1">
             <p className="m-0 fw-bolder">Últimas noticias</p>
-                <Button size="sm" variant="dark" className="btn boton-tema border-0" as={Link} to={'/'}>
+                <Button size="sm" className="btn backbutton border-0" as={Link} to={'/'}>
                     <span className="lead"><i><b>Ver más</b></i> </span>
                 </Button>
             </div>
             <hr className="mt-0"/>
             <ListGroup className="my-3">
-                {/* Map donde recorre las primeras 5 noticias  */}
+                 {/* Map donde recorre las primeras 5 noticias   */}
                 {
                     ultimas3noticias.map((mas) => (
-                        <Link className="text-dark text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
+                        <Link className="herencia text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
                             <Row className="d-flex-justify-content-between card-masLeidas">
                                 <Col xs={2} sm={3} className="p-0 d-flex align-items-center">
                                     <Image src={mas.foto} rounded className="img-items-noticias" />
@@ -31,7 +31,7 @@ const CardUltimasNoticias = (props) => {
                                         <p className="lead">{mas.descripcion}</p>
                                     </div>
                                     <div className="">
-                                        <p className="text-secondary text-end mb-0 qww">{mas.hora}</p>
+                                        <p className="text-end mb-0 qww">{mas.hora}</p>
                                     </div>
                                 </Col>
                             </Row>

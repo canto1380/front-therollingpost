@@ -17,7 +17,6 @@ const AgregarCategoria = (props) => {
   const [catValid, setCatValid] = useState("");
   const [catInvalid, setCatInvalid] = useState("");
   /* Variables */
-  let mensaje;
 
   const valCate = () => {
     setCatValid("");
@@ -82,13 +81,13 @@ const AgregarCategoria = (props) => {
     <Container>
       <Row className="d-flex justify-content-between">
         <Col sm={12} lg={6}>
-          <h1 className="mt-4"><i className="backcolor badge text-color"> Agregar categoría</i></h1>
+          <h1 className="mt-4"><i> Agregar categoría</i></h1>
           <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secondary rounded">
             <Form.Group>
               <Form.Label><i>Nombre de categoría</i></Form.Label>
               <Form.Control 
               type="text" 
-              placeholder="Nombre categoria"
+              placeholder="Nombre categoría"
               maxLength="15" 
               onChange={(e)=> setNombreCat(e.target.value)}
               onBlur={valCate}
@@ -104,12 +103,11 @@ const AgregarCategoria = (props) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="d-flex justify-content-end">
-            <Button className="my-3 mx-2" variant="success" type="submit">
+            <Button className="my-3 mx-2 planta border-0"  type="submit">
              Agregar
             </Button>
             <Link 
-            className="my-3 btn btn-primary" 
-            variant="primary" 
+            className="my-3 btn mar text-light" 
             to={`/menu-categorias/${tok}`}>
               Volver
             </Link>
@@ -123,16 +121,16 @@ const AgregarCategoria = (props) => {
           </Form>
         </Col>
         <Col sm={12} lg={6}>
-            <h1 className="mt-4"><i className="backcolor badge text-color">Categorías existentes</i> </h1>
+            <h1 className="mt-4"><i>Categorías existentes</i></h1>
             <ListGroup className="my-3 ">
                 {
                     categorias.map((cat) => 
                     <ListGroup.Item 
-                    className="d-flex justify-content-between align-items-center border border-secondary rounded"
+                    className="d-flex justify-content-between align-items-center border border-secondary rounded herencia"
                     cat={cat} 
                     key={cat._id} 
                     setConsultarCat={props.setConsultarCat}>
-                    <h5 className="text-dark"><i>{cat.nombreCategoria}</i></h5>
+                    <h5><i>{cat.nombreCategoria}</i></h5>
                     </ListGroup.Item>)
                 }
             </ListGroup>

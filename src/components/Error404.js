@@ -16,7 +16,7 @@ const Error404 = () => {
       <h5 className="w-50 text-center">Estamos experimentando problemas técnicos y no logramos encontrar la pagina que buscas, intentalo nuevamente mas tarde.</h5>
       </div>
       <div className="d-flex justify-content-center mb-4">
-        <Link className="btn btn-primary w-50 " to={"/"}>
+        <Link className="btn mar text-light border-0 w-50 " to={"/"}>
           <FontAwesomeIcon icon={faHome} className="fa-2x"></FontAwesomeIcon>
         </Link>
       </div>

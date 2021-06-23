@@ -95,7 +95,7 @@ const EditarCategoria = (props) => {
         <Container>
             <Row className="d-flex justify-content-between">
                 <Col sm={12} lg={6}>
-                    <h1 className="mt-4"><i className="backcolor badge text-color">Editar Categoria</i></h1>
+                    <h1 className="mt-4"><i>Editar Categoria</i></h1>
                     <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secondary rounded">
                         <Form.Group>
                             <Form.Label><i>Nombre Categoria</i></Form.Label>
@@ -116,10 +116,10 @@ const EditarCategoria = (props) => {
                        caracteres.
                        </Form.Control.Feedback>
                         <Form.Group className="d-flex justify-content-end">
-                            <Button className="my-3 mx-2 text-dark" variant="warning" type="submit">
+                            <Button className="my-3 mx-2 text-dark limon border-0"  type="submit">
                                 Editar
                         </Button>
-                            <Link className="my-3 btn btn-primary" variant="primary" to={`/menu-categorias/${tok}`}>
+                            <Link className="my-3 btn mar text-light border-0" to={`/menu-categorias/${tok}`}>
                                 Volver
                             </Link>
                         </Form.Group>
@@ -128,12 +128,13 @@ const EditarCategoria = (props) => {
                     </Form>
                 </Col>
                 <Col sm={12} lg={6}>
-                    <h1 className="mt-4"><i className="backcolor badge text-color">Categorías existentes</i></h1>
+                    <h1 className="mt-4"><i>Categorías existentes</i></h1>
                     <ListGroup className="my-3">
                         {
-                            props.categorias.map((cat) => <ListGroup.Item className="d-flex justify-content-between align-items-center border border-secondary"
+                            props.categorias.map((cat) => <ListGroup.Item
+                             className="d-flex justify-content-between align-items-center border border-secondary herencia"
                             cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}>
-                            <h5 className="text-dark"><i>{cat.nombreCategoria}</i></h5>
+                            <h5><i>{cat.nombreCategoria}</i></h5>
                             </ListGroup.Item>)
                         }
                     </ListGroup>

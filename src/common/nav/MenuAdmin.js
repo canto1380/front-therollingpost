@@ -49,9 +49,15 @@ const MenuAdmin = (props) => {
               id="dropdown-menu-align-right"
               variant="outline-light"
             >
-              <Dropdown.Item as={Link} to={`/menu-noticias/${(tok)}`} eventKey="1"><FontAwesomeIcon icon={faNewspaper} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Noticias </Dropdown.Item>
-              <Dropdown.Item as={Link} to={`/menu-categorias/${(tok)}`} eventKey="2"><FontAwesomeIcon icon={faListAlt} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Categorías</Dropdown.Item>
-              <Dropdown.Item as={Link} to={`/menu-suscriptos/${(tok)}`} eventKey="3"><FontAwesomeIcon icon={faUserFriends} className="me-2 text-primary" size="2x"></FontAwesomeIcon>Clientes</Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/menu-noticias/${(tok)}`} className="limpio" eventKey="1">
+                <FontAwesomeIcon icon={faNewspaper} className="me-2 back-text" size="2x"></FontAwesomeIcon>Noticias
+                 </Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/menu-categorias/${(tok)}`} className="limpio" eventKey="2">
+                <FontAwesomeIcon icon={faListAlt} className="me-2 back-text" size="2x"></FontAwesomeIcon>Categorías
+                </Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/menu-suscriptos/${(tok)}`} className="limpio" eventKey="3">
+                <FontAwesomeIcon icon={faUserFriends} className="me-2 back-text" size="2x"></FontAwesomeIcon>Clientes
+                </Dropdown.Item>
             </DropdownButton>
            <Button variant="botones-navbar" onClick={cerrarSesion} className="btn btn-outline-light" ><FontAwesomeIcon icon={faSignInAlt} className="me-2"></FontAwesomeIcon>Salir</Button>
           </Nav>

@@ -8,9 +8,10 @@ import "../../App.css"
 const CardNoticiaIndividual = (props) => {
     const {not, comentLength} = props
     return (
-        <section className="container border border-dark rounded-3 mt-3">
+        <section className="container border border-secondary rounded-3 mt-3">
             <div className="mt-1">
-                <div className="backcolor rounded-3"><h1 className="mb-3 mt-3 py-1 px-2"><span className="fs-1  text-light">{not.titulo}</span></h1>
+                <div>
+                    <h1 className="mb-3 mt-3"><span className="fs-1 ">{not.titulo}</span></h1>
                 </div>
                 <h4><i>{not.descripcion}</i></h4>
             </div>
