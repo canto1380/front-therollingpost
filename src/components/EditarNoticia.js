@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Container, Form, Button, Alert, InputGroup, Image } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { useParams, withRouter, Link } from "react-router-dom";
-import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 const url = process.env.REACT_APP_API_URL;
@@ -19,7 +18,7 @@ const EditarNoticia = (props) => {
   // creo los state
   const [noticias, setNoticia] = useState({});
   const [error, setError] = useState(false);
-  const { categorias, tok } = props;
+  const { categorias } = props;
   //Feed
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
@@ -177,8 +176,8 @@ const EditarNoticia = (props) => {
           foto: imagenRef.current.value,
           categoria: noticias.categoria,
           pieDeFoto: piedefotoRef.current.value,
-          hora: moment().format("HH:mm"),
-          fecha: moment().format("DD MMMM, YYYY"),
+          hora: noticias.hora,
+          fecha: noticias.fecha,
         };
         const respuesta = await fetch(url + "/noticias/" + id, {
           method: "PUT",
@@ -194,7 +193,7 @@ const EditarNoticia = (props) => {
           //
           props.setConsultarNoticias(!props.consultarNoticias);
           //redireccionar a la pagina de productos
-          props.history.push("/menu-noticias/tok");
+          props.history.push("/menu-noticias");
           e.target.reset();
         }
       } catch (error) {
@@ -220,7 +219,7 @@ const EditarNoticia = (props) => {
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
                 className="btn mar text-light mx-1"
-                to={`/menu-noticias/${tok}`}
+                to={`/menu-noticias`}
               >
                 <FontAwesomeIcon
                   className="fa-2x"

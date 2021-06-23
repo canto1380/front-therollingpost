@@ -7,7 +7,6 @@ import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
   const { id } = useParams();
-  const { tok } = props;
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState({});
@@ -79,7 +78,7 @@ const EditarCategoria = (props) => {
             "success"
           );
           props.setConsultarCat(!props.consultarCat);
-          props.history.push(`/menu-categorias/${tok}`);
+          props.history.push(`/menu-categorias`);
         }
       } catch (error) {
         console.log(error);
@@ -119,24 +118,23 @@ const EditarCategoria = (props) => {
                             <Button className="my-3 mx-2 text-dark limon border-0"  type="submit">
                                 Editar
                         </Button>
-                            <Link className="my-3 btn mar text-light border-0" to={`/menu-categorias/${tok}`}>
+                            <Link className="my-3 btn mar text-light border-0" to={`/menu-categorias`}>
                                 Volver
                             </Link>
                         </Form.Group>
-                        {
-                            (err) ? (<MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />) : (null)}
+                        {(err) ?
+                             (<MsjError text1="Datos incorrectos" 
+                             text2="Intentelo nuevamente." />) : (null)}
                     </Form>
                 </Col>
                 <Col sm={12} lg={6}>
                     <h1 className="mt-4"><i>Categorías existentes</i></h1>
                     <ListGroup className="my-3">
-                        {
-                            props.categorias.map((cat) => <ListGroup.Item
+                        {props.categorias.map((cat) => <ListGroup.Item
                              className="d-flex justify-content-between align-items-center border border-secondary herencia"
                             cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}>
                             <h5><i>{cat.nombreCategoria}</i></h5>
-                            </ListGroup.Item>)
-                        }
+                            </ListGroup.Item>)}
                     </ListGroup>
                 </Col>
             </Row>

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const NoticiasMenu = (props) => {
-  const { noticias, consultarNoticias, setConsultarNoticias, tok } = props;
+  const { noticias, consultarNoticias, setConsultarNoticias} = props;
   return (
     <Container className="mb-3">
       
@@ -20,8 +20,8 @@ const NoticiasMenu = (props) => {
           <div className="col-2">
             <div className="d-flex justify-content-end">
               <Link
-                className="btn planta text-light botones"
-                to={`/menu-noticias/agregar-noticia/${tok}`}
+                className="btn planta text-light"
+                to={`/menu-noticias/agregar-noticia`}
                 title="Agregar noticia"
               >
                 <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
@@ -50,7 +50,7 @@ const NoticiasMenu = (props) => {
                     key={noticia._id}
                     consultarNoticias={consultarNoticias}
                     setConsultarNoticias={setConsultarNoticias}
-                    tok={tok}
+                    
                   ></ItemBotonera>
                 </td>
               </tr>

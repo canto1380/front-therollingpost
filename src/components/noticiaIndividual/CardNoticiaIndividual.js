@@ -7,6 +7,14 @@ import "../../App.css"
 
 const CardNoticiaIndividual = (props) => {
     const {not, comentLength} = props
+    
+    const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+    scrollToTop()
     return (
         <section className="container border border-secondary rounded-3 mt-3">
             <div className="mt-1">
@@ -16,9 +24,9 @@ const CardNoticiaIndividual = (props) => {
                 <h4><i>{not.descripcion}</i></h4>
             </div>
             <div className="ms-2 text-secondary">
-                <span>{not.hora} hs |</span>
-                <span className="me-3"> {not.fecha}</span>
-                <span>{comentLength}<FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon></span>
+                <span className='me-1'>{not.hora} hs |</span>
+                <span className="me-1"> {not.fecha} |</span>
+                <span>{comentLength} <FontAwesomeIcon icon={faComment} className="me-1" size="1x"></FontAwesomeIcon></span>
             </div>
             <Image src={not.foto} className="d-block w-100 image-height"/>
             <div>

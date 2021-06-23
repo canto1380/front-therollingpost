@@ -6,7 +6,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-  const { consultarCat, setConsultarCat, categorias, tok } = props;
+  const { consultarCat, setConsultarCat, categorias} = props;
 
   const url = process.env.REACT_APP_API_URL + "/categorias/addCategoria";
 
@@ -16,7 +16,6 @@ const AgregarCategoria = (props) => {
   const [err2, setErr2] = useState(false);  //valicaciones de feed
   const [catValid, setCatValid] = useState("");
   const [catInvalid, setCatInvalid] = useState("");
-  /* Variables */
 
   const valCate = () => {
     setCatValid("");
@@ -108,7 +107,7 @@ const AgregarCategoria = (props) => {
             </Button>
             <Link 
             className="my-3 btn mar text-light" 
-            to={`/menu-categorias/${tok}`}>
+            to={`/menu-categorias`}>
               Volver
             </Link>
             </Form.Group>
@@ -122,17 +121,16 @@ const AgregarCategoria = (props) => {
         </Col>
         <Col sm={12} lg={6}>
             <h1 className="mt-4"><i>Categorías existentes</i></h1>
-            <ListGroup className="my-3 ">
-                {
-                    categorias.map((cat) => 
+            <ListGroup className="my-3">
+                {categorias.map((cat) =>(
                     <ListGroup.Item 
                     className="d-flex justify-content-between align-items-center border border-secondary rounded herencia"
                     cat={cat} 
                     key={cat._id} 
                     setConsultarCat={props.setConsultarCat}>
                     <h5><i>{cat.nombreCategoria}</i></h5>
-                    </ListGroup.Item>)
-                }
+                    </ListGroup.Item>
+                ))}
             </ListGroup>
         </Col>
       </Row>

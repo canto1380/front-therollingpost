@@ -4,13 +4,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faStar} from '@fortawesome/free-solid-svg-icons';
 import {withRouter, Link}  from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {editarNoticia} from '../helpers/helpers'
 
 const ItemCategoria = (props) => {
-    const { cantDestacadas, tok} = props
+    const { cantDestacadas, noticias, consultarNoticias, setConsultarNoticias} = props
+
+    const despublicar = (id) =>{
+        let not = noticias.filter((n) => n?.categoria?._id === id)
+        not.map((nott) =>(
+            editarNoticia(nott._id, nott)
+        ))
+        setConsultarNoticias(!consultarNoticias);
+        
+    }
     const eliminarCategoria =(id) =>{
+        
         Swal.fire({
             title: '¿Esta seguro de eliminar la categoria?',
-            text: "No podras recuperarla",
+            text: "Las noticias con esta categoria no podran ser publicadas hasta que se les defina una nueva categoria",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -20,6 +31,7 @@ const ItemCategoria = (props) => {
           })
           .then(async(result)=>{
             if(result.isConfirmed){
+                despublicar(id)
                 const url = `${process.env.REACT_APP_API_URL}/categorias/deleteCategoria/${id}`;
                 try {
                     const config ={
@@ -29,7 +41,6 @@ const ItemCategoria = (props) => {
                         }
                     }
                     const res = await fetch(url, config)
-                    console.log(res)
                     if(res.status === 200){
                         
                         Swal.fire(
@@ -62,7 +73,7 @@ const ItemCategoria = (props) => {
                     })
                     if(res.status ===200){
                         props.setConsultarCat(!props.consultarCat);
-                        props.history.push(`/menu-categorias/${tok}`);
+                        props.history.push(`/menu-categorias`);
                     }
                 } catch (error) {
                     
@@ -108,7 +119,7 @@ const ItemCategoria = (props) => {
                 })
                 if(res.status ===200){
                     props.setConsultarCat(!props.consultarCat);
-                    props.history.push(`/menu-categorias/${tok}`);
+                    props.history.push(`/menu-categorias`);
                 }
             } catch (error) {
                 
@@ -131,7 +142,7 @@ const ItemCategoria = (props) => {
                         </Button>
                     )
                 }  
-            <Link className="btn limon mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${tok}/${props.cat._id}`}>
+            <Link className="btn limon mx-3" title="Editar categoria" to={`/menu-categorias/editarCategorias/${props.cat._id}`}>
                     <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
                     </Link>
                 <Button className="rouge text-light border-0" onClick={()=> eliminarCategoria(props.cat._id)} title="Eliminar categoria">

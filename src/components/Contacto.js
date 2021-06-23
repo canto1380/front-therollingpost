@@ -166,7 +166,7 @@ const Contacto = () => {
     <Container className="mb-4">
       <h1 className="text-center mt-3"><i> Formulario de Contacto</i></h1>
       <Form
-        className=" mt-4 m-3 border rounded bg-light"
+        className=" mt-4 m-3 border border-secondary rounded bg-light"
         onSubmit={handleSubmit}
       >
         <section className="d-flex align-content-center mb-2 m-0 p-2 backcolor text-white">

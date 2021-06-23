@@ -324,7 +324,6 @@ const handleSubmit = async(e)=>{
           'error'
         )}
       }else{
-        console.log("debe validar todos los campos")
         setError(true)
         setErr1(true)
             setTimeout(() => {

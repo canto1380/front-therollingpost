@@ -8,7 +8,6 @@ import "../../App.css"
 import { deleteToken } from "../../helpers/helpers";
 
 const MenuAdmin = (props) => {
-    const {tok}= props
     const cerrarSesion = (e) => {
       /*Swal */
         let timerInterval;
@@ -49,13 +48,13 @@ const MenuAdmin = (props) => {
               id="dropdown-menu-align-right"
               variant="outline-light"
             >
-              <Dropdown.Item as={Link} to={`/menu-noticias/${(tok)}`} className="limpio" eventKey="1">
+              <Dropdown.Item as={Link} to={`/menu-noticias`} className="limpio" eventKey="1">
                 <FontAwesomeIcon icon={faNewspaper} className="me-2 back-text" size="2x"></FontAwesomeIcon>Noticias
                  </Dropdown.Item>
-              <Dropdown.Item as={Link} to={`/menu-categorias/${(tok)}`} className="limpio" eventKey="2">
+              <Dropdown.Item as={Link} to={`/menu-categorias`} className="limpio" eventKey="2">
                 <FontAwesomeIcon icon={faListAlt} className="me-2 back-text" size="2x"></FontAwesomeIcon>Categorías
                 </Dropdown.Item>
-              <Dropdown.Item as={Link} to={`/menu-suscriptos/${(tok)}`} className="limpio" eventKey="3">
+              <Dropdown.Item as={Link} to={`/menu-suscriptos`} className="limpio" eventKey="3">
                 <FontAwesomeIcon icon={faUserFriends} className="me-2 back-text" size="2x"></FontAwesomeIcon>Clientes
                 </Dropdown.Item>
             </DropdownButton>

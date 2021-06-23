@@ -1,21 +1,22 @@
 import React from "react";
 import { Container, Button, ListGroup, Row, Col, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "../../App.css"
 
 const CardMasLeidas = (props) => {
     const { categoria, noticias } = props;
-    let noticiasXCat = noticias.filter((not) => not.categoria.nombreCategoria === categoria);
+    let noticiasXCat = noticias.filter((not) => not.categoria?.nombreCategoria === categoria);
     let masLeidas = noticiasXCat.slice(0, 3);
     return (
-        <Container fluid>
-            <div className="d-flex justify-content-between align-items-end mt-0">
+        <Container fluid className='p-0 margin-md'>
+            <div className="d-flex justify-content-between align-items-end mt-0 p-0">
                 <p className="m-0 fw-bolder"><i>Más noticias de {categoria}</i></p>
                 <Button size="sm" as={Link}className="btn backbutton border-0" to={`/${categoria.toLowerCase()}`}>
                   <i className="lead fs-6">Ver más</i>  
                 </Button>
             </div>
             <hr className="mt-0" />
-            <ListGroup className="my-3">
+            <ListGroup className="my-3 px-2">
                 {masLeidas.map((mas) => (
                     <Link className="herencia text-decoration-none" key={mas._id} to={`/noti/${mas.categoria.nombreCategoria}/${mas._id}`}>
                         <Row className="d-flex-justify-content-between card-masLeidas">
@@ -24,7 +25,7 @@ const CardMasLeidas = (props) => {
                             </Col>
                             <Col xs={10} sm={9} className="p-1">
                                 <div>
-                                    <p className="mb-0">{mas.titulo}</p>
+                                    <p className="mb-0 ms-2">{mas.titulo}</p>
                                 </div>
                                 <div>
                                     <p className=" text-end mb-0">{mas.hora}</p>

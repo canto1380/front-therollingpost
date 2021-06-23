@@ -8,8 +8,7 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 import "./Botones.css";
 
 const ItemBotonera = (props) => {
-  const {tok, noticia, consultarNoticias, setConsultarNoticias} =props
-
+  const { noticia, consultarNoticias, setConsultarNoticias} =props
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -45,40 +44,58 @@ const ItemBotonera = (props) => {
     });
   };
 
-  const publicarNoticia = (id, publicado) => {
-    Swal.fire({
-      title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: noticia.publicado ? "Quitar publicación" : "Publicar",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
-        try {
-          const noticiaPublicada = {
-            publicado: !publicado
-          }
-          const respuesta = await fetch(url, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(noticiaPublicada),
-          });
-          if (respuesta.status === 200) {
+  const publicarNoticia = async(id, publicado) => {
+
+    const urll = process.env.REACT_APP_API_URL;
+  try {
+    const respuesta = await fetch(urll + "/noticias/" + id);
+        if (respuesta.status === 200) {
+          const resp = await respuesta.json();
+          if(resp.categoria?.nombreCategoria === undefined){
             Swal.fire({
-              title: `Noticia ${publicado ? "removida" : "publicada"}!`,
-              icon: "success"
-            });
-            //actualizar los datos de la lista
-          setConsultarNoticias(!consultarNoticias);
+              icon: 'error',
+              title: 'Ocurrio un problema',
+              text: 'Defina una categoria a la noticia para poder publicarla',
+            })
+          } else {
+            Swal.fire({
+              title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: noticia.publicado ? "Quitar publicación" : "Publicar",
+              cancelButtonText: "Cancelar",
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                const url = `${process.env.REACT_APP_API_URL}/noticias/${id}`;
+                try {
+                  const noticiaPublicada = {
+                    publicado: !publicado
+                  }
+                  const respuesta = await fetch(url, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(noticiaPublicada),
+                  });
+                  if (respuesta.status === 200) {
+                    Swal.fire({
+                      title: `Noticia ${publicado ? "removida" : "publicada"}!`,
+                      icon: "success"
+                    });
+                    //actualizar los datos de la lista
+                  setConsultarNoticias(!consultarNoticias);
+                  }
+                } catch (error) {
+                  console.log(error);
+                }
+              }
+            }).catch(()=>Swal.close());
           }
-        } catch (error) {
-          console.log(error);
         }
-      }
-    }).catch(()=>Swal.close());
+  } catch (error) {
+    console.log(error)
+  }
   };
 
   return (
@@ -87,7 +104,7 @@ const ItemBotonera = (props) => {
         as={Link}
         type="button"
         className="btn limon border-0 me-1 text-dark "
-        to={`/editar-noticia/${tok}/${noticia._id}`}
+        to={`/editar-noticia/${noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
@@ -101,7 +118,7 @@ const ItemBotonera = (props) => {
       </Button>
       <Link
         className="btn sky nubes me-1 text-light "
-        to={`/preview/${tok}/${noticia._id}`}
+        to={`/preview/${noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>

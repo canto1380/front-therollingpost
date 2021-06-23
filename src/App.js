@@ -80,7 +80,7 @@ function App() {
     }
     consultarAPIComent()
   }, [consultarComent])
-
+ 
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
@@ -102,7 +102,7 @@ function App() {
   /* Consulta API - Noticias */
   useEffect(() => {
     consultarAPINoticias();
-  }, [consultarNoticias]);
+  }, [consultarNoticias, consultarCat]);
 
   const consultarAPINoticias = async () => {
     try {
@@ -121,7 +121,6 @@ function App() {
       console.log(error);
     }
   };
-
   /*Consulta API clientes*/
   useEffect(()=>{
     const consultarAPIClientes = async ()=>{
@@ -151,7 +150,7 @@ function App() {
             categorias={categorias}
             categoriasDestacadas={categoriasDestacadas}
             categoriasNoDestacadas={categoriasNoDestacadas}
-            tok={tok}
+            
           />
           <Container>
             <div className=" row mx-0">
@@ -180,6 +179,7 @@ function App() {
               <Login
                 consultarToken={consultarToken}
                 setConsultarToken={setConsultarToken}
+                tok={tok}
               />
             </Route>
             <Route exact path="/suscripcion">
@@ -197,7 +197,7 @@ function App() {
               <Route
                 key={cat._id}
                 exact
-                path={`/${cat.nombreCategoria.toLowerCase()}`}
+                path={`/${cat.nombreCategoria}`}
               >
                 <CardCategorias
                   categorias={categorias}
@@ -218,65 +218,67 @@ function App() {
             </Route>
 
             {/* Menu Admin */}
-            <Route exact path={`/menu-categorias/:tok`}>
+            <Route exact path={`/menu-categorias`}>
               <CategoriaMenu
                 categorias={categorias}
                 setConsultarCat={setConsultarCat}
                 consultarCat={consultarCat}
                 cantDestacadas={cantDestacadas}
-                tok={tok}
+               
+                noticias={noticias}
+                consultarNoticias={consultarNoticias}
+                setConsultarNoticias={setConsultarNoticias}
               />
             </Route>
-            <Route exact path='/menu-categorias/addCategoria/:tok'>
+            <Route exact path='/menu-categorias/addCategoria'>
               <AgregarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
-                tok={tok}
+               
               />
             </Route>
-            <Route exact path="/menu-categorias/editarCategorias/:tok/:id">
+            <Route exact path="/menu-categorias/editarCategorias/:id">
               <EditarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
-                tok={tok}
+               
               />
             </Route>
             {/* Admin Menu Noticias */}
-            <Route exact path="/menu-noticias/:tok">
+            <Route exact path="/menu-noticias">
               <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias}
-                tok={tok}
+               
               />
             </Route>
-            <Route exact path="/menu-suscriptos/:tok">
+            <Route exact path="/menu-suscriptos">
               <SuscriptosMenu clientes={clientes} setClientes={setClientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
-                tok={tok}
+               
               />
             </Route>
-            <Route exact path="/preview/:tok/:id">
+            <Route exact path="/preview/:id">
               <PreviewNoticia
-                tok={tok}
+               
               />
             </Route>
-            <Route exact path="/menu-noticias/agregar-Noticia/:tok">
+            <Route exact path="/menu-noticias/agregar-Noticia">
               <AgregarNoticia
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
-                tok={tok}
+               
               ></AgregarNoticia>
             </Route>
-            <Route exact path="/editar-noticia/:tok/:id">
+            <Route exact path="/editar-noticia/:id">
               <EditarNoticia
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
                 categorias={categorias}
                 consultarCat={consultarCat}
-                setConsultarCat={setConsultarCat}
-                tok={tok}
+                setConsultarCat={setConsultarCat}       
               ></EditarNoticia>
             </Route>
             <Route exact path="/contactenos">

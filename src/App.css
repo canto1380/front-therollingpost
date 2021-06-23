@@ -109,7 +109,7 @@
       visibility: hidden;
       position: absolute;
   }
-  .pub-hidden-md{
+  .hidden-md{
     visibility: hidden;
     position: absolute;
   }
@@ -118,6 +118,13 @@
   }
   .tarjetaNoticia-body{
     height: 150px;
+  }
+  .margin-md{
+    margin-top: 40px;
+  }
+  .aas{
+    font-size: medium;
+    font-weight: initial;
   }
 }
 
@@ -163,6 +170,15 @@
   }
   .tarjetaNoticia-body{
     height: 180px;
+  }
+}
+@media(max-width:685px){
+  .img-hidden{
+    visibility: hidden;
+    position: absolute;
+  }
+  .area-comentario{
+    width: 100%;
   }
 }
 .imgSuscripcion{
