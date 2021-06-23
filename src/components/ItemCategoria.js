@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit, faStar} from '@fortawesome/free-solid-svg-icons';
@@ -8,14 +8,12 @@ import {editarNoticia} from '../helpers/helpers'
 
 const ItemCategoria = (props) => {
     const { cantDestacadas, noticias, consultarNoticias, setConsultarNoticias} = props
-    const [noticia, setNoticia] = useState({});
-    const url = process.env.REACT_APP_API_URL;
 
     const despublicar = (id) =>{
         let not = noticias.filter((n) => n?.categoria?._id === id)
-        not.map((nott) =>{
+        not.map((nott) =>(
             editarNoticia(nott._id, nott)
-        })
+        ))
         setConsultarNoticias(!consultarNoticias);
         
     }
@@ -43,7 +41,6 @@ const ItemCategoria = (props) => {
                         }
                     }
                     const res = await fetch(url, config)
-                    console.log(res)
                     if(res.status === 200){
                         
                         Swal.fire(

@@ -81,8 +81,7 @@ function App() {
     }
     consultarAPIComent()
   }, [consultarComent])
-  console.log(noticias)
-  console.log(categorias)
+ 
   /* Consulta API - categorias */
   useEffect(() => {
     const consultarAPICat = async () => {
@@ -189,6 +188,7 @@ var cambiarModo = () =>{
               <Login
                 consultarToken={consultarToken}
                 setConsultarToken={setConsultarToken}
+                tok={tok}
               />
             </Route>
             <Route exact path="/suscripcion">

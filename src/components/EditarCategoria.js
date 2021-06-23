@@ -7,7 +7,6 @@ import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
   const { id } = useParams();
-  const { tok } = props;
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState({});

@@ -16,8 +16,6 @@ const AgregarCategoria = (props) => {
   const [err2, setErr2] = useState(false);  //valicaciones de feed
   const [catValid, setCatValid] = useState("");
   const [catInvalid, setCatInvalid] = useState("");
-  /* Variables */
-  let mensaje;
 
   const valCate = () => {
     setCatValid("");

@@ -7,7 +7,6 @@ import { faEdit,faTrashAlt,faEye } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 const ItemBotonera = (props) => {
   const { noticia, consultarNoticias, setConsultarNoticias} =props
-  console.log(noticia)
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -50,8 +49,6 @@ const ItemBotonera = (props) => {
     const respuesta = await fetch(urll + "/noticias/" + id);
         if (respuesta.status === 200) {
           const resp = await respuesta.json();
-          console.log(resp)
-          console.log(resp.categoria?.nombreCategoria)
           if(resp.categoria?.nombreCategoria === undefined){
             Swal.fire({
               icon: 'error',
@@ -59,7 +56,6 @@ const ItemBotonera = (props) => {
               text: 'Defina una categoria a la noticia para poder publicarla',
             })
           } else {
-            console.log('no null')
             Swal.fire({
               title: `Estas seguro de ${publicado ? "quitar la publicación de" : "publicar"} esta noticia?`,
               icon: "warning",

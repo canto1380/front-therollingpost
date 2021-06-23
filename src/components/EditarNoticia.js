@@ -177,8 +177,8 @@ const EditarNoticia = (props) => {
           foto: imagenRef.current.value,
           categoria: noticias.categoria,
           pieDeFoto: piedefotoRef.current.value,
-          hora: moment().format("HH:mm"),
-          fecha: moment().format("DD MMMM, YYYY"),
+          hora: noticias.hora,
+          fecha: noticias.fecha,
         };
         const respuesta = await fetch(url + "/noticias/" + id, {
           method: "PUT",

@@ -73,9 +73,6 @@ export const editarNoticia = async ( id, nott) => {
         // hora: moment().format("HH:mm"),
         // fecha: moment().format("DD MMMM, YYYY"),
       };
-      console.log(noticiaModificada)
-      console.log(urll + "/noticias/" + id)
-      console.log(nott)
       const respuesta = await fetch(urll + "/noticias/" + id, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
