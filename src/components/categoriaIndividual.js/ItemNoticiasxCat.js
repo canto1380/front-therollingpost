@@ -13,7 +13,8 @@ const ItemNoticiasxCat = (props) => {
             {
                noticiasXCat.map((not) =>(
                 <Col xs={12} sm={6} lg={4} key={not._id} className="my-2">
-                <Link key={not._id} to={`/noti/${not.categoria}/${not._id}`} className="text-dark text-decoration-none">
+                <Link key={not._id} to={`/noti/${not.categoria}/${not._id}`}
+                 className="text-dark text-decoration-none">
                   <div className="card tarjetaNoticia cardTall mt-3">
                     <img className="card-img-top w-100" src={not.foto} alt="" />
                     <div className="card-body tarjetaNoticia-body">
@@ -22,7 +23,8 @@ const ItemNoticiasxCat = (props) => {
                     </div>
                       <div className="d-flex justify-content-between align-items-center m-3">
                         <p className="my-0 text-muted">{not.hora} hs | {not.fecha}</p>
-                        <p className="my-0 text-muted">4<FontAwesomeIcon icon={faComment} size="1x" className="ms-1"></FontAwesomeIcon></p>
+                        <p className="my-0 text-muted">4<FontAwesomeIcon icon={faComment} size="1x"
+                         className="ms-1"></FontAwesomeIcon></p>
                       </div>
                   </div>
                 </Link>

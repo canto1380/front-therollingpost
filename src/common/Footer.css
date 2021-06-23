@@ -46,35 +46,3 @@
 .backcolor {
   background-color: #435360;
 }
-
-
-body{
-  --notar-color:black;
---background-color:white;
---text-color: black;
---button-text-color:yellow;
---transition-delay:background-color 1s;
-
-padding: 0 !important;
-transition: var(--transition-delay);
-background-color: var(--background-color);
-color:var(--text-color)
-}
-
-body.dark{
---notar-color:#fbfb06;
---background-color:#333;
---text-color: white;
---button-text-color:#333 ;
-}
-
-.boton-tema{
-  background-color: var(--notar-color);
-  color:var(--button-text-color);
-
-}
-
-.herencia{
-  background-color: inherit;
-  color:inherit;
-}

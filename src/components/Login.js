@@ -74,7 +74,6 @@ const Login = (props) => {
           if (data.error) {
             setUsuario({ ...usuario });
             console.log("error");
-            console.log("ERRRORRRR");
             setErr(true);
             setTimeout(() => {
               setErr(false);
@@ -120,7 +119,6 @@ const Login = (props) => {
         .catch((err) => {
           setUsuario({ ...usuario });
           console.log("error");
-          console.log("ERRRORRRR");
           setErr(true);
           setTimeout(() => {
             setErr(false);
@@ -147,7 +145,7 @@ const Login = (props) => {
         </Col>
         <Col sm={12} lg={4}>
             <h1 className="text-center">
-              <span className="backcolor badge text-light pb-3 px-3  rounded-3">
+              <span className=" pb-3 px-3">
                 <big><i>Ingrese a su cuenta</i></big></span>
                 </h1>
             <div>
@@ -155,7 +153,7 @@ const Login = (props) => {
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    maxLength="30"
+                    maxLength="40"
                     type="email"
                     name="email"
                     placeholder="nombre@gmail.com"
@@ -166,13 +164,12 @@ const Login = (props) => {
                   />
                   <Form.Control.Feedback
                     type="invalid"
-                    className="text-danger small"
+                    className="text-danger "
                   >
                     Campo Obligatorio, al menos debe contener entre 12 - 40
                     caracteres.
                   </Form.Control.Feedback>
                 </Form.Group>
-
                 <Form.Group className="my-4" controlId="formBasicPassword">
                   <Form.Label>Contraseña</Form.Label>
                   <Form.Control
@@ -186,9 +183,9 @@ const Login = (props) => {
                   />
                   <Form.Control.Feedback
                     type="invalid"
-                    className="text-danger small"
+                    className="text-danger "
                   >
-                    Campo Obligatorio, al menos debe contener entre 12 - 15
+                    Campo Obligatorio, al menos debe contener entre 8 - 15
                     caracteres.
                   </Form.Control.Feedback>
                 </Form.Group>
@@ -199,8 +196,8 @@ const Login = (props) => {
                     defaultChecked
                   />
                 </Form.Group>
-                <Button variant="primary" className="my-2 w-100" type="submit">
-                  Ingresar
+                <Button className="my-2 w-100 mar" type="submit">
+                 <b><i>Ingresar</i></b> 
                 </Button>
                 <div>{mensaje}</div>
                 <div className="text-center">

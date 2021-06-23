@@ -9,9 +9,8 @@ const NoticiasMenu = (props) => {
   const { noticias, consultarNoticias, setConsultarNoticias} = props;
   return (
     <Container className="mb-3">
-      <div className="backcolor rounded-3 ">
-      <h1 className="text-center mt-3 text-light "><i>Menu de Administración de Noticias</i></h1>
-     </div>
+      
+      <h1 className="text-center mt-3"><i>Menu de Administración de Noticias</i></h1>
       <hr />
       <Form>
         <section className="row my-3">
@@ -21,7 +20,7 @@ const NoticiasMenu = (props) => {
           <div className="col-2">
             <div className="d-flex justify-content-end">
               <Link
-                className="btn btn-success text-light botones"
+                className="btn planta text-light"
                 to={`/menu-noticias/agregar-noticia`}
                 title="Agregar noticia"
               >
@@ -32,7 +31,7 @@ const NoticiasMenu = (props) => {
         </section>
         <hr />
         <h2 className="text-center my-3"><span className="backcolor badge"><big><i>Listado de Noticias</i></big></span></h2>
-        <Table className="border my-3 " striped bordered hover responsive>
+        <Table className="border my-3 herencia" striped hover bordered responsive>
           <thead>
             <tr className="backcolor text-light">
               <th><i>Titulo de Noticia</i></th>
@@ -42,7 +41,7 @@ const NoticiasMenu = (props) => {
           </thead>
           <tbody>
             {noticias.map((noticia) => (
-              <tr noticia={noticia} key={noticia._id}>
+              <tr key={noticia._id} className="herencia">
                 <td>{noticia.titulo}</td>
                 <td>{noticia.categoria?.nombreCategoria}</td>
                 <td>

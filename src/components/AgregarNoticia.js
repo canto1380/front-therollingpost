@@ -16,7 +16,7 @@ const AgregarNoticia = (props) => {
   const [imagen, setImagen] = useState("");
   const [pieDeFoto, setPieDeFoto] = useState("");
   const [error, setError] = useState(false);
-  //states de validacion
+  //states de validación
   const [titValid, setTitValid] = useState("");
   const [titInvalid, setTitInvalid] = useState("");
   const [subTValid, setSubTValid] = useState("");
@@ -235,7 +235,7 @@ const AgregarNoticia = (props) => {
           <div className="col-sm-12 col-md-2 m-0 p-0">
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
-                className="btn btn-primary text-light mx-1"
+                className="btn mar text-light mx-1"
                 to={`/menu-noticias`}
               >
                 <FontAwesomeIcon
@@ -396,8 +396,7 @@ const AgregarNoticia = (props) => {
         </div>
         <div className="d-flex justify-content-center">
           <Button
-            className="w-100 mb-0"
-            variant="success"
+            className="w-100 mb-0 planta border-0"
             type="submit"
             onClick={scrollToTop}
           >

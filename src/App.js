@@ -23,8 +23,7 @@ import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import { Container } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
+
 
 
 function App() {
@@ -141,10 +140,7 @@ function App() {
     consultarAPIClientes();
   },[consultarClientes])
 
-var cambiarModo = () =>{
-  document.body.classList.toggle('dark')
-  
-}
+
 
   return (
     <Router>
@@ -161,13 +157,8 @@ var cambiarModo = () =>{
               <div className=" col-sm-12 col-md-6 ps-3 ps-md-0">
                 <APImoneda></APImoneda>
               </div>
-              <div className="col-sm-12 col-md-6 pe-0 d-flex flex-wrap justify-content-between">
+              <div className="col-sm-12 col-md-6 pe-0 ">
                 <APIclima></APIclima>
-                <div className="mt-3 ">
-              <button className="boton-tema border-0 py-2 px-3 rounded d-flex align-content-center" onClick={cambiarModo}>
-              <FontAwesomeIcon icon={faLightbulb} className="fa-lg "></FontAwesomeIcon>
-                </button>
-                </div>
               </div>
             </div>
           </Container>

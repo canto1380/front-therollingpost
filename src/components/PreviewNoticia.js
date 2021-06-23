@@ -25,16 +25,14 @@ const PreviewNoticia = (props) => {
     <Container>
       <div className="mt-5">
         <h1 className="text-center ">
-          <span className="badge backcolor">
             <i>Previsualización de Noticia</i>
-            </span>
             </h1>
         <p className=" text-center">
-         <big> En esta pagina podras ver como es el maquetado de la noticia antes de
+         <big> En esta pagina podrás ver como es el maquetado de la noticia antes de
           publicarla.</big>
         </p>
       </div>
-      <Card className="mt-5 mb-3 border-dark">
+      <Card className="mt-5 mb-3 border-dark herencia">
         <Card.Header>
           <p className="display-6">
            <i>{noticia.categoria?.nombreCategoria}</i> 
@@ -58,7 +56,7 @@ const PreviewNoticia = (props) => {
                     <Image className="img-fluid " src={noticia.foto} />
                   </Figure>
                 </div>
-                <div className="col-12 border mb-2">
+                <div className="col-12 border rounded-3 mb-2">
                   <h5>{noticia.pieDeFoto}</h5>
                 </div>
               </div>
@@ -68,11 +66,9 @@ const PreviewNoticia = (props) => {
         <Card.Footer className="text-muted">
           <h5>{noticia.autor}</h5>
         </Card.Footer>
-      </Card>
-              
-            
+      </Card>       
       <div className="d-flex justify-content-center mb-5">
-        <Link className="btn btn-info text-light w-75" to={`/menu-noticias`}>
+        <Link className="btn sky nubes text-light w-75" to={`/menu-noticias`}>
           <big><b><i>Volver al menu de Noticias</i></b></big> 
         </Link>
       </div>

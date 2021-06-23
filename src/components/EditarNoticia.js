@@ -218,7 +218,7 @@ const EditarNoticia = (props) => {
           <div className="col-sm-12 col-md-2 m-0 p-0">
             <div className="d-flex justify-content-end pt-1 mx-1">
               <Link
-                className="btn btn-primary text-light mx-1"
+                className="btn mar text-light mx-1"
                 to={`/menu-noticias`}
               >
                 <FontAwesomeIcon
@@ -380,8 +380,7 @@ const EditarNoticia = (props) => {
         </div>
         <div className="d-flex justify-content-center">
           <Button
-            className="w-100 mb-0 text-light"
-            variant="warning"
+            className="w-100 mb-0 limon border-0 "
             type="submit"
           >
         <big><b><i>Editar</i></b></big>    

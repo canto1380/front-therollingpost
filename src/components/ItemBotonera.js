@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit,faTrashAlt,faEye } from "@fortawesome/free-solid-svg-icons";
 import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
+import "./Botones.css";
+
 const ItemBotonera = (props) => {
   const { noticia, consultarNoticias, setConsultarNoticias} =props
   const eliminarProductos = (id) => {
@@ -101,29 +103,28 @@ const ItemBotonera = (props) => {
       <Button
         as={Link}
         type="button"
-        className="btn btn-warning me-1 text-dark "
+        className="btn limon border-0 me-1 text-dark "
         to={`/editar-noticia/${noticia._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
       </Button>
       <Button
-        className="me-1"
-        variant="danger"
+        className="me-1 rouge border-0"
         onClick={() => eliminarProductos(noticia._id)}
         title="Eliminar noticia"
       >
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
-        className="btn btn-info me-1 text-light "
+        className="btn sky nubes me-1 text-light "
         to={`/preview/${noticia._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
       <Button
-        variant={noticia.publicado ? "primary" : "secondary"}
+        className={`${noticia.publicado ? 'mar border-0' : 'sad border-0'}`}
         title={noticia.publicado ? "Quitar publicación" : "Publicar"}
         onClick={() => publicarNoticia(noticia._id, noticia.publicado)}
       >

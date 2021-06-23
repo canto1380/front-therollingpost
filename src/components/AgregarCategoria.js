@@ -80,27 +80,20 @@ const AgregarCategoria = (props) => {
     <Container>
       <Row className="d-flex justify-content-between">
         <Col sm={12} lg={6}>
-          <h1 className="mt-4">
-            <i className="backcolor badge text-color"> Agregar categoría</i>
-          </h1>
-          <Form
-            onSubmit={handleSubmit}
-            className="my-3 p-3 border border-secondary rounded"
-          >
+          <h1 className="mt-4"><i> Agregar categoría</i></h1>
+          <Form onSubmit={handleSubmit} className="my-3 p-3 border border-secondary rounded">
             <Form.Group>
-              <Form.Label>
-                <i>Nombre de categoría</i>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nombre categoria"
-                maxLength="15"
-                onChange={(e) => setNombreCat(e.target.value)}
-                onBlur={valCate}
-                isValid={catValid}
-                isInvalid={catInvalid}
-              />
-              <Form.Control.Feedback
+              <Form.Label><i>Nombre de categoría</i></Form.Label>
+              <Form.Control 
+              type="text" 
+              placeholder="Nombre categoría"
+              maxLength="15" 
+              onChange={(e)=> setNombreCat(e.target.value)}
+              onBlur={valCate}
+              isValid={catValid}
+              isInvalid={catInvalid}
+               />
+                <Form.Control.Feedback
                 type="invalid"
                 className="text-danger small"
               >
@@ -109,16 +102,14 @@ const AgregarCategoria = (props) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="d-flex justify-content-end">
-              <Button className="my-3 mx-2" variant="success" type="submit">
-                Agregar
-              </Button>
-              <Link
-                className="my-3 btn btn-primary"
-                variant="primary"
-                to={`/menu-categorias`}
-              >
-                Volver
-              </Link>
+            <Button className="my-3 mx-2 planta border-0"  type="submit">
+             Agregar
+            </Button>
+            <Link 
+            className="my-3 btn mar text-light" 
+            to={`/menu-categorias`}>
+              Volver
+            </Link>
             </Form.Group>
             {
           (err1) ? (<MsjError text1="Datos incorrectos" text2="Todos los campos son obligatorios." />) : (null)
@@ -129,23 +120,18 @@ const AgregarCategoria = (props) => {
           </Form>
         </Col>
         <Col sm={12} lg={6}>
-          <h1 className="mt-4">
-            <i className="backcolor badge text-color">Categorías existentes</i>{" "}
-          </h1>
-          <ListGroup className="my-3 ">
-            {categorias.map((cat) => (
-              <ListGroup.Item
-                className="d-flex justify-content-between align-items-center border border-secondary rounded"
-                cat={cat}
-                key={cat._id}
-                setConsultarCat={props.setConsultarCat}
-              >
-                <h5 className="text-dark">
-                  <i>{cat.nombreCategoria}</i>
-                </h5>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
+            <h1 className="mt-4"><i>Categorías existentes</i></h1>
+            <ListGroup className="my-3">
+                {categorias.map((cat) =>(
+                    <ListGroup.Item 
+                    className="d-flex justify-content-between align-items-center border border-secondary rounded herencia"
+                    cat={cat} 
+                    key={cat._id} 
+                    setConsultarCat={props.setConsultarCat}>
+                    <h5><i>{cat.nombreCategoria}</i></h5>
+                    </ListGroup.Item>
+                ))}
+            </ListGroup>
         </Col>
       </Row>
     </Container>

@@ -11,7 +11,7 @@ const CategoriaDestacada = (props) => {
         <section className="my-5 w-100" >
             <div className="d-flex justify-content-between">
             <h4><i>{props.cat.nombreCategoria}</i></h4>
-            <Button variant="info" className="backcolor text-light" as={Link} to={`/${cat.nombreCategoria.toLowerCase()}`}>Ver más</Button>
+            <Button className="backbutton border-0" as={Link} to={`/${cat.nombreCategoria.toLowerCase()}`}>Ver más</Button>
             </div>
             <hr />
             <Row>

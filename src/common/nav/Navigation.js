@@ -5,10 +5,30 @@ import "../../App.css";
 import { isAuthenticated } from "../../helpers/helpers";
 import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
+
+var cambiarModo = () => {
+  let modo = JSON.parse(localStorage.getItem("tema"));
+  modo = !modo;
+  localStorage.setItem("tema", JSON.stringify(modo));
+  modoActivo();
+};
+
+var modoActivo = ()=>{
+  let modo = JSON.parse(localStorage.getItem("tema"));  
+  var element = document.body;
+  if(modo){ 
+    element.classList.remove("dark");
+  }else{
+    element.classList.add("dark");
+  }
+}
+modoActivo();
 
 const Navigation = (props) => {
   const { categorias, categoriasDestacadas, categoriasNoDestacadas } = props
-
+  
   return (
     <Navbar
       className="container-fluid py-2 backcolor"
@@ -53,6 +73,9 @@ const Navigation = (props) => {
               ))
             } 
         </Nav>
+              <button className="boton-tema border-0 py-2 px-3 rounded ms-auto me-2" onClick={cambiarModo}>
+              <FontAwesomeIcon icon={faLightbulb} className="fs-4 "></FontAwesomeIcon>
+                </button>
         {/* Cliente */}
         {!isAuthenticated() && (
           <MenuCliente />
