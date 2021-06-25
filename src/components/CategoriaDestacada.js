@@ -15,16 +15,18 @@ const CategoriaDestacada = (props) => {
             </div>
             <hr />
             <Row>
-                {
-                    noticias.map((not) => {
+                {noticias.map((not) => {
                         if (not.categoria?.nombreCategoria === props.cat.nombreCategoria) {
                             let coment = comentario.filter((c) => c.idNoticia?._id === not._id);
                             let comentLength = coment.length; 
                             return (
-                                <Col xs={12} md={6} lg={4} key={not._id} >
-                                    <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none" >
-                                        <div className="card tarjetaNoticia cardTall mt-3">
-                                            <img className="card-img-top w-100" src={not.foto} alt="" height="276px"/>
+                                <Col xs={12} md={6} lg={3} key={not._id} >
+                                    <Link to={`/noti/${not.categoria.nombreCategoria}/${not._id}`}
+                                     className="text-dark text-decoration-none" >
+                                        <div className="card tarjetaNoticia cardTall mt-3 border-0">
+                                            <div className="imgSpace d-flex align-content-start">
+                                              <img src={not.foto} alt=""/>
+                                            </div>
                                             <div className="card-body tarjetaNoticia-body">
                                                 <h5 className="card-title titleShort">{not.titulo}</h5>
                                                 <p className="card-text textShort">{not.descripcion}</p>

@@ -1,10 +1,3 @@
-.cardDeck{
-    justify-content:  center;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
 .tarjetaNoticia{
     margin: 2px 0px 2px 0px;
     width: 100%;
@@ -15,39 +8,14 @@
     height: 150px;  
 }
 
-
   .tarjetaNoticia:hover{
     cursor: pointer;
-    transform: translate(-2px, -2px);
+    transform: translate(-4px, -4px);
   }
   .botones-hover:hover{
     color: rgb(185, 186, 186);
     
   }
-
-  .altDestacado{
-    height: 80vh;
-  }
-  .altDestacadoS{
-    height: 40vh;
-  }
-
-.text-hover:hover{
-  color: black;
-  background-color: rgb(185, 186, 186);
-}
-
-.aa{
-  width: 5px; /* Line width */
-  background-color: rgb(153, 153, 153); /* Line color */
-}
-
-.modal{
-  position:absolute;
-  top: 50%;
-  left: 50%,;
-   transform: translate(0,20%); 
-}
 
 /** Noticia individual **/
 .image-height{
@@ -70,12 +38,6 @@
 
 /* Medias */
 @media (max-width: 320px) {
-  .cardDeck {
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  }
   .tarjetaNoticia{
       display: flex;
       justify-content: center;
@@ -87,12 +49,6 @@
 }
 
 @media (min-width: 768px) {
-  .cardDeck {
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  }
   .image-comentario{
     height: 100%;
   }
@@ -161,15 +117,13 @@
     }
   }
   
-
-
 @media(max-width:768px){
 
   .img-card-masLeidas{
     width: 60px;
   }
   .tarjetaNoticia-body{
-    height: 180px;
+    height: 160px;
   }
 }
 @media(max-width:685px){
@@ -190,11 +144,9 @@
   }
   .tarjetaNoticia-body{
     height: 130px;
-  }
-  
+  } 
 }
 .qww::before{
-
   border-color: black;
   border-right-style: solid;
 }
@@ -203,16 +155,30 @@
   width:58px;
 }
 
+.imgSpace{
+  height: 267px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.imgSpace img{
+  height: 100%;
+}
 .cardTall{
   height: 425px;
 }
 
 .textShort{
-line-height: 15px;
-max-height: 48px;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+overflow: hidden;
 }
 
 .titleShort{
-  line-height: 18px;
-  max-height: 48px;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+overflow: hidden;
 }

@@ -19,8 +19,8 @@ const NoticiasPrincipal = (props) => {
             let comentLength = coment.length; 
           return (<Col xs={12} md={8} key={not._id}>
             <Link to={`/noti/${not.categoria?.nombreCategoria}/${not._id}`} className="text-dark text-decoration-none h-100" >
-              <div className="card tarjetaNoticia">
-                <img className="card-img-top w-100" src={not.foto} alt="" />
+              <div className="card tarjetaNoticia border-0">
+                <img className=" w-100" src={not.foto} alt="" />
                 <div className="card-body">
                   <h5 className="card-title titleShort">{not.titulo}</h5>
                   <p className="card-text textShort">{not.descripcion}</p>
@@ -43,8 +43,8 @@ const NoticiasPrincipal = (props) => {
             let coment = comentario.filter((c) => c.idNoticia?._id === not._id);
             let comentLength = coment.length;
             return (<Link to={`/noti/${not.categoria?.nombreCategoria}/${not._id}`} className="qww text-dark text-decoration-none" key={not._id}>
-               <div className="card tarjetaNoticia ">
-                 <img className="card-img-top" src={not.foto} alt="" />
+               <div className="card tarjetaNoticia border-0">
+                 <img className="" src={not.foto} alt="" />
                  <div className="card-body">
                    <h5 className="card-title">{not.titulo}</h5>
                  </div>
