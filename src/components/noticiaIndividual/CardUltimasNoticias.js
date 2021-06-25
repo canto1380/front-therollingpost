@@ -17,9 +17,9 @@ const CardUltimasNoticias = (props) => {
     scrollToTop()
     return (
         <Container fluid className="p-0 component-mas-leidas">
-            <div className="d-flex justify-content-between align-items-end my-1">
+            <div className="d-flex justify-content-between align-items-end">
             <p className="m-0 fw-bolder">Últimas noticias</p>
-                <Button size="sm" className="btn backbutton border-0" as={Link} to={'/'}>
+                <Button size="sm" className="btn backbutton border-0" as={Link} to={'/*'}>
                     <span className="lead"><i><b>Ver más</b></i> </span>
                 </Button>
             </div>

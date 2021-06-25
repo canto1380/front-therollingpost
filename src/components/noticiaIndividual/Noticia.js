@@ -59,7 +59,7 @@ const Noticia = (props) => {
                 <Col md={4} lg={4} className="d-flex justify-content-center align-items-center">
                     <Publicidad classnamehidden={hidden} publicidad={covidCuidados} />
                 </Col>
-                <hr className="my-2"/>
+                <hr className="my-3"/>
                 <Col sm={12} md={8} >
                     {
                     <CardUltimasNoticias ultimas3noticias={ultimas3noticias}/>
