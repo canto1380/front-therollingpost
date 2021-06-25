@@ -9,7 +9,6 @@ const AgregarCategoria = (props) => {
   const { consultarCat, setConsultarCat, categorias} = props;
 
   const url = process.env.REACT_APP_API_URL + "/categorias/addCategoria";
-  console.log(setConsultarCat)
   /* State */
   const [nombreCategoria, setNombreCat] = useState("");
   const [err1, setErr1] = useState(false);

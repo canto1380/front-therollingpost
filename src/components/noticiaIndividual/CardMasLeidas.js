@@ -11,8 +11,8 @@ const CardMasLeidas = (props) => {
         <Container fluid className='p-0 margin-md'>
             <div className="d-flex justify-content-between align-items-end mt-0 p-0">
                 <p className="m-0 fw-bolder"><i>Más noticias de {categoria}</i></p>
-                <Button size="sm" as={Link}className="btn backbutton border-0" to={`/${categoria.toLowerCase()}`}>
-                  <i className="lead fs-6">Ver más</i>  
+                <Button size="sm" as={Link} className="btn backbutton border-0" to={`/${categoria.toLowerCase()}`}>
+                  <i className="lead">Ver más</i>  
                 </Button>
             </div>
             <hr className="mt-0" />
@@ -28,7 +28,7 @@ const CardMasLeidas = (props) => {
                                     <p className="mb-0 ms-2">{mas.titulo}</p>
                                 </div>
                                 <div>
-                                    <p className=" text-end mb-0">{mas.hora}</p>
+                                    <p className=" text-end mb-0">{mas.fecha}</p>
                                 </div>
                             </Col>
                         </Row>
