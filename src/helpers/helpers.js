@@ -21,7 +21,7 @@ export const isAuthenticated =() =>{
 }
 
 /* SignIn */
-const url = process.env.REACT_APP_API_URL+"/user/signin"
+const url = process.env.REACT_APP_API_URL+"/signin"
 export const signin = user => {
     return fetch(url, {
       method: "POST",
@@ -29,15 +29,20 @@ export const signin = user => {
         Accept: 'application/json',
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(user) // user: 
+      body: JSON.stringify(user) // user:
     })
       .then(response => {
         if(response.status !== 201){
           throw Error("Error de credenciales")
         }
+        console.log(response)
+        funcion1()
         return response.json();
       })
   };
+  const funcion1 = () =>{
+    
+  }
 
 /* Crea Token */
 export const authenticate = (data, next) => {
