@@ -59,7 +59,7 @@ const AgregarCategoria = (props) => {
         const res = await fetch(url, config);
         if (res.status === 200) {
           Swal.fire("Categoria agregada!", "SI", "success");
-          setConsultarCat(!consultarCat);
+          setConsultarCat(true);
           e.target.reset();
           clearForm();
         }else{

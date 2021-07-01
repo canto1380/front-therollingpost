@@ -188,7 +188,7 @@ const AgregarNoticia = (props) => {
             "Ya puedes revisar la noticia antes de publicarla",
             "success"
           );
-          props.setConsultarNoticias(!props.consultarNoticias);
+          props.setConsultarNoticias(false);
           limpiarFormulario();
           e.target.reset();
         }

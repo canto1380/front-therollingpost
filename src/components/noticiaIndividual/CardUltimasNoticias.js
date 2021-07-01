@@ -14,7 +14,7 @@ const CardUltimasNoticias = (props) => {
           behavior: "smooth",
         });
       };
-    scrollToTop()
+    // scrollToTop()
     return (
         <Container fluid className="p-0 component-mas-leidas">
             <div className="d-flex justify-content-between align-items-end">

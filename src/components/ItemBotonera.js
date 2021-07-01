@@ -38,7 +38,7 @@ const ItemBotonera = (props) => {
               "success"
             );
             //actualizar los datos de la lista
-            setConsultarNoticias(!consultarNoticias);
+            setConsultarNoticias(false);
           }
         } catch (error) {
           console.log(error);
@@ -90,7 +90,7 @@ const ItemBotonera = (props) => {
                       icon: "success"
                     });
                     //actualizar los datos de la lista
-                  setConsultarNoticias(!consultarNoticias);
+                  setConsultarNoticias(false);
                   }
                 } catch (error) {
                   console.log(error);

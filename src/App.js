@@ -24,6 +24,7 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import { Container } from "react-bootstrap";
 
+import ReactDOM from 'react-dom';
 function App() {
 
   /*Clientes suscriptos*/
@@ -53,7 +54,6 @@ function App() {
   const [tok, setTok] = useState('');
   const [consultarToken, setConsultarToken] = useState(true)
 
-
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
       const { token } = JSON.parse(localStorage.getItem("jwt"))
@@ -65,41 +65,61 @@ function App() {
 
   /* Consultar API - Comentarios */
   useEffect(() => {
-    const consultarAPIComent = async() =>{
-      try {
-        const res = await fetch(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
-        const inforComentarios = await res.json();
-        if(res.status===200) {
-          setComentario(inforComentarios)
-        }
-      } catch (error) {
-        console.log(error)
-      }
+    if(consultarComent){
+      consultarAPIComent()
     }
-    consultarAPIComent()
   }, [consultarComent])
- 
+  const consultarAPIComent = async() =>{
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
+      const inforComentarios = await res.json();
+      if(res.status===200) {
+        setComentario(inforComentarios)
+        setConsultarComent(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  function renderComentarios() {
+    if(consultarComent){
+      consultarAPIComent()
+    } 
+  }
+  setInterval(renderComentarios, 10000);
+
   /* Consulta API - categorias */
   useEffect(() => {
-    const consultarAPICat = async () => {
-      try {
-        const res = await fetch(
-          process.env.REACT_APP_API_URL + "/categorias/listCategoria"
-        );
-        const inforCategorias = await res.json();
-        if (res.status === 200) {
-          setCategorias(inforCategorias);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    consultarAPICat();
+    if(consultarCat){
+      consultarAPICat();
+    }
   }, [consultarCat]);
+  const consultarAPICat = async () => {
+    try {
+      const res = await fetch(
+        process.env.REACT_APP_API_URL + "/categorias/listCategoria"
+      );
+      const inforCategorias = await res.json();
+      if (res.status === 200) {
+        setCategorias(inforCategorias);
+        setConsultarCat(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function renderCategorias() {
+    if(consultarCat){
+      consultarAPICat()
+    }
+  }
+  setInterval(renderCategorias, 10000);
 
   /* Consulta API - Noticias */
   useEffect(() => {
-    consultarAPINoticias();
+    if(consultarNoticias){
+      consultarAPINoticias();
+    }
   }, [consultarNoticias, consultarCat]);
 
   const consultarAPINoticias = async () => {
@@ -110,6 +130,7 @@ function App() {
       const infNoticias = await res.json();
       if (res.status === 200) {
         setNoticias(infNoticias);
+        setConsultarNoticias(false)
         const publicadas = infNoticias.filter(
           (noti) => noti.publicado === true
         );
@@ -119,6 +140,12 @@ function App() {
       console.log(error);
     }
   };
+  function renderNoticias() {
+    if(consultarNoticias){
+      consultarAPINoticias()
+    }
+  }
+  setInterval(renderNoticias, 10000);
 
   return (
     <Router>
@@ -300,5 +327,12 @@ function App() {
     </Router >
   );
 }
+// function tick() {
+//   ReactDOM.render(
+//     <App/>,
+//     document.getElementById('root')
+//   );
+// }
+// setInterval(tick, 1000);
 
 export default App;

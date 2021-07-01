@@ -8,28 +8,38 @@ const SuscriptosMenu = (props) => {
     const [clientes, setClientes] = useState([]);
     const [consultarClientes, setConsultarClientes] = useState(true);
     useEffect(()=>{
-        const consultarAPIClientes = async ()=>{
-          try{
-            const config = {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  "authorization": tok
-                }
-              };
-            const res = await fetch (
-              process.env.REACT_APP_API_URL + "/secure/clientes/suscripcion",config)
-            const infoClientes= await res.json();
-            if (res.status === 200){
-              setClientes(infoClientes);
-            }
-          }
-          catch(error){
-            console.log(error)
-          }
-        };
+      if(consultarClientes){
         consultarAPIClientes();
-      },[consultarClientes])
+      }
+    },[consultarClientes])
+
+    const consultarAPIClientes = async ()=>{
+      try{
+        const config = {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "authorization": tok
+            }
+          };
+        const res = await fetch (
+          process.env.REACT_APP_API_URL + "/secure/clientes/suscripcion",config)
+        const infoClientes= await res.json();
+        if (res.status === 200){
+          setConsultarClientes(false)
+          setClientes(infoClientes);
+        }
+      }
+      catch(error){
+        console.log(error)
+      }
+    };
+    function renderSuscriptores() {
+      if(consultarClientes){
+        consultarAPIClientes()
+      }
+    }
+    setInterval(renderSuscriptores, 10000);
 
     return (
         <Container>

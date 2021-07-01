@@ -194,7 +194,7 @@ const EditarNoticia = (props) => {
             "success"
           );
           //
-          props.setConsultarNoticias(!props.consultarNoticias);
+          props.setConsultarNoticias(false);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
           e.target.reset();

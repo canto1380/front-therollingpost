@@ -49,8 +49,8 @@ const ItemCategoria = (props) => {
                             'La categoria seleccionada fue borrada correctamente',
                             'success'
                           )
-                        // actualizar los datos de la lista de
-                        props.setConsultarCat(!props.consultarCat);
+                        // actualizar los datos de la lista de productos
+                        props.setConsultarCat(true);
                     }
                 } catch (error) {
                     console.log(error)
@@ -76,7 +76,7 @@ const ItemCategoria = (props) => {
                         body: JSON.stringify(categoriaModificada)
                     })
                     if(res.status ===200){
-                        props.setConsultarCat(!props.consultarCat);
+                        props.setConsultarCat(true);
                         props.history.push(`/menu-categorias`);
                     }
                 } catch (error) {
@@ -125,7 +125,7 @@ const ItemCategoria = (props) => {
                     body: JSON.stringify(categoriaModificada)
                 })
                 if(res.status ===200){
-                    props.setConsultarCat(!props.consultarCat);
+                    props.setConsultarCat(true);
                     props.history.push(`/menu-categorias`);
                 }
             } catch (error) {

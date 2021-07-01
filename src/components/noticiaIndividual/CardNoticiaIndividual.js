@@ -14,7 +14,7 @@ const CardNoticiaIndividual = (props) => {
           behavior: "smooth",
         });
       };
-    scrollToTop()
+    // scrollToTop()
     return (
         <section className="container border border-secondary rounded-3 mt-3">
             <div className="mt-1">

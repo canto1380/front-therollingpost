@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
-  const { id, tok } = useParams();
+  const { id } = useParams();
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState({});
@@ -39,7 +39,7 @@ const EditarCategoria = (props) => {
     const consultarCategorias = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_API_URL + "/secure/categorias/categoria/" + id
+          process.env.REACT_APP_API_URL + "/categorias/" + id
         );
         if (res.status === 200) {
           const resp = await res.json();
@@ -63,12 +63,12 @@ const EditarCategoria = (props) => {
         };
 
         const respuesta = await fetch(
-          URL + "/categorias/updateCategoria/" + id,
+          URL + "/secure/categorias/updateCategoria/" + id,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              "authorization": tok
+              "authorization": props.tok
             },
             body: JSON.stringify(categoriaModificada),
           }
@@ -80,7 +80,7 @@ const EditarCategoria = (props) => {
             "La categoria fue modificada correctamente",
             "success"
           );
-          props.setConsultarCat(!props.consultarCat);
+          props.setConsultarCat(true);
           props.history.push(`/menu-categorias`);
         }
       } catch (error) {
