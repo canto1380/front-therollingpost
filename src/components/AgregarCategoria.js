@@ -19,7 +19,7 @@ const AgregarCategoria = (props) => {
   const valCate = () => {
     setCatValid("");
     setCatInvalid("");
-    let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
+    let newCat = /^[a-zA-ZÀ-ÿ\s]{4,}$/;
     if (nombreCategoria.trim() !== "" && newCat.test(nombreCategoria)) {
       setCatValid(true);
       return false;
@@ -97,7 +97,7 @@ const AgregarCategoria = (props) => {
                 type="invalid"
                 className="text-danger small"
               >
-                Campo Obligatorio, al menos debe contener entre 6 - 15
+                Campo Obligatorio, al menos debe contener entre 4 - 15
                 caracteres.
               </Form.Control.Feedback>
             </Form.Group>

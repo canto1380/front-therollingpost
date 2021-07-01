@@ -49,7 +49,7 @@ const ItemCategoria = (props) => {
                             'La categoria seleccionada fue borrada correctamente',
                             'success'
                           )
-                        // actualizar los datos de la lista de productos
+                        // actualizar los datos de la lista de
                         props.setConsultarCat(!props.consultarCat);
                     }
                 } catch (error) {
@@ -118,7 +118,10 @@ const ItemCategoria = (props) => {
                 }
                 const res = await fetch(url,{
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                         "Content-Type": "application/json",
+                        "authorization": tok
+                        },
                     body: JSON.stringify(categoriaModificada)
                 })
                 if(res.status ===200){
