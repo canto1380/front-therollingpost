@@ -6,9 +6,9 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-  const { consultarCat, setConsultarCat, categorias} = props;
+  const { consultarCat, setConsultarCat, categorias, tok} = props;
 
-  const url = process.env.REACT_APP_API_URL + "/categorias/addCategoria";
+  const url = process.env.REACT_APP_API_URL + "/secure/categorias/addCategoria";
   /* State */
   const [nombreCategoria, setNombreCat] = useState("");
   const [err1, setErr1] = useState(false);
@@ -52,6 +52,7 @@ const AgregarCategoria = (props) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "authorization": tok
           },
           body: JSON.stringify(nuevaCategoria),
         };

@@ -24,6 +24,7 @@ const CategoriaMenu = (props) => {
                     categorias.map((cat) =><ItemCategoria
                                                 cat={cat} 
                                                 key={cat._id}
+                                                tok={props.tok}
                                                 noticias={props.noticias}
                                                 consultarCat={props.consultarCat} 
                                                 setConsultarCat={props.setConsultarCat} 

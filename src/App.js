@@ -24,7 +24,7 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import { Container } from "react-bootstrap";
 
-
+import {validacionToken} from './helpers/helpers'
 
 function App() {
 
@@ -64,6 +64,7 @@ function App() {
       console.log('usuario no registrado')
     }
   }, [consultarToken])
+  console.log(tok)
 
   /* Consultar API - Comentarios */
   useEffect(() => {
@@ -126,7 +127,7 @@ function App() {
     const consultarAPIClientes = async ()=>{
       try{
         const res = await fetch (
-          process.env.REACT_APP_API_URL + "/clientes/suscripcion"
+          process.env.REACT_APP_API_URL + "/secure/clientes/suscripcion"
         )
         const infoClientes= await res.json();
         if (res.status === 200){
@@ -218,24 +219,31 @@ function App() {
             </Route>
 
             {/* Menu Admin */}
+            {
+            
+              ((tok)) ? ( 
             <Route exact path={`/menu-categorias`}>
               <CategoriaMenu
                 categorias={categorias}
                 setConsultarCat={setConsultarCat}
                 consultarCat={consultarCat}
                 cantDestacadas={cantDestacadas}
-               
+                tok={tok}
                 noticias={noticias}
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
               />
             </Route>
+               ) : (
+                <Error404/>
+              )
+            } 
             <Route exact path='/menu-categorias/addCategoria'>
               <AgregarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
-               
+                tok={tok}
               />
             </Route>
             <Route exact path="/menu-categorias/editarCategorias/:id">
@@ -243,23 +251,43 @@ function App() {
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}
-               
+                tok={tok}
               />
             </Route>
             {/* Admin Menu Noticias */}
-            <Route exact path="/menu-noticias">
-              <NoticiasMenu noticias={noticias} consultarNoticias={consultarNoticias} setConsultarNoticias={setConsultarNoticias}
-               
-              />
-            </Route>
-            <Route exact path="/menu-suscriptos">
-              <SuscriptosMenu clientes={clientes} setClientes={setClientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
-               
-              />
-            </Route>
+            {
+              ((tok)) ? (
+              <Route exact path="/menu-noticias">
+                <NoticiasMenu 
+                  noticias={noticias}
+                  consultarNoticias={consultarNoticias}
+                  setConsultarNoticias={setConsultarNoticias}
+                  tok={tok}
+                />
+              </Route>
+              ) : (
+                <Error404/>
+              )
+
+            }
+            {
+              ((tok)) ? (    
+              <Route exact path="/menu-suscriptos">
+                <SuscriptosMenu
+                  clientes={clientes}
+                  setClientes={setClientes} 
+                  consultarClientes={consultarClientes} 
+                  setConsultarClientes={setConsultarClientes}
+                  tok={tok}
+                />
+              </Route>
+              ) : (
+                <Error404/>
+              )
+            }
             <Route exact path="/preview/:id">
               <PreviewNoticia
-               
+               tok={tok}
               />
             </Route>
             <Route exact path="/menu-noticias/agregar-Noticia">
@@ -269,7 +297,7 @@ function App() {
                 setConsultarCat={setConsultarCat}
                 consultarNoticias={consultarNoticias}
                 setConsultarNoticias={setConsultarNoticias}
-               
+                tok={tok}
               ></AgregarNoticia>
             </Route>
             <Route exact path="/editar-noticia/:id">
@@ -279,6 +307,7 @@ function App() {
                 categorias={categorias}
                 consultarCat={consultarCat}
                 setConsultarCat={setConsultarCat}       
+                tok={tok}
               ></EditarNoticia>
             </Route>
             <Route exact path="/contactenos">

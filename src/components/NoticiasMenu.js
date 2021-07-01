@@ -48,6 +48,7 @@ const NoticiasMenu = (props) => {
                   <ItemBotonera
                     noticia={noticia}
                     key={noticia._id}
+                    tok={props.tok}
                     consultarNoticias={consultarNoticias}
                     setConsultarNoticias={setConsultarNoticias}
                     

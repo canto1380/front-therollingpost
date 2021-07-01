@@ -181,7 +181,10 @@ const EditarNoticia = (props) => {
         };
         const respuesta = await fetch(url + "/noticias/" + id, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "authorization": props.tok
+          },
           body: JSON.stringify(noticiaModificada),
         });
         if (respuesta.status === 200) {

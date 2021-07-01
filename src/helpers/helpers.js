@@ -21,7 +21,7 @@ export const isAuthenticated =() =>{
 }
 
 /* SignIn */
-const url = process.env.REACT_APP_API_URL+"/signin"
+const url = process.env.REACT_APP_API_URL+"/admin/signin"
 export const signin = user => {
     return fetch(url, {
       method: "POST",
@@ -36,13 +36,9 @@ export const signin = user => {
           throw Error("Error de credenciales")
         }
         console.log(response)
-        funcion1()
         return response.json();
       })
   };
-  const funcion1 = () =>{
-    
-  }
 
 /* Crea Token */
 export const authenticate = (data, next) => {

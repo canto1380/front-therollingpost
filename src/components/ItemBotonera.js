@@ -8,7 +8,7 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 import "./Botones.css";
 
 const ItemBotonera = (props) => {
-  const { noticia, consultarNoticias, setConsultarNoticias} =props
+  const { noticia, consultarNoticias, setConsultarNoticias, tok} =props
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -26,7 +26,10 @@ const ItemBotonera = (props) => {
         try {
           const respuesta = await fetch(url, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "authorization": tok
+            },
           });
           if (respuesta.status === 200) {
             Swal.fire(
@@ -75,7 +78,10 @@ const ItemBotonera = (props) => {
                   }
                   const respuesta = await fetch(url, {
                     method: "PUT",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                      "Content-Type": "application/json",
+                      "authorization": tok
+                     },
                     body: JSON.stringify(noticiaPublicada),
                   });
                   if (respuesta.status === 200) {

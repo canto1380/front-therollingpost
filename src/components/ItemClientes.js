@@ -7,7 +7,7 @@ import emailjs from "emailjs-com"
 
 
 const ItemClientes = (props) => {
-
+  console.log(props.tok)
     const [btnAceptRech, setBtnAceptRech]= useState (false)
     const [btnCancelar, setBtnCancelar]= useState (true)
     
@@ -72,7 +72,8 @@ const ItemClientes = (props) => {
                 const respuesta = await fetch(URL, {
                   method : "DELETE",
                   headers: {
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "authorization": props.tok
                   }
                 } ); 
                 console.log(respuesta);

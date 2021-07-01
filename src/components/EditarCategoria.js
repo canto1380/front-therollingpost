@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import MsjError from "./MsjError";
 
 const EditarCategoria = (props) => {
-  const { id } = useParams();
+  const { id, tok } = useParams();
 
   /* State */
   const [nombreCategoria, setNombreCat] = useState({});
@@ -39,7 +39,7 @@ const EditarCategoria = (props) => {
     const consultarCategorias = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_API_URL + "/categorias/categoria/" + id
+          process.env.REACT_APP_API_URL + "/secure/categorias/categoria/" + id
         );
         if (res.status === 200) {
           const resp = await res.json();
@@ -66,7 +66,10 @@ const EditarCategoria = (props) => {
           URL + "/categorias/updateCategoria/" + id,
           {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              "authorization": tok
+            },
             body: JSON.stringify(categoriaModificada),
           }
         );

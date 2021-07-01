@@ -172,6 +172,7 @@ const AgregarNoticia = (props) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "authorization": props.tok
           },
           body: JSON.stringify(noticia),
         };

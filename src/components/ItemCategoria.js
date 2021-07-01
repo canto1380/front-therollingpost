@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import {editarNoticia} from '../helpers/helpers'
 
 const ItemCategoria = (props) => {
-    const { cantDestacadas, noticias, consultarNoticias, setConsultarNoticias} = props
+    const { cantDestacadas, noticias, consultarNoticias, setConsultarNoticias, tok} = props
 
     const despublicar = (id) =>{
         let not = noticias.filter((n) => n?.categoria?._id === id)
@@ -32,12 +32,13 @@ const ItemCategoria = (props) => {
           .then(async(result)=>{
             if(result.isConfirmed){
                 despublicar(id)
-                const url = `${process.env.REACT_APP_API_URL}/categorias/deleteCategoria/${id}`;
+                const url = `${process.env.REACT_APP_API_URL}/secure/categorias/deleteCategoria/${id}`;
                 try {
                     const config ={
                         method:"DELETE",
                         headers:{
-                            "Content-Type":"application/json"
+                            "Content-Type":"application/json",
+                            "authorization": tok
                         }
                     }
                     const res = await fetch(url, config)
@@ -58,7 +59,7 @@ const ItemCategoria = (props) => {
           })
     }
     const destacarCategoria = async(id, nombre, destacada) =>{
-        const url = `${process.env.REACT_APP_API_URL}/categorias/updateCategoria/${id}`
+        const url = `${process.env.REACT_APP_API_URL}/secure/categorias/updateCategoria/${id}`
         if(!destacada){
             if(cantDestacadas <4){
                 try {
@@ -68,7 +69,10 @@ const ItemCategoria = (props) => {
                     }
                     const res = await fetch(url,{
                         method: "PUT",
-                        headers: { "Content-Type": "application/json" },
+                        headers: {
+                            "Content-Type": "application/json",
+                            "authorization": tok
+                        },
                         body: JSON.stringify(categoriaModificada)
                     })
                     if(res.status ===200){
