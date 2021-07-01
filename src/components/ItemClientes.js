@@ -7,7 +7,6 @@ import emailjs from "emailjs-com"
 
 
 const ItemClientes = (props) => {
-  console.log(props.tok)
     const [btnAceptRech, setBtnAceptRech]= useState (false)
     const [btnCancelar, setBtnCancelar]= useState (true)
     
@@ -85,7 +84,7 @@ const ItemClientes = (props) => {
                     'La suscripcion ha sido cancelada o rechazada',
                     'success'
                   )
-                  props.setConsultarClientes(!props.consultarClientes);
+                  // setConsultarClientes(!consultarClientes);
                 }
               }catch(error){
                   console.log(error)

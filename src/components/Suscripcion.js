@@ -12,7 +12,7 @@ const Suscripcion = (props) => {
 
   const {setConsultarClientes, clientes}=props;
 
-  const URL = process.env.REACT_APP_API_URL + "/clientes/suscripcion"
+  const URL = process.env.REACT_APP_API_URL + "/clientes/suscribirse"
 
 const [client, setClient]=useState({
   nomAp: "",

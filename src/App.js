@@ -24,8 +24,6 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import { Container } from "react-bootstrap";
 
-import {validacionToken} from './helpers/helpers'
-
 function App() {
 
   /*Clientes suscriptos*/
@@ -64,7 +62,6 @@ function App() {
       console.log('usuario no registrado')
     }
   }, [consultarToken])
-  console.log(tok)
 
   /* Consultar API - Comentarios */
   useEffect(() => {
@@ -122,26 +119,6 @@ function App() {
       console.log(error);
     }
   };
-  /*Consulta API clientes*/
-  useEffect(()=>{
-    const consultarAPIClientes = async ()=>{
-      try{
-        const res = await fetch (
-          process.env.REACT_APP_API_URL + "/secure/clientes/suscripcion"
-        )
-        const infoClientes= await res.json();
-        if (res.status === 200){
-          setClientes(infoClientes);
-        }
-      }
-      catch(error){
-        console.log(error)
-      }
-    };
-    consultarAPIClientes();
-  },[consultarClientes])
-
-
 
   return (
     <Router>
