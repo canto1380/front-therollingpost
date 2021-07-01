@@ -39,7 +39,7 @@ const EditarCategoria = (props) => {
     const consultarCategorias = async () => {
       try {
         const res = await fetch(
-          process.env.REACT_APP_API_URL + "/secure/categorias/categoria/" + id
+          process.env.REACT_APP_API_URL + "/secure/categorias/updateCategoria/" + id
         );
         if (res.status === 200) {
           const resp = await res.json();
@@ -80,7 +80,7 @@ const EditarCategoria = (props) => {
             "La categoria fue modificada correctamente",
             "success"
           );
-          props.setConsultarCat(!props.consultarCat);
+          props.setConsultarCat(true);
           props.history.push(`/menu-categorias`);
         }
       } catch (error) {

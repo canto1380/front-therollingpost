@@ -31,7 +31,7 @@ const CardComentarios = (props) => {
                     'SI',
                     'success'
                   )
-                  setConsultarComent(!consultarComent)
+                  setConsultarComent(true)
                   e.target.reset()
             }
         } catch (error) {
