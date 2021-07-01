@@ -213,6 +213,8 @@ setClient({...client, [e.target.name]: e.target.value})
       setPassValid("");
       setPassInvalid("")
       setInvalidTerms("")
+      setRePassValid("")
+      setRePassInvalid("");
       setTerms(false)
       setVPlan(false)
       setVNom(false)
