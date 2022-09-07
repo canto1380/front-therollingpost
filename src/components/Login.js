@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Image, Form, Button } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
+// import GoogleLogin from "react-google-login";
 import Swal from "sweetalert2";
 import { authenticate, signin } from "../helpers/helpers";
 import ImgPortada from "../img/Inicio-registro.jpg";
 import MsjError from "./MsjError";
 
 const Login = (props) => {
+  const { setTok } = props
   /* State */
   const [err, setErr] = useState(false); // Bandera
   const [usuario, setUsuario] = useState({
@@ -79,6 +81,7 @@ const Login = (props) => {
               setErr(false);
             }, 3000);
           } else {
+            setTok(data)
             authenticate(data, () => {
               setUsuario({
                 ...usuario,
@@ -111,7 +114,6 @@ const Login = (props) => {
               /* Read more about handling dismissals below */
               if (result.dismiss === Swal.DismissReason.timer) {
                 props.history.push(`/`);
-                props.setConsultarToken(!props.consultarToken);
               }
             });
           }
@@ -126,6 +128,8 @@ const Login = (props) => {
         });
     }
   };
+
+
   if (err) {
     mensaje = (
       <MsjError text1="Datos incorrectos" text2="Intentelo nuevamente." />
@@ -135,7 +139,9 @@ const Login = (props) => {
   return (
     <Container>
       <div className="d-none d-lg-block">
-        <h1 className="display-1 mt-4 mb-3"><i>Bienvenido!</i></h1>
+        <h1 className="display-1 mt-4 mb-3">
+          <i>Bienvenido!</i>
+        </h1>
       </div>
       <Row className="mt-3 d-flex justify-content-around">
         <Col lg={8}>
@@ -144,74 +150,69 @@ const Login = (props) => {
           </div>
         </Col>
         <Col sm={12} lg={4}>
-            <h1 className="text-center">
-              <span className=" pb-3 px-3">
-                <big><i>Ingrese a su cuenta</i></big></span>
-                </h1>
-            <div>
-              <Form className="my-4" onSubmit={handleSubmit}>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    maxLength="40"
-                    type="email"
-                    name="email"
-                    placeholder="nombre@gmail.com"
-                    onChange={handleValores}
-                    onBlur={logUsuario}
-                    isValid={logValid}
-                    isInvalid={logInvalid}
-                  />
-                  <Form.Control.Feedback
-                    type="invalid"
-                    className="text-danger "
-                  >
-                    Campo Obligatorio, al menos debe contener entre 12 - 40
-                    caracteres.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group className="my-4" controlId="formBasicPassword">
-                  <Form.Label>Contraseña</Form.Label>
-                  <Form.Control
-                    maxLength="15"
-                    type="password"
-                    name="password"
-                    onChange={handleValores}
-                    onBlur={logPass}
-                    isValid={passValid}
-                    isInvalid={passInvalid}
-                  />
-                  <Form.Control.Feedback
-                    type="invalid"
-                    className="text-danger "
-                  >
-                    Campo Obligatorio, al menos debe contener entre 8 - 15
-                    caracteres.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                  <Form.Check
-                    type="checkbox"
-                    label="Recordarme"
-                    defaultChecked
-                  />
-                </Form.Group>
-                <Button className="my-2 w-100 mar" type="submit">
-                 <b><i>Ingresar</i></b> 
-                </Button>
-                <div>{mensaje}</div>
-                <div className="text-center">
-                  <Link to={"/"}>¿Olvidó su clave?</Link>
-                </div>
-              </Form>
-              <hr />
+          <h1 className="text-center">
+            <span className=" pb-3 px-3">
+              <big>
+                <i>Ingrese a su cuenta</i>
+              </big>
+            </span>
+          </h1>
+          <div>
+            <Form className="my-4" onSubmit={handleSubmit}>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  maxLength="40"
+                  type="email"
+                  name="email"
+                  placeholder="nombre@gmail.com"
+                  onChange={handleValores}
+                  onBlur={logUsuario}
+                  isValid={logValid}
+                  isInvalid={logInvalid}
+                />
+                <Form.Control.Feedback type="invalid" className="text-danger ">
+                  Campo Obligatorio, al menos debe contener entre 12 - 40
+                  caracteres.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group className="my-4" controlId="formBasicPassword">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control
+                  maxLength="15"
+                  type="password"
+                  name="password"
+                  onChange={handleValores}
+                  onBlur={logPass}
+                  isValid={passValid}
+                  isInvalid={passInvalid}
+                />
+                <Form.Control.Feedback type="invalid" className="text-danger ">
+                  Campo Obligatorio, al menos debe contener entre 8 - 15
+                  caracteres.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="formBasicCheckbox">
+                <Form.Check type="checkbox" label="Recordarme" defaultChecked />
+              </Form.Group>
+              <Button className="my-2 w-100 mar" type="submit">
+                <b>
+                  <i>Ingresar</i>
+                </b>
+              </Button>
+              <div>{mensaje}</div>
               <div className="text-center">
-                <p>
-                  ¿No tienes cuenta?{" "}
-                  <Link to={"/suscripcion"}>Registrate!</Link>
-                </p>
+                <Link to={"/"}>¿Olvidó su clave?</Link>
               </div>
+            </Form>
+            <hr />
+            
+            <div className="text-center">
+              <p>
+                ¿No tienes cuenta? <Link to={"/registrarse"}>Registrate!</Link>
+              </p>
             </div>
+          </div>
         </Col>
       </Row>
     </Container>

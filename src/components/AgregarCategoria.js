@@ -6,7 +6,7 @@ import MsjError from "./MsjError";
 import { withRouter } from "react-router";
 
 const AgregarCategoria = (props) => {
-  const { consultarCat, setConsultarCat, categorias, tok} = props;
+  const { setConsultarCat, categorias, tok} = props;
 
   const url = process.env.REACT_APP_API_URL + "/secure/categorias/addCategoria";
   /* State */

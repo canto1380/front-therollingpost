@@ -8,7 +8,7 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 import "./Botones.css";
 
 const ItemBotonera = (props) => {
-  const { noticia, consultarNoticias, setConsultarNoticias, tok} =props
+  const { noticia, setConsultarNoticias, tok} =props
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",

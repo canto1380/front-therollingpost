@@ -8,7 +8,7 @@ import Inicio from "./components/Inicio";
 import Contacto from "./components/Contacto";
 import AcercaDeNosotros from "./components/AcercaDeNosotros";
 import Login from "./components/Login";
-import Suscripcion from "./components/Suscripcion";
+import Suscripcion from "./components/suscripcion/Suscripcion";
 import CategoriaMenu from "./components/CategoriaMenu";
 import NoticiasMenu from "./components/NoticiasMenu";
 import SuscriptosMenu from "./components/SuscriptosMenu";
@@ -22,11 +22,13 @@ import Noticia from "./components/noticiaIndividual/Noticia";
 import APIclima from "./components/APIclima";
 import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
+import Registrarse from "./components/Registrarse";
+import FormSuscripcion from "./components/suscripcion/FormSuscripcion";
+// import DefaultRoute from "./utils/routing/defaultRoute";
 import { Container } from "react-bootstrap";
 
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 function App() {
-
   /*Clientes suscriptos*/
   const [clientes, setClientes] = useState([]);
   const [consultarClientes, setConsultarClientes] = useState(true);
@@ -46,51 +48,93 @@ function App() {
   let ultimaNoticia = noticiasPublicadas.slice(0, 1);
   let ultimasNoticias = noticiasPublicadas.slice(1, 3);
 
+  /* Usuarios registrado */
+  const [usuarios, setUsuarios] = useState([]);
+  const [consultarUser, setConsultarUser] = useState(true);
+
   /* Comentarios */
-  const [comentario, setComentario]= useState([])
-  const [consultarComent, setConsultarComent] = useState(true)
+  const [comentario, setComentario] = useState([]);
+  const [consultarComent, setConsultarComent] = useState(true);
+
+  /* Suscripciones - tipos */
+  const [suscripcionTipo, setSuscripcionTipo] = useState([]);
+  const [consultarSuscripcion, setConsultarSuscripcion] = useState(true);
+  const [suscripcionElegida, setSuscripcionElegida] = useState('')
 
   /* Usuarios */
-  const [tok, setTok] = useState('');
-  const [consultarToken, setConsultarToken] = useState(true)
+  const [tok, setTok] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      const { token } = JSON.parse(localStorage.getItem("jwt"))
-      setTok(token)
-    } else {
-      console.log('usuario no registrado')
+    setTok(JSON.parse(localStorage.getItem("jwt")));
+  }, []);
+
+  useEffect(() => {
+    if (consultarUser) {
+      consultarAPIUser();
     }
-  }, [consultarToken])
+  }, [consultarUser]);
+  const consultarAPIUser = async () => {
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL + "/user/listUser");
+      const inforUsers = await res.json();
+      if (res.status === 200) {
+        setUsuarios(inforUsers);
+        setConsultarUser(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(suscripcionElegida)
+  /* Consultar API - Tipos de suscripciones */
+  useEffect(() => {
+    if (consultarSuscripcion) {
+      consultarAPISuscripciones();
+    }
+  }, [consultarSuscripcion]);
+  const consultarAPISuscripciones = async () => {
+    try {
+      const res = await fetch(process.env.REACT_APP_API_URL + "/suscripciones/suscripcionesNoEliminadas");
+      const inforSuscripciones = await res.json();
+      if (res.status === 200) {
+        setSuscripcionTipo(inforSuscripciones);
+        setConsultarSuscripcion(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   /* Consultar API - Comentarios */
   useEffect(() => {
-    if(consultarComent){
-      consultarAPIComent()
+    if (consultarComent) {
+      consultarAPIComent();
     }
-  }, [consultarComent])
-  const consultarAPIComent = async() =>{
+  }, [consultarComent]);
+  const consultarAPIComent = async () => {
     try {
-      const res = await fetch(process.env.REACT_APP_API_URL +"/comentarios/listComentarios")
+      const res = await fetch(
+        process.env.REACT_APP_API_URL + "/comentarios/listComentarios"
+      );
       const inforComentarios = await res.json();
-      if(res.status===200) {
-        setComentario(inforComentarios)
-        setConsultarComent(false)
+      if (res.status === 200) {
+        setComentario(inforComentarios);
+        setConsultarComent(false);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  function renderComentarios() {
-    if(consultarComent){
-      consultarAPIComent()
-    } 
-  }
-  setInterval(renderComentarios, 10000);
+  };
+  // function renderComentarios() {
+  //   if(consultarComent){
+  //     consultarAPIComent()
+  //   }
+  // }
+  // setInterval(renderComentarios, 10000);
 
   /* Consulta API - categorias */
   useEffect(() => {
-    if(consultarCat){
+    if (consultarCat) {
       consultarAPICat();
     }
   }, [consultarCat]);
@@ -102,22 +146,22 @@ function App() {
       const inforCategorias = await res.json();
       if (res.status === 200) {
         setCategorias(inforCategorias);
-        setConsultarCat(false)
+        setConsultarCat(false);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  function renderCategorias() {
-    if(consultarCat){
-      consultarAPICat()
-    }
-  }
-  setInterval(renderCategorias, 10000);
+  // function renderCategorias() {
+  //   if(consultarCat){
+  //     consultarAPICat()
+  //   }
+  // }
+  // setInterval(renderCategorias, 10000);
 
   /* Consulta API - Noticias */
   useEffect(() => {
-    if(consultarNoticias){
+    if (consultarNoticias) {
       consultarAPINoticias();
     }
   }, [consultarNoticias, consultarCat]);
@@ -130,7 +174,7 @@ function App() {
       const infNoticias = await res.json();
       if (res.status === 200) {
         setNoticias(infNoticias);
-        setConsultarNoticias(false)
+        setConsultarNoticias(false);
         const publicadas = infNoticias.filter(
           (noti) => noti.publicado === true
         );
@@ -140,13 +184,13 @@ function App() {
       console.log(error);
     }
   };
-  function renderNoticias() {
-    if(consultarNoticias){
-      consultarAPINoticias()
-    }
-  }
-  setInterval(renderNoticias, 10000);
-
+  // function renderNoticias() {
+  //   if(consultarNoticias){
+  //     consultarAPINoticias()
+  //   }
+  // }
+  // setInterval(renderNoticias, 10000);
+  
   return (
     <Router>
       <div className="page-container">
@@ -155,7 +199,8 @@ function App() {
             categorias={categorias}
             categoriasDestacadas={categoriasDestacadas}
             categoriasNoDestacadas={categoriasNoDestacadas}
-            
+            tok={tok}
+            setTok={setTok}
           />
           <Container>
             <div className=" row mx-0">
@@ -181,14 +226,31 @@ function App() {
               />
             </Route>
             <Route exact path="/inicio-sesion">
-              <Login
-                consultarToken={consultarToken}
-                setConsultarToken={setConsultarToken}
-                tok={tok}
+              <Login setTok={setTok} />
+            </Route>
+            <Route exact path="/registrarse">
+              <Registrarse
+                usuarios={usuarios}
+                consultarUser={consultarUser}
+                setConsultarUser={setConsultarUser}
               />
             </Route>
             <Route exact path="/suscripcion">
-              <Suscripcion individual={"$150"} familia={"$250"} clientes={clientes} consultarClientes={consultarClientes} setConsultarClientes={setConsultarClientes}
+              <Suscripcion
+                individual={"$150"}
+                familia={"$250"}
+                clientes={clientes}
+                consultarClientes={consultarClientes}
+                setConsultarClientes={setConsultarClientes}
+                suscripcionTipo={suscripcionTipo}
+                setSuscripcionElegida={setSuscripcionElegida}
+              />
+            </Route>
+            <Route exact path='/suscripcion/suscribirse'>
+              <FormSuscripcion
+                suscripcionElegida={suscripcionElegida}
+                suscripcionTipo={suscripcionTipo}
+                tok={tok}
               />
             </Route>
 
@@ -198,12 +260,11 @@ function App() {
             <Route exact path="/acerca-de-nosotros">
               <AcercaDeNosotros />
             </Route>
+            <Route exact path="/contactenos">
+              <Contacto></Contacto>
+            </Route>
             {categorias.map((cat) => (
-              <Route
-                key={cat._id}
-                exact
-                path={`/${cat.nombreCategoria}`}
-              >
+              <Route key={cat._id} exact path={`/${cat.nombreCategoria}`}>
                 <CardCategorias
                   categorias={categorias}
                   cat={cat}
@@ -212,37 +273,47 @@ function App() {
                 />
               </Route>
             ))}
+
             {/* Noticia individual */}
             <Route exact path="/noti/:cat/:id">
-              <Noticia noticias={noticiasPublicadas} 
-              comentario={comentario}
-              setComentario={setComentario}
-              setConsultarComent={setConsultarComent}
-              consultarComent={consultarComent}
+              <Noticia
+                noticias={noticiasPublicadas}
+                comentario={comentario}
+                setComentario={setComentario}
+                setConsultarComent={setConsultarComent}
+                consultarComent={consultarComent}
               />
             </Route>
 
-            {/* Menu Admin */}
-            {
-            
-              ((tok)) ? ( 
-            <Route exact path={`/menu-categorias`}>
-              <CategoriaMenu
-                categorias={categorias}
-                setConsultarCat={setConsultarCat}
-                consultarCat={consultarCat}
-                cantDestacadas={cantDestacadas}
-                tok={tok}
-                noticias={noticias}
-                consultarNoticias={consultarNoticias}
-                setConsultarNoticias={setConsultarNoticias}
-              />
-            </Route>
-               ) : (
-                <Error404/>
-              )
-            } 
-            <Route exact path='/menu-categorias/addCategoria'>
+            {/* Menu Admin Categorias*/}
+            {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
+              <Route exact path={`/menu-categorias`}>
+                <CategoriaMenu
+                  categorias={categorias}
+                  setConsultarCat={setConsultarCat}
+                  consultarCat={consultarCat}
+                  cantDestacadas={cantDestacadas}
+                  tok={tok}
+                  noticias={noticias}
+                  consultarNoticias={consultarNoticias}
+                  setConsultarNoticias={setConsultarNoticias}
+                  aa={tok?.user?.tipoUser}
+                />
+              </Route>
+            ) : (
+              <Error404 />
+              // <DefaultRoute
+              //   userType={tok?.user?.tipoUser}
+              //   noticias={noticiasPublicadas}
+              //   consultarCat={consultarCat}
+              //   setConsultarNoticias={setConsultarNoticias}
+              //   categoriasDestacadas={categoriasDestacadas}
+              //   ultimasNoticias={ultimasNoticias}
+              //   ultimaNoticia={ultimaNoticia}
+              //   comentario={comentario}
+              // />
+            )}
+            <Route exact path="/menu-categorias/addCategoria">
               <AgregarCategoria
                 categorias={categorias}
                 consultarCat={consultarCat}
@@ -258,42 +329,30 @@ function App() {
                 tok={tok}
               />
             </Route>
+
             {/* Admin Menu Noticias */}
-            {
-              ((tok)) ? (
+            {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
               <Route exact path="/menu-noticias">
-                <NoticiasMenu 
+                <NoticiasMenu
                   noticias={noticias}
                   consultarNoticias={consultarNoticias}
                   setConsultarNoticias={setConsultarNoticias}
                   tok={tok}
                 />
               </Route>
-              ) : (
-                <Error404/>
-              )
-
-            }
-            {
-              ((tok)) ? (    
-              <Route exact path="/menu-suscriptos">
-                <SuscriptosMenu
-                  clientes={clientes}
-                  setClientes={setClientes} 
-                  consultarClientes={consultarClientes} 
-                  setConsultarClientes={setConsultarClientes}
-                  tok={tok}
-                />
-              </Route>
-              ) : (
-                <Error404/>
-              )
-            }
-            <Route exact path="/preview/:id">
-              <PreviewNoticia
-               tok={tok}
-              />
-            </Route>
+            ) : (
+              <Error404 />
+              // <DefaultRoute
+              //   userType={tok?.user?.tipoUser}
+              //   noticias={noticiasPublicadas}
+              //   consultarCat={consultarCat}
+              //   setConsultarNoticias={setConsultarNoticias}
+              //   categoriasDestacadas={categoriasDestacadas}
+              //   ultimasNoticias={ultimasNoticias}
+              //   ultimaNoticia={ultimaNoticia}
+              //   comentario={comentario}
+              // />
+            )}
             <Route exact path="/menu-noticias/agregar-Noticia">
               <AgregarNoticia
                 categorias={categorias}
@@ -310,21 +369,46 @@ function App() {
                 setConsultarNoticias={setConsultarNoticias}
                 categorias={categorias}
                 consultarCat={consultarCat}
-                setConsultarCat={setConsultarCat}       
+                setConsultarCat={setConsultarCat}
                 tok={tok}
               ></EditarNoticia>
             </Route>
-            <Route exact path="/contactenos">
-              <Contacto></Contacto>
+            <Route exact path="/preview/:id">
+              <PreviewNoticia tok={tok} />
             </Route>
+
+            {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
+              <Route exact path="/menu-suscriptos">
+                <SuscriptosMenu
+                  clientes={clientes}
+                  setClientes={setClientes}
+                  consultarClientes={consultarClientes}
+                  setConsultarClientes={setConsultarClientes}
+                  tok={tok}
+                />
+              </Route>
+            ) : (
+              <Error404 />
+              // <DefaultRoute
+              // userType={tok?.user?.tipoUser}
+              // noticias={noticiasPublicadas}
+              // consultarCat={consultarCat}
+              // setConsultarNoticias={setConsultarNoticias}
+              // categoriasDestacadas={categoriasDestacadas}
+              // ultimasNoticias={ultimasNoticias}
+              // ultimaNoticia={ultimaNoticia}
+              // comentario={comentario}
+              // />
+            )}
+
             <Route exact path="*">
-              <Error404></Error404>
+              <Error404 />
             </Route>
           </Switch>
         </div>
         <Footer categorias={categorias} />
       </div>
-    </Router >
+    </Router>
   );
 }
 // function tick() {

@@ -8,6 +8,7 @@ import "../../App.css"
 import { deleteToken } from "../../helpers/helpers";
 
 const MenuAdmin = (props) => {
+  const { setTok } = props
     const cerrarSesion = (e) => {
       /*Swal */
         let timerInterval;
@@ -33,6 +34,7 @@ const MenuAdmin = (props) => {
           },
         }).then((result) => {
           if (result.dismiss === Swal.DismissReason.timer) {
+            setTok([])
             deleteToken()
             props.history.push("/");
           }

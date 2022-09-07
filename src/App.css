@@ -5,7 +5,7 @@
     transition-duration: 300ms;
   }
 .tarjetaNoticia-body{
-    height: 150px;  
+    height: 150px;
 }
 
   .tarjetaNoticia:hover{
@@ -181,4 +181,23 @@ display: -webkit-box;
 -webkit-line-clamp: 2;
 -webkit-box-orient: vertical;
 overflow: hidden;
+}
+
+/* SUSCRIPCION */
+.cont-img-susc {
+  height: 250px;
+}
+.img-susc{
+  height: 100%;
+  background-position: center;
+}
+.btn-susc{
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: rgb(46, 95, 187);
+  border-radius: 15px;
+  color: white;
+  font-size: 18px;
+  border: 0px;
+  font-weight: 500;
 }

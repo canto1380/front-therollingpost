@@ -8,12 +8,12 @@ import "../../App.css"
 const CardNoticiaIndividual = (props) => {
     const {not, comentLength} = props
     
-    const scrollToTop = () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
+    // const scrollToTop = () => {
+    //     window.scrollTo({
+    //       top: 0,
+    //       behavior: "smooth",
+    //     });
+    //   };
     // scrollToTop()
     return (
         <section className="container border border-secondary rounded-3 mt-3">

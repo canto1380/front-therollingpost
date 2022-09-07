@@ -8,12 +8,12 @@ const CardUltimasNoticias = (props) => {
     ultimas3noticias.sort(((a, b) => Date.parse(a.fecha) - Date.parse(b.fecha)));
     ultimas3noticias.sort(((a, b) => parseInt(a.hora) - parseInt(b.hora)));
 
-    const scrollToTop = () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      };
+    // const scrollToTop = () => {
+    //     window.scrollTo({
+    //       top: 0,
+    //       behavior: "smooth",
+    //     });
+    //   };
     // scrollToTop()
     return (
         <Container fluid className="p-0 component-mas-leidas">

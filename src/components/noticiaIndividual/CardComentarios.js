@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import "../../App.css"
 
 const CardComentarios = (props) => {
-    const {coment, comentLength, id, consultarComent, setConsultarComent} = props
+    const {coment, comentLength, id, setConsultarComent} = props
     const url = process.env.REACT_APP_API_URL+'/comentarios/addComentario'
     const [comentario, setComentario] =useState('')
 

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { Link, NavLink, withRouter } from "react-router-dom";
 import "../../App.css";
-import { isAuthenticated } from "../../helpers/helpers";
+// import { isAuthenticated } from "../../helpers/helpers";
 import MenuAdmin from "./MenuAdmin";
 import MenuCliente from "./MenuCliente";
+import MenuBasico from './MenuBasico'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
 
@@ -27,8 +28,13 @@ var modoActivo = ()=>{
 modoActivo();
 
 const Navigation = (props) => {
-  const { categorias, categoriasDestacadas, categoriasNoDestacadas } = props
-  
+  const { categorias, categoriasDestacadas, categoriasNoDestacadas, tok, setTok } = props
+  const [data, setData] = useState([])
+  useEffect(()=> {
+    setData(tok?.user?.tipoUser)
+
+  }, [tok])
+
   return (
     <Navbar
       className="container-fluid py-2 backcolor"
@@ -77,13 +83,26 @@ const Navigation = (props) => {
               <FontAwesomeIcon icon={faLightbulb} className="fs-4 "></FontAwesomeIcon>
                 </button>
         {/* Cliente */}
-        {!isAuthenticated() && (
+        
+        {/* {!isAuthenticated() && (
           <MenuCliente />
-        )}
+        )} */}
         {/* Admin */}
-        {isAuthenticated() && (
+        {/* {isAuthenticated() && (
           <MenuAdmin setConsultar={props.setConsultar} ls={props.ls}/>
+        )} */}
+
+        {data === 'ADMIN_ROLE' ? (
+          <MenuAdmin setConsultar={props.setConsultar} ls={props.ls} setTok={setTok}/>
+        ) : (
+          data === 'CLIENT_ROLE' ? (
+            <MenuCliente setTok={setTok}/>
+          ) : (
+            <MenuBasico/>
+          )
         )}
+
+
       </Navbar.Collapse>
     </Navbar>
   );
