@@ -5,6 +5,8 @@
 /.pnp
 .pnp.js
 
+instructivo-servidor.txt
+
 # testing
 /coverage
 
