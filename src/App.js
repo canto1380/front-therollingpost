@@ -24,9 +24,10 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import Registrarse from "./components/Registrarse";
 import FormSuscripcion from "./components/suscripcion/FormSuscripcion";
-// import DefaultRoute from "./utils/routing/defaultRoute";
 import { Container } from "react-bootstrap";
 import Region from "./components/region/Index";
+
+import { consultarNoticiasPublicadasAPI } from './utils/queryAPI/noticias'
 
 // import ReactDOM from 'react-dom';
 function App() {
@@ -167,24 +168,13 @@ function App() {
     if (consultarNoticias) {
       consultarAPINoticias();
     }
-  }, [consultarNoticias, consultarCat]);
+  }, [consultarNoticias]);
 
   const consultarAPINoticias = async () => {
     try {
-      const res = await fetch(
-        process.env.REACT_APP_API_URL + "/noticias/listNoticias"
-      );
-      const infNoticias = await res.json();
-      if (res.status === 200) {
-        setNoticias(infNoticias);
-        setConsultarNoticias(false);
-        const publicadas = infNoticias.filter(
-          (noti) => noti.publicado === true
-        );
-        setNoticiasPublicadas(publicadas);
-      }
+        setNoticiasPublicadas(await consultarNoticiasPublicadasAPI(setConsultarNoticias));
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   // function renderNoticias() {

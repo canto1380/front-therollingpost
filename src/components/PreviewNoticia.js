@@ -51,12 +51,12 @@ const PreviewNoticia = (props) => {
             </div>
             <div className="col-sm-12 col-md-4">
               <div className="row">
-                <div className="col-12 mb-2">
+                <div className="col-12 ">
                   <Figure>
-                    <Image className="img-fluid " src={noticia.foto} />
+                    <Image className="img-fluid" src={noticia.foto} />
                   </Figure>
                 </div>
-                <div className="col-12 border rounded-3 mb-2">
+                <div className="text-center col-12 mb-2">
                   <h5>{noticia.pieDeFoto}</h5>
                 </div>
               </div>

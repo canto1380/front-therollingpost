@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { Container, Form, Button, InputGroup, Image, Alert } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  InputGroup,
+  Image,
+  Alert,
+} from "react-bootstrap";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
+import { textoPieER, autorER, textoER, resumenER} from "../utils/RegularExpressions";
 
 const AgregarNoticia = (props) => {
-  const url = process.env.REACT_APP_API_URL;
+  const { categorias, tok, setConsultarNoticias } = props;
+
   const [tituloNoticia, setTituloNoticia] = useState("");
   const [subtituloNoticia, setSubtituloNoticia] = useState("");
   const [autor, setAutor] = useState("");
@@ -32,17 +41,10 @@ const AgregarNoticia = (props) => {
   const [pieImgValid, setPieImgValid] = useState("");
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const { categorias } = props;
+  const URL_ADD_NOTICE = process.env.REACT_APP_API_URL + "/noticias/addNoticia";
 
   const cambioCategoria = (e) => {
     setCategoria(e.target.value);
-  };
-
-  const expresiones = {
-    texto: /^[^\n]{12,}$/, // Letras, numeros
-    textoPie: /^[^\n]{7,}$/, // Letras, numeros
-    autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    resumen: /[\s\S]{500,}$/,
   };
 
   const scrollToTop = () => {
@@ -56,8 +58,8 @@ const AgregarNoticia = (props) => {
   const valTit = () => {
     setTitValid("");
     setTitInvalid("");
-    let texto = expresiones.texto;
-    if (tituloNoticia !== "" && texto.test(tituloNoticia)) {
+    let text = textoER;
+    if (tituloNoticia !== "" && text.test(tituloNoticia)) {
       setTitValid(true);
       return false;
     } else {
@@ -68,8 +70,8 @@ const AgregarNoticia = (props) => {
   const valSubT = () => {
     setSubTValid("");
     setSubTInvalid("");
-    let texto = expresiones.texto;
-    if (subtituloNoticia !== "" && texto.test(subtituloNoticia)) {
+    let text = textoER;
+    if (subtituloNoticia !== "" && text.test(subtituloNoticia)) {
       setSubTValid(true);
       return false;
     } else {
@@ -81,7 +83,7 @@ const AgregarNoticia = (props) => {
   const valAutor = () => {
     setAutorValid("");
     setAutorInvalid("");
-    let nombre = expresiones.autor;
+    let nombre = autorER;
     if (autor.trim() !== "" && nombre.test(autor)) {
       setAutorValid(true);
       return false;
@@ -94,8 +96,8 @@ const AgregarNoticia = (props) => {
   const valResumen = () => {
     setResValid("");
     setResInvalid("");
-    let resumen = expresiones.resumen;
-    if (resumenNoticia !== ""  && resumen.test(resumenNoticia)) {
+    let resum = resumenER;
+    if (resumenNoticia !== "" && resum.test(resumenNoticia)) {
       setResValid(true);
       return false;
     } else {
@@ -130,7 +132,7 @@ const AgregarNoticia = (props) => {
   const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
-    let texto = expresiones.textoPie;
+    let texto = textoPieER;
     if (pieDeFoto !== "" && texto.test(pieDeFoto)) {
       setPieImgValid(true);
       return false;
@@ -165,32 +167,27 @@ const AgregarNoticia = (props) => {
         hora: moment().format("HH:mm"),
         fecha: moment().format("DD MMMM, YYYY"),
       };
-    console.log(noticia)
       try {
         //codigo normal
         const configuracion = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "authorization": props.tok
+            authorization: tok.token,
           },
           body: JSON.stringify(noticia),
         };
-
-        const respuesta = await fetch(
-          url + "/noticias/addNoticia",
-          configuracion
-        );
+        const respuesta = await fetch(URL_ADD_NOTICE, configuracion);
         if (respuesta.status === 201) {
-          //mostar cartel de se agrego noticia
           Swal.fire(
             "La noticia fue creada!",
             "Ya puedes revisar la noticia antes de publicarla",
             "success"
           );
-          props.setConsultarNoticias(false);
+          setConsultarNoticias(true);
           limpiarFormulario();
           e.target.reset();
+          props.history.push('/menu-noticias')
         }
       } catch (error) {
         console.log(error);
@@ -231,14 +228,13 @@ const AgregarNoticia = (props) => {
       >
         <section className="row mb-3 m-0 py-2 backcolor text-white rounded-top">
           <div className="col-sm-12 col-md-10 m-0 p-0">
-            <h1 className="mx-1 ps-2"><i>Formulario de Noticia: </i></h1>
+            <h1 className="mx-1 ps-2">
+              <i>Formulario de Noticia: </i>
+            </h1>
           </div>
           <div className="col-sm-12 col-md-2 m-0 p-0">
             <div className="d-flex justify-content-end pt-1 mx-1">
-              <Link
-                className="btn mar text-light mx-1"
-                to={`/menu-noticias`}
-              >
+              <Link className="btn mar text-light mx-1" to={`/menu-noticias`}>
                 <FontAwesomeIcon
                   className="fa-2x"
                   icon={faNewspaper}
@@ -251,7 +247,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Titulo de la Noticia:</b></i>
+                <i>
+                  <b>Titulo de la Noticia:</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -271,7 +269,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Subtitulo:</b></i>
+                <i>
+                  <b>Subtitulo:</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -291,7 +291,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Autor:</b></i>
+                <i>
+                  <b>Autor:</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -310,7 +312,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Resumen</b></i>
+                <i>
+                  <b>Resumen</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -333,7 +337,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Categoria</b></i>
+                <i>
+                  <b>Categoria</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -346,10 +352,7 @@ const AgregarNoticia = (props) => {
             >
               <option>Seleccione una Categoria</option>
               {categorias.map((cat) => (
-                <option
-                  key={cat._id}
-                   value={cat._id}
-                >
+                <option key={cat._id} value={cat._id}>
                   {cat.nombreCategoria}
                 </option>
               ))}
@@ -361,7 +364,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Imagen:</b></i>
+                <i>
+                  <b>Imagen:</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -378,7 +383,9 @@ const AgregarNoticia = (props) => {
           <Form.Group className="mb-3">
             <InputGroup.Text>
               <Form.Label>
-               <i><b>Pie de Imagen:</b></i>
+                <i>
+                  <b>Pie de Imagen:</b>
+                </i>
               </Form.Label>
             </InputGroup.Text>
             <Form.Control
@@ -401,18 +408,22 @@ const AgregarNoticia = (props) => {
             type="submit"
             onClick={scrollToTop}
           >
-         <big><b><i>Agregar</i></b></big>   
+            <big>
+              <b>
+                <i>Agregar</i>
+              </b>
+            </big>
           </Button>
         </div>
       </Form>
       {error ? (
         <Alert variant="danger" className=" mt-3 mb-0">
-        <h5 className="text-danger text-center">
-    <b>Todos los campos deben estar completados correctamente.</b> 
-   </h5>
-     </Alert>
+          <h5 className="text-danger text-center">
+            <b>Todos los campos deben estar completados correctamente.</b>
+          </h5>
+        </Alert>
       ) : null}
     </Container>
   );
 };
-export default AgregarNoticia;
+export default withRouter(AgregarNoticia);

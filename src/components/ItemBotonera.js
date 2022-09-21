@@ -8,7 +8,7 @@ import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 import "./Botones.css";
 
 const ItemBotonera = (props) => {
-  const { noticia, setConsultarNoticias, tok} =props
+  const { noticia, setBanderaNoticia, tok} = props
   const eliminarProductos = (id) => {
     Swal.fire({
       title: "Estas seguro de borrar esta noticia?",
@@ -28,7 +28,7 @@ const ItemBotonera = (props) => {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              "authorization": tok
+              "authorization": tok.token
             },
           });
           if (respuesta.status === 200) {
@@ -38,7 +38,7 @@ const ItemBotonera = (props) => {
               "success"
             );
             //actualizar los datos de la lista
-            setConsultarNoticias(false);
+            setBanderaNoticia(true);
           }
         } catch (error) {
           console.log(error);
@@ -80,7 +80,7 @@ const ItemBotonera = (props) => {
                     method: "PUT",
                     headers: { 
                       "Content-Type": "application/json",
-                      "authorization": tok
+                      "authorization": tok.token
                      },
                     body: JSON.stringify(noticiaPublicada),
                   });
@@ -90,7 +90,7 @@ const ItemBotonera = (props) => {
                       icon: "success"
                     });
                     //actualizar los datos de la lista
-                  setConsultarNoticias(false);
+                  setBanderaNoticia(true);
                   }
                 } catch (error) {
                   console.log(error);
@@ -110,29 +110,29 @@ const ItemBotonera = (props) => {
         as={Link}
         type="button"
         className="btn limon border-0 me-1 text-dark "
-        to={`/editar-noticia/${noticia._id}`}
+        to={`/editar-noticia/${noticia?._id}`}
         title="Editar noticia"
       >
         <FontAwesomeIcon icon={faEdit}></FontAwesomeIcon>
       </Button>
       <Button
         className="me-1 rouge border-0"
-        onClick={() => eliminarProductos(noticia._id)}
+        onClick={() => eliminarProductos(noticia?._id)}
         title="Eliminar noticia"
       >
         <FontAwesomeIcon icon={faTrashAlt}></FontAwesomeIcon>
       </Button>
       <Link
         className="btn sky nubes me-1 text-light "
-        to={`/preview/${noticia._id}`}
+        to={`/preview/${noticia?._id}`}
         title="Preview"
       >
         <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>
       </Link>
       <Button
-        className={`${noticia.publicado ? 'mar border-0' : 'sad border-0'}`}
-        title={noticia.publicado ? "Quitar publicación" : "Publicar"}
-        onClick={() => publicarNoticia(noticia._id, noticia.publicado)}
+        className={`${noticia?.publicado ? 'mar border-0' : 'sad border-0'}`}
+        title={noticia?.publicado ? "Quitar publicación" : "Publicar"}
+        onClick={() => publicarNoticia(noticia?._id, noticia?.publicado)}
       >
         <FontAwesomeIcon icon={faNewspaper}></FontAwesomeIcon>
       </Button>
