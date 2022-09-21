@@ -26,6 +26,7 @@ import Registrarse from "./components/Registrarse";
 import FormSuscripcion from "./components/suscripcion/FormSuscripcion";
 // import DefaultRoute from "./utils/routing/defaultRoute";
 import { Container } from "react-bootstrap";
+import Region from "./components/region/Index";
 
 // import ReactDOM from 'react-dom';
 function App() {
@@ -59,7 +60,7 @@ function App() {
   /* Suscripciones - tipos */
   const [suscripcionTipo, setSuscripcionTipo] = useState([]);
   const [consultarSuscripcion, setConsultarSuscripcion] = useState(true);
-  const [suscripcionElegida, setSuscripcionElegida] = useState('')
+  const [suscripcionElegida, setSuscripcionElegida] = useState("");
 
   /* Usuarios */
   const [tok, setTok] = useState([]);
@@ -85,7 +86,6 @@ function App() {
       console.log(error);
     }
   };
-  console.log(suscripcionElegida)
   /* Consultar API - Tipos de suscripciones */
   useEffect(() => {
     if (consultarSuscripcion) {
@@ -94,7 +94,10 @@ function App() {
   }, [consultarSuscripcion]);
   const consultarAPISuscripciones = async () => {
     try {
-      const res = await fetch(process.env.REACT_APP_API_URL + "/suscripciones/suscripcionesNoEliminadas");
+      const res = await fetch(
+        process.env.REACT_APP_API_URL +
+          "/suscripciones/suscripcionesNoEliminadas"
+      );
       const inforSuscripciones = await res.json();
       if (res.status === 200) {
         setSuscripcionTipo(inforSuscripciones);
@@ -190,7 +193,7 @@ function App() {
   //   }
   // }
   // setInterval(renderNoticias, 10000);
-  
+
   return (
     <Router>
       <div className="page-container">
@@ -246,7 +249,7 @@ function App() {
                 setSuscripcionElegida={setSuscripcionElegida}
               />
             </Route>
-            <Route exact path='/suscripcion/suscribirse'>
+            <Route exact path="/suscripcion/suscribirse">
               <FormSuscripcion
                 suscripcionElegida={suscripcionElegida}
                 suscripcionTipo={suscripcionTipo}
@@ -302,16 +305,6 @@ function App() {
               </Route>
             ) : (
               <Error404 />
-              // <DefaultRoute
-              //   userType={tok?.user?.tipoUser}
-              //   noticias={noticiasPublicadas}
-              //   consultarCat={consultarCat}
-              //   setConsultarNoticias={setConsultarNoticias}
-              //   categoriasDestacadas={categoriasDestacadas}
-              //   ultimasNoticias={ultimasNoticias}
-              //   ultimaNoticia={ultimaNoticia}
-              //   comentario={comentario}
-              // />
             )}
             <Route exact path="/menu-categorias/addCategoria">
               <AgregarCategoria
@@ -342,16 +335,6 @@ function App() {
               </Route>
             ) : (
               <Error404 />
-              // <DefaultRoute
-              //   userType={tok?.user?.tipoUser}
-              //   noticias={noticiasPublicadas}
-              //   consultarCat={consultarCat}
-              //   setConsultarNoticias={setConsultarNoticias}
-              //   categoriasDestacadas={categoriasDestacadas}
-              //   ultimasNoticias={ultimasNoticias}
-              //   ultimaNoticia={ultimaNoticia}
-              //   comentario={comentario}
-              // />
             )}
             <Route exact path="/menu-noticias/agregar-Noticia">
               <AgregarNoticia
@@ -389,16 +372,15 @@ function App() {
               </Route>
             ) : (
               <Error404 />
-              // <DefaultRoute
-              // userType={tok?.user?.tipoUser}
-              // noticias={noticiasPublicadas}
-              // consultarCat={consultarCat}
-              // setConsultarNoticias={setConsultarNoticias}
-              // categoriasDestacadas={categoriasDestacadas}
-              // ultimasNoticias={ultimasNoticias}
-              // ultimaNoticia={ultimaNoticia}
-              // comentario={comentario}
-              // />
+            )}
+
+            {/* Menu Region */}
+            {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
+              <Route exact path="">
+                <Region tok={tok} />
+              </Route>
+            ) : (
+              <Error404 />
             )}
 
             <Route exact path="*">
@@ -411,12 +393,5 @@ function App() {
     </Router>
   );
 }
-// function tick() {
-//   ReactDOM.render(
-//     <App/>,
-//     document.getElementById('root')
-//   );
-// }
-// setInterval(tick, 1000);
 
 export default App;
