@@ -376,7 +376,7 @@ function App() {
 
             {/* Menu Region */}
             {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
-              <Route exact path="">
+              <Route exact path="/menu-region">
                 <Region tok={tok} />
               </Route>
             ) : (
