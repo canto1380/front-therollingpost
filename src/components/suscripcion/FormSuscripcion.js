@@ -28,21 +28,21 @@ const Suscripcion = (props) => {
     suscripcionElegida,
     tok,
   } = props;
-  const idSuscElegida = useRef(suscripcionElegida)
+  const idSuscElegida = useRef(suscripcionElegida);
   const [registredUser, setRegistredUser] = useState([]);
   useEffect(() => {
     userToSusc();
   }, []);
 
   const userToSusc = async () => {
-      console.log(tok?.user?._id)
+    console.log(tok?.user?._id);
     const aa = await consultarAPIUser(tok?.user?._id);
     setRegistredUser(aa);
   };
-  console.log(idSuscElegida)
-//   console.log(registredUser);
-//   console.log(tok);
-//   console.log(suscripcionTipo)
+  console.log(idSuscElegida);
+  //   console.log(registredUser);
+  //   console.log(tok);
+  //   console.log(suscripcionTipo)
 
   const URL = process.env.REACT_APP_API_URL + "/clientes/suscribirse";
 
@@ -423,7 +423,7 @@ const Suscripcion = (props) => {
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className='my-3'>
+                <Row className="my-3">
                   <Col>
                     <Form.Group className="mt-2 border rounded-3 backcolor text-form">
                       <Form.Label className="ps-2 pt-1 text-light rounded-top">
@@ -431,26 +431,19 @@ const Suscripcion = (props) => {
                           <b>Email</b>
                         </i>
                       </Form.Label>
-                      <Form.Control
-                        size="sm"
-                        type="email"
-                        name="email"
-                      />
+                      <Form.Control size="sm" type="email" name="email" />
                     </Form.Group>
                   </Col>
                   <Col>
-                  <Form.Group className="mt-2 border rounded-3 backcolor text-form">
+                    <Form.Group className="mt-2 border rounded-3 backcolor text-form">
                       <Form.Label className="ps-2 pt-1 text-light rounded-top">
                         <i>
                           <b>Direccion</b>
                         </i>
                       </Form.Label>
-                      <Form.Control
-                        size="sm"
-                        type="text"
-                        name="direccion"
-                      />
-                    </Form.Group></Col>
+                      <Form.Control size="sm" type="text" name="direccion" />
+                    </Form.Group>
+                  </Col>
                 </Row>
 
                 <div className="d-flex justify-content-center my-4">

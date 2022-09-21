@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { withRouter, NavLink, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faSignInAlt, faNewspaper, faUserFriends, faListAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faSignInAlt, faNewspaper, faListAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import "../../App.css";
 import { deleteToken } from "../../helpers/helpers";

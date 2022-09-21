@@ -103,7 +103,7 @@ const AgregarCategoria = (props) => {
             </Form.Group>
             <Form.Group className="d-flex justify-content-end">
             <Button className="my-3 mx-2 planta border-0"  type="submit">
-             Agregar
+             Agregaraaa
             </Button>
             <Link 
             className="my-3 btn mar text-light" 
