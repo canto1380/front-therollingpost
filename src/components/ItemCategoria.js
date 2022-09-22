@@ -14,10 +14,10 @@ const ItemCategoria = (props) => {
     setConsultarNoticias,
     tok,
   } = props;
-
   const despublicar = (id) => {
     let not = noticias.filter((n) => n?.categoria?._id === id);
-    not.map((nott) => editarNoticia(nott._id, nott));
+    console.log(not)
+    not.map((nott) => editarNoticia(nott._id, nott, tok));
     setConsultarNoticias(!consultarNoticias);
   };
   const eliminarCategoria = (id) => {

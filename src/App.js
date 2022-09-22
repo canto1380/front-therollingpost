@@ -280,7 +280,7 @@ function App() {
                   consultarCat={consultarCat}
                   cantDestacadas={cantDestacadas}
                   tok={tok}
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                   consultarNoticias={consultarNoticias}
                   setConsultarNoticias={setConsultarNoticias}
                   aa={tok?.user?.tipoUser}
