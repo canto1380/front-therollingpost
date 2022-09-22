@@ -4,8 +4,10 @@ import { ListGroup, Button, Form, Row, Col, Container } from "react-bootstrap";
 import { useParams, withRouter } from "react-router-dom";
 import Swal from "sweetalert2";
 import MsjError from "./MsjError";
+import { categoriaER } from "../utils/RegularExpressions";
 
 const EditarCategoria = (props) => {
+  const { tok } = props
   const { id } = useParams();
 
   /* State */
@@ -23,7 +25,7 @@ const EditarCategoria = (props) => {
   const valCate = () => {
     setCatValid("");
     setCatInvalid("");
-    let newCat = /^[a-zA-ZÀ-ÿ\s]{6,}$/;
+    let newCat = categoriaER;
     if (nombreCategoriaRef.current.value.trim() !== ""
     && newCat.test(nombreCategoriaRef.current.value)
     ){
@@ -38,8 +40,15 @@ const EditarCategoria = (props) => {
   useEffect(() => {
     const consultarCategorias = async () => {
       try {
+        const config = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: tok.token,
+          },
+        };
         const res = await fetch(
-          process.env.REACT_APP_API_URL + "/categorias/" + id
+          process.env.REACT_APP_API_URL + "/categorias/" + id, config
         );
         if (res.status === 200) {
           const resp = await res.json();
@@ -63,12 +72,12 @@ const EditarCategoria = (props) => {
         };
 
         const respuesta = await fetch(
-          URL + "/secure/categorias/updateCategoria/" + id,
+          URL + "/categorias/updateCategoria/" + id,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              "authorization": props.tok
+              "authorization": tok.token
             },
             body: JSON.stringify(categoriaModificada),
           }
@@ -135,7 +144,7 @@ const EditarCategoria = (props) => {
                     <ListGroup className="my-3">
                         {props.categorias.map((cat) => <ListGroup.Item
                              className="d-flex justify-content-between align-items-center border border-secondary herencia"
-                            cat={cat} key={cat._id} setConsultarCat={props.setConsultarCat}>
+                            cat={cat} key={cat._id} >
                             <h5><i>{cat.nombreCategoria}</i></h5>
                             </ListGroup.Item>)}
                     </ListGroup>

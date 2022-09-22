@@ -33,13 +33,13 @@ const ItemCategoria = (props) => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         despublicar(id);
-        const url = `${process.env.REACT_APP_API_URL}/secure/categorias/deleteCategoria/${id}`;
+        const url = `${process.env.REACT_APP_API_URL}/categorias/deleteCategoria/${id}`;
         try {
           const config = {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
-              authorization: tok,
+              authorization: tok.token,
             },
           };
           const res = await fetch(url, config);
@@ -50,7 +50,7 @@ const ItemCategoria = (props) => {
               "success"
             );
             // actualizar los datos de la lista de productos
-            props.setConsultarCat(true);
+            props.setBanderaCategoria(true)
           }
         } catch (error) {
           console.log(error);
@@ -59,7 +59,7 @@ const ItemCategoria = (props) => {
     });
   };
   const destacarCategoria = async (id, nombre, destacada) => {
-    const url = `${process.env.REACT_APP_API_URL}/secure/categorias/updateCategoria/${id}`;
+    const url = `${process.env.REACT_APP_API_URL}/categorias/updateCategoria/${id}`;
     if (!destacada) {
       if (cantDestacadas < 4) {
         try {
@@ -71,12 +71,12 @@ const ItemCategoria = (props) => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              authorization: tok,
+              authorization: tok.token,
             },
             body: JSON.stringify(categoriaModificada),
           });
           if (res.status === 200) {
-            props.setConsultarCat(true);
+            props.setBanderaCategoria(true)
             props.history.push(`/menu-categorias`);
           }
         } catch (error) {}
@@ -118,12 +118,12 @@ const ItemCategoria = (props) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            authorization: tok,
+            authorization: tok.token,
           },
           body: JSON.stringify(categoriaModificada),
         });
         if (res.status === 200) {
-          props.setConsultarCat(true);
+          props.setBanderaCategoria(true);
           props.history.push(`/menu-categorias`);
         }
       } catch (error) {}

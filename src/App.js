@@ -28,6 +28,7 @@ import { Container } from "react-bootstrap";
 import Region from "./components/region/Index";
 
 import { consultarNoticiasPublicadasAPI } from './utils/queryAPI/noticias'
+import { consultarCategoriasPublicadasAPI } from "./utils/queryAPI/categorias";
 
 // import ReactDOM from 'react-dom';
 function App() {
@@ -144,16 +145,9 @@ function App() {
   }, [consultarCat]);
   const consultarAPICat = async () => {
     try {
-      const res = await fetch(
-        process.env.REACT_APP_API_URL + "/categorias/listCategoria"
-      );
-      const inforCategorias = await res.json();
-      if (res.status === 200) {
-        setCategorias(inforCategorias);
-        setConsultarCat(false);
-      }
+      setCategorias(await consultarCategoriasPublicadasAPI(setConsultarCat))
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   // function renderCategorias() {
@@ -183,7 +177,6 @@ function App() {
   //   }
   // }
   // setInterval(renderNoticias, 10000);
-
   return (
     <Router>
       <div className="page-container">

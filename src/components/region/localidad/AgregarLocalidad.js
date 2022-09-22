@@ -66,7 +66,6 @@ const AgregarLocalidad = (props) => {
     try {
       e.preventDefault();
       if (validarNombreLocalidad() && validarIdProvincia()) {
-        console.log('pasa 1')
         setErrorValid(false);
         const config = {
           method: "POST",
@@ -103,7 +102,6 @@ const AgregarLocalidad = (props) => {
           }, 2000);
         }
       } else {
-        console.log('no pasa 1')
         setErrorValid(true)
         setTimeout(() => {
           setErrorValid(false)

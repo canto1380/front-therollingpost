@@ -6,7 +6,8 @@ const paisExpReg = /^[a-zA-ZÀ-ÿ\s]{4,40}$/;
 const textoER = /^[^\n]{12,}$/;
 const autorER = /^[^\n]{12,}$/; // Letras y espacios, pueden llevar acentos.
 const textoPieER = /^[^\n]{7,}$/; // Letras, numeros
-const resumenER = /^[\s\S]{500,}$/
+const resumenER = /^[\s\S]{500,}$/;
+const categoriaER = /^[a-zA-ZÀ-ÿ\s]{4,40}$/;
 
 
-export { email, nombreApellido, edad, clave, paisExpReg, textoER, autorER, textoPieER, resumenER };
+export { email, nombreApellido, edad, clave, paisExpReg, textoER, autorER, textoPieER, resumenER, categoriaER };

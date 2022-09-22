@@ -7,7 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { consultarNoticiasAPI } from "../utils/queryAPI/noticias";
 
 const NoticiasMenu = (props) => {
-  const { noticias, consultarNoticias, setConsultarNoticias } = props;
+  const { tok } = props;
 
   const [consulta, setConsulta] = useState([])
   const [noticiass, setNoticiass] = useState([])
@@ -67,7 +67,6 @@ const NoticiasMenu = (props) => {
         </Col>
       </Row>
       <hr />
-      <Form>
         <Row className="mt-3 mb-4 mx-0">
           <Col
             xs={6}
@@ -144,7 +143,7 @@ const NoticiasMenu = (props) => {
                   <ItemBotonera
                     noticia={noticia}
                     key={noticia._id}
-                    tok={props.tok}
+                    tok={tok}
                     setBanderaNoticia={setBanderaNoticia}
                   ></ItemBotonera>
                 </td>
@@ -152,7 +151,6 @@ const NoticiasMenu = (props) => {
             ))}
           </tbody>
         </Table>
-      </Form>
       <Pagination>{items}</Pagination>
     </Container>
   );
