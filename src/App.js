@@ -24,9 +24,11 @@ import APImoneda from "./components/APImoneda";
 import CardCategorias from "./components/categoriaIndividual.js/CardCategorias";
 import Registrarse from "./components/Registrarse";
 import FormSuscripcion from "./components/suscripcion/FormSuscripcion";
-// import DefaultRoute from "./utils/routing/defaultRoute";
 import { Container } from "react-bootstrap";
 import Region from "./components/region/Index";
+
+import { consultarNoticiasPublicadasAPI } from "./utils/queryAPI/noticias";
+import { consultarCategoriasPublicadasAPI } from "./utils/queryAPI/categorias";
 
 // import ReactDOM from 'react-dom';
 function App() {
@@ -57,17 +59,19 @@ function App() {
   const [comentario, setComentario] = useState([]);
   const [consultarComent, setConsultarComent] = useState(true);
 
-  /* Suscripciones - tipos */
-  const [suscripcionTipo, setSuscripcionTipo] = useState([]);
-  const [consultarSuscripcion, setConsultarSuscripcion] = useState(true);
-  const [suscripcionElegida, setSuscripcionElegida] = useState("");
-
   /* Usuarios */
   const [tok, setTok] = useState([]);
+
+  /* Suscripcion*/
+  const [idUsuario, setIdUsuario] = useState('')
 
   useEffect(() => {
     setTok(JSON.parse(localStorage.getItem("jwt")));
   }, []);
+
+  useEffect(() => {
+    setIdUsuario(tok?.user?._id)
+  },[tok])
 
   useEffect(() => {
     if (consultarUser) {
@@ -81,27 +85,6 @@ function App() {
       if (res.status === 200) {
         setUsuarios(inforUsers);
         setConsultarUser(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  /* Consultar API - Tipos de suscripciones */
-  useEffect(() => {
-    if (consultarSuscripcion) {
-      consultarAPISuscripciones();
-    }
-  }, [consultarSuscripcion]);
-  const consultarAPISuscripciones = async () => {
-    try {
-      const res = await fetch(
-        process.env.REACT_APP_API_URL +
-          "/suscripciones/suscripcionesNoEliminadas"
-      );
-      const inforSuscripciones = await res.json();
-      if (res.status === 200) {
-        setSuscripcionTipo(inforSuscripciones);
-        setConsultarSuscripcion(false);
       }
     } catch (error) {
       console.log(error);
@@ -143,16 +126,9 @@ function App() {
   }, [consultarCat]);
   const consultarAPICat = async () => {
     try {
-      const res = await fetch(
-        process.env.REACT_APP_API_URL + "/categorias/listCategoria"
-      );
-      const inforCategorias = await res.json();
-      if (res.status === 200) {
-        setCategorias(inforCategorias);
-        setConsultarCat(false);
-      }
+      setCategorias(await consultarCategoriasPublicadasAPI(setConsultarCat));
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   // function renderCategorias() {
@@ -167,24 +143,15 @@ function App() {
     if (consultarNoticias) {
       consultarAPINoticias();
     }
-  }, [consultarNoticias, consultarCat]);
+  }, [consultarNoticias]);
 
   const consultarAPINoticias = async () => {
     try {
-      const res = await fetch(
-        process.env.REACT_APP_API_URL + "/noticias/listNoticias"
+      setNoticiasPublicadas(
+        await consultarNoticiasPublicadasAPI(setConsultarNoticias)
       );
-      const infNoticias = await res.json();
-      if (res.status === 200) {
-        setNoticias(infNoticias);
-        setConsultarNoticias(false);
-        const publicadas = infNoticias.filter(
-          (noti) => noti.publicado === true
-        );
-        setNoticiasPublicadas(publicadas);
-      }
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   // function renderNoticias() {
@@ -193,7 +160,6 @@ function App() {
   //   }
   // }
   // setInterval(renderNoticias, 10000);
-
   return (
     <Router>
       <div className="page-container">
@@ -238,22 +204,17 @@ function App() {
                 setConsultarUser={setConsultarUser}
               />
             </Route>
-            <Route exact path="/suscripcion">
-              <Suscripcion
-                individual={"$150"}
-                familia={"$250"}
-                clientes={clientes}
-                consultarClientes={consultarClientes}
-                setConsultarClientes={setConsultarClientes}
-                suscripcionTipo={suscripcionTipo}
-                setSuscripcionElegida={setSuscripcionElegida}
-              />
-            </Route>
+
+            {/* SUSCRIPCIONES */}
+              <Route exact path="/suscripcion">
+                <Suscripcion
+                  tok={tok}          
+                />
+              </Route>
             <Route exact path="/suscripcion/suscribirse">
               <FormSuscripcion
-                suscripcionElegida={suscripcionElegida}
-                suscripcionTipo={suscripcionTipo}
                 tok={tok}
+                idUsuario={idUsuario}
               />
             </Route>
 
@@ -297,7 +258,7 @@ function App() {
                   consultarCat={consultarCat}
                   cantDestacadas={cantDestacadas}
                   tok={tok}
-                  noticias={noticias}
+                  noticias={noticiasPublicadas}
                   consultarNoticias={consultarNoticias}
                   setConsultarNoticias={setConsultarNoticias}
                   aa={tok?.user?.tipoUser}
@@ -376,7 +337,7 @@ function App() {
 
             {/* Menu Region */}
             {tok && tok?.user?.tipoUser === "ADMIN_ROLE" ? (
-              <Route exact path="">
+              <Route exact path="/menu-region">
                 <Region tok={tok} />
               </Route>
             ) : (

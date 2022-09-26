@@ -4,9 +4,12 @@ import Swal from "sweetalert2";
 import { useParams, withRouter, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import { textoPieER, autorER, textoER, resumenER} from "../utils/RegularExpressions";
+
 const url = process.env.REACT_APP_API_URL;
 
 const EditarNoticia = (props) => {
+  const { tok, setConsultarNoticias } = props
   const { id } = useParams();
   //Variables useRef
   const tituloNoticiaRef = useRef();
@@ -35,18 +38,18 @@ const EditarNoticia = (props) => {
   const [pieImgValid, setPieImgValid] = useState("");
   const [pieImgInvalid, setPieImgInvalid] = useState("");
 
-  const expresiones = {
-    texto: /^[^\n]{12,}$/, // Letras, numeros
-    autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
-    textoPie: /^[^\n]{7,}$/, // Letras, numeros
-    resumen: /^[\s\S]{500,}$/,
-  };
+  // const expresiones = {
+  //   texto: /^[^\n]{12,}$/, // Letras, numeros
+  //   autor: /^[^\n]{12,}$/, // Letras y espacios, pueden llevar acentos.
+  //   textoPie: /^[^\n]{7,}$/, // Letras, numeros
+  //   resumen: /^[\s\S]{500,}$/,
+  // };
 
   //Validaciones
   const valTit = () => {
     setTitValid("");
     setTitInvalid("");
-    let titulo = expresiones.texto;
+    let titulo = textoER;
     if (tituloNoticiaRef.current.value.trim() !== "" && titulo.test(tituloNoticiaRef.current.value)) {
       setTitValid(true);
       return false;
@@ -58,8 +61,8 @@ const EditarNoticia = (props) => {
   const valSubT = () => {
     setSubTValid("");
     setSubTInvalid("");
-    let texto = expresiones.texto;
-    if (subtituloNoticiaRef.current.value.trim() !== "" && texto.test(subtituloNoticiaRef.current.value)) {
+    let text = textoER;
+    if (subtituloNoticiaRef.current.value.trim() !== "" && text.test(subtituloNoticiaRef.current.value)) {
       setSubTValid(true);
       return false;
     } else {
@@ -71,7 +74,7 @@ const EditarNoticia = (props) => {
   const valAutor = () => {
     setAutorValid("");
     setAutorInvalid("");
-    let nombre = expresiones.autor;
+    let nombre = autorER;
     if (autorRef.current.value.trim() !== "" && nombre.test(autorRef.current.value)) {
       setAutorValid(true);
       return false;
@@ -84,7 +87,7 @@ const EditarNoticia = (props) => {
   const valResumen = () => {
     setResValid("");
     setResInvalid("");
-    let res = expresiones.resumen;
+    let res = resumenER;
     if (resumenNoticiaRef.current.value.trim() !== "" && res.test(resumenNoticiaRef.current.value)) {
       setResValid(true);
       return false;
@@ -120,7 +123,7 @@ const EditarNoticia = (props) => {
   const valPieImg = () => {
     setPieImgValid("");
     setPieImgInvalid("");
-    let texto = expresiones.textoPie;
+    let texto = textoPieER;
     if (piedefotoRef.current.value.trim() !== "" && texto.test(piedefotoRef.current.value)) {
       setPieImgValid(true);
       return false;
@@ -183,7 +186,7 @@ const EditarNoticia = (props) => {
           method: "PUT",
           headers: { 
             "Content-Type": "application/json",
-            "authorization": props.tok
+            "authorization": tok.token
           },
           body: JSON.stringify(noticiaModificada),
         });
@@ -194,7 +197,7 @@ const EditarNoticia = (props) => {
             "success"
           );
           //
-          props.setConsultarNoticias(false);
+          setConsultarNoticias(true);
           //redireccionar a la pagina de productos
           props.history.push("/menu-noticias");
           e.target.reset();
