@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import suscripcion from "../../img/suscripcion.png";
-
-
 import { withRouter } from "react-router-dom";
-
+import { consultarSuscripcionesAPI } from "../../utils/queryAPI/suscripciones";
 
 const Suscripcion = (props) => {
-  const { suscripcionTipo, setSuscripcionElegida } = props;
-  
+  const [suscripciones, setSuscripciones,] = useState([])
   const handleSuscribirme = (id) => {
-    setSuscripcionElegida(id)
     props.history.push('/suscripcion/suscribirse')
+  }
+  useEffect(() => {
+    consultarAPI()
+  }, [])
+  const consultarAPI = async() => {
+    setSuscripciones(await consultarSuscripcionesAPI())
   }
 
 
@@ -26,7 +28,7 @@ const Suscripcion = (props) => {
         </h5>
       </div>
       <div className="row justify-content-evenly my-5">
-        {suscripcionTipo.map((susc) => (
+        {suscripciones?.map((susc) => (
           <div key={susc._id}  className="col-sm-12 col-md-6 col-lg-4 border border-secondary rounded herencia">
             <div className="text-center my-3 mx-1">
               <div className="my-3">
