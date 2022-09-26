@@ -8,6 +8,28 @@ const autorER = /^[^\n]{12,}$/; // Letras y espacios, pueden llevar acentos.
 const textoPieER = /^[^\n]{7,}$/; // Letras, numeros
 const resumenER = /^[\s\S]{500,}$/;
 const categoriaER = /^[a-zA-ZÀ-ÿ\s]{4,40}$/;
+const cpER = /^[0-9]{4,8}$/;
+const telER = /^[0-9]{10,15}$/;
+const titularTarjetaER = /^[a-zA-ZÀ-ÿ\s]{10,70}$/;
+const nroDocumentoER = /^[0-9]{7,11}$/;
+const nroTarjetaER = /^[0-9]{16}$/;
+const cvvER = /^[0-9]{3}$/;
 
-
-export { email, nombreApellido, edad, clave, paisExpReg, textoER, autorER, textoPieER, resumenER, categoriaER };
+export {
+  email,
+  nombreApellido,
+  edad,
+  clave,
+  paisExpReg,
+  textoER,
+  autorER,
+  textoPieER,
+  resumenER,
+  categoriaER,
+  cpER,
+  telER,
+  titularTarjetaER,
+  nroDocumentoER,
+  nroTarjetaER,
+  cvvER,
+};

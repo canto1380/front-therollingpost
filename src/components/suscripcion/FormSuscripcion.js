@@ -17,463 +17,563 @@ import { withRouter } from "react-router-dom";
 import emailjs from "emailjs-com";
 import MsjError from "../MsjError";
 import { consultarAPIUser } from "../../utils/queryAPI/user";
+import {
+  titularTarjetaER,
+  nroDocumentoER,
+  nroTarjetaER,
+  cvvER,
+} from "../../utils/RegularExpressions";
 
 import "./formSuscripcion.css";
 
 const Suscripcion = (props) => {
-  const {
-    setConsultarClientes,
-    clientes,
-    suscripcionTipo,
-    suscripcionElegida,
-    tok,
-  } = props;
-  const idSuscElegida = useRef(suscripcionElegida);
+  const { idUsuario, tok } = props;
   const [registredUser, setRegistredUser] = useState([]);
-  useEffect(() => {
-    userToSusc();
-  }, []);
 
-  const userToSusc = async () => {
-    console.log(tok?.user?._id);
-    const aa = await consultarAPIUser(tok?.user?._id);
-    setRegistredUser(aa);
-  };
-  console.log(idSuscElegida);
-  //   console.log(registredUser);
-  //   console.log(tok);
-  //   console.log(suscripcionTipo)
+  const URL_ADD_CREDIT_CARD = process.env.REACT_APP_API_URL + "/tarjeta-pago/addTarjeta";
+  const URL_SEARCH_USER =
+    process.env.REACT_APP_API_URL + `/user/user/${idUsuario}`;
 
-  const URL = process.env.REACT_APP_API_URL + "/clientes/suscribirse";
-
-  const [client, setClient] = useState({
-    nomAp: "",
-    direccion: "",
-    localidad: "",
-    codigoPostal: "",
-    telefono: "",
-    email: "",
-    password: "",
-    plan: "",
+  const [datosTarjeta, setDatosTarjeta] = useState({
+    titularTarjeta: "",
+    tipoDocumento: "",
+    nroDocumento: "",
+    tipoTarjeta: "",
+    nroTarjeta: "",
+    mes: "",
+    anio: "",
+    cvv: "",
+    emailRegistro: ''
   });
-  const [error, setError] = useState(false);
-  const [err1, setErr1] = useState(false); //mensaje de error en valicaciones general
-  const [err2, setErr2] = useState(false); //mensaje de error para email en uso
-  const handleValores = (e) => {
-    setClient({ ...client, [e.target.name]: e.target.value });
-  };
+  const [banderaUser, setBanderaUser] = useState(true);
+  const [error, setError] = useState(false); // Error servidor
+  const [err1, setErr1] = useState(false); //Error validaciones
+  const [err2, setErr2] = useState(false); //Error tarjeta existente
+  const [err2Descr, setErr2Descr] = useState(''); //Error tarjeta existente
 
   /*States para feedback formulario*/
-  const [nomValid, setNomValid] = useState("");
-  const [nomInvalid, setNomInvalid] = useState("");
-  const [direcValid, setDirecValid] = useState("");
-  const [direcInvalid, setDirecInvalid] = useState("");
-  const [locValid, setLocValid] = useState("");
-  const [locInvalid, setLocInvalid] = useState("");
-  const [cpValid, setCpValid] = useState("");
-  const [cpInvalid, setCpInvalid] = useState("");
-  const [telValid, setTelValid] = useState("");
-  const [telInvalid, setTelInvalid] = useState("");
-  const [emailValid, setEmailValid] = useState("");
-  const [emailInvalid, setEmailInvalid] = useState("");
-  const [passValid, setPassValid] = useState("");
-  const [passInValid, setPassInvalid] = useState("");
-  const [invalidTerms, setInvalidTerms] = useState("");
-  const [rePass, setRePass] = useState("");
-  const [rePassValid, setRePassValid] = useState("");
-  const [rePassInValid, setRePassInvalid] = useState("");
+  const [titularValida, setTitularValida] = useState("");
+  const [titularNoValida, setTitularNoValida] = useState("");
+  const [tipoDocValida, setTipoDocValida] = useState("");
+  const [tipoDocNoValida, setTipoDocNoValida] = useState("");
+  const [nroDocValida, setNroDocValida] = useState("");
+  const [nroDocNoValida, setNroDocNoValida] = useState("");
+  const [tipoTarjetaValida, setTipoTarjetaValida] = useState("");
+  const [tipoTarjetaNoValida, setTipoTarjetaNoValida] = useState("");
+  const [nroTarjetaValida, setNroTarjetaValida] = useState("");
+  const [nroTarjetaNoValida, setNroTarjetaNoValida] = useState("");
+  const [mesValida, setMesValida] = useState("");
+  const [mesNoValida, setMesNoValida] = useState("");
+  const [anioValida, setAnioValida] = useState("");
+  const [anioNoValida, setAnioNoValida] = useState("");
+  const [cvvValida, setCvvValida] = useState("");
+  const [cvvNoValida, setCvvNoValida] = useState("");
 
-  /*Expresiones regulares para validaciones*/
-  const expresiones = {
-    nombre: /^[a-zA-ZÀ-ÿ\s]{4,}$/, // Letras y espacios, pueden llevar acentos.
-    email:
-      /^(([^<>()[\]\\.,;:\s@”]+(\.[^<>()[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/,
-    cp: /^[0-9]{4,8}$/,
-    tel: /^[0-9]{10,15}$/,
-    pas: /^[a-z0-9_-]{6,15}$/,
-  };
-
-  /*States para Validaciones*/
-  const [vNom, setVNom] = useState(false);
-  const [vDir, setVDir] = useState(false);
-  const [vLoc, setVLoc] = useState(false);
-  const [vCP, setVCP] = useState(false);
-  const [vTel, setVTel] = useState(false);
-  const [vEmail, setVEmail] = useState(false);
-  const [vPass, setVPass] = useState(false);
-  const [vRePass, setVRePass] = useState(false);
-  const [vPlan, setVPlan] = useState(false);
-  const [terms, setTerms] = useState(false);
-
-  const validarNombre = () => {
-    setNomValid("");
-    setNomInvalid("");
-    let nom = expresiones.nombre;
+  const validarTitular = () => {
+    setTitularValida("");
+    setTitularNoValida("");
+    let nom = titularTarjetaER;
     if (
-      client.nomAp.trim() !== "" &&
-      nom.test(client.nomAp) &&
-      client.nomAp.length <= 40
+      datosTarjeta.titularTarjeta.trim() !== "" &&
+      nom.test(datosTarjeta.titularTarjeta)
     ) {
-      setNomValid(true);
-      setVNom(true);
+      setTitularValida(true);
+      return true;
     } else {
-      setNomInvalid(true);
-      setVNom(false);
-      // return false
+      setTitularNoValida(true);
+      return false;
     }
   };
-  const validarDireccion = () => {
-    setDirecValid("");
-    setDirecInvalid("");
+  const validarTipoDocumento = () => {
+    setTipoDocValida("");
+    setTipoDocNoValida("");
 
-    if (client.direccion.trim() !== "") {
-      setDirecValid(true);
-      setVDir(true);
+    if (datosTarjeta.tipoDocumento.trim() !== "") {
+      setTipoDocValida(true);
+      return true;
     } else {
-      setDirecInvalid(true);
-      setVDir(false);
+      setTipoDocNoValida(true);
+      return false;
     }
   };
-  const validarLocalidad = () => {
-    setLocInvalid("");
-    setLocValid("");
-    let local = expresiones.nombre;
-    if (client.localidad.trim() !== "" && local.test(client.localidad)) {
-      setLocValid(true);
-      setVLoc(true);
+  const validarNroDocumento = () => {
+    setNroDocNoValida("");
+    setNroDocValida("");
+    let local = nroDocumentoER;
+    if (
+      datosTarjeta.nroDocumento.trim() !== "" &&
+      local.test(datosTarjeta.nroDocumento)
+    ) {
+      setNroDocValida(true);
+      return true;
     } else {
-      setLocInvalid(true);
-      setVLoc(false);
+      setNroDocNoValida(true);
+      return false;
     }
   };
-  const validarCP = () => {
-    setCpInvalid("");
-    setCpValid("");
-    let codP = expresiones.cp;
-    if (client.codigoPostal.trim() !== "" && codP.test(client.codigoPostal)) {
-      setCpValid(true);
-      setVCP(true);
+  const validarTipoTarjeta = () => {
+    setTipoTarjetaNoValida("");
+    setTipoTarjetaValida("");
+    if (datosTarjeta.tipoTarjeta.trim() !== "") {
+      setTipoTarjetaValida(true);
+      return true;
     } else {
-      setCpInvalid(true);
-      setVCP(false);
+      setTipoTarjetaNoValida(true);
+      return false;
     }
   };
-  const validarTel = () => {
-    setTelInvalid("");
-    setTelValid("");
-    let telef = expresiones.tel;
-    if (client.telefono.trim() !== "" && telef.test(client.telefono)) {
-      setTelValid(true);
-      setVTel(true);
+  const validarNroTarjeta = () => {
+    setNroTarjetaNoValida("");
+    setNroTarjetaValida("");
+    let telef = nroTarjetaER;
+    if (
+      datosTarjeta.nroTarjeta.trim() !== "" &&
+      telef.test(datosTarjeta.nroTarjeta)
+    ) {
+      setNroTarjetaValida(true);
+      return true;
     } else {
-      setTelInvalid(true);
-      setVTel(false);
+      setNroTarjetaNoValida(true);
+      return false;
     }
   };
-  const validarEmail = () => {
-    setEmailInvalid("");
-    setEmailValid("");
-    let mail = expresiones.email;
-    if (client.email.trim() !== "" && mail.test(client.email)) {
-      setEmailValid(true);
-      setVEmail(true);
+  const validarMes = () => {
+    setMesNoValida("");
+    setMesValida("");
+    if (datosTarjeta.mes.trim() !== "") {
+      setMesValida(true);
+      return true;
     } else {
-      setEmailInvalid(true);
-      setVEmail(false);
+      setMesNoValida(true);
+      return false;
     }
   };
-  const validarPass = () => {
-    setPassValid("");
-    setPassInvalid("");
-    validarRePass();
-    let pass = expresiones.pas;
-    if (client.password.trim() !== "" && pass.test(client.password)) {
-      setPassValid(true);
-      setVPass(true);
+  const validarAnio = () => {
+    setAnioValida("");
+    setAnioNoValida("");
+    if (datosTarjeta.anio.trim() !== "") {
+      setAnioValida(true);
+      return true;
     } else {
-      setPassInvalid(true);
-      setVPass(false);
+      setAnioNoValida(true);
+      return false;
     }
   };
-  const validarRePass = () => {
-    setRePassValid("");
-    setRePassInvalid("");
-    if (client.password.trim() === rePass) {
-      setRePassValid(true);
-      setVRePass(true);
+  const validarCvv = () => {
+    setCvvValida("");
+    setCvvNoValida("");
+    let clave = cvvER;
+    if (datosTarjeta.cvv.trim() !== "" && clave.test(datosTarjeta.cvv)) {
+      setCvvValida(true);
+      return true;
     } else {
-      setRePassInvalid(true);
-      setVRePass(false);
-    }
-  };
-  const validarPlan = (e) => {
-    if (client.plan !== "") {
-      setVPlan(true);
-    } else {
-      setVPlan(false);
-    }
-  };
-  const validarTerminos = (e) => {
-    setInvalidTerms("");
-    if (e.target.checked) {
-      setTerms(true);
-    } else {
-      setTerms(false);
-      setInvalidTerms(true);
+      setCvvNoValida(true);
+      return false;
     }
   };
 
-  //Limitar limite maximo de caracteres ingresados en el imput
-  const maxNum = (num) => {
-    if (num.target.value.length > num.target.maxLength) {
-      num.target.value = num.target.value.slice(0, num.target.maxLength);
-    }
-  };
-
-  /*limpiar states para estilos en formulario*/
-  const clearForm = () => {
-    setNomValid("");
-    setNomInvalid("");
-    setDirecValid("");
-    setDirecInvalid("");
-    setLocInvalid("");
-    setLocValid("");
-    setCpInvalid("");
-    setCpValid("");
-    setTelInvalid("");
-    setTelValid("");
-    setEmailInvalid("");
-    setEmailValid("");
-    setPassValid("");
-    setPassInvalid("");
-    setInvalidTerms("");
-    setRePassValid("");
-    setRePassInvalid("");
-    setTerms(false);
-    setVPlan(false);
-    setVNom(false);
-    setVDir(false);
-    setVLoc(false);
-    setVCP(false);
-    setVTel(false);
-    setVEmail(false);
-    setVPass(false);
-    setRePass(false);
-  };
-
-  const terminos = (e) => {
-    setTerms(e.target.checked);
+  const handleValuesTarjeta = (e) => {
+    setDatosTarjeta({ ...datosTarjeta, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    try {
+    console.log(datosTarjeta);
     if (
-      vNom &&
-      vDir &&
-      vLoc &&
-      vCP &&
-      vTel &&
-      vEmail &&
-      vPass &&
-      vRePass &&
-      vPlan &&
-      terms
+      validarTitular() &&
+      validarTipoTarjeta() &&
+      validarNroTarjeta() &&
+      validarTipoDocumento() &&
+      validarNroDocumento() &&
+      validarMes() &&
+      validarAnio() &&
+      validarCvv()
     ) {
-      setError(false);
+      setErr1(false);
 
-      const cliente = client;
-      try {
         const configuracion = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: tok.token
           },
-          body: JSON.stringify(cliente),
+          body: JSON.stringify(datosTarjeta),
         };
-
-        const respuesta = await fetch(URL, configuracion);
-
-        if (respuesta.status === 200) {
-          const mensajeSuscripcion = {
-            nombre: client.nomAp,
-            email: client.email,
-            to_name: "Administrador",
-            direcLocalCp: `Direccion: ${client.direccion} -
-              Localidad: ${client.localidad} -
-              Código Postal: ${client.codigoPostal}`,
-            telEmailPass: `Telefono: ${client.telefono} - 
-              Email: ${client.email} - 
-              Password: ${client.password}`,
-            plan: `Plan: ${client.plan}`,
-          };
-
-          emailjs
-            .send(
-              "service_8p1isqq",
-              "template_k4pd6gd",
-              mensajeSuscripcion,
-              "user_rQqHrh4fAD3sMZEdvbGTI"
-            )
-            .then(
-              (result) => {
-                if (result.status === 200) {
-                  Swal.fire(
-                    "Solicitud de suscripcion enviada",
-                    "Nos pondremos en contacto para confirmar aceptacion",
-                    "success"
-                  );
-                }
-              },
-              async (error) => {
-                console.log(error.text);
-                Swal.fire(
-                  "A ocurrido un error",
-                  "Por favor intentelo de nuevo mas tarde",
-                  "warning"
-                );
-                const url = `${process.env.REACT_APP_API_URL}/clientes/buscar/${cliente.email}`;
-                try {
-                  const config = {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  };
-                  const res = await fetch(url, config);
-                  if (res.status === 200) {
-                    console.log("intente nuevamente");
-                  }
-                } catch (error) {
-                  console.log(error);
-                }
-              }
-            );
-
-          // props.history.push("./");
-          setConsultarClientes(true);
-          console.log(clientes);
+        const respuesta = await fetch(URL_ADD_CREDIT_CARD, configuracion);
+        console.log(respuesta)
+        if (respuesta.status === 201) {
+          
+          props.history.push("/");
           e.target.reset();
-          clearForm();
         } else if (respuesta.status === 400) {
+          const resp = await respuesta.json()
+          setErr2Descr(resp?.mensaje)
           setErr2(true);
           setTimeout(() => {
             setErr2(false);
           }, 2000);
         }
-      } catch (err) {
-        console.log(err);
-        Swal.fire(
-          "A ocurrido un error",
-          "Por favor intentelo de nuevo mas tarde",
-          "error"
-        );
+      } else {
+        setErr1(true);
+        setTimeout(() => {
+          setErr1(false);
+        }, 2000);
       }
-    } else {
-      setError(true);
-      console.log(error);
-      setErr1(true);
-      setTimeout(() => {
-        setErr1(false);
-      }, 2000);
+    } catch (err) {
+      console.log(err);
+      Swal.fire(
+        "A ocurrido un error",
+        "Por favor intentelo de nuevo mas tarde",
+        "error"
+      );
     }
   };
 
-  return (
-    <Container className="my-4">
-      <div className="text-center my-5 ">
-        <h1 className="py-1 px-2">
-          <i>Mantente al día con las noticias del mundo</i>
-        </h1>
-        <h5>
-          <i>Accedé sin límite a información de la mejor calidad</i>
-        </h5>
-        <Row className="my-5">
-          <Col xs={12} md={7} className="px-0">
-            <div className="mx-4 my-4">
-              <Form onSubmit={handleSubmit}>
-                <div className="text-start">
-                  <h5>Datos del suscriptor</h5>
-                </div>
-                <Row className="">
-                  <Col>
-                    <Form.Group className="border rounded-3 backcolor text-form">
-                      <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                        <i>
-                          <b>Nombre y Apellido</b>
-                        </i>
-                      </Form.Label>
-                      <Form.Control
-                        size="sm"
-                        type="text"
-                        defaultValue={`${registredUser?.nombre}  ${registredUser?.apellido}`}
-                        name="nomAp"
-                        disabled
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group className="border rounded-3 backcolor text-form">
-                      <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                        <i>
-                          <b>Teléfono</b>
-                        </i>
-                      </Form.Label>
-                      <Form.Control size="sm" type="number" name="telefono" />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Row className="my-3">
-                  <Col>
-                    <Form.Group className="mt-2 border rounded-3 backcolor text-form">
-                      <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                        <i>
-                          <b>Email</b>
-                        </i>
-                      </Form.Label>
-                      <Form.Control size="sm" type="email" name="email" />
-                    </Form.Group>
-                  </Col>
-                  <Col>
-                    <Form.Group className="mt-2 border rounded-3 backcolor text-form">
-                      <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                        <i>
-                          <b>Direccion</b>
-                        </i>
-                      </Form.Label>
-                      <Form.Control size="sm" type="text" name="direccion" />
-                    </Form.Group>
-                  </Col>
-                </Row>
+  useEffect(() => {
+    if (banderaUser) {
+      consultarAPI();
+    }
+  }, [URL_SEARCH_USER]);
 
-                <div className="d-flex justify-content-center my-4">
-                  <Button
-                    className="w-75 rounded mar border-0 text-light"
-                    type="submit"
-                  >
-                    <big>
-                      <i>
-                        <b>Suscribirme</b>
-                      </i>
-                    </big>
-                  </Button>
-                </div>
-                {err1 ? (
-                  <MsjError
-                    text1="Datos incorrectos"
-                    text2="Todos los campos son obligatorios."
-                  />
-                ) : null}
-                {err2 ? (
-                  <MsjError
-                    text1="Su direccion de correo ya se encuentra registrada"
-                    text2="Por favor, intente con otra direccion ."
-                  />
-                ) : null}
-              </Form>
-            </div>
-          </Col>
-          <Col xs={12} md={5}>
+  const consultarAPI = async () => {
+    const usuario = await consultarAPIUser(idUsuario, setBanderaUser);
+    setRegistredUser(usuario);
+    setDatosTarjeta({...datosTarjeta, emailRegistro: usuario?.email})
+    
+  };
+
+  // const consultarAPI = async () => {
+  //   try {
+  //     console.log("aaa");
+  //     const response = await fetch(URL_SEARCH_USER);
+  //     if (response.status === 200) {
+  //       const resp = await response.json();
+  //       setRegistredUser(resp);
+  //       setBanderaUser(false);
+  //     }
+  //   } catch (error) {}
+  // };
+
+  return (
+    <Container className="">
+      <Row className="mt-3 mb-0 mx-0 text-center">
+        <Col
+          xs={12}
+          className="align-items-center mt-4 ps-0 justify-content-md-start p-0"
+        >
+          <h1 className="py-1 px-2">
+            <i>Mantente al día con las noticias del mundo</i>
+          </h1>
+        </Col>
+      </Row>
+      <Row className="mt-0 mb-4 mx-0 text-center">
+        <Col
+          xs={12}
+          className="align-items-center mt-4 ps-0 justify-content-md-start p-0"
+        >
+          <h5>
+            <i>Accedé sin límite a información de la mejor calidad</i>
+          </h5>
+        </Col>
+      </Row>
+
+      <Row className="my-5">
+        <Col xs={12} md={8} className="px-0 border border-3">
+          <div className="mx-4 my-4">
+            <Form onSubmit={handleSubmit}>
+              <div className="text-start">
+                <h5>Datos del suscriptor</h5>
+              </div>
+              <Row className="">
+                <Col>
+                  <Form.Group className="border rounded-3 backcolor text-form">
+                    <Form.Control
+                      defaultValue={registredUser?.nombre}
+                      size="sm"
+                      type="text"
+                      name="nomAp"
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="border rounded-3 backcolor text-form">
+                    <Form.Control
+                      defaultValue={registredUser?.apellido}
+                      size="sm"
+                      type="text"
+                      name="telefono"
+                      disabled
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="my-3">
+                <Col>
+                  <Form.Group className="mt-2 border rounded-3 backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      // onChange={handleValuesTarjeta}
+                      type="email"
+                      name="email"
+                      disabled
+                      defaultValue={registredUser?.email}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mt-2 border rounded-3 backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      type="text"
+                      disabled
+                      name="direccion"
+                      defaultValue={registredUser?.direccion}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <div className="text-start mt-5">
+                <h5>Datos de la tarjeta</h5>
+              </div>
+              <Row className="mt-4">
+                <Col>
+                  <Form.Group className="backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      type="text"
+                      onChange={handleValuesTarjeta}
+                      name="titularTarjeta"
+                      placeholder="Titular Tarjeta"
+                      minLength="10"
+                      maxLength="70"
+                      onBlur={validarTitular}
+                      isInvalid={titularNoValida}
+                      isValid={titularValida}
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe contener entre 10 y 70 caracteres.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control
+                      as="select"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="tipoDocumento"
+                      size="sm"
+                      onBlur={validarTipoDocumento}
+                      isInvalid={tipoDocNoValida}
+                      isValid={tipoDocValida}
+                    >
+                      <option className="text-dark">Tipo Documento</option>
+                      <option className="text-dark">
+                        Documento Nacional de Identidad
+                      </option>
+                      <option className="text-dark">Libreta Civica</option>
+                      <option className="text-dark">CUIT</option>
+                      <option className="text-dark">CUIL</option>
+                      <option className="text-dark">Pasaporte</option>
+                    </Form.Control>
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe seleccionar un tipo de documento.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      onChange={handleValuesTarjeta}
+                      minLength="7"
+                      maxLength="11"
+                      type="number"
+                      name="nroDocumento"
+                      placeholder="Nro Documento"
+                      onBlur={validarNroDocumento}
+                      isInvalid={nroDocNoValida}
+                      isValid={nroDocValida}
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe contener entre 6 y 11 numeros.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mt-4">
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control
+                      as="select"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="tipoTarjeta"
+                      size="sm"
+                      onBlur={validarTipoTarjeta}
+                      isInvalid={tipoTarjetaNoValida}
+                      isValid={tipoTarjetaValida}
+                    >
+                      <option className="text-dark">Tipo Tarjeta</option>
+                      <option className="text-dark">Mercado Pago</option>
+                    </Form.Control>
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe seleccionar una tarjeta.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="border rounded-3 backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="nroTarjeta"
+                      placeholder="Nro Tarjeta"
+                      minLength="16"
+                      maxLength="16"
+                      onBlur={validarNroTarjeta}
+                      isInvalid={nroTarjetaNoValida}
+                      isValid={nroTarjetaValida}
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe tener 16 caracteres
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mt-4">
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control
+                      as="select"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="mes"
+                      size="sm"
+                      onBlur={validarMes}
+                      isInvalid={mesNoValida}
+                      isValid={mesValida}
+                    >
+                      <option className="text-dark">Mes</option>
+                      <option className="text-dark" value='01'>01 - Enero</option>
+                      <option className="text-dark" value='02'>02 - Febrero</option>
+                      <option className="text-dark" value='03'>03 - Marzo</option>
+                      <option className="text-dark" value='04'>04 - Abril</option>
+                      <option className="text-dark" value='05'>05 - Mayo</option>
+                      <option className="text-dark" value='06'>06 - Junio</option>
+                      <option className="text-dark" value='07'>07 - Julio</option>
+                      <option className="text-dark" value='08'>08 - Agosto</option>
+                      <option className="text-dark" value='09'>09 - Septiembre</option>
+                      <option className="text-dark" value='10'>10 - Octubre</option>
+                      <option className="text-dark" value='11'>11 - Noviembre</option>
+                      <option className="text-dark" value='12'>12 - Diciembre</option>
+                    </Form.Control>
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe seleccionar un mes.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Control
+                      as="select"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="anio"
+                      size="sm"
+                      onBlur={validarAnio}
+                      isInvalid={anioNoValida}
+                      isValid={anioValida}
+                    >
+                      <option className="text-dark">Año</option>
+                      <option className="text-dark">2023</option>
+                      <option className="text-dark">2024</option>
+                      <option className="text-dark">2025</option>
+                      <option className="text-dark">2026</option>
+                      <option className="text-dark">2027</option>
+                      <option className="text-dark">2028</option>
+                    </Form.Control>
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe seleccionar un año.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="border rounded-3 backcolor text-form">
+                    <Form.Control
+                      size="sm"
+                      onChange={handleValuesTarjeta}
+                      type="text"
+                      name="cvv"
+                      placeholder="CVV"
+                      minLength="3"
+                      maxLength="3"
+                      onBlur={validarCvv}
+                      isInvalid={cvvNoValida}
+                      isValid={cvvValida}
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="text-danger small"
+                    >
+                      Campo Obligatorio, debe contener 3 caracteres.
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <div className="d-flex justify-content-center my-4">
+                <Button
+                  className="w-75 rounded mar border-0 text-light"
+                  type="submit"
+                >
+                  <big>
+                    <i>
+                      <b>Suscribirme</b>
+                    </i>
+                  </big>
+                </Button>
+              </div>
+              {err1 ? (
+                <MsjError
+                  text1="Datos incorrectos"
+                  text2="Todos los campos son obligatorios."
+                />
+              ) : null}
+              {err2 ? (
+                <MsjError
+                  text2={err2Descr}
+                />
+              ) : null}
+            </Form>
+          </div>
+        </Col>
+        {/* <Col xs={12} md={4}>
             {suscripcionTipo.map((susc) => {
               if (susc._id === suscripcionElegida) {
                 return (
@@ -542,291 +642,9 @@ const Suscripcion = (props) => {
                 return <></>;
               }
             })}
-          </Col>
-        </Row>
-        <Card className="col-sm-12 col-md-6 col-lg-7 border-start-0 border-secondary rounded herencia">
-          {/* <div className="mx-4 my-4">
-            <Form onSubmit={handleSubmit}>
-              <div>
-                <h5>Datos del suscriptor</h5>
-              </div>
-              <Form.Group className="border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Nombre y Apellido</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su nombre y apellido"
-                  name="nomAp"
-                  onChange={handleValores}
-                  onBlur={validarNombre}
-                  maxLength="40"
-                  isValid={nomValid}
-                  isInvalid={nomInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Datos incorrectos</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Dirección</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su dirección"
-                  name="direccion"
-                  onChange={handleValores}
-                  onBlur={validarDireccion}
-                  maxLength="40"
-                  isValid={direcValid}
-                  isInvalid={direcInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Datos incorrectos</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Localidad</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese la localidad donde vive"
-                  name="localidad"
-                  onChange={handleValores}
-                  onBlur={validarLocalidad}
-                  maxLength="40"
-                  isValid={locValid}
-                  isInvalid={locInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Datos incorrectos</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Código Postal</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Ingrese su codigo postal"
-                  name="codigoPostal"
-                  onChange={handleValores}
-                  onBlur={validarCP}
-                  maxLength="8"
-                  onInput={maxNum}
-                  isValid={cpValid}
-                  isInvalid={cpInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Datos incorrectos</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Teléfono</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Ingrese su numero de telefono"
-                  name="telefono"
-                  onChange={handleValores}
-                  onBlur={validarTel}
-                  maxLength="15"
-                  onInput={maxNum}
-                  isValid={telValid}
-                  isInvalid={telInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Debe contener numero de area y telefono</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Email</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Ingrese su email"
-                  name="email"
-                  onChange={handleValores}
-                  onBlur={validarEmail}
-                  maxLength="40"
-                  isValid={emailValid}
-                  isInvalid={emailInvalid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>Datos incorrectos</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Contraseña</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Ingrese su contraseña"
-                  name="password"
-                  onChange={handleValores}
-                  onBlur={validarPass}
-                  maxLength="12"
-                  isValid={passValid}
-                  isInvalid={passInValid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>
-                      Su contraseña debe contener entre 6 y 12 caracteres,
-                      letras o números
-                    </b>
-                  </big>{" "}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group className="mt-2 border rounded-3 backcolor">
-                <Form.Label className="ps-2 pt-1 text-light rounded-top">
-                  <i>
-                    <b>Confirme su contraseña</b>
-                  </i>
-                </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Ingrese su contraseña nuevamente"
-                  name="password"
-                  onChange={(e) => setRePass(e.target.value)}
-                  onBlur={validarRePass}
-                  maxLength="12"
-                  isValid={rePassValid}
-                  isInvalid={rePassInValid}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger ms-2 mb-1 lead"
-                >
-                  <big>
-                    <b>La confirmación de contraseña no coincide.</b>
-                  </big>
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Label className="my-3 ">
-                <i>
-                  <b>Seleccione su plan</b>
-                </i>
-              </Form.Label>
-              <FormGroup>
-                <Form.Check
-                  type="radio"
-                  name="plan"
-                  inline
-                  label="Plan de Acceso individual"
-                  value="Plan individual"
-                  onChange={handleValores}
-                  onBlur={validarPlan}
-                />
-                <Form.Check
-                  type="radio"
-                  name="plan"
-                  inline
-                  label="Plan de Acceso Familiar"
-                  value="Plan familiar"
-                  onChange={handleValores}
-                  onBlur={validarPlan}
-                />
-              </FormGroup>
-              <Form.Group className="mt-4">
-                <Form.Check.Input
-                  type="checkbox"
-                  checked={terms}
-                  label="Acepto términos y condiciones"
-                  onChange={terminos}
-                  onBlur={validarTerminos}
-                  isInvalid={invalidTerms}
-                />
-                <Form.Check.Label className="ms-2">
-                  Acepto términos y condiciones
-                </Form.Check.Label>
-                <Form.Control.Feedback
-                  type="invalid"
-                  className="text-danger small"
-                >
-                  Debe aceptar términos y condiciones
-                </Form.Control.Feedback>
-              </Form.Group>
-              <div className="d-flex justify-content-center my-4">
-                <Button
-                  className="w-75 rounded mar border-0 text-light"
-                  type="submit"
-                >
-                  <big>
-                    <i>
-                      <b>Suscribirme</b>
-                    </i>
-                  </big>
-                </Button>
-              </div>
-              {err1 ? (
-                <MsjError
-                  text1="Datos incorrectos"
-                  text2="Todos los campos son obligatorios."
-                />
-              ) : null}
-              {err2 ? (
-                <MsjError
-                  text1="Su direccion de correo ya se encuentra registrada"
-                  text2="Por favor, intente con otra direccion ."
-                />
-              ) : null}
-            </Form>
-          </div> */}
-        </Card>
-      </div>
+          </Col> */}
+      </Row>
+      <Card className="col-sm-12 col-md-6 col-lg-7 border-start-0 border-secondary rounded herencia"></Card>
     </Container>
   );
 };
