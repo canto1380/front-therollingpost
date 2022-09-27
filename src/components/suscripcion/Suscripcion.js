@@ -3,10 +3,14 @@ import { Container } from "react-bootstrap";
 import suscripcion from "../../img/suscripcion.png";
 import { withRouter } from "react-router-dom";
 import { consultarSuscripcionesAPI, consultarSuscripcionPorIDAPI } from "../../utils/queryAPI/suscripciones";
+import { consultarMedioDePagos } from "./mercadoPago/Querys";
 
 const Suscripcion = (props) => {
   const { setSuscripcionElegida, tok } = props
   const [suscripciones, setSuscripciones] = useState([])
+
+  const [mediosDePagos, setMediosDePagos] = useState([])
+
   const handleSuscribirme = async(id) => {
     // setSuscripcionElegida( await consultarSuscripcionPorIDAPI(id, tok))
     props.history.push(`/suscripcion/suscribirse/${id}`)
@@ -18,6 +22,13 @@ const Suscripcion = (props) => {
     setSuscripciones(await consultarSuscripcionesAPI())
   }
 
+  useEffect(() => {
+    consultarMedioDEPagoAPI()
+  },[])
+  const consultarMedioDEPagoAPI = async() => {
+    setMediosDePagos( await consultarMedioDePagos(tok))
+    console.log(mediosDePagos)
+  }
 
   return (
     <Container className="my-4">
