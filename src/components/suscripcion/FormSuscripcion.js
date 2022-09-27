@@ -1,20 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Form,
   Button,
   Container,
-  Card,
-  FormGroup,
   Row,
   Col,
 } from "react-bootstrap";
-import suscripcion from "../../img/suscripcion.png";
+import fotoSuscripcion from "../../img/suscripcion.png";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-import { withRouter } from "react-router-dom";
-import emailjs from "emailjs-com";
+import { withRouter, useParams } from "react-router-dom";
 import MsjError from "../MsjError";
 import { consultarAPIUser } from "../../utils/queryAPI/user";
 import {
@@ -25,12 +22,19 @@ import {
 } from "../../utils/RegularExpressions";
 
 import "./formSuscripcion.css";
+import { consultarSuscripcionPorIDAPI } from "../../utils/queryAPI/suscripciones";
 
 const Suscripcion = (props) => {
   const { idUsuario, tok } = props;
+  const { id } = useParams()
+  console.log(id)
   const [registredUser, setRegistredUser] = useState([]);
 
-  const URL_ADD_CREDIT_CARD = process.env.REACT_APP_API_URL + "/tarjeta-pago/addTarjeta";
+  const URL_ADD_CREDIT_CARD =
+    process.env.REACT_APP_API_URL + "/tarjeta-pago/addTarjeta";
+  const URL_ADD_SUSCRIPTION =
+    process.env.REACT_APP_API_URL +
+    "/suscripciones-contratadas/nuevaSuscripcion";
   const URL_SEARCH_USER =
     process.env.REACT_APP_API_URL + `/user/user/${idUsuario}`;
 
@@ -43,13 +47,16 @@ const Suscripcion = (props) => {
     mes: "",
     anio: "",
     cvv: "",
-    emailRegistro: ''
+    emailRegistro: "",
   });
   const [banderaUser, setBanderaUser] = useState(true);
-  const [error, setError] = useState(false); // Error servidor
+  // const [error, setError] = useState(false); // Error servidor
   const [err1, setErr1] = useState(false); //Error validaciones
   const [err2, setErr2] = useState(false); //Error tarjeta existente
-  const [err2Descr, setErr2Descr] = useState(''); //Error tarjeta existente
+  const [err2Descr, setErr2Descr] = useState(""); //Error tarjeta existente
+  const [idUser, setIdUser] = useState("");
+  const [suscripcion, setSuscripcion] = useState('')
+  const [idSuscripcion, setIdSuscripcion] = useState('');
 
   /*States para feedback formulario*/
   const [titularValida, setTitularValida] = useState("");
@@ -179,36 +186,83 @@ const Suscripcion = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    console.log(datosTarjeta);
-    if (
-      validarTitular() &&
-      validarTipoTarjeta() &&
-      validarNroTarjeta() &&
-      validarTipoDocumento() &&
-      validarNroDocumento() &&
-      validarMes() &&
-      validarAnio() &&
-      validarCvv()
-    ) {
-      setErr1(false);
+      if (
+        validarTitular() &&
+        validarTipoTarjeta() &&
+        validarNroTarjeta() &&
+        validarTipoDocumento() &&
+        validarNroDocumento() &&
+        validarMes() &&
+        validarAnio() &&
+        validarCvv()
+      ) {
+        setErr1(false);
 
         const configuracion = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: tok.token
+            authorization: tok.token,
           },
           body: JSON.stringify(datosTarjeta),
         };
         const respuesta = await fetch(URL_ADD_CREDIT_CARD, configuracion);
-        console.log(respuesta)
+        const resp = await respuesta.json();
         if (respuesta.status === 201) {
-          
-          props.history.push("/");
-          e.target.reset();
+          const datosNuevaSuscrip = {
+            idUsuario: idUser,
+            idSuscripcion: idSuscripcion,
+            metodoPago: resp._id,
+          };
+          const config = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: tok.token,
+            },
+            body: JSON.stringify(datosNuevaSuscrip),
+          };
+          const respuesta1 = await fetch(URL_ADD_SUSCRIPTION, config);
+          // const resp1 = await respuesta1.json();
+          if (respuesta1.status === 201) {
+            let timerInterval;
+            Swal.fire({
+              title: "Verificando datos de la tarjeta",
+              html: "Tiempo aproximado<b></b>.",
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector("b");
+                timerInterval = setInterval(() => {
+                  b.textContent = Swal.getTimerLeft();
+                }, 100);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+              },
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Suscripcion registrada!',
+                  text: "Verifique su correo electronico",
+                  showConfirmButton: false,
+                  timer: 1500
+                })
+                setTimeout(() => {
+                  props.history.push("/suscripcion");
+                  e.target.reset();
+                }, 1500);
+              }
+            });
+            
+            
+          }
         } else if (respuesta.status === 400) {
-          const resp = await respuesta.json()
-          setErr2Descr(resp?.mensaje)
+          setErr2Descr(resp?.mensaje);
           setErr2(true);
           setTimeout(() => {
             setErr2(false);
@@ -239,9 +293,19 @@ const Suscripcion = (props) => {
   const consultarAPI = async () => {
     const usuario = await consultarAPIUser(idUsuario, setBanderaUser);
     setRegistredUser(usuario);
-    setDatosTarjeta({...datosTarjeta, emailRegistro: usuario?.email})
-    
+    setDatosTarjeta({ ...datosTarjeta, emailRegistro: usuario?.email });
+    setIdUser(usuario?._id);
   };
+  useEffect(() => {
+    consultarSuscripcionElegida()
+  }, [banderaUser])
+  
+  const consultarSuscripcionElegida = async() => {
+    const suscripElegida = await consultarSuscripcionPorIDAPI(id, tok)
+    setSuscripcion(suscripElegida)
+    setIdSuscripcion(suscripElegida?._id)
+    setBanderaUser(false)
+  }
 
   // const consultarAPI = async () => {
   //   try {
@@ -279,7 +343,7 @@ const Suscripcion = (props) => {
       </Row>
 
       <Row className="my-5">
-        <Col xs={12} md={8} className="px-0 border border-3">
+        <Col xs={12} lg={8} className="px-0 ">
           <div className="mx-4 my-4">
             <Form onSubmit={handleSubmit}>
               <div className="text-start">
@@ -474,18 +538,42 @@ const Suscripcion = (props) => {
                       isValid={mesValida}
                     >
                       <option className="text-dark">Mes</option>
-                      <option className="text-dark" value='01'>01 - Enero</option>
-                      <option className="text-dark" value='02'>02 - Febrero</option>
-                      <option className="text-dark" value='03'>03 - Marzo</option>
-                      <option className="text-dark" value='04'>04 - Abril</option>
-                      <option className="text-dark" value='05'>05 - Mayo</option>
-                      <option className="text-dark" value='06'>06 - Junio</option>
-                      <option className="text-dark" value='07'>07 - Julio</option>
-                      <option className="text-dark" value='08'>08 - Agosto</option>
-                      <option className="text-dark" value='09'>09 - Septiembre</option>
-                      <option className="text-dark" value='10'>10 - Octubre</option>
-                      <option className="text-dark" value='11'>11 - Noviembre</option>
-                      <option className="text-dark" value='12'>12 - Diciembre</option>
+                      <option className="text-dark" value="01">
+                        01 - Enero
+                      </option>
+                      <option className="text-dark" value="02">
+                        02 - Febrero
+                      </option>
+                      <option className="text-dark" value="03">
+                        03 - Marzo
+                      </option>
+                      <option className="text-dark" value="04">
+                        04 - Abril
+                      </option>
+                      <option className="text-dark" value="05">
+                        05 - Mayo
+                      </option>
+                      <option className="text-dark" value="06">
+                        06 - Junio
+                      </option>
+                      <option className="text-dark" value="07">
+                        07 - Julio
+                      </option>
+                      <option className="text-dark" value="08">
+                        08 - Agosto
+                      </option>
+                      <option className="text-dark" value="09">
+                        09 - Septiembre
+                      </option>
+                      <option className="text-dark" value="10">
+                        10 - Octubre
+                      </option>
+                      <option className="text-dark" value="11">
+                        11 - Noviembre
+                      </option>
+                      <option className="text-dark" value="12">
+                        12 - Diciembre
+                      </option>
                     </Form.Control>
                     <Form.Control.Feedback
                       type="invalid"
@@ -565,32 +653,25 @@ const Suscripcion = (props) => {
                   text2="Todos los campos son obligatorios."
                 />
               ) : null}
-              {err2 ? (
-                <MsjError
-                  text2={err2Descr}
-                />
-              ) : null}
+              {err2 ? <MsjError text2={err2Descr} /> : null}
             </Form>
           </div>
         </Col>
-        {/* <Col xs={12} md={4}>
-            {suscripcionTipo.map((susc) => {
-              if (susc._id === suscripcionElegida) {
-                return (
+        <Col xs={12} lg={4} className='px-0 border border-secondary rounded'>
                   <div
-                    key={susc._id}
-                    className="border border-secondary rounded herencia"
+                    key={suscripcion?._id}
+                    className=" herencia"
                   >
                     <div className="text-center my-3 mx-1">
                       <div className="my-3">
-                        <h2>{susc.nombre}</h2>
+                        <h2>{suscripcion?.nombre}</h2>
                       </div>
                       <div className="my-3">
-                        <h5>{susc.descripcion}</h5>
+                        <h5>{suscripcion?.descripcion}</h5>
                       </div>
                       <div className="my-5 cont-img-susc">
                         <img
-                          src={suscripcion}
+                          src={fotoSuscripcion}
                           className="w-100 img-susc"
                           alt=""
                         />
@@ -627,7 +708,7 @@ const Suscripcion = (props) => {
                       <div className="my-3">
                         <h3 className="text-primary text-price">
                           <span>$</span>
-                          {susc.precio}
+                          {suscripcion?.precio}
                           <span>/mes</span>
                         </h3>
                       </div>
@@ -637,14 +718,9 @@ const Suscripcion = (props) => {
                       </div>
                     </div>
                   </div>
-                );
-              } else {
-                return <></>;
-              }
-            })}
-          </Col> */}
+
+          </Col>
       </Row>
-      <Card className="col-sm-12 col-md-6 col-lg-7 border-start-0 border-secondary rounded herencia"></Card>
     </Container>
   );
 };

@@ -63,8 +63,10 @@ function App() {
   const [tok, setTok] = useState([]);
 
   /* Suscripcion*/
-  const [idUsuario, setIdUsuario] = useState('')
+  const [suscripcionElegida, setSuscripcionElegida] = useState('')
 
+  const [idUsuario, setIdUsuario] = useState('')
+  console.log(suscripcionElegida)
   useEffect(() => {
     setTok(JSON.parse(localStorage.getItem("jwt")));
   }, []);
@@ -209,12 +211,14 @@ function App() {
               <Route exact path="/suscripcion">
                 <Suscripcion
                   tok={tok}          
+                  setSuscripcionElegida={setSuscripcionElegida}
                 />
               </Route>
-            <Route exact path="/suscripcion/suscribirse">
+            <Route exact path="/suscripcion/suscribirse/:id">
               <FormSuscripcion
                 tok={tok}
                 idUsuario={idUsuario}
+                suscripcionElegida={suscripcionElegida}
               />
             </Route>
 
