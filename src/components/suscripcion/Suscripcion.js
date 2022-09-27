@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import suscripcion from "../../img/suscripcion.png";
 import { withRouter } from "react-router-dom";
-import { consultarSuscripcionesAPI } from "../../utils/queryAPI/suscripciones";
+import { consultarSuscripcionesAPI, consultarSuscripcionPorIDAPI } from "../../utils/queryAPI/suscripciones";
 
 const Suscripcion = (props) => {
-  const [suscripciones, setSuscripciones,] = useState([])
-  const handleSuscribirme = (id) => {
-    props.history.push('/suscripcion/suscribirse')
+  const { setSuscripcionElegida, tok } = props
+  const [suscripciones, setSuscripciones] = useState([])
+  const handleSuscribirme = async(id) => {
+    console.log(id)
+    // setSuscripcionElegida( await consultarSuscripcionPorIDAPI(id, tok))
+    props.history.push(`/suscripcion/suscribirse/${id}`)
   }
   useEffect(() => {
     consultarAPI()

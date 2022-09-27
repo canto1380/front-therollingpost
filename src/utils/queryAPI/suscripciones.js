@@ -12,3 +12,26 @@ export const consultarSuscripcionesAPI = async() => {
       return error
     }
   };
+
+  export const consultarSuscripcionPorIDAPI = async(id, tok) => {
+    try {
+      const urlSuscripcion = `/suscripciones/${id}`
+      const config = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": tok.token
+        }
+      };
+      const res = await fetch(process.env.REACT_APP_API_URL + urlSuscripcion, config);
+      const infoSuscripcion = await res.json();
+      console.log(infoSuscripcion)
+      if (res.status === 200) {
+        return infoSuscripcion
+      } else {
+          return null
+      }
+    } catch (error) {
+      return error
+    }
+  };
