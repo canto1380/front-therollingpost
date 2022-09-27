@@ -7,14 +7,13 @@ import MsjError from "./MsjError";
 
 const Registrarse = (props) => {
   const { setConsultarUser, usuarios } = props;
-  console.log(usuarios);
 
   const URL = process.env.REACT_APP_API_URL + "/user/addUser";
   const URL_LOCALIDADES =
     process.env.REACT_APP_API_URL + "/localidad/localidadesNoEliminadas";
   const URL_PROVINCIAS =
-    process.env.REACT_APP_API_URL + "/provincia/provinciasNoEliminadas";
-  const URL_PAISES = process.env.REACT_APP_API_URL + "/pais/paisesNoEliminados";
+    process.env.REACT_APP_API_URL + "/provincia/provinciasNoEliminadas-todas";
+  const URL_PAISES = process.env.REACT_APP_API_URL + "/pais/paisesNoEliminados-todos";
 
   const [localidades, setLocalidades] = useState([]);
   const [provincias, setProvincias] = useState([]);
@@ -309,7 +308,7 @@ const Registrarse = (props) => {
         const configuracion = {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
           body: JSON.stringify(usuario),
         };

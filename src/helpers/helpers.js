@@ -55,7 +55,6 @@ export const emailValidacion = (value) => {
 };
 
 export const editarNoticia = async (id, nott, tok) => {
-  console.log(nott)
   const urll = process.env.REACT_APP_API_URL;
   try {
     const noticiaModificada = {
@@ -70,16 +69,14 @@ export const editarNoticia = async (id, nott, tok) => {
       hora: nott.hora,
       fecha: nott.fecha,
     };
-    console.log(noticiaModificada)
     const respuesta = await fetch(urll + "/noticias/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json", authorization: tok.token, },
       body: JSON.stringify(noticiaModificada),
     });
     if (respuesta.status === 200) {
-      console.log("SIIIIIIIIIIII");
     }
   } catch (error) {
-    console.log(error);
+    return error
   }
 };

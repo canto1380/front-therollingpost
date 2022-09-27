@@ -16,7 +16,7 @@ export const consultarProvinciasAPI = async(setBanderaProv, page, limit, search)
 
 export const consultarTodasLasProvinciasAPI = async(setBanderaProv) => {
     try {
-      const urlProvincia = '/provincia//provinciasNoEliminadas-todas'
+      const urlProvincia = '/provincia/provinciasNoEliminadas-todas'
       const res = await fetch(process.env.REACT_APP_API_URL + urlProvincia);
       const infoProvincias = await res.json();
       if (res.status === 200) {

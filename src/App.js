@@ -66,7 +66,6 @@ function App() {
   const [suscripcionElegida, setSuscripcionElegida] = useState('')
 
   const [idUsuario, setIdUsuario] = useState('')
-  console.log(suscripcionElegida)
   useEffect(() => {
     setTok(JSON.parse(localStorage.getItem("jwt")));
   }, []);

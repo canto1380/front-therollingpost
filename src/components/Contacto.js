@@ -154,7 +154,6 @@ const Contacto = () => {
               "success"
             );
           }
-          console.log(result);
         },
         (error) => {
           console.log(error.text);

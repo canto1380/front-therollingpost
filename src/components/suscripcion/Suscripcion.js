@@ -8,7 +8,6 @@ const Suscripcion = (props) => {
   const { setSuscripcionElegida, tok } = props
   const [suscripciones, setSuscripciones] = useState([])
   const handleSuscribirme = async(id) => {
-    console.log(id)
     // setSuscripcionElegida( await consultarSuscripcionPorIDAPI(id, tok))
     props.history.push(`/suscripcion/suscribirse/${id}`)
   }

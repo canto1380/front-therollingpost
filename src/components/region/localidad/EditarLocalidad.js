@@ -133,12 +133,8 @@ const EditarLocalidad = (props) => {
     }
   }, [banderaProv])
   const consultarAPI = async () => {
-    console.log('aaa')
     setProvincias(await consultarTodasLasProvinciasAPI(setBanderaProv))
-    console.log(provincias)
   }
-  console.log(provincias)
-  console.log(nombreLocalidad)
 
   return (
 <Modal

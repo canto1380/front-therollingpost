@@ -27,7 +27,6 @@ import { consultarSuscripcionPorIDAPI } from "../../utils/queryAPI/suscripciones
 const Suscripcion = (props) => {
   const { idUsuario, tok } = props;
   const { id } = useParams()
-  console.log(id)
   const [registredUser, setRegistredUser] = useState([]);
 
   const URL_ADD_CREDIT_CARD =
@@ -309,7 +308,6 @@ const Suscripcion = (props) => {
 
   // const consultarAPI = async () => {
   //   try {
-  //     console.log("aaa");
   //     const response = await fetch(URL_SEARCH_USER);
   //     if (response.status === 200) {
   //       const resp = await response.json();

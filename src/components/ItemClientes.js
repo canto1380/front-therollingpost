@@ -19,7 +19,6 @@ const ItemClientes = (props) => {
             to_name: props.clientes.nomAp,
             to_email: props.clientes.email
           };
-          console.log(msjAceptar);
 
           emailjs
           .send(
@@ -37,7 +36,6 @@ const ItemClientes = (props) => {
                   'success'
                 );
               }
-              console.log(result);
               setBtnAceptRech(true)
         setBtnCancelar(false)
             },
@@ -75,10 +73,8 @@ const ItemClientes = (props) => {
                     "authorization": props.tok
                   }
                 } ); 
-                console.log(respuesta);
                 if(respuesta.status ===200){
                   props.setConsultarClientes(!props.consultarClientes);
-                  console.log(URL)
                   Swal.fire(
                     'Eliminada',
                     'La suscripcion ha sido cancelada o rechazada',
@@ -87,7 +83,6 @@ const ItemClientes = (props) => {
                   // setConsultarClientes(!consultarClientes);
                 }
               }catch(error){
-                  console.log(error)
                   Swal.fire(
                     'Ha ocurrido un error',
                     'Por favor intente nuevamente',

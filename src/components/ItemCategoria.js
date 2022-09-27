@@ -16,7 +16,6 @@ const ItemCategoria = (props) => {
   } = props;
   const despublicar = (id) => {
     let not = noticias.filter((n) => n?.categoria?._id === id);
-    console.log(not)
     not.map((nott) => editarNoticia(nott._id, nott, tok));
     setConsultarNoticias(!consultarNoticias);
   };

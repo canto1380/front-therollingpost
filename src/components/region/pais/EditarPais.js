@@ -22,7 +22,6 @@ const EditarPais = (props) => {
     setValidaNombre("");
     setNoValidaNombre("");
     const nom = paisExpReg;
-    console.log(nombrePais)
     if (nombrePais.trim() !== "" && nom.test(nombrePais)) {
       setValidaNombre(true);
       setNoValidaNombre(false)

@@ -25,7 +25,6 @@ export const consultarSuscripcionesAPI = async() => {
       };
       const res = await fetch(process.env.REACT_APP_API_URL + urlSuscripcion, config);
       const infoSuscripcion = await res.json();
-      console.log(infoSuscripcion)
       if (res.status === 200) {
         return infoSuscripcion
       } else {
