@@ -6,13 +6,22 @@ import Swal from 'sweetalert2'
 import "../../App.css"
 
 const CardComentarios = (props) => {
-    const {coment, comentLength, id, setConsultarComent} = props
+    const {coment, comentLength, id, setConsultarComent, tok} = props
     const url = process.env.REACT_APP_API_URL+'/comentarios/addComentario'
     const [comentario, setComentario] =useState('')
-
     const handleSubmit = async(e) =>{
         e.preventDefault()
         try {
+            if(tok === null) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Debe loguearse para hacer comentarios',
+                    footer: '<a href="/inicio-sesion">Iniciar sesion</a>'
+                  })
+                  setConsultarComent(true)
+                
+            }
             const nuevoComentario={
                 comentario,
                 idNoticia: id
@@ -20,11 +29,13 @@ const CardComentarios = (props) => {
             const config = {
                 method:"POST",
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    authorization: tok.token
                 },
                 body:JSON.stringify(nuevoComentario)
             }
             const res = await fetch(url, config)
+            console.log(res)
             if(res.status ===201){
                 Swal.fire(
                     'Comentario agregado con exito!',
@@ -35,7 +46,7 @@ const CardComentarios = (props) => {
                   e.target.reset()
             }
         } catch (error) {
-            console.log(error)
+            return error
         }
     }
 

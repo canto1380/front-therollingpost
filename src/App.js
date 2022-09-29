@@ -249,6 +249,7 @@ function App() {
                 setComentario={setComentario}
                 setConsultarComent={setConsultarComent}
                 consultarComent={consultarComent}
+                tok={tok}
               />
             </Route>
 

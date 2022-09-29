@@ -14,7 +14,7 @@ import CardUltimasNoticias from './CardUltimasNoticias';
 import CardComentarios from './CardComentarios';
 
 const Noticia = (props) => {
-    const {noticias, comentario} = props
+    const {noticias, comentario, tok} = props
     const [not, setNot] = useState({});
 
     const {cat, id} = useParams();
@@ -69,7 +69,7 @@ const Noticia = (props) => {
                 <Publicidad publicidad={Coca} classnamehidden={hiddensm}/>
                 </Col>
                 <Col sm={12}>
-                    <CardComentarios consultarComent={props.consultarComent} setConsultarComent={props.setConsultarComent} coment={coment} comentLength={comentLength} id={id}/> 
+                    <CardComentarios consultarComent={props.consultarComent} setConsultarComent={props.setConsultarComent} coment={coment} comentLength={comentLength} id={id} tok={tok}/> 
                 </Col>
             </Row>
         </Container>
