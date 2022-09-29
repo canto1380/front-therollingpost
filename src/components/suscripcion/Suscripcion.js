@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import suscripcion from "../../img/suscripcion.png";
 import { withRouter } from "react-router-dom";
 import { consultarSuscripcionesAPI, consultarSuscripcionPorIDAPI } from "../../utils/queryAPI/suscripciones";
-import { consultarMedioDePagos } from "./mercadoPago/Querys";
+import { consultarMedioDePagos, crearCaja, crearUsuarioPrueba } from "./mercadoPago/Querys";
 
 const Suscripcion = (props) => {
   const { setSuscripcionElegida, tok } = props
@@ -26,8 +26,10 @@ const Suscripcion = (props) => {
     consultarMedioDEPagoAPI()
   },[])
   const consultarMedioDEPagoAPI = async() => {
-    setMediosDePagos( await consultarMedioDePagos(tok))
-    console.log(mediosDePagos)
+    setMediosDePagos( await crearUsuarioPrueba())
+    // const aa = await crearCaja()
+    // console.log(aa)
+    // console.log(mediosDePagos)
   }
 
   return (
